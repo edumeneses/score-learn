@@ -1,0 +1,11 @@
+{% comment %}
+Lesson metadata strip. Renders the pinned score version, the reading budget, and
+the practice budget from a lesson's front matter. Included at the top of every
+page under docs/learn/. Keeping this in an include means the badge markup is
+edited once for all 47 units.
+{% endcomment %}
+<p class="lesson-meta">
+  <span class="label label-green">ossia score {{ page.score_version | default: site.score_version }}</span>
+  {% if page.reading_time %}<span class="label label-blue">read {{ page.reading_time }}</span>{% endif %}
+  {% if page.practice_time %}<span class="label label-purple">practice {{ page.practice_time }}</span>{% endif %}
+</p>
