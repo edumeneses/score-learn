@@ -1,0 +1,388 @@
+# Single source of truth for the course's unit numbering and slugs.
+#
+# Slugs become published permalinks (/learn/<slug>.html) and future video
+# descriptions will point at them, so a slug is CONTRACTUAL once `written: true`.
+# Renaming a written unit is a breaking change; add a new number or a Part II
+# instead. scripts/check_lessons.py validates every lesson page and every
+# internal lesson link against this file.
+#
+# kind: lesson | milestone | capstone
+# read, practice: minutes; practice 0 means none
+# written: true once the page exists under docs/learn/
+
+- num: "00"
+  module: A
+  kind: lesson
+  slug: 00-what-score-is
+  title: What score is, and what it is not
+  read: 12
+  practice: 0
+  written: true
+- num: "01"
+  module: A
+  kind: lesson
+  slug: 01-install
+  title: Install, first run, and finding your way to help
+  read: 12
+  practice: 15
+  written: false
+- num: "02"
+  module: B
+  kind: lesson
+  slug: 02-vocabulary
+  title: Vocabulary of a score
+  read: 12
+  practice: 15
+  written: false
+- num: "03"
+  module: B
+  kind: lesson
+  slug: 03-interface-and-transport
+  title: Interface layout and transport
+  read: 13
+  practice: 20
+  written: false
+- num: "04"
+  module: B
+  kind: lesson
+  slug: 04-first-process
+  title: Your first process
+  read: 13
+  practice: 25
+  written: false
+- num: "05"
+  module: B
+  kind: lesson
+  slug: 05-saving-and-reopening
+  title: Saving, versioning, and reopening
+  read: 10
+  practice: 15
+  written: false
+- num: P1
+  module: B
+  kind: milestone
+  slug: p1-automated-cue
+  title: "Make it work 1: a sixty-second automated cue"
+  read: 15
+  practice: 45
+  written: false
+- num: "06"
+  module: C
+  kind: lesson
+  slug: 06-device-model
+  title: The device model
+  read: 13
+  practice: 15
+  written: false
+- num: "07"
+  module: C
+  kind: lesson
+  slug: 07-osc-devices
+  title: Creating and debugging an OSC device
+  read: 14
+  practice: 30
+  written: false
+- num: "08"
+  module: C
+  kind: lesson
+  slug: 08-units-ranges-types
+  title: Units, ranges, and types
+  read: 13
+  practice: 20
+  written: false
+- num: "09"
+  module: C
+  kind: lesson
+  slug: 09-states-snapshots-presets
+  title: States, snapshots, and presets
+  read: 13
+  practice: 25
+  written: false
+- num: P2
+  module: C
+  kind: milestone
+  slug: p2-light-wash
+  title: "Make it work 2: one fader drives a light wash"
+  read: 15
+  practice: 45
+  written: false
+- num: "10"
+  module: D
+  kind: lesson
+  slug: 10-automation-curves
+  title: Automation curves in depth
+  read: 12
+  practice: 20
+  written: false
+- num: "11"
+  module: D
+  kind: lesson
+  slug: 11-modulation-sources
+  title: Modulation sources
+  read: 13
+  practice: 25
+  written: false
+- num: "12"
+  module: D
+  kind: lesson
+  slug: 12-recording-live-input
+  title: Recording live input
+  read: 12
+  practice: 20
+  written: false
+- num: "13"
+  module: E
+  kind: lesson
+  slug: 13-mapping-and-scaling
+  title: Mapping, scaling, and curves
+  read: 14
+  practice: 30
+  written: false
+- num: "14"
+  module: E
+  kind: lesson
+  slug: 14-choosing-a-process
+  title: Choosing the right utility process
+  read: 13
+  practice: 15
+  written: false
+- num: P3
+  module: E
+  kind: milestone
+  slug: p3-mapping-bench
+  title: "Make it work 3: a sensor to sound and light mapping bench"
+  read: 15
+  practice: 60
+  written: false
+- num: "15"
+  module: F
+  kind: lesson
+  slug: 15-triggers
+  title: Interactive triggers
+  read: 14
+  practice: 30
+  written: false
+- num: "16"
+  module: F
+  kind: lesson
+  slug: 16-conditions-and-branching
+  title: Conditions and branching
+  read: 14
+  practice: 30
+  written: false
+- num: "17"
+  module: F
+  kind: lesson
+  slug: 17-loops-and-out-of-time
+  title: Loops and out of time
+  read: 13
+  practice: 25
+  written: false
+- num: "18"
+  module: F
+  kind: lesson
+  slug: 18-cues-and-transport
+  title: Cues, seek, and transport control
+  read: 14
+  practice: 30
+  written: false
+- num: P4
+  module: F
+  kind: milestone
+  slug: p4-interactive-installation
+  title: "Make it work 4: an interactive installation with two branches"
+  read: 15
+  practice: 60
+  written: false
+- num: "19"
+  module: G
+  kind: lesson
+  slug: 19-audio-setup
+  title: Audio setup and the routing model
+  read: 13
+  practice: 20
+  written: false
+- num: "20"
+  module: G
+  kind: lesson
+  slug: 20-sound-files
+  title: Sound files and playback
+  read: 13
+  practice: 25
+  written: false
+- num: "21"
+  module: G
+  kind: lesson
+  slug: 21-effects-and-plugins
+  title: Effects and plug-ins
+  read: 14
+  practice: 30
+  written: false
+- num: "22"
+  module: G
+  kind: lesson
+  slug: 22-spatial-audio-1
+  title: "Spatial audio, Part I"
+  read: 15
+  practice: 30
+  written: false
+- num: P5
+  module: G
+  kind: milestone
+  slug: p5-audio-looper-set
+  title: "Make it work 5: an audio looper performance set"
+  read: 15
+  practice: 60
+  written: false
+- num: "23"
+  module: H
+  kind: lesson
+  slug: 23-midi-in-practice
+  title: MIDI in practice
+  read: 14
+  practice: 30
+  written: false
+- num: "24"
+  module: H
+  kind: lesson
+  slug: 24-tempo-and-sync
+  title: "Tempo, metre, and synchronisation"
+  read: 14
+  practice: 25
+  written: false
+- num: "25"
+  module: I
+  kind: lesson
+  slug: 25-video-pipeline
+  title: The video pipeline
+  read: 14
+  practice: 25
+  written: false
+- num: "26"
+  module: I
+  kind: lesson
+  slug: 26-shaders-and-mixing
+  title: Shaders and mixing
+  read: 14
+  practice: 30
+  written: false
+- num: "27"
+  module: I
+  kind: lesson
+  slug: 27-3d-scenes
+  title: 3D scenes
+  read: 15
+  practice: 30
+  written: false
+- num: "28"
+  module: I
+  kind: lesson
+  slug: 28-audio-reactive-visuals
+  title: Audio-reactive visuals
+  read: 14
+  practice: 30
+  written: false
+- num: P6
+  module: I
+  kind: milestone
+  slug: p6-fulldome-scene
+  title: "Make it work 6: a fulldome scene reacting to live audio"
+  read: 15
+  practice: 60
+  written: false
+- num: "29"
+  module: J
+  kind: lesson
+  slug: 29-javascript-processes
+  title: JavaScript processes
+  read: 14
+  practice: 30
+  written: false
+- num: "30"
+  module: J
+  kind: lesson
+  slug: 30-expressions-and-jit
+  title: Expressions and JIT C++
+  read: 14
+  practice: 25
+  written: false
+- num: "31"
+  module: J
+  kind: lesson
+  slug: 31-faust
+  title: Faust inside score
+  read: 13
+  practice: 25
+  written: false
+- num: "32"
+  module: J
+  kind: lesson
+  slug: 32-puredata
+  title: Pure Data patches inside score
+  read: 13
+  practice: 25
+  written: false
+- num: "33"
+  module: J
+  kind: lesson
+  slug: 33-custom-interfaces
+  title: Custom interfaces
+  read: 14
+  practice: 30
+  written: false
+- num: "34"
+  module: K
+  kind: lesson
+  slug: 34-rehearsal-to-show
+  title: Rehearsal to show
+  read: 12
+  practice: 20
+  written: false
+- num: "35"
+  module: K
+  kind: lesson
+  slug: 35-headless-and-embedded
+  title: Headless and embedded
+  read: 14
+  practice: 40
+  written: false
+- num: "36"
+  module: K
+  kind: lesson
+  slug: 36-distributed-scores
+  title: Distributed scores
+  read: 15
+  practice: 40
+  written: false
+- num: "37"
+  module: K
+  kind: lesson
+  slug: 37-recording-and-streaming
+  title: Recording and streaming the output
+  read: 12
+  practice: 20
+  written: false
+- num: "38"
+  module: L
+  kind: lesson
+  slug: 38-reading-the-docs
+  title: "Reading the documentation, and reporting what is missing"
+  read: 10
+  practice: 15
+  written: false
+- num: "39"
+  module: L
+  kind: lesson
+  slug: 39-writing-a-process
+  title: Writing your own process
+  read: 15
+  practice: 60
+  written: false
+- num: "40"
+  module: M
+  kind: capstone
+  slug: 40-capstone
+  title: "Capstone: score a complete work"
+  read: 15
+  practice: 0
+  written: false

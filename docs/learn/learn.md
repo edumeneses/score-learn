@@ -15,81 +15,31 @@ Forty-seven units in twelve modules, followed by a capstone. Lessons carry a per
 
 Work through the modules in order. A *Make it work* milestone at the end of a cluster uses only what the preceding lessons introduced, so if a milestone is unclear, the gap is in a lesson you can name.
 
-## Phase 1: authoring interactive scores
+Units without a link are planned but not yet written. This table is generated from `_data/units.yml`, which is the single source of truth for the numbering and for the published addresses.
 
-A reader who finishes Phase 1 can build and install an interactive work. This is the minimum coherent course.
+{% assign phase_titles = "Phase 1: authoring interactive scores|Phase 2: media|Phase 3: scripting, deployment, and contribution" | split: "|" %}
+{% assign phase_notes = "A reader who finishes Phase 1 can build and install an interactive work. This is the minimum coherent course.|Audio, MIDI and musical time, video and graphics. Nothing here requires hardware beyond the computer.|Putting your own code inside a score, deploying it, and contributing upstream.|" | split: "|" %}
+{% for phase in (1..3) %}
+## {{ phase_titles[forloop.index0] }}
 
-| # | Unit | Read | Practice |
-|---|---|---|---|
-| **A** | **Orientation** | | |
-| 00 | [What *score* is, and what it is not]({{ site.baseurl }}/learn/00-what-score-is.html) | 12 min | none |
-| 01 | Install, first run, and finding your way to help | 12 min | 15 min |
-| **B** | **The timeline, hands on** | | |
-| 02 | Vocabulary of a score | 12 min | 15 min |
-| 03 | Interface layout and transport | 13 min | 20 min |
-| 04 | Your first process | 13 min | 25 min |
-| 05 | Saving, versioning, and reopening | 10 min | 15 min |
-| P1 | Make it work 1: a sixty-second automated cue | 15 min | 45 min |
-| **C** | **Talking to the world: devices** | | |
-| 06 | The device model | 13 min | 15 min |
-| 07 | Creating and debugging an OSC device | 14 min | 30 min |
-| 08 | Units, ranges, and types | 13 min | 20 min |
-| 09 | States, snapshots, and presets | 13 min | 25 min |
-| P2 | Make it work 2: one fader drives a light wash | 15 min | 45 min |
-| **D** | **Automation and modulation** | | |
-| 10 | Automation curves in depth | 12 min | 20 min |
-| 11 | Modulation sources | 13 min | 25 min |
-| 12 | Recording live input | 12 min | 20 min |
-| **E** | **Mapping and data processing** | | |
-| 13 | Mapping, scaling, and curves | 14 min | 30 min |
-| 14 | Choosing the right utility process | 13 min | 15 min |
-| P3 | Make it work 3: a sensor to sound and light mapping bench | 15 min | 60 min |
-| **F** | **Interaction: breaking the timeline** | | |
-| 15 | Interactive triggers | 14 min | 30 min |
-| 16 | Conditions and branching | 14 min | 30 min |
-| 17 | Loops and out of time | 13 min | 25 min |
-| 18 | Cues, seek, and transport control | 14 min | 30 min |
-| P4 | Make it work 4: an interactive installation with two branches | 15 min | 60 min |
-
-## Phase 2: media
+{{ phase_notes[forloop.index0] }}
 
 | # | Unit | Read | Practice |
 |---|---|---|---|
-| **G** | **Audio** | | |
-| 19 | Audio setup and the routing model | 13 min | 20 min |
-| 20 | Sound files and playback | 13 min | 25 min |
-| 21 | Effects and plug-ins | 14 min | 30 min |
-| 22 | Spatial audio, Part I | 15 min | 30 min |
-| P5 | Make it work 5: an audio looper performance set | 15 min | 60 min |
-| **H** | **MIDI and musical time** | | |
-| 23 | MIDI in practice | 14 min | 30 min |
-| 24 | Tempo, metre, and synchronisation | 14 min | 25 min |
-| **I** | **Video and graphics** | | |
-| 25 | The video pipeline | 14 min | 25 min |
-| 26 | Shaders and mixing | 14 min | 30 min |
-| 27 | 3D scenes | 15 min | 30 min |
-| 28 | Audio-reactive visuals | 14 min | 30 min |
-| P6 | Make it work 6: a fulldome scene reacting to live audio | 15 min | 60 min |
+{%- for module in site.data.modules -%}
+{%- if module.phase == phase %}
+| **{{ module.id }}** | **{{ module.title }}** | | |
+{%- for unit in site.data.units -%}
+{%- if unit.module == module.id %}
+| {{ unit.num }} | {% if unit.written %}[{{ unit.title }}]({{ site.baseurl }}/learn/{{ unit.slug }}.html){% else %}{{ unit.title }}{% endif %} | {{ unit.read }} min | {% if unit.practice > 0 %}{{ unit.practice }} min{% else %}none{% endif %} |
+{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endfor %}
+{% endfor %}
 
-## Phase 3: scripting, deployment, and contribution
+## Reading budgets
 
-| # | Unit | Read | Practice |
-|---|---|---|---|
-| **J** | **Scripting and extension** | | |
-| 29 | JavaScript processes | 14 min | 30 min |
-| 30 | Expressions and JIT C++ | 14 min | 25 min |
-| 31 | Faust inside *score* | 13 min | 25 min |
-| 32 | Pure Data patches inside *score* | 13 min | 25 min |
-| 33 | Custom interfaces | 14 min | 30 min |
-| **K** | **Production and deployment** | | |
-| 34 | Rehearsal to show | 12 min | 20 min |
-| 35 | Headless and embedded | 14 min | 40 min |
-| 36 | Distributed scores | 15 min | 40 min |
-| 37 | Recording and streaming the output | 12 min | 20 min |
-| **L** | **Joining the project** | | |
-| 38 | Reading the documentation, and reporting what is missing | 10 min | 15 min |
-| 39 | Writing your own process | 15 min | 60 min |
-| | **Capstone** | | |
-| 40 | Score a complete work | 15 min | open |
+The read column is the page's own budget, capped at fifteen minutes by design. The practice column is separate and deliberate: a twelve minute read can carry half an hour at the keyboard, and a lesson that hides that under a single number misleads whoever is planning a workshop around it.
 
-Unlinked units are planned but not yet written. The full plan, including the per-unit objectives and the audit of existing material this course is built on, lives in the repository README.
+Totals: {% assign total_read = 0 %}{% assign total_practice = 0 %}{% for unit in site.data.units %}{% assign total_read = total_read | plus: unit.read %}{% assign total_practice = total_practice | plus: unit.practice %}{% endfor %}{{ total_read }} minutes of reading and {{ total_practice }} minutes of practice across {{ site.data.units | size }} units.

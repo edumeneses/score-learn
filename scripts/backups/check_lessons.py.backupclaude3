@@ -57,31 +57,6 @@ HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
 LIQUID_TAG = re.compile(r"\{%.*?%\}", re.S)
 LIQUID_VAR = re.compile(r"\{\{.*?\}\}")
 MD_LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")
-LESSON_LINK = re.compile(r"/learn/([a-z0-9][a-z0-9-]*)\.html")
-
-
-def load_units() -> dict[str, dict[str, str]]:
-    """Minimal reader for the deliberately flat _data/units.yml.
-
-    Avoids a PyYAML dependency so the check runs on a bare Python 3 in CI. The
-    file is machine-written and kept flat for exactly this reason.
-    """
-    units: dict[str, dict[str, str]] = {}
-    current: dict[str, str] | None = None
-    for raw in UNITS.read_text(encoding="utf8").splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#"):
-            continue
-        if line.startswith("- "):
-            current = {}
-            line = line[2:]
-        if current is None or ":" not in line:
-            continue
-        key, _, value = line.partition(":")
-        current[key.strip()] = value.strip().strip('"').strip("'")
-        if "slug" in current:
-            units[current["slug"]] = current
-    return units
 
 
 def parse_front_matter(text: str) -> dict[str, str]:
@@ -111,11 +86,6 @@ def body_words(text: str) -> int:
 
 def main() -> int:
     failures: list[str] = []
-    units = load_units()
-    if not units:
-        print(f"could not read any unit from {UNITS}")
-        return 1
-
     pages = sorted(p for p in LESSONS.glob("*.md") if p.name != "learn.md")
     if not pages:
         print("no lesson pages found under docs/learn/")
@@ -162,41 +132,6 @@ def main() -> int:
 
         if not (CHECKS / f"{stem}.md").exists():
             failures.append(f"{rel}: no re-verification note at checks/{stem}.md")
-
-        unit = units.get(stem)
-        if unit is None:
-            failures.append(f"{rel}: no unit with slug {stem!r} in _data/units.yml")
-        else:
-            if unit.get("written") != "true":
-                failures.append(
-                    f"{rel}: page exists but _data/units.yml marks it `written: false`"
-                )
-            if fm.get("nav_order") != unit.get("num").lstrip("0").rjust(1, "0") and \
-               fm.get("nav_order") != unit.get("num"):
-                failures.append(
-                    f"{rel}: nav_order is {fm.get('nav_order')!r}, "
-                    f"unit number is {unit.get('num')!r}"
-                )
-            expected_read = f"{unit.get('read')} min"
-            if fm.get("reading_time") != expected_read:
-                failures.append(
-                    f"{rel}: reading_time is {fm.get('reading_time')!r}, "
-                    f"_data/units.yml says {expected_read!r}"
-                )
-            practice = unit.get("practice", "0")
-            expected_practice = "none" if practice == "0" else f"{practice} min"
-            if fm.get("practice_time") != expected_practice:
-                failures.append(
-                    f"{rel}: practice_time is {fm.get('practice_time')!r}, "
-                    f"_data/units.yml says {expected_practice!r}"
-                )
-
-        for slug in set(LESSON_LINK.findall(text)):
-            if slug not in units:
-                failures.append(
-                    f"{rel}: links to /learn/{slug}.html, which is not a unit "
-                    f"in _data/units.yml"
-                )
 
         print(f"{rel}: {words} words")
 

@@ -36,7 +36,6 @@ jobs:
           bundle exec htmlproofer _site \
             --disable-external \
             --allow-missing-href \
-            --no-enforce-https \
             --ignore-urls "/^\/learn\//"
 
       # The published config must also build, since it is what a deployment uses.

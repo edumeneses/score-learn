@@ -163,41 +163,6 @@ def main() -> int:
         if not (CHECKS / f"{stem}.md").exists():
             failures.append(f"{rel}: no re-verification note at checks/{stem}.md")
 
-        unit = units.get(stem)
-        if unit is None:
-            failures.append(f"{rel}: no unit with slug {stem!r} in _data/units.yml")
-        else:
-            if unit.get("written") != "true":
-                failures.append(
-                    f"{rel}: page exists but _data/units.yml marks it `written: false`"
-                )
-            if fm.get("nav_order") != unit.get("num").lstrip("0").rjust(1, "0") and \
-               fm.get("nav_order") != unit.get("num"):
-                failures.append(
-                    f"{rel}: nav_order is {fm.get('nav_order')!r}, "
-                    f"unit number is {unit.get('num')!r}"
-                )
-            expected_read = f"{unit.get('read')} min"
-            if fm.get("reading_time") != expected_read:
-                failures.append(
-                    f"{rel}: reading_time is {fm.get('reading_time')!r}, "
-                    f"_data/units.yml says {expected_read!r}"
-                )
-            practice = unit.get("practice", "0")
-            expected_practice = "none" if practice == "0" else f"{practice} min"
-            if fm.get("practice_time") != expected_practice:
-                failures.append(
-                    f"{rel}: practice_time is {fm.get('practice_time')!r}, "
-                    f"_data/units.yml says {expected_practice!r}"
-                )
-
-        for slug in set(LESSON_LINK.findall(text)):
-            if slug not in units:
-                failures.append(
-                    f"{rel}: links to /learn/{slug}.html, which is not a unit "
-                    f"in _data/units.yml"
-                )
-
         print(f"{rel}: {words} words")
 
     if failures:

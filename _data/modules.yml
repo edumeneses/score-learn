@@ -1,0 +1,40 @@
+# Modules of the course. Order here is the order of the syllabus.
+- id: A
+  phase: 1
+  title: Orientation
+- id: B
+  phase: 1
+  title: The timeline, hands on
+- id: C
+  phase: 1
+  title: "Talking to the world: devices"
+- id: D
+  phase: 1
+  title: Automation and modulation
+- id: E
+  phase: 1
+  title: Mapping and data processing
+- id: F
+  phase: 1
+  title: "Interaction: breaking the timeline"
+- id: G
+  phase: 2
+  title: Audio
+- id: H
+  phase: 2
+  title: MIDI and musical time
+- id: I
+  phase: 2
+  title: Video and graphics
+- id: J
+  phase: 3
+  title: Scripting and extension
+- id: K
+  phase: 3
+  title: Production and deployment
+- id: L
+  phase: 3
+  title: Joining the project
+- id: M
+  phase: 3
+  title: Capstone
