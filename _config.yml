@@ -16,7 +16,7 @@
 title: Learn score
 description: A graded course for ossia score, the interactive sequencer for the intermedia arts
 baseurl: "/score-learn" # provisional; hosting is deferred (see README)
-url: "https://edumeneses.github.io" # provisional; hosting is deferred (see README)
+url: "https://www.edumeneses.com" # review deployment; hosting is deferred (see README)
 
 permalink: pretty
 exclude: [".vscode", ".bundle", "vendor", "node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json",  "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile"

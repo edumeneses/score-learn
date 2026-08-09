@@ -8,6 +8,8 @@ Authored by Eduardo Meneses (Société des Arts Technologiques, Montréal). Cont
 
 Draft, Phase 1 in progress. **Where the course will eventually be published is deliberately undecided.** It is authored here so that the pedagogy can be written and revised without negotiating an upstream merge first; placement is settled with Jean-Michaël Celerier once Phase 1 exists and can be judged on its content.
 
+Readable while it is written, at <https://www.edumeneses.com/score-learn/>. That is a review deployment, not the eventual home: it exists so the content can be judged in its real form rather than as Markdown in a diff. Every push to `main` runs the structural checks and, if they pass, redeploys.
+
 The full plan, including the audit of the material this course is built on, is at `Documents/ossia_score_tutorial_syllabus.md` in the Assistant repository.
 
 ## Decisions this repository implements
