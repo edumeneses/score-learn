@@ -10,3 +10,9 @@ _site
 Gemfile.lock
 node_modules
 .DS_Store
+
+# editor-hook backups: same front matter, so they would shadow real pages
+backups/
+*.backupclaude*
+__pycache__/
+*.pyc

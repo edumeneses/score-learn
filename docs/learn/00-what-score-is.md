@@ -8,7 +8,7 @@ permalink: /learn/00-what-score-is.html
 score_version: "3.8.2"
 reading_time: "12 min"
 practice_time: "none"
-score_file: none
+score_file: 00-what-score-is/lesson-00.score
 ---
 
 # Lesson 00: What *score* is, and what it is not
@@ -20,9 +20,6 @@ score_file: none
 > **You will need** a web browser. *score* is installed in [Lesson 01]({{ site.baseurl }}/learn/01-install.html), not here.
 >
 > **You will build** a written map of your own project onto the five building blocks *score* gives you.
-
-{: .warning }
-> Figures for this lesson are pending. The annotated score used in the walkthrough is listed in `checks/00-what-score-is.md` and will be captured from a *score* {{ page.score_version }} install at 1920x1080.
 
 ## Why this matters
 
@@ -57,18 +54,20 @@ Two summary statements are worth memorising. *score* **is** the right tool when 
 
 ## Walkthrough: read a score before touching one
 
-The figure below shows a small finished score, annotated. Identify each element in turn; you are learning to read the notation before you write it.
+The figure below is a small finished score, `lesson-00.score`, which ships with this lesson. Find each numbered element in turn; you are learning to read the notation before you write it. You cannot open the file yet, and that is deliberate: reading comes first.
 
-1. **Find the timeline and its direction.** Time runs left to right. The outermost horizontal bar is an interval, and it is the root of the whole document.
-2. **Find the nested intervals.** Notice that intervals contain intervals. This hierarchy is how a score gets sections, and it is why there is no flat track list.
-3. **Find a process inside an interval.** The curve drawn inside the middle interval is an automation, one kind of process. Note that it is *inside* a stretch of time, not on a lane beside it.
-4. **Find the vertical markers.** Those are states, sitting on events. Values are sent at these instants.
-5. **Find the trigger.** One event carries a distinct marker: it waits for a condition instead of firing at a fixed time. Everything downstream of it therefore has a range of possible start times.
-6. **Find the branch.** Two intervals leave the same event. Conditions decide which one runs. A linear reading of this document is impossible, which is exactly the point.
-7. **Find where the outside world appears.** The addresses written on the states, in the form `/device/parameter`, name parameters in a device declared separately from the timeline. The score sends values to names; what those names are attached to is configured once, in [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html).
+![An annotated ossia score document showing a timeline with nested intervals, automations, a trigger, and two conditional branches]({{ site.img }}/00/00-01-annotated-score.png)
 
-<!-- FIGURE 00-01: annotated score, full window, callouts on: root interval, nested intervals, automation process, state, event, trigger, branch, address on state -->
-<!-- FIGURE 00-02: the same score in nodal view, callout: same document, different view -->
+1. **The timeline and its direction.** Time runs left to right, and the ruler at the top reads in minutes and seconds. Everything else hangs off that axis.
+2. **Nested intervals.** The interval named `Approach` holds a second scenario, `Scenario.10`, which holds an interval of its own, `Shutter`. Intervals contain intervals: this hierarchy is how a score gets sections, and it is why there is no flat track list.
+3. **A process inside an interval.** The red curve is an automation, one kind of process. Note that it lives *inside* a stretch of time, not on a lane beside it, and that it is exactly as long as the interval holding it.
+4. **States, on events.** The small circles on the vertical lines are states. Values are sent at those instants. The vertical line itself is the instant, shared by everything that happens there.
+5. **The trigger.** This instant carries a distinct marker and a label, `waits for /lesson/go`. It does not fire at a fixed time; it waits. Everything after it therefore has a range of possible start times rather than one.
+6. **The branch.** Two intervals, `Bright` and `Dark`, leave that same instant. Each is guarded by a condition on the value of `lesson:/level`, so exactly one of them runs. A linear reading of this document is impossible, which is precisely the point.
+7. **Where the outside world appears.** Each automation's slot header names its destination, in the form `device:/parameter`, here `lesson:/colour`. The score writes values to names; what those names are attached to, a piece of software or a piece of hardware, is configured once and separately, in [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html). The device itself, `lesson`, is listed in the panel on the left.
+
+{: .note }
+> A second figure, the same document seen as a node graph rather than a timeline, is pending. See `checks/00-what-score-is.md` for why and for what has to be re-verified when the pinned version changes.
 
 ## Common mistakes
 

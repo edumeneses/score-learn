@@ -1,0 +1,486 @@
+#!/usr/bin/env python3
+"""Screen capture and input driver for authoring the course figures.
+
+Every figure in the course is captured from one pinned ossia score build at a
+fixed window size, so that the whole set stays visually consistent and can be
+re-shot when the pinned version changes. This script is that harness. It talks
+to X11 directly through python-xlib, so it needs no screenshot utility and no
+root privileges, and it uses the XTEST extension for synthetic input.
+
+Requires: python-xlib, Pillow. Needs a running X server (DISPLAY).
+
+Examples
+--------
+    # start score, wait for its window, size it to the figure format
+    python3 scripts/capture.py launch --geometry 1920x1080+0+0
+
+    # capture the score window, or a region of it
+    python3 scripts/capture.py shot docs/learn/assets/00/raw-01.png
+    python3 scripts/capture.py shot out.png --region 0,0,960,540
+
+    # drive the interface
+    python3 scripts/capture.py click 400 300
+    python3 scripts/capture.py drag 400 300 700 340
+    python3 scripts/capture.py key ctrl+n
+    python3 scripts/capture.py type "my automation"
+    python3 scripts/capture.py windows          # list, to find the right one
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import subprocess
+import sys
+import time
+
+from PIL import Image
+from Xlib import X, display, Xatom
+from Xlib.ext import xtest
+
+APPIMAGE = os.path.expanduser(
+    "~/Applications/ossia.score-3.8.2-linux-x86_64.AppImage"
+)
+WINDOW_MATCH = "score"
+
+KEYSYMS = {
+    "ctrl": "Control_L",
+    "control": "Control_L",
+    "alt": "Alt_L",
+    "shift": "Shift_L",
+    "super": "Super_L",
+    "esc": "Escape",
+    "enter": "Return",
+    "return": "Return",
+    "tab": "Tab",
+    "space": "space",
+    "del": "Delete",
+    "delete": "Delete",
+    "backspace": "BackSpace",
+    "up": "Up",
+    "down": "Down",
+    "left": "Left",
+    "right": "Right",
+    "plus": "plus",
+    "minus": "minus",
+}
+
+
+def dpy() -> display.Display:
+    return display.Display()
+
+
+# ---------------------------------------------------------------- windows
+
+
+def window_list(d: display.Display) -> list[tuple[int, str, tuple[int, int, int, int]]]:
+    """Every viewable window with a name, as (id, name, (x, y, w, h))."""
+    out: list[tuple[int, str, tuple[int, int, int, int]]] = []
+    root = d.screen().root
+
+    def visit(win) -> None:
+        try:
+            attrs = win.get_attributes()
+        except Exception:
+            return
+        if attrs.map_state == X.IsViewable:
+            name = ""
+            try:
+                net_name = win.get_full_property(
+                    d.intern_atom("_NET_WM_NAME"), 0
+                )
+                if net_name:
+                    name = net_name.value.decode("utf8", "replace")
+                else:
+                    name = win.get_wm_name() or ""
+            except Exception:
+                name = ""
+            if name:
+                geo = win.get_geometry()
+                coords = root.translate_coords(win, 0, 0)
+                out.append(
+                    (win.id, name, (coords.x, coords.y, geo.width, geo.height))
+                )
+        try:
+            for child in win.query_tree().children:
+                visit(child)
+        except Exception:
+            return
+
+    visit(root)
+    return out
+
+
+def find_window(d: display.Display, match: str):
+    """Largest viewable window whose name contains `match`, case-insensitively."""
+    hits = [w for w in window_list(d) if match.lower() in w[1].lower()]
+    if not hits:
+        return None
+    hits.sort(key=lambda w: w[2][2] * w[2][3], reverse=True)
+    win_id, name, geo = hits[0]
+    return d.create_resource_object("window", win_id), name, geo
+
+
+def activate(d: display.Display, win) -> None:
+    """Raise and focus a window through the window manager."""
+    root = d.screen().root
+    data = [2, X.CurrentTime, 0, 0, 0]  # source 2 = pager
+    event = display.event.ClientMessage(
+        window=win,
+        client_type=d.intern_atom("_NET_ACTIVE_WINDOW"),
+        data=(32, data),
+    )
+    root.send_event(event, event_mask=X.SubstructureRedirectMask | X.SubstructureNotifyMask)
+    win.configure(stack_mode=X.Above)
+    d.sync()
+
+
+def set_geometry(d: display.Display, win, spec: str) -> None:
+    """Apply a `WxH+X+Y` geometry, unmaximising first so the request is honoured."""
+    size, _, offset = spec.partition("+")
+    w, _, h = size.partition("x")
+    x, _, y = offset.partition("+") if offset else ("0", "", "0")
+
+    root = d.screen().root
+    # _NET_WM_STATE_REMOVE on maximised states, or the resize is ignored
+    for state in ("_NET_WM_STATE_MAXIMIZED_HORZ", "_NET_WM_STATE_MAXIMIZED_VERT"):
+        event = display.event.ClientMessage(
+            window=win,
+            client_type=d.intern_atom("_NET_WM_STATE"),
+            data=(32, [0, d.intern_atom(state), 0, 1, 0]),
+        )
+        root.send_event(
+            event, event_mask=X.SubstructureRedirectMask | X.SubstructureNotifyMask
+        )
+    d.sync()
+    time.sleep(0.3)
+    win.configure(x=int(x or 0), y=int(y or 0), width=int(w), height=int(h))
+    d.sync()
+    time.sleep(0.5)
+
+
+# ---------------------------------------------------------------- capture
+
+
+def grab_window(win, box: tuple[int, int, int, int]) -> Image.Image:
+    """Capture directly from a window's own drawable.
+
+    This is the path the course uses. Capturing the root window returns black
+    here, because the compositor keeps the window's contents out of the root
+    drawable; asking the window itself returns real pixels, and it has the
+    further advantage of being independent of stacking, of the pointer, and of
+    whatever else is on screen.
+
+    `box` is x, y, w, h relative to the window's top-left corner.
+    """
+    x, y, w, h = box
+    raw = win.get_image(x, y, w, h, X.ZPixmap, 0xFFFFFFFF)
+    return Image.frombytes("RGB", (w, h), raw.data, "raw", "BGRX")
+
+
+def grab(d: display.Display, box: tuple[int, int, int, int]) -> Image.Image:
+    """Capture a screen rectangle from the root window.
+
+    Kept for whole-screen captures. Note that on a compositing window manager
+    this can come back black for redirected windows; prefer grab_window.
+
+    The rectangle is clamped to the screen, since a window placed partly
+    off-screen would otherwise make XGetImage fail with BadMatch.
+    """
+    screen = d.screen()
+    x, y, w, h = box
+    x0, y0 = max(0, x), max(0, y)
+    x1 = min(screen.width_in_pixels, x + w)
+    y1 = min(screen.height_in_pixels, y + h)
+    w, h = x1 - x0, y1 - y0
+    if w <= 0 or h <= 0:
+        raise SystemExit(f"nothing to capture: {box} is off-screen")
+    if (x0, y0, w, h) != box:
+        print(f"clamped {box} to {(x0, y0, w, h)}")
+    raw = screen.root.get_image(x0, y0, w, h, X.ZPixmap, 0xFFFFFFFF)
+    return Image.frombytes("RGB", (w, h), raw.data, "raw", "BGRX")
+
+
+def set_fullscreen(d: display.Display, win, on: bool = True) -> None:
+    """Ask the window manager for fullscreen.
+
+    This is how the figure format is made deterministic: fullscreen drops the
+    decorations, so the window is exactly the screen size and every figure of
+    the course shares one geometry.
+    """
+    root = d.screen().root
+    event = display.event.ClientMessage(
+        window=win,
+        client_type=d.intern_atom("_NET_WM_STATE"),
+        data=(32, [1 if on else 0, d.intern_atom("_NET_WM_STATE_FULLSCREEN"), 0, 1, 0]),
+    )
+    root.send_event(
+        event, event_mask=X.SubstructureRedirectMask | X.SubstructureNotifyMask
+    )
+    d.sync()
+    time.sleep(0.8)
+
+
+def shot(args: argparse.Namespace) -> int:
+    d = dpy()
+    if args.full:
+        screen = d.screen()
+        box = (0, 0, screen.width_in_pixels, screen.height_in_pixels)
+        image = grab(d, box)
+    else:
+        found = find_window(d, args.match)
+        if not found:
+            print(f"no window matching {args.match!r}; try `windows`")
+            return 1
+        win, name, geo = found
+        if args.raise_first:
+            activate(d, win)
+            time.sleep(args.settle)
+            found = find_window(d, args.match)
+            win, name, geo = found
+        print(f"window {name!r} at {geo}")
+
+        box = (0, 0, geo[2], geo[3])
+        if args.region:
+            rx, ry, rw, rh = (int(v) for v in args.region.split(","))
+            box = (rx, ry, min(rw, geo[2] - rx), min(rh, geo[3] - ry))
+        image = grab_window(win, box)
+    if args.scale != 1.0:
+        image = image.resize(
+            (int(image.width * args.scale), int(image.height * args.scale)),
+            Image.LANCZOS,
+        )
+    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    image.save(args.out)
+    print(f"wrote {args.out} ({image.width}x{image.height})")
+    return 0
+
+
+# ---------------------------------------------------------------- input
+
+
+def move(d: display.Display, x: int, y: int) -> None:
+    xtest.fake_input(d, X.MotionNotify, x=x, y=y)
+    d.sync()
+
+
+def click(args: argparse.Namespace) -> int:
+    d = dpy()
+    move(d, args.x, args.y)
+    time.sleep(0.15)
+    for _ in range(args.count):
+        xtest.fake_input(d, X.ButtonPress, args.button)
+        d.sync()
+        time.sleep(0.05)
+        xtest.fake_input(d, X.ButtonRelease, args.button)
+        d.sync()
+        time.sleep(0.12)
+    print(f"clicked {args.x},{args.y} button={args.button} x{args.count}")
+    return 0
+
+
+def drag(args: argparse.Namespace) -> int:
+    d = dpy()
+    move(d, args.x1, args.y1)
+    time.sleep(0.2)
+    xtest.fake_input(d, X.ButtonPress, args.button)
+    d.sync()
+    steps = max(args.steps, 1)
+    for i in range(1, steps + 1):
+        move(
+            d,
+            int(args.x1 + (args.x2 - args.x1) * i / steps),
+            int(args.y1 + (args.y2 - args.y1) * i / steps),
+        )
+        time.sleep(0.02)
+    time.sleep(0.15)
+    xtest.fake_input(d, X.ButtonRelease, args.button)
+    d.sync()
+    print(f"dragged {args.x1},{args.y1} -> {args.x2},{args.y2}")
+    return 0
+
+
+def keycode(d: display.Display, name: str) -> int:
+    from Xlib import XK
+
+    sym = XK.string_to_keysym(KEYSYMS.get(name.lower(), name))
+    if sym == 0 and len(name) == 1:
+        sym = ord(name)
+    return d.keysym_to_keycode(sym)
+
+
+def key(args: argparse.Namespace) -> int:
+    d = dpy()
+    parts = args.combo.split("+")
+    mods, base = parts[:-1], parts[-1]
+    codes = [keycode(d, m) for m in mods]
+    for code in codes:
+        xtest.fake_input(d, X.KeyPress, code)
+    xtest.fake_input(d, X.KeyPress, keycode(d, base))
+    d.sync()
+    time.sleep(0.05)
+    xtest.fake_input(d, X.KeyRelease, keycode(d, base))
+    for code in reversed(codes):
+        xtest.fake_input(d, X.KeyRelease, code)
+    d.sync()
+    print(f"key {args.combo}")
+    return 0
+
+
+def type_text(args: argparse.Namespace) -> int:
+    d = dpy()
+    from Xlib import XK
+
+    for char in args.text:
+        sym = ord(char)
+        code = d.keysym_to_keycode(sym)
+        shift = char.isupper() or char in '!@#$%^&*()_+{}|:"<>?~'
+        if shift:
+            xtest.fake_input(d, X.KeyPress, keycode(d, "shift"))
+        xtest.fake_input(d, X.KeyPress, code)
+        d.sync()
+        time.sleep(0.02)
+        xtest.fake_input(d, X.KeyRelease, code)
+        if shift:
+            xtest.fake_input(d, X.KeyRelease, keycode(d, "shift"))
+        d.sync()
+        time.sleep(0.02)
+    print(f"typed {len(args.text)} chars")
+    return 0
+
+
+# ---------------------------------------------------------------- launch
+
+
+def launch(args: argparse.Namespace) -> int:
+    d = dpy()
+    existing = find_window(d, args.match)
+    if existing and not args.force:
+        print(f"already running: {existing[1]!r} at {existing[2]}")
+    else:
+        if not os.path.exists(args.appimage):
+            print(f"missing {args.appimage}")
+            return 1
+        cmd = [args.appimage] + (args.open.split() if args.open else [])
+        env = dict(os.environ)
+        if args.qt_scale:
+            # Figures are specified at 2x device pixels. On a display with no
+            # HiDPI scaling, forcing Qt's scale factor is what produces them:
+            # a 3840x2160 window at scale 2 is a 1920x1080 logical layout.
+            env["QT_SCALE_FACTOR"] = str(args.qt_scale)
+        subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
+            env=env,
+        )
+        print(f"launched {os.path.basename(args.appimage)}")
+
+    deadline = time.time() + args.timeout
+    found = None
+    while time.time() < deadline:
+        found = find_window(d, args.match)
+        if found and found[2][2] > 300:
+            break
+        time.sleep(0.5)
+    if not found:
+        print(f"no window matching {args.match!r} after {args.timeout}s")
+        return 1
+
+    win, name, geo = found
+    activate(d, win)
+    if args.fullscreen:
+        set_fullscreen(d, win)
+        found = find_window(d, args.match)
+        geo = found[2]
+    elif args.geometry:
+        set_geometry(d, win, args.geometry)
+        found = find_window(d, args.match)
+        geo = found[2]
+    print(f"window {name!r} at {geo}")
+    return 0
+
+
+def windows(args: argparse.Namespace) -> int:
+    d = dpy()
+    for win_id, name, geo in window_list(d):
+        if args.match.lower() in name.lower() or args.match == "":
+            print(f"0x{win_id:08x}  {geo[2]:>5}x{geo[3]:<5} +{geo[0]},{geo[1]}  {name}")
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--match", default=WINDOW_MATCH, help="window name substring")
+    sub = parser.add_subparsers(dest="cmd", required=True)
+
+    p = sub.add_parser("launch", help="start score and size its window")
+    p.add_argument("--appimage", default=APPIMAGE)
+    p.add_argument("--geometry", default=None, help="WxH+X+Y")
+    p.add_argument(
+        "--fullscreen",
+        action="store_true",
+        help="fullscreen instead of a geometry: no decorations, exactly the "
+        "screen size, which is what keeps the figure format identical",
+    )
+    p.add_argument("--open", default=None, help="score file to open")
+    p.add_argument("--timeout", type=float, default=90.0)
+    p.add_argument("--force", action="store_true", help="launch even if running")
+    p.add_argument(
+        "--qt-scale",
+        type=float,
+        default=None,
+        help="QT_SCALE_FACTOR for the child; use 2 with a 3840x2160 window "
+        "to get 2x figures of a 1920x1080 layout",
+    )
+    p.set_defaults(func=launch)
+
+    p = sub.add_parser("shot", help="capture the window or a region of it")
+    p.add_argument("out")
+    p.add_argument("--region", default=None, help="x,y,w,h inside the window")
+    p.add_argument("--full", action="store_true", help="whole screen")
+    p.add_argument("--scale", type=float, default=1.0)
+    p.add_argument("--settle", type=float, default=0.6)
+    p.add_argument(
+        "--raise-first",
+        action="store_true",
+        help="activate the window before capturing; unnecessary with "
+        "window-level capture and it disturbs whatever the user is doing",
+    )
+    p.set_defaults(func=shot)
+
+    p = sub.add_parser("click")
+    p.add_argument("x", type=int)
+    p.add_argument("y", type=int)
+    p.add_argument("--button", type=int, default=1)
+    p.add_argument("--count", type=int, default=1)
+    p.set_defaults(func=click)
+
+    p = sub.add_parser("drag")
+    for name in ("x1", "y1", "x2", "y2"):
+        p.add_argument(name, type=int)
+    p.add_argument("--button", type=int, default=1)
+    p.add_argument("--steps", type=int, default=25)
+    p.set_defaults(func=drag)
+
+    p = sub.add_parser("key")
+    p.add_argument("combo", help="e.g. ctrl+n, alt+f, esc")
+    p.set_defaults(func=key)
+
+    p = sub.add_parser("type")
+    p.add_argument("text")
+    p.set_defaults(func=type_text)
+
+    p = sub.add_parser("windows", help="list viewable windows")
+    p.set_defaults(func=windows)
+
+    args = parser.parse_args()
+    if not os.environ.get("DISPLAY"):
+        print("DISPLAY is unset; this harness needs a running X server")
+        return 1
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,91 @@
+{
+  "_comment": "Lesson 00 figures. Badge numbers match the walkthrough steps of docs/learn/00-what-score-is.md. Coordinates are pixels in the raw capture (3840x2160, ossia score 3.8.2 fullscreen at QT_SCALE_FACTOR=2).",
+  "source": "raw/raw-00-01.png",
+  "out": "docs/learn/assets/00/00-01-annotated-score.png",
+  "crop": [
+    720,
+    64,
+    3240,
+    1472
+  ],
+  "font_size": 34,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        1150,
+        200
+      ],
+      "to": [
+        1150,
+        82
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        1520,
+        900
+      ],
+      "to": [
+        980,
+        872
+      ]
+    },
+    {
+      "n": 3,
+      "at": [
+        1180,
+        830
+      ],
+      "to": [
+        1155,
+        756
+      ]
+    },
+    {
+      "n": 4,
+      "at": [
+        1690,
+        545
+      ],
+      "to": [
+        1932,
+        520
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        1650,
+        330
+      ],
+      "to": [
+        1945,
+        358
+      ]
+    },
+    {
+      "n": 6,
+      "at": [
+        2250,
+        720
+      ],
+      "to": [
+        1940,
+        720
+      ]
+    },
+    {
+      "n": 7,
+      "at": [
+        2620,
+        318
+      ],
+      "to": [
+        2300,
+        426
+      ]
+    }
+  ]
+}

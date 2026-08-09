@@ -20,7 +20,7 @@ url: "https://edumeneses.github.io" # provisional; hosting is deferred (see READ
 
 permalink: pretty
 exclude: [".vscode", ".bundle", "vendor", "node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json",  "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile"
-, "docs/tests/", "Dockerfile", "docker-compose.yml", ".github", "*.sh", "CODE_OF_CONDUCT.md", "styles", "checks/", "scripts/", "library/", "LICENSE", "LICENSE-theme.txt"
+, "docs/tests/", "Dockerfile", "docker-compose.yml", ".github", "*.sh", "CODE_OF_CONDUCT.md", "styles", "checks/", "scripts/", "library/", "figures/", "LICENSE", "LICENSE-theme.txt", "backups", "*.backupclaude", "*.backupclaude2", "*.backupclaude3"
 ]
 
 # Regression tests
