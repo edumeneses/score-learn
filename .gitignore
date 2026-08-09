@@ -1,6 +1,9 @@
 .jekyll-metadata
 .vscode
-vendor
+# bundler's install path only. A bare `vendor` rule also swallowed the theme's
+# _includes/vendor/, _layouts/vendor/, _sass/vendor/ and assets/js/vendor/,
+# which broke the CI build while local builds kept working from disk.
+/vendor/
 *.gem
 .bundle
 .ruby-version
