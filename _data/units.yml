@@ -201,7 +201,7 @@
   title: Audio setup and the routing model
   read: 13
   practice: 20
-  written: false
+  written: true
 - num: "20"
   module: G
   kind: lesson
@@ -209,7 +209,7 @@
   title: Sound files and playback
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: "21"
   module: G
   kind: lesson
@@ -217,7 +217,7 @@
   title: Effects and plug-ins
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "22"
   module: G
   kind: lesson
@@ -225,7 +225,7 @@
   title: "Spatial audio, Part I"
   read: 15
   practice: 30
-  written: false
+  written: true
 - num: P5
   module: G
   kind: milestone
@@ -233,7 +233,7 @@
   title: "Make it work 5: an audio looper performance set"
   read: 15
   practice: 60
-  written: false
+  written: true
 - num: "23"
   module: H
   kind: lesson
@@ -241,7 +241,7 @@
   title: MIDI in practice
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "24"
   module: H
   kind: lesson
@@ -249,7 +249,7 @@
   title: "Tempo, metre, and synchronisation"
   read: 14
   practice: 25
-  written: false
+  written: true
 - num: "25"
   module: I
   kind: lesson
@@ -257,7 +257,7 @@
   title: The video pipeline
   read: 14
   practice: 25
-  written: false
+  written: true
 - num: "26"
   module: I
   kind: lesson
@@ -265,7 +265,7 @@
   title: Shaders and mixing
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "27"
   module: I
   kind: lesson
@@ -273,7 +273,7 @@
   title: 3D scenes
   read: 15
   practice: 30
-  written: false
+  written: true
 - num: "28"
   module: I
   kind: lesson
@@ -281,7 +281,7 @@
   title: Audio-reactive visuals
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: P6
   module: I
   kind: milestone
@@ -289,7 +289,7 @@
   title: "Make it work 6: a fulldome scene reacting to live audio"
   read: 15
   practice: 60
-  written: false
+  written: true
 - num: "29"
   module: J
   kind: lesson
