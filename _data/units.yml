@@ -297,7 +297,7 @@
   title: JavaScript processes
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "30"
   module: J
   kind: lesson
@@ -305,7 +305,7 @@
   title: Expressions and JIT C++
   read: 14
   practice: 25
-  written: false
+  written: true
 - num: "31"
   module: J
   kind: lesson
@@ -313,7 +313,7 @@
   title: Faust inside score
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: "32"
   module: J
   kind: lesson
@@ -321,7 +321,7 @@
   title: Pure Data patches inside score
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: "33"
   module: J
   kind: lesson
@@ -329,7 +329,7 @@
   title: Custom interfaces
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "34"
   module: K
   kind: lesson
@@ -337,7 +337,7 @@
   title: Rehearsal to show
   read: 12
   practice: 20
-  written: false
+  written: true
 - num: "35"
   module: K
   kind: lesson
@@ -345,7 +345,7 @@
   title: Headless and embedded
   read: 14
   practice: 40
-  written: false
+  written: true
 - num: "36"
   module: K
   kind: lesson
@@ -353,7 +353,7 @@
   title: Distributed scores
   read: 15
   practice: 40
-  written: false
+  written: true
 - num: "37"
   module: K
   kind: lesson
@@ -361,7 +361,7 @@
   title: Recording and streaming the output
   read: 12
   practice: 20
-  written: false
+  written: true
 - num: "38"
   module: L
   kind: lesson
@@ -369,7 +369,7 @@
   title: "Reading the documentation, and reporting what is missing"
   read: 10
   practice: 15
-  written: false
+  written: true
 - num: "39"
   module: L
   kind: lesson
@@ -377,7 +377,7 @@
   title: Writing your own process
   read: 15
   practice: 60
-  written: false
+  written: true
 - num: "40"
   module: M
   kind: capstone
@@ -385,4 +385,4 @@
   title: "Capstone: score a complete work"
   read: 15
   practice: 0
-  written: false
+  written: true
