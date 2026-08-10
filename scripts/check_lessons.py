@@ -15,7 +15,10 @@ build rather than reaching a reader:
   6. a checks/ note exists for every lesson, listing what to re-verify when the
      pinned score version changes;
   7. every page corresponds to a unit in _data/units.yml, is marked
-     `written: true` there, and carries that unit's read and practice budgets;
+     `written: true` there, declares that unit's number in `unit`, orders itself
+     by the unit's position in that file, and carries its read and practice
+     budgets. Position rather than number, because a milestone is `P1`, which
+     has no place in a numeric sort;
   8. every internal /learn/<slug>.html link points at a slug that exists in
      _data/units.yml, so a forward reference to a lesson not yet written is
      allowed while a reference to a lesson that will never exist is not.
@@ -45,6 +48,7 @@ REQUIRED_KEYS = (
     "description",
     "parent",
     "nav_order",
+    "unit",
     "permalink",
     "score_version",
     "reading_time",
@@ -80,6 +84,7 @@ def load_units() -> dict[str, dict[str, str]]:
         key, _, value = line.partition(":")
         current[key.strip()] = value.strip().strip('"').strip("'")
         if "slug" in current:
+            current.setdefault("_index", len(units))
             units[current["slug"]] = current
     return units
 
@@ -171,11 +176,16 @@ def main() -> int:
                 failures.append(
                     f"{rel}: page exists but _data/units.yml marks it `written: false`"
                 )
-            if fm.get("nav_order") != unit.get("num").lstrip("0").rjust(1, "0") and \
-               fm.get("nav_order") != unit.get("num"):
+            if fm.get("unit") != unit.get("num"):
+                failures.append(
+                    f"{rel}: front matter unit is {fm.get('unit')!r}, "
+                    f"_data/units.yml says {unit.get('num')!r}"
+                )
+            expected_order = str(unit["_index"])
+            if fm.get("nav_order") != expected_order:
                 failures.append(
                     f"{rel}: nav_order is {fm.get('nav_order')!r}, "
-                    f"unit number is {unit.get('num')!r}"
+                    f"expected {expected_order!r} (position in _data/units.yml)"
                 )
             expected_read = f"{unit.get('read')} min"
             if fm.get("reading_time") != expected_read:

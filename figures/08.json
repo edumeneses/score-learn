@@ -1,0 +1,11 @@
+{
+  "_comment": "Lesson 08: the two numbers next to a destination address in a slot header, cropped from the Lesson 00 capture.",
+  "source": "raw/raw-00-01.png",
+  "out": "docs/learn/assets/08/08-01-address-and-range.png",
+  "crop": [1880, 330, 3160, 500],
+  "font_size": 30,
+  "badges": [
+    {"n": 1, "at": [2180, 470], "to": [2300, 428]},
+    {"n": 2, "at": [2760, 470], "to": [2660, 428]}
+  ]
+}

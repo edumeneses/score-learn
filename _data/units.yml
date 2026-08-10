@@ -25,7 +25,7 @@
   title: Install, first run, and finding your way to help
   read: 12
   practice: 15
-  written: false
+  written: true
 - num: "02"
   module: B
   kind: lesson
@@ -33,7 +33,7 @@
   title: Vocabulary of a score
   read: 12
   practice: 15
-  written: false
+  written: true
 - num: "03"
   module: B
   kind: lesson
@@ -41,7 +41,7 @@
   title: Interface layout and transport
   read: 13
   practice: 20
-  written: false
+  written: true
 - num: "04"
   module: B
   kind: lesson
@@ -49,7 +49,7 @@
   title: Your first process
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: "05"
   module: B
   kind: lesson
@@ -57,7 +57,7 @@
   title: Saving, versioning, and reopening
   read: 10
   practice: 15
-  written: false
+  written: true
 - num: P1
   module: B
   kind: milestone
@@ -65,7 +65,7 @@
   title: "Make it work 1: a sixty-second automated cue"
   read: 15
   practice: 45
-  written: false
+  written: true
 - num: "06"
   module: C
   kind: lesson
@@ -73,7 +73,7 @@
   title: The device model
   read: 13
   practice: 15
-  written: false
+  written: true
 - num: "07"
   module: C
   kind: lesson
@@ -81,7 +81,7 @@
   title: Creating and debugging an OSC device
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "08"
   module: C
   kind: lesson
@@ -89,7 +89,7 @@
   title: Units, ranges, and types
   read: 13
   practice: 20
-  written: false
+  written: true
 - num: "09"
   module: C
   kind: lesson
@@ -97,7 +97,7 @@
   title: States, snapshots, and presets
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: P2
   module: C
   kind: milestone

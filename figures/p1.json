@@ -1,0 +1,80 @@
+{
+  "_comment": "Milestone P1: the reference solution. Badges match the walkthrough steps. Coordinates are pixels in the raw capture (3840x2160, ossia score 3.8.2 fullscreen at QT_SCALE_FACTOR=2).",
+  "source": "raw/raw-p1-01.png",
+  "out": "docs/learn/assets/p1/p1-01-cue-structure.png",
+  "crop": [
+    700,
+    460,
+    3260,
+    1360
+  ],
+  "font_size": 34,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        1350,
+        500
+      ],
+      "to": [
+        1534,
+        620
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        880,
+        1040
+      ],
+      "to": [
+        794,
+        928
+      ]
+    },
+    {
+      "n": 3,
+      "at": [
+        1150,
+        800
+      ],
+      "to": [
+        1250,
+        730
+      ]
+    },
+    {
+      "n": 4,
+      "at": [
+        1900,
+        1080
+      ],
+      "to": [
+        1800,
+        966
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        2600,
+        800
+      ],
+      "to": [
+        2500,
+        720
+      ]
+    },
+    {
+      "n": 6,
+      "at": [
+        3060,
+        780
+      ],
+      "to": [
+        3200,
+        636
+      ]
+    }
+  ]
+}

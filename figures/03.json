@@ -1,0 +1,72 @@
+{
+  "_comment": "Lesson 03: the window's regions. Badges match the walkthrough steps. Source is the full-window capture of lesson-00.score.",
+  "source": "raw/raw-00-01.png",
+  "out": "docs/learn/assets/03/03-01-window-regions.png",
+  "crop": [
+    0,
+    60,
+    3840,
+    2160
+  ],
+  "font_size": 34,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        560,
+        240
+      ],
+      "to": [
+        330,
+        152
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        640,
+        1970
+      ],
+      "to": [
+        200,
+        2121
+      ]
+    },
+    {
+      "n": 3,
+      "at": [
+        1500,
+        1500
+      ]
+    },
+    {
+      "n": 4,
+      "at": [
+        1020,
+        280
+      ],
+      "to": [
+        800,
+        170
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        3330,
+        760
+      ]
+    },
+    {
+      "n": 6,
+      "at": [
+        1780,
+        1970
+      ],
+      "to": [
+        1620,
+        2114
+      ]
+    }
+  ]
+}

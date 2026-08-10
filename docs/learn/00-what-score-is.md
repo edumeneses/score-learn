@@ -4,6 +4,7 @@ title: "Lesson 00: What score is, and what it is not"
 description: "Where ossia score sits among Max, Pure Data, QLab, TouchDesigner, and a DAW, and which of your existing habits will transfer."
 parent: Lessons
 nav_order: 0
+unit: "00"
 permalink: /learn/00-what-score-is.html
 score_version: "3.8.2"
 reading_time: "12 min"

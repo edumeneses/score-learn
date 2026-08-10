@@ -28,6 +28,10 @@ LIBRARY = ROOT / "library" / "learn"
 
 SEC = 705_600_000  # flicks per second, score's internal time unit
 
+# Logical width of the scenario editor in the pinned capture format: a 3840 px
+# fullscreen window at QT_SCALE_FACTOR=2, minus the two side panels.
+EDITOR_WIDTH_PX = 950
+
 SCENARIO_UUID = "de035912-5b03-49a8-bc4d-b2cba68e21d9"
 AUTOMATION_UUID = "d2a67bd8-5d3f-404e-b6e9-e350cf2a833f"
 CURVE_SEGMENT_UUID = "1e7cb83f-4e47-4b14-814d-2242a9c75991"
@@ -172,7 +176,7 @@ def interval(iid: int, name: str, start_state: int, end_state: int,
              start_date: int, duration: int, processes: list[dict],
              *, height: float = 0.4, rigid: bool = True,
              max_duration: int | None = None, nodal: bool = False,
-             label: str = "") -> dict:
+             label: str = "", fit: bool = False) -> dict:
     """One stretch of time, holding processes in its racks."""
     slots = [
         {"Processes": [p["id"]], "Process": p["id"], "Height": 140.0, "Nodal": nodal}
@@ -202,8 +206,13 @@ def interval(iid: int, name: str, start_state: int, end_state: int,
         "HeightPercentage": height,
         "NodalSlotHeight": 140.0,
         "QuantizationRate": -1.0,
-        "Zoom": -1.0,
-        "Center": 0,
+        # Zoom is flicks per pixel. In practice score fits the document to the
+        # editor's width on load regardless of this value, so it is written for
+        # correctness rather than relied on; what matters for figures is that
+        # the editor extends to about x=3225 in the capture format, which is
+        # wider than it looks, so crops must not stop short of it.
+        "Zoom": (duration / EDITOR_WIDTH_PX) if fit else -1.0,
+        "Center": (duration // 2) if fit else 0,
         "ViewMode": 0,
         "SmallViewShown": True,
         "HasSignature": False,
@@ -549,7 +558,185 @@ def to_nodal(doc: dict) -> dict:
     return out
 
 
-BUILDERS = {"00": ("00-what-score-is", lesson_00)}
+def document(root: dict) -> dict:
+    """Wrap a root interval into a full score document."""
+    return {
+        "Document": {
+            "ObjectName": "Scenario::ScenarioDocumentModel",
+            "id": 1,
+            "BaseScenario": {
+                "ObjectName": "Scenario::BaseScenario",
+                "id": 0,
+                "Constraint": root,
+                "StartTimeNode": timesync(0, 0, [0], start=True),
+                "EndTimeNode": timesync(1, root["DefaultDuration"], [1]),
+                "StartEvent": event(0, 0, [0], 0),
+                "EndEvent": event(1, 1, [1], root["DefaultDuration"]),
+                "StartState": state(0, 0, 0.5, nxt=0),
+                "EndState": state(1, 1, 0.5, prev=0),
+            },
+            "Speed": 1.0,
+            "Cables": [],
+            "BusIntervals": [],
+        },
+        "Plugins": [
+            {
+                "uuid": PLUGIN_MIDI_UUID,
+                "Refresh": False,
+                "Reconnect": False,
+                "MidiRatio": 1.0,
+            },
+            osc_device(),
+            {"uuid": PLUGIN_DATA_UUID, "Data": ""},
+        ],
+        "Version": 4,
+        "Commit": "",
+        "Tag": "3.8.2",
+    }
+
+
+def scenario(pid: int, duration: int, timenodes: list[dict], events: list[dict],
+             states: list[dict], intervals: list[dict], *,
+             height: float = 900.0) -> dict:
+    return {
+        "uuid": SCENARIO_UUID,
+        "ObjectName": "Scenario",
+        "id": pid,
+        "Metadata": meta(f"Scenario.{pid}"),
+        "Duration": duration,
+        "Height": height,
+        "StartOffset": 0,
+        "LoopDuration": duration,
+        "Pos": [40.0, 40.0],
+        "Size": [200.0, 100.0],
+        "Loops": False,
+        "Inlet": audio_inlet(),
+        "Outlet": audio_outlet(),
+        "StartTimeNodeId": 0,
+        "StartEventId": 0,
+        "StartStateId": 0,
+        "Exclusive": False,
+        "TimeNodes": timenodes,
+        "Events": events,
+        "States": states,
+        "Constraints": intervals,
+        "Comments": [],
+    }
+
+
+def chain(spans: list[tuple[str, int, int, list[dict], float]],
+          messages: dict[int, dict] | None = None) -> tuple[list, list, list, list]:
+    """Build a straight chain of intervals, one after another.
+
+    `spans` is a list of (name, start seconds, duration seconds, processes,
+    height). Each interval gets its own start state; the last one closes the
+    chain. `messages` optionally attaches cue messages to the state at index n.
+    """
+    messages = messages or {}
+    timenodes: list[dict] = []
+    events: list[dict] = []
+    states: list[dict] = []
+    intervals: list[dict] = []
+
+    for index, (name, start, duration, processes, height) in enumerate(spans):
+        date = start * SEC
+        timenodes.append(timesync(index, date, [index], start=(index == 0)))
+        events.append(event(index, index, [index], date))
+        states.append(
+            state(
+                index,
+                index,
+                height,
+                prev=index - 1 if index else None,
+                nxt=index,
+                messages=messages.get(index),
+            )
+        )
+        intervals.append(
+            interval(index, name, index, index + 1, date, duration * SEC,
+                     processes, height=height)
+        )
+
+    last = len(spans)
+    end_date = (spans[-1][1] + spans[-1][2]) * SEC
+    timenodes.append(timesync(last, end_date, [last]))
+    events.append(event(last, last, [last], end_date))
+    states.append(
+        state(last, last, spans[-1][4], prev=last - 1,
+              messages=messages.get(last))
+    )
+    return timenodes, events, states, intervals
+
+
+def lesson_04() -> dict:
+    """One interval, one automation. The smallest useful score."""
+    auto = automation(2, f"{DEVICE}:/level", 8 * SEC, 0.0, 1.0,
+                      "Automation (float).2", 1.4)
+    tn, ev, st, iv = chain([("Fade in", 0, 8, [auto], 0.34)])
+    root = interval(0, "lesson-04", 0, 1, 0, 8 * SEC,
+                    [scenario(1, 8 * SEC, tn, ev, st, iv, height=600.0)],
+                    height=0.5, rigid=False)
+    return document(root)
+
+
+def p1_solution() -> dict:
+    """The Milestone P1 reference solution: a sixty-second cue.
+
+    Three automations in sequence, a preset state at the top, and a blackout
+    state at the end, so the artefact both starts and ends in a known condition.
+    """
+    rise = automation(2, f"{DEVICE}:/level", 20 * SEC, 0.0, 1.0,
+                      "Automation (float).2", 1.8)
+    hold = automation(3, f"{DEVICE}:/colour", 20 * SEC, 0.15, 0.9,
+                      "Automation (float).3")
+    fall = automation(4, f"{DEVICE}:/level", 20 * SEC, 1.0, 0.0,
+                     "Automation (float).4", 0.6)
+    shutter = automation(5, f"{DEVICE}:/shutter", 20 * SEC, 0.2, 1.0,
+                         "Automation (float).5")
+
+    tn, ev, st, iv = chain(
+        [
+            ("Rise", 0, 20, [rise], 0.22),
+            ("Hold", 20, 20, [hold, shutter], 0.22),
+            ("Fall", 40, 20, [fall], 0.22),
+        ],
+        messages={
+            0: message("level", 0.0),
+            3: message("level", 0.0),
+        },
+    )
+    root = interval(0, "p1-automated-cue", 0, 1, 0, 60 * SEC,
+                    [scenario(1, 60 * SEC, tn, ev, st, iv)],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
+def lesson_09() -> dict:
+    """Three cues and nothing else: states carry the messages, the intervals
+    between them are empty, which is what a cue list looks like in score."""
+    tn, ev, st, iv = chain(
+        [
+            ("Wait", 0, 6, [], 0.30),
+            ("Wait", 6, 6, [], 0.30),
+        ],
+        messages={
+            0: message("level", 0.0),
+            1: message("level", 0.7),
+            2: message("level", 0.25),
+        },
+    )
+    root = interval(0, "lesson-09", 0, 1, 0, 12 * SEC,
+                    [scenario(1, 12 * SEC, tn, ev, st, iv, height=600.0)],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
+BUILDERS = {
+    "00": ("00-what-score-is", lesson_00),
+    "04": ("04-first-process", lesson_04),
+    "P1": ("p1-automated-cue", p1_solution),
+    "09": ("09-states-snapshots-presets", lesson_09),
+}
 
 
 def main() -> int:
@@ -562,12 +749,15 @@ def main() -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     doc = builder()
-    temporal = out_dir / f"lesson-{which}.score"
-    nodal = out_dir / f"lesson-{which}-nodal.score"
+    stem = "p1-solution" if which == "P1" else f"lesson-{which}"
+    temporal = out_dir / f"{stem}.score"
     temporal.write_text(json.dumps(doc, indent=1), encoding="utf8")
-    nodal.write_text(json.dumps(to_nodal(doc), indent=1), encoding="utf8")
     print(f"wrote {temporal.relative_to(ROOT)}")
-    print(f"wrote {nodal.relative_to(ROOT)}")
+    if which == "00":
+        # only Lesson 00 needs the second view; see checks/00-what-score-is.md
+        nodal = out_dir / f"{stem}-nodal.score"
+        nodal.write_text(json.dumps(to_nodal(doc), indent=1), encoding="utf8")
+        print(f"wrote {nodal.relative_to(ROOT)}")
     return 0
 
 

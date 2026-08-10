@@ -1,0 +1,901 @@
+{
+ "Document": {
+  "ObjectName": "Scenario::ScenarioDocumentModel",
+  "id": 1,
+  "BaseScenario": {
+   "ObjectName": "Scenario::BaseScenario",
+   "id": 0,
+   "Constraint": {
+    "ObjectName": "Scenario::IntervalModel",
+    "id": 0,
+    "Metadata": {
+     "ScriptingName": "lesson-09",
+     "Comment": "",
+     "Color": "Transparent1",
+     "Label": "",
+     "Touched": true
+    },
+    "Inlet": {
+     "uuid": "a1574bb0-cbd4-4c7d-9417-0c25cfd1187b",
+     "ObjectName": "Inlet",
+     "id": 0,
+     "Hidden": false,
+     "Custom": "Audio in",
+     "Exposed": "audio in"
+    },
+    "Outlet": {
+     "uuid": "a1d97535-18ac-444a-8417-0cbc1692d897",
+     "ObjectName": "Outlet",
+     "id": 0,
+     "Hidden": false,
+     "Custom": "Audio out",
+     "Exposed": "audio out",
+     "GainInlet": {
+      "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+      "ObjectName": "Inlet",
+      "id": 10000,
+      "Hidden": false,
+      "Custom": "Gain",
+      "Exposed": "gain",
+      "Value": {},
+      "Init": {},
+      "Domain": {
+       "Float": {
+        "Min": 0.0,
+        "Max": 1.0
+       }
+      }
+     },
+     "PanInlet": {
+      "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+      "ObjectName": "Inlet",
+      "id": 10001,
+      "Hidden": false,
+      "Custom": "Pan",
+      "Exposed": "pan",
+      "Value": {},
+      "Init": {},
+      "Domain": {}
+     },
+     "Gain": 1.0,
+     "Pan": [
+      1.0,
+      1.0
+     ],
+     "Propagate": true
+    },
+    "Processes": [
+     {
+      "uuid": "de035912-5b03-49a8-bc4d-b2cba68e21d9",
+      "ObjectName": "Scenario",
+      "id": 1,
+      "Metadata": {
+       "ScriptingName": "Scenario.1",
+       "Comment": "",
+       "Color": "Transparent1",
+       "Label": "",
+       "Touched": true
+      },
+      "Duration": 8467200000,
+      "Height": 600.0,
+      "StartOffset": 0,
+      "LoopDuration": 8467200000,
+      "Pos": [
+       40.0,
+       40.0
+      ],
+      "Size": [
+       200.0,
+       100.0
+      ],
+      "Loops": false,
+      "Inlet": {
+       "uuid": "a1574bb0-cbd4-4c7d-9417-0c25cfd1187b",
+       "ObjectName": "Inlet",
+       "id": 0,
+       "Hidden": false,
+       "Custom": "Audio in",
+       "Exposed": "audio in"
+      },
+      "Outlet": {
+       "uuid": "a1d97535-18ac-444a-8417-0cbc1692d897",
+       "ObjectName": "Outlet",
+       "id": 0,
+       "Hidden": false,
+       "Custom": "Audio out",
+       "Exposed": "audio out",
+       "GainInlet": {
+        "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+        "ObjectName": "Inlet",
+        "id": 10000,
+        "Hidden": false,
+        "Custom": "Gain",
+        "Exposed": "gain",
+        "Value": {},
+        "Init": {},
+        "Domain": {
+         "Float": {
+          "Min": 0.0,
+          "Max": 1.0
+         }
+        }
+       },
+       "PanInlet": {
+        "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+        "ObjectName": "Inlet",
+        "id": 10001,
+        "Hidden": false,
+        "Custom": "Pan",
+        "Exposed": "pan",
+        "Value": {},
+        "Init": {},
+        "Domain": {}
+       },
+       "Gain": 1.0,
+       "Pan": [
+        1.0,
+        1.0
+       ],
+       "Propagate": true
+      },
+      "StartTimeNodeId": 0,
+      "StartEventId": 0,
+      "StartStateId": 0,
+      "Exclusive": false,
+      "TimeNodes": [
+       {
+        "ObjectName": "Scenario::TimeSyncModel",
+        "id": 0,
+        "Metadata": {
+         "ScriptingName": "Sync.0",
+         "Comment": "",
+         "Color": "Gray",
+         "Label": "",
+         "Touched": true
+        },
+        "Date": 0,
+        "Events": [
+         0
+        ],
+        "MusicalSync": -1.0,
+        "AutoTrigger": false,
+        "Start": true,
+        "Active": false,
+        "Expression": " { true == false } "
+       },
+       {
+        "ObjectName": "Scenario::TimeSyncModel",
+        "id": 1,
+        "Metadata": {
+         "ScriptingName": "Sync.1",
+         "Comment": "",
+         "Color": "Gray",
+         "Label": "",
+         "Touched": true
+        },
+        "Date": 4233600000,
+        "Events": [
+         1
+        ],
+        "MusicalSync": -1.0,
+        "AutoTrigger": false,
+        "Start": false,
+        "Active": false,
+        "Expression": " { true == false } "
+       },
+       {
+        "ObjectName": "Scenario::TimeSyncModel",
+        "id": 2,
+        "Metadata": {
+         "ScriptingName": "Sync.2",
+         "Comment": "",
+         "Color": "Gray",
+         "Label": "",
+         "Touched": true
+        },
+        "Date": 8467200000,
+        "Events": [
+         2
+        ],
+        "MusicalSync": -1.0,
+        "AutoTrigger": false,
+        "Start": false,
+        "Active": false,
+        "Expression": " { true == false } "
+       }
+      ],
+      "Events": [
+       {
+        "ObjectName": "Scenario::EventModel",
+        "id": 0,
+        "Metadata": {
+         "ScriptingName": "Event.0",
+         "Comment": "",
+         "Color": "Emphasis4",
+         "Label": "",
+         "Touched": true
+        },
+        "TimeNode": 0,
+        "States": [
+         0
+        ],
+        "Condition": "",
+        "Date": 0,
+        "Offset": 0
+       },
+       {
+        "ObjectName": "Scenario::EventModel",
+        "id": 1,
+        "Metadata": {
+         "ScriptingName": "Event.1",
+         "Comment": "",
+         "Color": "Emphasis4",
+         "Label": "",
+         "Touched": true
+        },
+        "TimeNode": 1,
+        "States": [
+         1
+        ],
+        "Condition": "",
+        "Date": 4233600000,
+        "Offset": 0
+       },
+       {
+        "ObjectName": "Scenario::EventModel",
+        "id": 2,
+        "Metadata": {
+         "ScriptingName": "Event.2",
+         "Comment": "",
+         "Color": "Emphasis4",
+         "Label": "",
+         "Touched": true
+        },
+        "TimeNode": 2,
+        "States": [
+         2
+        ],
+        "Condition": "",
+        "Date": 8467200000,
+        "Offset": 0
+       }
+      ],
+      "States": [
+       {
+        "ObjectName": "Scenario::StateModel",
+        "id": 0,
+        "Metadata": {
+         "ScriptingName": "State.0",
+         "Comment": "",
+         "Color": "Base1",
+         "Label": "",
+         "Touched": true
+        },
+        "Event": 0,
+        "PreviousConstraint": null,
+        "NextConstraint": 0,
+        "HeightPercentage": 0.3,
+        "Messages": {
+         "Name": "",
+         "Accessors": [],
+         "Unit": "none",
+         "Previous": [],
+         "Following": [],
+         "User": null,
+         "Priorities": [
+          1,
+          2,
+          0
+         ],
+         "Children": [
+          {
+           "Name": "lesson",
+           "Accessors": [],
+           "Unit": "none",
+           "Previous": [],
+           "Following": [],
+           "User": null,
+           "Priorities": [
+            1,
+            2,
+            0
+           ],
+           "Children": [
+            {
+             "Name": "level",
+             "Accessors": [],
+             "Unit": "none",
+             "Previous": [],
+             "Following": [],
+             "User": {
+              "Float": 0.0
+             },
+             "Priorities": [
+              1,
+              2,
+              0
+             ]
+            }
+           ]
+          }
+         ]
+        },
+        "Controls": [],
+        "StateProcesses": []
+       },
+       {
+        "ObjectName": "Scenario::StateModel",
+        "id": 1,
+        "Metadata": {
+         "ScriptingName": "State.1",
+         "Comment": "",
+         "Color": "Base1",
+         "Label": "",
+         "Touched": true
+        },
+        "Event": 1,
+        "PreviousConstraint": 0,
+        "NextConstraint": 1,
+        "HeightPercentage": 0.3,
+        "Messages": {
+         "Name": "",
+         "Accessors": [],
+         "Unit": "none",
+         "Previous": [],
+         "Following": [],
+         "User": null,
+         "Priorities": [
+          1,
+          2,
+          0
+         ],
+         "Children": [
+          {
+           "Name": "lesson",
+           "Accessors": [],
+           "Unit": "none",
+           "Previous": [],
+           "Following": [],
+           "User": null,
+           "Priorities": [
+            1,
+            2,
+            0
+           ],
+           "Children": [
+            {
+             "Name": "level",
+             "Accessors": [],
+             "Unit": "none",
+             "Previous": [],
+             "Following": [],
+             "User": {
+              "Float": 0.7
+             },
+             "Priorities": [
+              1,
+              2,
+              0
+             ]
+            }
+           ]
+          }
+         ]
+        },
+        "Controls": [],
+        "StateProcesses": []
+       },
+       {
+        "ObjectName": "Scenario::StateModel",
+        "id": 2,
+        "Metadata": {
+         "ScriptingName": "State.2",
+         "Comment": "",
+         "Color": "Base1",
+         "Label": "",
+         "Touched": true
+        },
+        "Event": 2,
+        "PreviousConstraint": 1,
+        "NextConstraint": null,
+        "HeightPercentage": 0.3,
+        "Messages": {
+         "Name": "",
+         "Accessors": [],
+         "Unit": "none",
+         "Previous": [],
+         "Following": [],
+         "User": null,
+         "Priorities": [
+          1,
+          2,
+          0
+         ],
+         "Children": [
+          {
+           "Name": "lesson",
+           "Accessors": [],
+           "Unit": "none",
+           "Previous": [],
+           "Following": [],
+           "User": null,
+           "Priorities": [
+            1,
+            2,
+            0
+           ],
+           "Children": [
+            {
+             "Name": "level",
+             "Accessors": [],
+             "Unit": "none",
+             "Previous": [],
+             "Following": [],
+             "User": {
+              "Float": 0.25
+             },
+             "Priorities": [
+              1,
+              2,
+              0
+             ]
+            }
+           ]
+          }
+         ]
+        },
+        "Controls": [],
+        "StateProcesses": []
+       }
+      ],
+      "Constraints": [
+       {
+        "ObjectName": "Scenario::IntervalModel",
+        "id": 0,
+        "Metadata": {
+         "ScriptingName": "Wait",
+         "Comment": "",
+         "Color": "Transparent1",
+         "Label": "",
+         "Touched": true
+        },
+        "Inlet": {
+         "uuid": "a1574bb0-cbd4-4c7d-9417-0c25cfd1187b",
+         "ObjectName": "Inlet",
+         "id": 0,
+         "Hidden": false,
+         "Custom": "Audio in",
+         "Exposed": "audio in"
+        },
+        "Outlet": {
+         "uuid": "a1d97535-18ac-444a-8417-0cbc1692d897",
+         "ObjectName": "Outlet",
+         "id": 0,
+         "Hidden": false,
+         "Custom": "Audio out",
+         "Exposed": "audio out",
+         "GainInlet": {
+          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+          "ObjectName": "Inlet",
+          "id": 10000,
+          "Hidden": false,
+          "Custom": "Gain",
+          "Exposed": "gain",
+          "Value": {},
+          "Init": {},
+          "Domain": {
+           "Float": {
+            "Min": 0.0,
+            "Max": 1.0
+           }
+          }
+         },
+         "PanInlet": {
+          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+          "ObjectName": "Inlet",
+          "id": 10001,
+          "Hidden": false,
+          "Custom": "Pan",
+          "Exposed": "pan",
+          "Value": {},
+          "Init": {},
+          "Domain": {}
+         },
+         "Gain": 1.0,
+         "Pan": [
+          1.0,
+          1.0
+         ],
+         "Propagate": true
+        },
+        "Processes": [],
+        "SmallViewRack": [],
+        "FullViewRack": [],
+        "DefaultDuration": 4233600000,
+        "MinDuration": 4233600000,
+        "MaxDuration": 4233600000,
+        "GuiDuration": 4318272000,
+        "Speed": 1.0,
+        "Rigidity": true,
+        "MinNull": false,
+        "MaxInf": false,
+        "Signatures": [],
+        "StartState": 0,
+        "EndState": 1,
+        "StartDate": 0,
+        "HeightPercentage": 0.3,
+        "NodalSlotHeight": 140.0,
+        "QuantizationRate": -1.0,
+        "Zoom": -1.0,
+        "Center": 0,
+        "ViewMode": 0,
+        "SmallViewShown": true,
+        "HasSignature": false
+       },
+       {
+        "ObjectName": "Scenario::IntervalModel",
+        "id": 1,
+        "Metadata": {
+         "ScriptingName": "Wait",
+         "Comment": "",
+         "Color": "Transparent1",
+         "Label": "",
+         "Touched": true
+        },
+        "Inlet": {
+         "uuid": "a1574bb0-cbd4-4c7d-9417-0c25cfd1187b",
+         "ObjectName": "Inlet",
+         "id": 0,
+         "Hidden": false,
+         "Custom": "Audio in",
+         "Exposed": "audio in"
+        },
+        "Outlet": {
+         "uuid": "a1d97535-18ac-444a-8417-0cbc1692d897",
+         "ObjectName": "Outlet",
+         "id": 0,
+         "Hidden": false,
+         "Custom": "Audio out",
+         "Exposed": "audio out",
+         "GainInlet": {
+          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+          "ObjectName": "Inlet",
+          "id": 10000,
+          "Hidden": false,
+          "Custom": "Gain",
+          "Exposed": "gain",
+          "Value": {},
+          "Init": {},
+          "Domain": {
+           "Float": {
+            "Min": 0.0,
+            "Max": 1.0
+           }
+          }
+         },
+         "PanInlet": {
+          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
+          "ObjectName": "Inlet",
+          "id": 10001,
+          "Hidden": false,
+          "Custom": "Pan",
+          "Exposed": "pan",
+          "Value": {},
+          "Init": {},
+          "Domain": {}
+         },
+         "Gain": 1.0,
+         "Pan": [
+          1.0,
+          1.0
+         ],
+         "Propagate": true
+        },
+        "Processes": [],
+        "SmallViewRack": [],
+        "FullViewRack": [],
+        "DefaultDuration": 4233600000,
+        "MinDuration": 4233600000,
+        "MaxDuration": 4233600000,
+        "GuiDuration": 4318272000,
+        "Speed": 1.0,
+        "Rigidity": true,
+        "MinNull": false,
+        "MaxInf": false,
+        "Signatures": [],
+        "StartState": 1,
+        "EndState": 2,
+        "StartDate": 4233600000,
+        "HeightPercentage": 0.3,
+        "NodalSlotHeight": 140.0,
+        "QuantizationRate": -1.0,
+        "Zoom": -1.0,
+        "Center": 0,
+        "ViewMode": 0,
+        "SmallViewShown": true,
+        "HasSignature": false
+       }
+      ],
+      "Comments": []
+     }
+    ],
+    "SmallViewRack": [
+     {
+      "Processes": [
+       1
+      ],
+      "Process": 1,
+      "Height": 140.0,
+      "Nodal": false
+     }
+    ],
+    "FullViewRack": [
+     {
+      "Process": 1,
+      "Nodal": false
+     }
+    ],
+    "DefaultDuration": 8467200000,
+    "MinDuration": 8467200000,
+    "MaxDuration": 8467200000,
+    "GuiDuration": 8636544000,
+    "Speed": 1.0,
+    "Rigidity": false,
+    "MinNull": false,
+    "MaxInf": false,
+    "Signatures": [],
+    "StartState": 0,
+    "EndState": 1,
+    "StartDate": 0,
+    "HeightPercentage": 0.5,
+    "NodalSlotHeight": 140.0,
+    "QuantizationRate": -1.0,
+    "Zoom": 8912842.105263159,
+    "Center": 4233600000,
+    "ViewMode": 0,
+    "SmallViewShown": true,
+    "HasSignature": false
+   },
+   "StartTimeNode": {
+    "ObjectName": "Scenario::TimeSyncModel",
+    "id": 0,
+    "Metadata": {
+     "ScriptingName": "Sync.0",
+     "Comment": "",
+     "Color": "Gray",
+     "Label": "",
+     "Touched": true
+    },
+    "Date": 0,
+    "Events": [
+     0
+    ],
+    "MusicalSync": -1.0,
+    "AutoTrigger": false,
+    "Start": true,
+    "Active": false,
+    "Expression": " { true == false } "
+   },
+   "EndTimeNode": {
+    "ObjectName": "Scenario::TimeSyncModel",
+    "id": 1,
+    "Metadata": {
+     "ScriptingName": "Sync.1",
+     "Comment": "",
+     "Color": "Gray",
+     "Label": "",
+     "Touched": true
+    },
+    "Date": 8467200000,
+    "Events": [
+     1
+    ],
+    "MusicalSync": -1.0,
+    "AutoTrigger": false,
+    "Start": false,
+    "Active": false,
+    "Expression": " { true == false } "
+   },
+   "StartEvent": {
+    "ObjectName": "Scenario::EventModel",
+    "id": 0,
+    "Metadata": {
+     "ScriptingName": "Event.0",
+     "Comment": "",
+     "Color": "Emphasis4",
+     "Label": "",
+     "Touched": true
+    },
+    "TimeNode": 0,
+    "States": [
+     0
+    ],
+    "Condition": "",
+    "Date": 0,
+    "Offset": 0
+   },
+   "EndEvent": {
+    "ObjectName": "Scenario::EventModel",
+    "id": 1,
+    "Metadata": {
+     "ScriptingName": "Event.1",
+     "Comment": "",
+     "Color": "Emphasis4",
+     "Label": "",
+     "Touched": true
+    },
+    "TimeNode": 1,
+    "States": [
+     1
+    ],
+    "Condition": "",
+    "Date": 8467200000,
+    "Offset": 0
+   },
+   "StartState": {
+    "ObjectName": "Scenario::StateModel",
+    "id": 0,
+    "Metadata": {
+     "ScriptingName": "State.0",
+     "Comment": "",
+     "Color": "Base1",
+     "Label": "",
+     "Touched": true
+    },
+    "Event": 0,
+    "PreviousConstraint": null,
+    "NextConstraint": 0,
+    "HeightPercentage": 0.5,
+    "Messages": {
+     "Name": "",
+     "Accessors": [],
+     "Unit": "none",
+     "Previous": [],
+     "Following": [],
+     "User": null,
+     "Priorities": [
+      1,
+      2,
+      0
+     ],
+     "Children": []
+    },
+    "Controls": [],
+    "StateProcesses": []
+   },
+   "EndState": {
+    "ObjectName": "Scenario::StateModel",
+    "id": 1,
+    "Metadata": {
+     "ScriptingName": "State.1",
+     "Comment": "",
+     "Color": "Base1",
+     "Label": "",
+     "Touched": true
+    },
+    "Event": 1,
+    "PreviousConstraint": 0,
+    "NextConstraint": null,
+    "HeightPercentage": 0.5,
+    "Messages": {
+     "Name": "",
+     "Accessors": [],
+     "Unit": "none",
+     "Previous": [],
+     "Following": [],
+     "User": null,
+     "Priorities": [
+      1,
+      2,
+      0
+     ],
+     "Children": []
+    },
+    "Controls": [],
+    "StateProcesses": []
+   }
+  },
+  "Speed": 1.0,
+  "Cables": [],
+  "BusIntervals": []
+ },
+ "Plugins": [
+  {
+   "uuid": "1f923578-08c3-49be-9ba9-69c144ee2e32",
+   "Refresh": false,
+   "Reconnect": false,
+   "MidiRatio": 1.0
+  },
+  {
+   "uuid": "6e610e1f-9de2-4c36-90dd-0ef570002a21",
+   "RootNode": {},
+   "Children": [
+    {
+     "Device": {
+      "Name": "lesson",
+      "Protocol": "9a42de4b-f6eb-4bca-9564-01b975f601b9",
+      "Config": {
+       "Mode": 1,
+       "Version": 0,
+       "Framing": 1,
+       "Bundle": 0,
+       "Transport": {
+        "UDP": {
+         "Local": {
+          "Bind": "0.0.0.0",
+          "Port": 9997
+         },
+         "Remote": {
+          "Host": "127.0.0.1",
+          "Port": 9996,
+          "Broadcast": false
+         }
+        }
+       }
+      }
+     },
+     "Children": [
+      {
+       "Address": {
+        "ioType": "<->",
+        "ClipMode": "Free",
+        "RepetitionFilter": false,
+        "Value": {
+         "Float": 0.0
+        },
+        "Domain": {
+         "Float": {
+          "Min": 0.0,
+          "Max": 1.0
+         }
+        },
+        "Name": "level"
+       }
+      },
+      {
+       "Address": {
+        "ioType": "<->",
+        "ClipMode": "Free",
+        "RepetitionFilter": false,
+        "Value": {
+         "Float": 0.0
+        },
+        "Domain": {
+         "Float": {
+          "Min": 0.0,
+          "Max": 1.0
+         }
+        },
+        "Name": "colour"
+       }
+      },
+      {
+       "Address": {
+        "ioType": "<->",
+        "ClipMode": "Free",
+        "RepetitionFilter": false,
+        "Value": {
+         "Float": 0.0
+        },
+        "Domain": {
+         "Float": {
+          "Min": 0.0,
+          "Max": 1.0
+         }
+        },
+        "Name": "shutter"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "uuid": "05e72689-e02c-4c9d-a0bf-fe84c32d3d96",
+   "Data": ""
+  }
+ ],
+ "Version": 4,
+ "Commit": "",
+ "Tag": "3.8.2"
+}

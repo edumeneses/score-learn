@@ -1,0 +1,47 @@
+{
+  "_comment": "Lesson 09: a cue list. Three states, two empty intervals. Badges match walkthrough steps 1, 3, and 5.",
+  "source": "raw/raw-09-01.png",
+  "out": "docs/learn/assets/09/09-01-cue-list.png",
+  "crop": [
+    700,
+    380,
+    3260,
+    800
+  ],
+  "font_size": 34,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        1300,
+        460
+      ],
+      "to": [
+        1300,
+        582
+      ]
+    },
+    {
+      "n": 3,
+      "at": [
+        800,
+        700
+      ],
+      "to": [
+        766,
+        596
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        2050,
+        700
+      ],
+      "to": [
+        1977,
+        596
+      ]
+    }
+  ]
+}
