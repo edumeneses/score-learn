@@ -1,0 +1,13 @@
+{
+  "_comment": "Milestone P2: one interval holding four automations, one per channel group. Badges 1-4 label the four groups.",
+  "source": "raw/raw-p2-01.png",
+  "out": "docs/learn/assets/p2/p2-01-light-wash.png",
+  "crop": [700, 440, 3240, 1700],
+  "font_size": 34,
+  "badges": [
+    {"n": 1, "at": [2600, 560], "to": [2100, 539]},
+    {"n": 2, "at": [2600, 900], "to": [2100, 877]},
+    {"n": 3, "at": [2600, 1240], "to": [2100, 1215]},
+    {"n": 4, "at": [2600, 1578], "to": [2100, 1553]}
+  ]
+}

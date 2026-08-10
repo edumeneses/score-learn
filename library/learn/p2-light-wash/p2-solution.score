@@ -9,7 +9,7 @@
     "ObjectName": "Scenario::IntervalModel",
     "id": 0,
     "Metadata": {
-     "ScriptingName": "p1-automated-cue",
+     "ScriptingName": "p2-light-wash",
      "Comment": "",
      "Color": "Transparent1",
      "Label": "",
@@ -76,10 +76,10 @@
        "Label": "",
        "Touched": true
       },
-      "Duration": 42336000000,
+      "Duration": 14112000000,
       "Height": 900.0,
       "StartOffset": 0,
-      "LoopDuration": 42336000000,
+      "LoopDuration": 14112000000,
       "Pos": [
        40.0,
        40.0
@@ -182,46 +182,6 @@
         "Start": false,
         "Active": false,
         "Expression": " { true == false } "
-       },
-       {
-        "ObjectName": "Scenario::TimeSyncModel",
-        "id": 2,
-        "Metadata": {
-         "ScriptingName": "Sync.2",
-         "Comment": "",
-         "Color": "Gray",
-         "Label": "",
-         "Touched": true
-        },
-        "Date": 28224000000,
-        "Events": [
-         2
-        ],
-        "MusicalSync": -1.0,
-        "AutoTrigger": false,
-        "Start": false,
-        "Active": false,
-        "Expression": " { true == false } "
-       },
-       {
-        "ObjectName": "Scenario::TimeSyncModel",
-        "id": 3,
-        "Metadata": {
-         "ScriptingName": "Sync.3",
-         "Comment": "",
-         "Color": "Gray",
-         "Label": "",
-         "Touched": true
-        },
-        "Date": 42336000000,
-        "Events": [
-         3
-        ],
-        "MusicalSync": -1.0,
-        "AutoTrigger": false,
-        "Start": false,
-        "Active": false,
-        "Expression": " { true == false } "
        }
       ],
       "Events": [
@@ -260,42 +220,6 @@
         "Condition": "",
         "Date": 14112000000,
         "Offset": 0
-       },
-       {
-        "ObjectName": "Scenario::EventModel",
-        "id": 2,
-        "Metadata": {
-         "ScriptingName": "Event.2",
-         "Comment": "",
-         "Color": "Emphasis4",
-         "Label": "",
-         "Touched": true
-        },
-        "TimeNode": 2,
-        "States": [
-         2
-        ],
-        "Condition": "",
-        "Date": 28224000000,
-        "Offset": 0
-       },
-       {
-        "ObjectName": "Scenario::EventModel",
-        "id": 3,
-        "Metadata": {
-         "ScriptingName": "Event.3",
-         "Comment": "",
-         "Color": "Emphasis4",
-         "Label": "",
-         "Touched": true
-        },
-        "TimeNode": 3,
-        "States": [
-         3
-        ],
-        "Condition": "",
-        "Date": 42336000000,
-        "Offset": 0
        }
       ],
       "States": [
@@ -312,7 +236,7 @@
         "Event": 0,
         "PreviousConstraint": null,
         "NextConstraint": 0,
-        "HeightPercentage": 0.22,
+        "HeightPercentage": 0.16,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -373,70 +297,8 @@
         },
         "Event": 1,
         "PreviousConstraint": 0,
-        "NextConstraint": 1,
-        "HeightPercentage": 0.22,
-        "Messages": {
-         "Name": "",
-         "Accessors": [],
-         "Unit": "none",
-         "Previous": [],
-         "Following": [],
-         "User": null,
-         "Priorities": [
-          1,
-          2,
-          0
-         ],
-         "Children": []
-        },
-        "Controls": [],
-        "StateProcesses": []
-       },
-       {
-        "ObjectName": "Scenario::StateModel",
-        "id": 2,
-        "Metadata": {
-         "ScriptingName": "State.2",
-         "Comment": "",
-         "Color": "Base1",
-         "Label": "",
-         "Touched": true
-        },
-        "Event": 2,
-        "PreviousConstraint": 1,
-        "NextConstraint": 2,
-        "HeightPercentage": 0.22,
-        "Messages": {
-         "Name": "",
-         "Accessors": [],
-         "Unit": "none",
-         "Previous": [],
-         "Following": [],
-         "User": null,
-         "Priorities": [
-          1,
-          2,
-          0
-         ],
-         "Children": []
-        },
-        "Controls": [],
-        "StateProcesses": []
-       },
-       {
-        "ObjectName": "Scenario::StateModel",
-        "id": 3,
-        "Metadata": {
-         "ScriptingName": "State.3",
-         "Comment": "",
-         "Color": "Base1",
-         "Label": "",
-         "Touched": true
-        },
-        "Event": 3,
-        "PreviousConstraint": 2,
         "NextConstraint": null,
-        "HeightPercentage": 0.22,
+        "HeightPercentage": 0.16,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -491,7 +353,7 @@
         "ObjectName": "Scenario::IntervalModel",
         "id": 0,
         "Metadata": {
-         "ScriptingName": "Rise",
+         "ScriptingName": "Wash",
          "Comment": "",
          "Color": "Transparent1",
          "Label": "",
@@ -618,116 +480,18 @@
              "Following": null,
              "Start": [
               0.0,
-              0.0
+              0.05
              ],
              "End": [
               1.0119,
-              1.0
+              0.95
              ],
-             "Power": 1.8
+             "Power": 1.7
             }
            ]
           },
           "Tween": false
-         }
-        ],
-        "SmallViewRack": [
-         {
-          "Processes": [
-           2
-          ],
-          "Process": 2,
-          "Height": 140.0,
-          "Nodal": false
-         }
-        ],
-        "FullViewRack": [
-         {
-          "Process": 2,
-          "Nodal": false
-         }
-        ],
-        "DefaultDuration": 14112000000,
-        "MinDuration": 14112000000,
-        "MaxDuration": 14112000000,
-        "GuiDuration": 14394240000,
-        "Speed": 1.0,
-        "Rigidity": true,
-        "MinNull": false,
-        "MaxInf": false,
-        "Signatures": [],
-        "StartState": 0,
-        "EndState": 1,
-        "StartDate": 0,
-        "HeightPercentage": 0.22,
-        "NodalSlotHeight": 140.0,
-        "QuantizationRate": -1.0,
-        "Zoom": -1.0,
-        "Center": 0,
-        "ViewMode": 0,
-        "SmallViewShown": true,
-        "HasSignature": false
-       },
-       {
-        "ObjectName": "Scenario::IntervalModel",
-        "id": 1,
-        "Metadata": {
-         "ScriptingName": "Hold",
-         "Comment": "",
-         "Color": "Transparent1",
-         "Label": "",
-         "Touched": true
-        },
-        "Inlet": {
-         "uuid": "a1574bb0-cbd4-4c7d-9417-0c25cfd1187b",
-         "ObjectName": "Inlet",
-         "id": 0,
-         "Hidden": false,
-         "Custom": "Audio in",
-         "Exposed": "audio in"
-        },
-        "Outlet": {
-         "uuid": "a1d97535-18ac-444a-8417-0cbc1692d897",
-         "ObjectName": "Outlet",
-         "id": 0,
-         "Hidden": false,
-         "Custom": "Audio out",
-         "Exposed": "audio out",
-         "GainInlet": {
-          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
-          "ObjectName": "Inlet",
-          "id": 10000,
-          "Hidden": false,
-          "Custom": "Gain",
-          "Exposed": "gain",
-          "Value": {},
-          "Init": {},
-          "Domain": {
-           "Float": {
-            "Min": 0.0,
-            "Max": 1.0
-           }
-          }
          },
-         "PanInlet": {
-          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
-          "ObjectName": "Inlet",
-          "id": 10001,
-          "Hidden": false,
-          "Custom": "Pan",
-          "Exposed": "pan",
-          "Value": {},
-          "Init": {},
-          "Domain": {}
-         },
-         "Gain": 1.0,
-         "Pan": [
-          1.0,
-          1.0
-         ],
-         "Propagate": true
-        },
-        "Processes": [
          {
           "uuid": "d2a67bd8-5d3f-404e-b6e9-e350cf2a833f",
           "ObjectName": "Automation",
@@ -799,13 +563,13 @@
              "Following": null,
              "Start": [
               0.0,
-              0.15
+              0.05
              ],
              "End": [
               1.0119,
-              0.9
+              0.95
              ],
-             "Power": 1.0
+             "Power": 1.7
             }
            ]
           },
@@ -814,9 +578,9 @@
          {
           "uuid": "d2a67bd8-5d3f-404e-b6e9-e350cf2a833f",
           "ObjectName": "Automation",
-          "id": 5,
+          "id": 4,
           "Metadata": {
-           "ScriptingName": "Automation (float).5",
+           "ScriptingName": "Automation (float).4",
            "Comment": "",
            "Color": "Transparent1",
            "Label": "",
@@ -872,7 +636,7 @@
           },
           "Curve": {
            "ObjectName": "CurveModel",
-           "id": 1005,
+           "id": 1004,
            "Segments": [
             {
              "uuid": "1e7cb83f-4e47-4b14-814d-2242a9c75991",
@@ -882,134 +646,24 @@
              "Following": null,
              "Start": [
               0.0,
-              0.2
+              0.05
              ],
              "End": [
               1.0119,
-              1.0
+              0.95
              ],
-             "Power": 1.0
+             "Power": 1.7
             }
            ]
           },
           "Tween": false
-         }
-        ],
-        "SmallViewRack": [
-         {
-          "Processes": [
-           3
-          ],
-          "Process": 3,
-          "Height": 140.0,
-          "Nodal": false
          },
-         {
-          "Processes": [
-           5
-          ],
-          "Process": 5,
-          "Height": 140.0,
-          "Nodal": false
-         }
-        ],
-        "FullViewRack": [
-         {
-          "Process": 3,
-          "Nodal": false
-         },
-         {
-          "Process": 5,
-          "Nodal": false
-         }
-        ],
-        "DefaultDuration": 14112000000,
-        "MinDuration": 14112000000,
-        "MaxDuration": 14112000000,
-        "GuiDuration": 14394240000,
-        "Speed": 1.0,
-        "Rigidity": true,
-        "MinNull": false,
-        "MaxInf": false,
-        "Signatures": [],
-        "StartState": 1,
-        "EndState": 2,
-        "StartDate": 14112000000,
-        "HeightPercentage": 0.22,
-        "NodalSlotHeight": 140.0,
-        "QuantizationRate": -1.0,
-        "Zoom": -1.0,
-        "Center": 0,
-        "ViewMode": 0,
-        "SmallViewShown": true,
-        "HasSignature": false
-       },
-       {
-        "ObjectName": "Scenario::IntervalModel",
-        "id": 2,
-        "Metadata": {
-         "ScriptingName": "Fall",
-         "Comment": "",
-         "Color": "Transparent1",
-         "Label": "",
-         "Touched": true
-        },
-        "Inlet": {
-         "uuid": "a1574bb0-cbd4-4c7d-9417-0c25cfd1187b",
-         "ObjectName": "Inlet",
-         "id": 0,
-         "Hidden": false,
-         "Custom": "Audio in",
-         "Exposed": "audio in"
-        },
-        "Outlet": {
-         "uuid": "a1d97535-18ac-444a-8417-0cbc1692d897",
-         "ObjectName": "Outlet",
-         "id": 0,
-         "Hidden": false,
-         "Custom": "Audio out",
-         "Exposed": "audio out",
-         "GainInlet": {
-          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
-          "ObjectName": "Inlet",
-          "id": 10000,
-          "Hidden": false,
-          "Custom": "Gain",
-          "Exposed": "gain",
-          "Value": {},
-          "Init": {},
-          "Domain": {
-           "Float": {
-            "Min": 0.0,
-            "Max": 1.0
-           }
-          }
-         },
-         "PanInlet": {
-          "uuid": "9a13fb32-269a-47bf-99a9-930188c1f19c",
-          "ObjectName": "Inlet",
-          "id": 10001,
-          "Hidden": false,
-          "Custom": "Pan",
-          "Exposed": "pan",
-          "Value": {},
-          "Init": {},
-          "Domain": {}
-         },
-         "Gain": 1.0,
-         "Pan": [
-          1.0,
-          1.0
-         ],
-         "Propagate": true
-        },
-        "Processes": [
          {
           "uuid": "d2a67bd8-5d3f-404e-b6e9-e350cf2a833f",
           "ObjectName": "Automation",
-          "id": 4,
+          "id": 5,
           "Metadata": {
-           "ScriptingName": "Automation (float).4",
+           "ScriptingName": "Automation (float).5",
            "Comment": "",
            "Color": "Transparent1",
            "Label": "",
@@ -1035,7 +689,7 @@
            "Hidden": false,
            "Custom": "Out",
            "Exposed": "out",
-           "Address": "lesson:/level",
+           "Address": "lesson:/haze",
            "MinInlet": {
             "uuid": "af2b4fc3-aecb-4c15-a5aa-1c573a239925",
             "ObjectName": "Inlet",
@@ -1065,7 +719,7 @@
           },
           "Curve": {
            "ObjectName": "CurveModel",
-           "id": 1004,
+           "id": 1005,
            "Segments": [
             {
              "uuid": "1e7cb83f-4e47-4b14-814d-2242a9c75991",
@@ -1075,13 +729,13 @@
              "Following": null,
              "Start": [
               0.0,
-              1.0
+              0.05
              ],
              "End": [
               1.0119,
-              0.0
+              0.95
              ],
-             "Power": 0.6
+             "Power": 1.7
             }
            ]
           },
@@ -1091,16 +745,52 @@
         "SmallViewRack": [
          {
           "Processes": [
+           2
+          ],
+          "Process": 2,
+          "Height": 140.0,
+          "Nodal": false
+         },
+         {
+          "Processes": [
+           3
+          ],
+          "Process": 3,
+          "Height": 140.0,
+          "Nodal": false
+         },
+         {
+          "Processes": [
            4
           ],
           "Process": 4,
+          "Height": 140.0,
+          "Nodal": false
+         },
+         {
+          "Processes": [
+           5
+          ],
+          "Process": 5,
           "Height": 140.0,
           "Nodal": false
          }
         ],
         "FullViewRack": [
          {
+          "Process": 2,
+          "Nodal": false
+         },
+         {
+          "Process": 3,
+          "Nodal": false
+         },
+         {
           "Process": 4,
+          "Nodal": false
+         },
+         {
+          "Process": 5,
           "Nodal": false
          }
         ],
@@ -1113,10 +803,10 @@
         "MinNull": false,
         "MaxInf": false,
         "Signatures": [],
-        "StartState": 2,
-        "EndState": 3,
-        "StartDate": 28224000000,
-        "HeightPercentage": 0.22,
+        "StartState": 0,
+        "EndState": 1,
+        "StartDate": 0,
+        "HeightPercentage": 0.16,
         "NodalSlotHeight": 140.0,
         "QuantizationRate": -1.0,
         "Zoom": -1.0,
@@ -1145,10 +835,10 @@
       "Nodal": false
      }
     ],
-    "DefaultDuration": 42336000000,
-    "MinDuration": 42336000000,
-    "MaxDuration": 42336000000,
-    "GuiDuration": 43182720000,
+    "DefaultDuration": 14112000000,
+    "MinDuration": 14112000000,
+    "MaxDuration": 14112000000,
+    "GuiDuration": 14394240000,
     "Speed": 1.0,
     "Rigidity": false,
     "MinNull": false,
@@ -1160,8 +850,8 @@
     "HeightPercentage": 0.5,
     "NodalSlotHeight": 140.0,
     "QuantizationRate": -1.0,
-    "Zoom": 44564210.526315786,
-    "Center": 21168000000,
+    "Zoom": 14854736.842105264,
+    "Center": 7056000000,
     "ViewMode": 0,
     "SmallViewShown": true,
     "HasSignature": false
@@ -1196,7 +886,7 @@
      "Label": "",
      "Touched": true
     },
-    "Date": 42336000000,
+    "Date": 14112000000,
     "Events": [
      1
     ],
@@ -1239,7 +929,7 @@
      1
     ],
     "Condition": "",
-    "Date": 42336000000,
+    "Date": 14112000000,
     "Offset": 0
    },
    "StartState": {

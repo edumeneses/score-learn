@@ -885,6 +885,23 @@
         },
         "Name": "shutter"
        }
+      },
+      {
+       "Address": {
+        "ioType": "<->",
+        "ClipMode": "Free",
+        "RepetitionFilter": false,
+        "Value": {
+         "Float": 0.0
+        },
+        "Domain": {
+         "Float": {
+          "Min": 0.0,
+          "Max": 1.0
+         }
+        },
+        "Name": "haze"
+       }
       }
      ]
     }

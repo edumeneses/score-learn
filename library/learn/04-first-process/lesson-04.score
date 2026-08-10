@@ -421,7 +421,7 @@
               0.0
              ],
              "End": [
-              1.0,
+              1.0119,
               1.0
              ],
              "Power": 1.4
@@ -737,6 +737,23 @@
          }
         },
         "Name": "shutter"
+       }
+      },
+      {
+       "Address": {
+        "ioType": "<->",
+        "ClipMode": "Free",
+        "RepetitionFilter": false,
+        "Value": {
+         "Float": 0.0
+        },
+        "Domain": {
+         "Float": {
+          "Min": 0.0,
+          "Max": 1.0
+         }
+        },
+        "Name": "haze"
        }
       }
      ]

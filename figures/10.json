@@ -1,0 +1,13 @@
+{
+  "_comment": "Lesson 10: four curve shapes, same endpoints and duration. Badges 1-4 label the shapes named in walkthrough step 1.",
+  "source": "raw/raw-10-01.png",
+  "out": "docs/learn/assets/10/10-01-curve-shapes.png",
+  "crop": [700, 640, 3240, 1200],
+  "font_size": 34,
+  "badges": [
+    {"n": 1, "at": [1000, 700], "to": [1060, 900]},
+    {"n": 2, "at": [1620, 700], "to": [1700, 1010]},
+    {"n": 3, "at": [2230, 700], "to": [2160, 880]},
+    {"n": 4, "at": [2840, 700], "to": [2900, 900]}
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "_comment": "Lesson 15: an instant that waits. Badges match walkthrough steps 1 (dashed/elastic duration), 2 (the marker), and 7 (the label naming what fires it).",
+  "source": "raw/raw-15-01.png",
+  "out": "docs/learn/assets/15/15-01-trigger.png",
+  "crop": [
+    700,
+    470,
+    3240,
+    1010
+  ],
+  "font_size": 34,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        2700,
+        760
+      ],
+      "to": [
+        2905,
+        604
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        2260,
+        700
+      ],
+      "to": [
+        2100,
+        578
+      ]
+    },
+    {
+      "n": 7,
+      "at": [
+        1600,
+        660
+      ],
+      "to": [
+        1800,
+        492
+      ]
+    }
+  ]
+}

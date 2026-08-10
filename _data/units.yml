@@ -105,7 +105,7 @@
   title: "Make it work 2: one fader drives a light wash"
   read: 15
   practice: 45
-  written: false
+  written: true
 - num: "10"
   module: D
   kind: lesson
@@ -113,7 +113,7 @@
   title: Automation curves in depth
   read: 12
   practice: 20
-  written: false
+  written: true
 - num: "11"
   module: D
   kind: lesson
@@ -121,7 +121,7 @@
   title: Modulation sources
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: "12"
   module: D
   kind: lesson
@@ -129,7 +129,7 @@
   title: Recording live input
   read: 12
   practice: 20
-  written: false
+  written: true
 - num: "13"
   module: E
   kind: lesson
@@ -137,7 +137,7 @@
   title: Mapping, scaling, and curves
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "14"
   module: E
   kind: lesson
@@ -145,7 +145,7 @@
   title: Choosing the right utility process
   read: 13
   practice: 15
-  written: false
+  written: true
 - num: P3
   module: E
   kind: milestone
@@ -153,7 +153,7 @@
   title: "Make it work 3: a sensor to sound and light mapping bench"
   read: 15
   practice: 60
-  written: false
+  written: true
 - num: "15"
   module: F
   kind: lesson
@@ -161,7 +161,7 @@
   title: Interactive triggers
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "16"
   module: F
   kind: lesson
@@ -169,7 +169,7 @@
   title: Conditions and branching
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: "17"
   module: F
   kind: lesson
@@ -177,7 +177,7 @@
   title: Loops and out of time
   read: 13
   practice: 25
-  written: false
+  written: true
 - num: "18"
   module: F
   kind: lesson
@@ -185,7 +185,7 @@
   title: Cues, seek, and transport control
   read: 14
   practice: 30
-  written: false
+  written: true
 - num: P4
   module: F
   kind: milestone
@@ -193,7 +193,7 @@
   title: "Make it work 4: an interactive installation with two branches"
   read: 15
   practice: 60
-  written: false
+  written: true
 - num: "19"
   module: G
   kind: lesson

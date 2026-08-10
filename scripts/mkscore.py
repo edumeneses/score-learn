@@ -107,8 +107,13 @@ def audio_outlet() -> dict:
 
 
 def automation(pid: int, address: str, duration: int, start: float, end: float,
-               name: str, power: float = 1.0) -> dict:
-    """An automation process writing a float to `address`."""
+               name: str, power: float = 1.0,
+               segments: list[tuple[float, float, float, float, float]] | None = None) -> dict:
+    """An automation process writing a float to `address`.
+
+    `segments` overrides the single default segment with a list of
+    (x0, y0, x1, y1, power) tuples, for curves that need a breakpoint.
+    """
     return {
         "uuid": AUTOMATION_UUID,
         "ObjectName": "Automation",
@@ -159,13 +164,14 @@ def automation(pid: int, address: str, duration: int, start: float, end: float,
                 {
                     "uuid": CURVE_SEGMENT_UUID,
                     "ObjectName": "CurveSegmentModel",
-                    "id": 1,
-                    "Previous": None,
-                    "Following": None,
-                    "Start": [0.0, start],
-                    "End": [1.0, end],
-                    "Power": power,
+                    "id": index + 1,
+                    "Previous": index if index else None,
+                    "Following": index + 2 if index + 1 < len(segments or [1]) else None,
+                    "Start": [seg[0], seg[1]],
+                    "End": [seg[2], seg[3]],
+                    "Power": seg[4],
                 }
+                for index, seg in enumerate(segments or [(0.0, start, 1.0119, end, power)])
             ],
         },
         "Tween": False,
@@ -348,7 +354,7 @@ def osc_device() -> dict:
                         },
                     },
                 },
-                "Children": [param("level"), param("colour"), param("shutter")],
+                "Children": [param("level"), param("colour"), param("shutter"), param("haze")],
             }
         ],
     }
@@ -731,11 +737,131 @@ def lesson_09() -> dict:
     return document(root)
 
 
+def p2_solution() -> dict:
+    """Milestone P2: one shape driving four channel groups at once.
+
+    Uses an OSC device rather than Art-Net so that the document runs for readers
+    with no receiver installed; the structure is what the milestone is about.
+    """
+    autos = [
+        automation(2 + n, f"{DEVICE}:/{name}", 20 * SEC, 0.05, 0.95,
+                   f"Automation (float).{2 + n}", 1.7)
+        for n, name in enumerate(("level", "colour", "shutter", "haze"))
+    ]
+    tn, ev, st, iv = chain([("Wash", 0, 20, autos, 0.16)],
+                           messages={0: message("level", 0.0),
+                                     1: message("level", 0.0)})
+    root = interval(0, "p2-light-wash", 0, 1, 0, 20 * SEC,
+                    [scenario(1, 20 * SEC, tn, ev, st, iv)],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
+def lesson_10() -> dict:
+    """Four curve shapes, same start, same end, same duration."""
+    shapes = [
+        ("Linear", automation(2, f"{DEVICE}:/level", 3 * SEC, 0.05, 0.95,
+                              "Automation (float).2", 1.0)),
+        ("Accelerating", automation(3, f"{DEVICE}:/level", 3 * SEC, 0.05, 0.95,
+                                    "Automation (float).3", 3.0)),
+        ("Decelerating", automation(4, f"{DEVICE}:/level", 3 * SEC, 0.05, 0.95,
+                                    "Automation (float).4", 0.33)),
+        ("Hold", automation(5, f"{DEVICE}:/level", 3 * SEC, 0.0, 0.0,
+                            "Automation (float).5", 1.0,
+                            segments=[(0.0, 0.0, 0.35, 0.6, 0.6),
+                                      (0.35, 0.6, 0.65, 0.6, 1.0),
+                                      (0.65, 0.6, 1.0, 1.0, 2.4)])),
+    ]
+    # all four at the same height, so they chain in one row and the shapes can be
+    # compared directly; staircasing them makes the curves too small to read
+    spans = [(name, i * 3, 3, [auto], 0.30)
+             for i, (name, auto) in enumerate(shapes)]
+    tn, ev, st, iv = chain(spans)
+    root = interval(0, "lesson-10", 0, 1, 0, 12 * SEC,
+                    [scenario(1, 12 * SEC, tn, ev, st, iv)],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
+def lesson_15() -> dict:
+    """An interval that waits: elastic duration, then a trigger."""
+    approach = automation(2, f"{DEVICE}:/level", 5 * SEC, 0.0, 1.0,
+                          "Automation (float).2", 1.5)
+    after = automation(3, f"{DEVICE}:/colour", 4 * SEC, 0.9, 0.1,
+                       "Automation (float).3")
+
+    scen = scenario(
+        1, 9 * SEC,
+        [timesync(0, 0, [0], start=True),
+         timesync(1, 5 * SEC, [1], active=True, label="waits for /lesson/go"),
+         timesync(2, 9 * SEC, [2])],
+        [event(0, 0, [0], 0), event(1, 1, [1], 5 * SEC), event(2, 2, [2], 9 * SEC)],
+        [state(0, 0, 0.22, nxt=0, messages=message("level", 0.0)),
+         state(1, 1, 0.22, prev=0, nxt=1),
+         state(2, 2, 0.22, prev=1)],
+        # the first interval is elastic, which is what score draws dashed
+        [interval(0, "Approach", 0, 1, 0, 5 * SEC, [approach], height=0.22,
+                  rigid=False, max_duration=8 * SEC),
+         interval(1, "After", 1, 2, 5 * SEC, 4 * SEC, [after], height=0.22)],
+    )
+    root = interval(0, "lesson-15", 0, 1, 0, 9 * SEC, [scen],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
+def lesson_16() -> dict:
+    """One instant, two conditional branches, and a layer that always runs."""
+    intro = automation(2, f"{DEVICE}:/level", 4 * SEC, 0.0, 1.0,
+                       "Automation (float).2", 1.6)
+    high = automation(3, f"{DEVICE}:/colour", 6 * SEC, 0.9, 0.2,
+                      "Automation (float).3")
+    low = automation(4, f"{DEVICE}:/colour", 6 * SEC, 0.2, 0.05,
+                     "Automation (float).4")
+    layer = automation(5, f"{DEVICE}:/haze", 6 * SEC, 0.1, 0.5,
+                       "Automation (float).5")
+
+    scen = scenario(
+        1, 10 * SEC,
+        [timesync(0, 0, [0], start=True),
+         timesync(1, 4 * SEC, [1, 2, 3, 4]),
+         timesync(2, 10 * SEC, [5]),
+         timesync(3, 10 * SEC, [6]),
+         timesync(4, 10 * SEC, [7])],
+        [event(0, 0, [0], 0),
+         event(1, 1, [1], 4 * SEC),
+         event(2, 1, [2], 4 * SEC, condition=f" {{ {DEVICE}:/level >= 0.5 }} "),
+         event(3, 1, [3], 4 * SEC, condition=f" {{ {DEVICE}:/level < 0.5 }} "),
+         event(4, 1, [4], 4 * SEC),
+         event(5, 2, [5], 10 * SEC),
+         event(6, 3, [6], 10 * SEC),
+         event(7, 4, [7], 10 * SEC)],
+        [state(0, 0, 0.14, nxt=0, messages=message("level", 0.0)),
+         state(1, 1, 0.14, prev=0),
+         state(2, 2, 0.30, nxt=1, messages=message("colour", 0.9)),
+         state(3, 3, 0.52, nxt=2, messages=message("colour", 0.2)),
+         state(4, 4, 0.74, nxt=3),
+         state(5, 5, 0.30, prev=1),
+         state(6, 6, 0.52, prev=2),
+         state(7, 7, 0.74, prev=3)],
+        [interval(0, "Approach", 0, 1, 0, 4 * SEC, [intro], height=0.14),
+         interval(1, "High", 2, 5, 4 * SEC, 6 * SEC, [high], height=0.30),
+         interval(2, "Low", 3, 6, 4 * SEC, 6 * SEC, [low], height=0.52),
+         interval(3, "Layer (always)", 4, 7, 4 * SEC, 6 * SEC, [layer], height=0.74)],
+    )
+    root = interval(0, "lesson-16", 0, 1, 0, 10 * SEC, [scen],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
 BUILDERS = {
     "00": ("00-what-score-is", lesson_00),
     "04": ("04-first-process", lesson_04),
     "P1": ("p1-automated-cue", p1_solution),
     "09": ("09-states-snapshots-presets", lesson_09),
+    "P2": ("p2-light-wash", p2_solution),
+    "10": ("10-automation-curves", lesson_10),
+    "15": ("15-triggers", lesson_15),
+    "16": ("16-conditions-and-branching", lesson_16),
 }
 
 
@@ -749,7 +875,7 @@ def main() -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     doc = builder()
-    stem = "p1-solution" if which == "P1" else f"lesson-{which}"
+    stem = {"P1": "p1-solution", "P2": "p2-solution"}.get(which, f"lesson-{which}")
     temporal = out_dir / f"{stem}.score"
     temporal.write_text(json.dumps(doc, indent=1), encoding="utf8")
     print(f"wrote {temporal.relative_to(ROOT)}")
