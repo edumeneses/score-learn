@@ -6,9 +6,9 @@ Authored by Eduardo Meneses (Société des Arts Technologiques, Montréal). Cont
 
 ## Status
 
-**All 47 units written**, 2026-08-10. Eleven figures done; the remaining 36 need an
-unlocked session, media, or hardware, and are listed unit by unit in
-[checks/FIGURES-PENDING.md](checks/FIGURES-PENDING.md) with what each one needs. **Where the course will eventually be published is deliberately undecided.** It is authored here so that the pedagogy can be written and revised without negotiating an upstream merge first; placement is settled with Jean-Michaël Celerier once Phase 1 exists and can be judged on its content.
+**All 47 units written**, 2026-08-10: 635 minutes of reading, 1340 minutes of practice. Eleven figures are done; the remaining 36 need an unlocked session, media, or hardware, and are listed unit by unit in [checks/FIGURES-PENDING.md](checks/FIGURES-PENDING.md) with what each one needs.
+
+**Where the course will eventually be published is deliberately undecided.** It is authored here so that the pedagogy can be written and revised without negotiating an upstream merge first; placement is settled with Jean-Michaël Celerier now that the whole course exists and can be judged on its content.
 
 Readable while it is written, at <https://www.edumeneses.com/score-learn/>. That is a review deployment, not the eventual home: it exists so the content can be judged in its real form rather than as Markdown in a diff. Every push to `main` runs the structural checks and, if they pass, redeploys.
 
