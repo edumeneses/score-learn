@@ -1,0 +1,36 @@
+{
+  "_comment": "Lesson 30: an Expression Value Filter inserted between Lesson 04's automation and the device parameter it used to drive, with the formula typed into the process and the resulting value visible in the device explorer. Badges match walkthrough steps 1 (the object inserted between a source and a destination) and 2 (the formula itself).",
+  "source": "raw/raw-30-01.png",
+  "out": "docs/learn/assets/30/30-01-expression-object.png",
+  "crop": [
+    0,
+    240,
+    3840,
+    1400
+  ],
+  "font_size": 30,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        1150,
+        1130
+      ],
+      "to": [
+        1425,
+        1100
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        2400,
+        1231
+      ],
+      "to": [
+        2045,
+        1231
+      ]
+    }
+  ]
+}

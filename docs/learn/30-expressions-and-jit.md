@@ -44,11 +44,17 @@ The lesson also introduces the idea of compiled code inside a document, which so
 
 ## Walkthrough: three computations
 
+![An expression object inserted between Lesson 04's automation and the parameter it drove, the formula written on the process, and the resulting value showing in the device explorer]({{ site.img }}/30/30-01-expression-object.png)
+
+The figure is Lesson 04's document with one object inserted. The automation no longer writes to `lesson:/level`; it writes into an `Expression Value Filter`, which applies `sqrt(x) * 0.8 + 0.1` and writes the result to the parameter instead. The device explorer on the left shows that result, `0.893403`, where the fade ends. That is the lesson in one screen: the relationship is written rather than drawn, and the object sits in the signal path exactly where a mapping curve would sit.
+
+Note that the formula lives on the process itself, in a field you type into, rather than in a separate editor window. Only the heavier scripting routes, the JavaScript of Lesson 29 and the C++ below, open a window of their own.
+
 {: .note }
-> A figure for this lesson is pending: it needs the script editor with an expression and its result, which requires interaction. See `checks/30-expressions-and-jit.md`.
+> **Where these objects are, and what a formula can refer to.** Filtering the process library for `expression` in 3.8.2 returns four: `Expression Value Filter` under `Control > Mappings` and `Expression Value Generator` under `Control > Generators`, plus `Expression Audio Filter` and `Expression Audio Generator` under `Audio > Utilities`. A filter takes an input; a generator does not. `Micromap` is beside the first, under `Control > Mappings`. The variables a formula can use are `a`, `b`, and `c`, which are the three parameters carried on the object itself and therefore automatable, `t` in samples, `dt` for the delta, `pos` for the position in the parent interval, and `x` for the incoming value. The engine underneath is ExprTK.
 
 1. **Start with the smallest.** Insert a micromap between a sensor value and a destination and set a multiplier and an offset. This is the conditioning stage of Lesson 13 in one object.
-2. **Write a real formula.** Replace it with a full expression object and write a relationship that is not a straight line, a square root or a squared curve, and compare the feel with the mapping curve you drew in Lesson 13.
+2. **Write a real formula.** Replace it with a full expression object and write a relationship that is not a straight line, a square root or a squared curve, and compare the feel with the mapping curve you drew in Lesson 13. Dropping the object onto a selected process cables it in and takes over the destination address, as in the figure.
 3. **Note which is more readable.** For a collaborator, a drawn curve is often clearer; for you, a formula is exact and reproducible. Both are defensible, and it is worth having an opinion.
 4. **Generate an array.** Use an array generator to produce eight positions on a circle, and view them with a point view. You now have a parametric layout, which is the Lesson 22 recommendation implemented.
 5. **Automate the parameter.** Automate the count or the radius so the layout changes over the piece, which no hand-placed set of points can do.
