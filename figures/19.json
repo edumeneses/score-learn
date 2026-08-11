@@ -1,0 +1,13 @@
+{
+  "_comment": "Lesson 19: the audio preferences beside the inspector of a sound file's audio outlet. Badges match walkthrough steps 1 (the backend), 2 (the buffer size), 3 (the output device, with the channel count reported under it), and 8 (the propagate toggle on the outlet).",
+  "source": "raw/raw-19-01.png",
+  "out": "docs/learn/assets/19/19-01-audio-preferences.png",
+  "crop": [760, 380, 3840, 1650],
+  "font_size": 30,
+  "badges": [
+    {"n": 1, "at": [3110, 709]},
+    {"n": 2, "at": [3110, 809]},
+    {"n": 3, "at": [3110, 919]},
+    {"n": 8, "at": [3300, 994], "to": [3404, 994]}
+  ]
+}

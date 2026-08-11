@@ -111,12 +111,32 @@ def window_list(d: display.Display) -> list[tuple[int, str, tuple[int, int, int,
     return out
 
 
+def _is_frame(d: display.Display, win_id: int) -> bool:
+    """True if this is a window-manager frame rather than an application window.
+
+    A reparenting window manager wraps the main window in a frame that carries
+    the same name and the same geometry, so a match by name finds two identical
+    candidates. Capturing the frame's drawable returns the application's content
+    only sometimes, which made figure captures come back missing a dialog for no
+    visible reason; preferring the application's own window makes them
+    deterministic.
+    """
+    try:
+        cls = d.create_resource_object("window", win_id).get_wm_class()
+    except Exception:
+        return False
+    return bool(cls) and "mutter" in cls[0].lower()
+
+
 def find_window(d: display.Display, match: str):
-    """Largest viewable window whose name contains `match`, case-insensitively."""
+    """Largest viewable window whose name contains `match`, case-insensitively.
+
+    Frames lose to the window they wrap, at equal size, per `_is_frame`.
+    """
     hits = [w for w in window_list(d) if match.lower() in w[1].lower()]
     if not hits:
         return None
-    hits.sort(key=lambda w: w[2][2] * w[2][3], reverse=True)
+    hits.sort(key=lambda w: (_is_frame(d, w[0]), -(w[2][2] * w[2][3])))
     win_id, name, geo = hits[0]
     return d.create_resource_object("window", win_id), name, geo
 

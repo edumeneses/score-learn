@@ -44,12 +44,16 @@ The setup half of the lesson matters for a duller reason. Most reports of "*scor
 
 ## Walkthrough: configure, then predict
 
-{: .note }
-> A figure for this lesson is pending: it needs the audio preferences dialog and an audio outlet's inspector, both of which require interaction. See `checks/19-audio-setup.md`.
+![The Audio page of score's settings, showing the driver, buffer size, output device, and reported channel count, beside the inspector of a sound file's audio outlet with its propagate toggle]({{ site.img }}/19/19-01-audio-preferences.png)
 
-1. **Open the audio preferences** and choose your backend. On Linux, select JACK or PipeWire if available.
-2. **Set the buffer size** somewhere comfortable, and write the number down.
-3. **Confirm the output device** and the channel count. If you have a multichannel interface, note how many channels are actually available; Lesson 22 uses them.
+Both halves of the lesson are in that one image. On the left is the `Audio` page, with a backend chosen, a buffer size, an output device, and the channel count the driver reports underneath: 64 in and 64 out, which is what "channel count is not two" looks like in practice. On the right is the inspector for a sound file, whose `Outputs` section carries the `Propagate` toggle that step 8 turns back on.
+
+{: .note }
+> **The buffer size is not always yours to set.** Under `ALSA (PortAudio)`, captured above, the buffer size and the rate are fields. Under `PipeWire` they are not: *score* replaces them with a line telling you to set an environment variable before it starts, `export PIPEWIRE_QUANTUM=256/48000`. Choosing PipeWire therefore makes the buffer size a property of how you launch the application rather than a preference you can change while it runs, which is worth knowing before you write the number into a technical rider.
+
+1. **Open the audio preferences.** They are the `Audio` page of the dialog that `Settings` opens from the menu bar. Six backends are listed here: a dummy one that makes no sound, JACK, three ALSA routes, and PipeWire.
+2. **Set the buffer size** somewhere comfortable, and write the number down. Under PipeWire, set `PIPEWIRE_QUANTUM` before launching instead, per the note above.
+3. **Confirm the output device** and the channel count. The counts *score* reports sit directly under the device, and `Rescan` refreshes them. If you have a multichannel interface, note how many channels are actually available; Lesson 22 uses them.
 4. **Drop a sound file into a score** and play. If you hear it, the engine works and the routing rule just did its job with no configuration from you.
 5. **Check the two usual suspects if you hear nothing.** Is the time cursor advancing? If not, the engine is not running, which is a configuration problem. Is the sound file's interval connected to the start of the score? If not, it never executes, which is a document problem. That pair of questions separates the two halves of this lesson.
 6. **Predict, then verify.** Put a second sound file inside a sub-scenario, three levels deep. Before playing, say where its audio goes. Play: it is audible, because each level mixed into its parent.

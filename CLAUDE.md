@@ -131,6 +131,12 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   fire under XTEST; use the menu items. The add-device dialog needed a human click even
   then, which is what `waitshot` exists for.
 - **Guessed menu coordinates always fail.** Use `menu --pick`, which measures rows.
+- **A one-row menu is invisible to `menu --pick`**, which needs a popup over 40 px tall.
+  The `Settings` menu is 288x36, so `menu` reports `no menu appeared` while the menu is in
+  fact open; click its row directly.
+- **The window manager's frame carries the same name and size as the window it wraps**, so
+  a match by name finds two candidates. `find_window` now prefers the application's own
+  window; before that, the same command sometimes captured a dialog and sometimes did not.
 - **The editor reaches about x=3225** in the capture format, wider than the panels
   suggest. A crop stopping at 3020 silently loses a document's last state.
 - **The view-mode buttons** (temporal ↔ nodal) are at roughly x=767, 833, 900, y=2098.
