@@ -1,0 +1,12 @@
+{
+  "_comment": "Lesson 01: the start screen, caught at launch. Badges match walkthrough steps 3 (open an example), 4 (note where the examples live), and 5 (check the version).",
+  "source": "raw/raw-01-01.png",
+  "out": "docs/learn/assets/01/01-01-start-screen.png",
+  "crop": [1100, 450, 2820, 1760],
+  "font_size": 32,
+  "badges": [
+    {"n": 3, "at": [2600, 1090], "to": [2360, 1088]},
+    {"n": 4, "at": [1780, 990], "to": [2000, 950]},
+    {"n": 5, "at": [1400, 830], "to": [1620, 858]}
+  ]
+}

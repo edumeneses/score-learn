@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 24]({{ site.baseurl }}/learn/24-tempo-and-sync.html).
 >
-> **You will need** a video file, a webcam if you have one, and a GPU that met Lesson 01's requirements.
+> **You will need** two video files and a GPU that met Lesson 01's requirements. No camera is required: two mockup clips ship with this lesson, `mock-bars.mp4` and `mock-second.avi`, and the box below says how they were made so you can generate your own at any resolution.
 >
 > **You will build** a document that puts video on screen, fades it, and mixes a second source into it.
 
@@ -48,6 +48,16 @@ It also means the mental model differs from audio in one respect that causes ear
 
 {: .note }
 > A figure for this lesson is pending: it needs video content and a window device output, so it requires media this course does not ship and a live GPU session. See `checks/25-video-pipeline.md`.
+
+{: .note }
+> **Making your own test clips.** Test material is better generated than downloaded: you control the resolution, the length, and the codec, which are exactly the variables this lesson asks you to measure. Both clips shipped here came from `ffmpeg`, which is on most systems already:
+>
+> ```bash
+> ffmpeg -f lavfi -i "testsrc2=size=1280x720:rate=25:duration=8" >        -c:v libx264 -preset veryfast -crf 28 -pix_fmt yuv420p mock-bars.mp4
+> ffmpeg -f lavfi -i "smptehdbars=size=1280x720:rate=25:duration=8" >        -vf "hue=s=0.6,noise=alls=8:allf=t" -c:v mjpeg -q:v 12 mock-second.avi
+> ```
+>
+> The two deliberately differ in codec: one H.264, which is small and comparatively expensive to decode, and one MJPEG, which is large and cheap. Playing both and watching the frame rate is the fastest demonstration of the decoding cost described below.
 
 1. **Declare a window device.** Without it there is nowhere for an image to go. Do this first; it is the step people skip.
 2. **Drop a video file** into an interval, exactly as you did with a sound file in Lesson 20.

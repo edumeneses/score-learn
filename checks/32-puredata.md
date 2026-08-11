@@ -19,3 +19,10 @@ See `checks/FIGURES-PENDING.md` for the consolidated list.
 ## Claims that depend on external sources
 
 - Grounded in the reference pages linked under 'Going further' on the lesson page.
+
+## Patch shipped with this lesson, 2026-08-11
+
+`library/learn/32-puredata/lesson-32.pd`: two inlets (gain, offset), a multiply, an add,
+one outlet. Verified to load with Pure Data 0.54.1. It exists so the port-mapping steps
+can be followed without the reader supplying a patch, and it is small enough to print in
+the lesson.

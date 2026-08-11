@@ -57,10 +57,12 @@ Keeping it in a directory such as `~/Applications` lets several pinned versions 
 
 ## Walkthrough: first run
 
-1. **Launch it.** Startup takes a few seconds the first time while plug-ins are scanned.
+![The ossia score start screen, with recent files, Examples, and Tutorials]({{ site.img }}/01/01-01-start-screen.png)
+
+1. **Launch it.** Startup takes a few seconds the first time while plug-ins are scanned, and you arrive at the start screen in the figure.
 2. **Confirm the three areas.** A correct installation shows the `Device explorer` on the left, the scenario editor in the centre, and the object inspector on the right. If any is missing, you have almost certainly collapsed a panel rather than broken an install; Lesson 03 covers panel management.
 3. **Open something that already works.** The start screen offers bundled examples. Open one, look at it, and close it without saving. You are not expected to understand it; you are confirming that playback, audio, and graphics initialise on your machine.
-4. **Note where the examples live, before you dismiss the start screen.** This is the single most common early annoyance, and it is worse than it sounds: in {{ page.score_version }} the start screen **cannot be reopened from any menu**. `File` offers new, load, recent files, save, close, quit, and the two server entries; `View`, `Play`, and `Help` have nothing for it either. The usability study flagged exactly this. Two durable routes to the same material: the user library and project folder panels, `Ctrl+Shift+B` and `Ctrl+Shift+L`, and `Help > Documentation`, which opens the reference manual where the examples are also published.
+4. **Note where the examples live, before you dismiss the start screen.** The start screen appears when *score* is launched with no document, and it is the only place that offers `Examples` and `Tutorials` directly, alongside recent files and `Restore last session`. Once dismissed it **cannot be reopened from any menu** in {{ page.score_version }}: `File` offers new, load, recent files, save, close, quit, and the two server entries, and `View`, `Play`, and `Help` have nothing for it. The usability study flagged exactly this. Three durable routes to the same material: relaunch *score* with no document, which brings the start screen back; the user library and project folder panels, `Ctrl+Shift+B` and `Ctrl+Shift+L`; and `Help > Documentation`.
 5. **Check the version.** It appears in the window title, and on the command line as `--version`. It should read `3.8.2` if you are following the pinned course.
 6. **Leave a scratch project.** Save an empty document somewhere you will find it, for example `~/score/scratch.score`. Lesson 05 explains what that file contains and what travels with it.
 

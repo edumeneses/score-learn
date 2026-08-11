@@ -22,3 +22,15 @@ pipeline.
 ## Claims that depend on external sources
 
 - Grounded in the reference pages linked under 'Going further' on the lesson page.
+
+## Media shipped with this lesson, 2026-08-11
+
+No camera is available on the authoring machine and none is needed. Two mockup clips are
+generated with `ffmpeg` and committed under `library/learn/25-video-pipeline/`:
+
+- `mock-bars.mp4`, H.264, 1280x720, 8 s, small file and comparatively expensive to decode;
+- `mock-second.avi`, MJPEG, same size and length, larger file and cheap to decode.
+
+The generating commands are in the lesson itself, so the clips can be regenerated at any
+resolution. Using two different codecs is deliberate: it makes the decoding-cost section
+demonstrable rather than assertable.

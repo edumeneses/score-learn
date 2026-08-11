@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 31]({{ site.baseurl }}/learn/31-faust.html).
 >
-> **You will need** Pure Data installed and one patch, ideally one you already use.
+> **You will need** Pure Data installed and one patch. If you have none to hand, `lesson-32.pd` ships with this lesson: two inlets, a gain and an offset, one outlet, which is the smallest patch that makes the port mapping visible.
 >
 > **You will build** a document that hosts a patch, drives it from the timeline, and reads values back out of it.
 
@@ -45,7 +45,16 @@ That combination is the interesting part, and it is worth naming as a division o
 {: .note }
 > A figure for this lesson is pending: it needs a patch file and the hosted process's ports, which requires interaction and a patch this course does not ship. See `checks/32-puredata.md`.
 
-1. **Prepare a small patch first.** Not your most complex one: a patch with two inlets and one outlet, doing something audible, so that every step of this walkthrough is verifiable. Save it in your project directory.
+1. **Prepare a small patch first.** Not your most complex one: a patch with two inlets and one outlet, so that every step of this walkthrough is verifiable. Save it in your project directory. The shipped `lesson-32.pd` is exactly this, and it is short enough to read in full:
+
+   ```
+   #N canvas 320 220 480 320 12;
+   #X obj 40 40 inlet;      <- gain
+   #X obj 210 40 inlet;     <- offset
+   #X obj 40 130 *;
+   #X obj 40 190 +;
+   #X obj 40 250 outlet;    -> scaled value
+   ```
 2. **Add the Pure Data process** in an interval and point it at the patch.
 3. **Find its ports.** Confirm that the patch's inlets and outlets appear on the process. If a port you expected is missing, the patch's declaration is where to look.
 4. **Drive one inlet from an automation.** Right-click the port, create an automation, draw a curve, and play. The patch is now under the timeline's control.

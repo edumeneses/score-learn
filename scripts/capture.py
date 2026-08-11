@@ -317,6 +317,47 @@ def shot(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------- input
 
 
+def is_topmost(d: display.Display, win_id: int) -> tuple[bool, str]:
+    """Is our window the topmost normal window?
+
+    Synthetic clicks go to whatever is under the pointer, not to the window we
+    think we are driving. A fullscreen browser over score turned a figure run
+    into clicks landing in somebody's browser, so every input command checks
+    this first.
+    """
+    root = d.screen().root
+    top = None
+    for child in root.query_tree().children:      # bottom-to-top
+        try:
+            attrs = child.get_attributes()
+            if attrs.map_state != X.IsViewable or attrs.override_redirect:
+                continue
+            geo = child.get_geometry()
+            if geo.width < 200 or geo.height < 200:
+                continue
+            cls = child.get_wm_class()
+            if cls and "mutter" in cls[0].lower():
+                continue                          # window-manager frames
+            top = (child.id, cls)
+        except Exception:
+            continue
+    if top is None:
+        return True, "unknown"
+    return top[0] == win_id, str(top[1])
+
+
+def require_topmost(d: display.Display, match: str) -> None:
+    found = find_window(d, match)
+    if not found:
+        raise SystemExit(f"no window matching {match!r}")
+    ok, who = is_topmost(d, found[0].id)
+    if not ok:
+        raise SystemExit(
+            f"refusing to send input: {who} is above the target window. "
+            "Raise score, or close the window on top, and try again."
+        )
+
+
 def move(d: display.Display, x: int, y: int) -> None:
     xtest.fake_input(d, X.MotionNotify, x=x, y=y)
     d.sync()
@@ -324,6 +365,7 @@ def move(d: display.Display, x: int, y: int) -> None:
 
 def click(args: argparse.Namespace) -> int:
     d = dpy()
+    require_topmost(d, args.match)
     move(d, args.x, args.y)
     time.sleep(0.15)
     for _ in range(args.count):
@@ -339,6 +381,7 @@ def click(args: argparse.Namespace) -> int:
 
 def drag(args: argparse.Namespace) -> int:
     d = dpy()
+    require_topmost(d, args.match)
     move(d, args.x1, args.y1)
     time.sleep(0.2)
     xtest.fake_input(d, X.ButtonPress, args.button)
@@ -369,6 +412,7 @@ def keycode(d: display.Display, name: str) -> int:
 
 def key(args: argparse.Namespace) -> int:
     d = dpy()
+    require_topmost(d, args.match)
     parts = args.combo.split("+")
     mods, base = parts[:-1], parts[-1]
     codes = [keycode(d, m) for m in mods]
@@ -387,6 +431,7 @@ def key(args: argparse.Namespace) -> int:
 
 def type_text(args: argparse.Namespace) -> int:
     d = dpy()
+    require_topmost(d, args.match)
     from Xlib import XK
 
     for char in args.text:
@@ -408,6 +453,79 @@ def type_text(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------- launch
+
+
+def menu(args: argparse.Namespace) -> int:
+    """Open a menu, measure its rows, and click one by index.
+
+    Clicking menu items by guessed coordinates is unreliable: the popup's
+    position depends on where it was opened and its rows are not evenly spaced
+    once separators are involved. This opens the menu, finds the popup window,
+    scans its own drawable for rows containing text, and clicks the row asked
+    for. `--pick 0` only reports the rows it found, which is how you discover
+    the index you want.
+    """
+    d = dpy()
+    found = find_window(d, args.match)
+    if not found:
+        print(f"no window matching {args.match!r}")
+        return 1
+    main = found[0]
+    activate(d, main)                       # the menu will not open unfocused
+    time.sleep(0.8)
+    ok, who = is_topmost(d, main.id)
+    if not ok:
+        raise SystemExit(
+            f"refusing to open a menu: {who} is above the target window."
+        )
+
+    move(d, args.x, args.y)
+    time.sleep(0.2)
+    xtest.fake_input(d, X.ButtonPress, args.button)
+    d.sync()
+    time.sleep(0.05)
+    xtest.fake_input(d, X.ButtonRelease, args.button)
+    d.sync()
+    time.sleep(args.settle)
+
+    pops = [p for p in popups(d, main.id) if p[3] > 80 and p[4] > 40]
+    if not pops:
+        print("no menu appeared")
+        return 1
+    child, px, py, pw, ph = pops[-1]           # topmost
+    image = grab_window(child, (0, 0, pw, ph)).convert("L")
+
+    rows = []
+    for y in range(ph):
+        n = sum(1 for x in range(4, pw - 4, 2) if image.getpixel((x, y)) > 150)
+        rows.append(n >= 3)
+    groups, run = [], None
+    for y, hot in enumerate(rows):
+        if hot and run is None:
+            run = y
+        elif not hot and run is not None:
+            if y - run >= 4:
+                groups.append((run + y) // 2)
+            run = None
+    print(f"menu at {px},{py} size {pw}x{ph}, {len(groups)} text rows")
+    for i, cy in enumerate(groups, 1):
+        print(f"  row {i}: y={py + cy}")
+
+    if args.pick:
+        if args.pick > len(groups):
+            print(f"only {len(groups)} rows")
+            return 1
+        cx = px + min(60, pw // 3)
+        cy = py + groups[args.pick - 1]
+        move(d, cx, cy)
+        time.sleep(0.25)
+        xtest.fake_input(d, X.ButtonPress, 1)
+        d.sync()
+        time.sleep(0.05)
+        xtest.fake_input(d, X.ButtonRelease, 1)
+        d.sync()
+        print(f"clicked row {args.pick} at {cx},{cy}")
+    return 0
 
 
 def launch(args: argparse.Namespace) -> int:
@@ -535,6 +653,14 @@ def main() -> int:
     p = sub.add_parser("type")
     p.add_argument("text")
     p.set_defaults(func=type_text)
+
+    p = sub.add_parser("menu", help="open a menu and click one of its rows")
+    p.add_argument("x", type=int, help="where to click to open the menu")
+    p.add_argument("y", type=int)
+    p.add_argument("--button", type=int, default=1, help="3 for a context menu")
+    p.add_argument("--pick", type=int, default=0, help="row to click; 0 only lists")
+    p.add_argument("--settle", type=float, default=1.5)
+    p.set_defaults(func=menu)
 
     p = sub.add_parser("windows", help="list viewable windows")
     p.set_defaults(func=windows)

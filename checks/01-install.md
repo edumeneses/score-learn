@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 01-01 | Start screen with the bundled examples, and the File menu showing how to reopen it | pending: needs interaction (menu open), see below |
+| 01-01 | The start screen: recent files, Examples, Tutorials, version | **done**, docs/learn/assets/01/01-01-start-screen.png |
 
 Figures are produced by the pipeline described in the README: `scripts/mkscore.py`,
 `scripts/capture.py`, then `scripts/annotate.py` against a spec in `figures/`.

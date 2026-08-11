@@ -20,7 +20,7 @@ consistent.
 
 ---
 
-## Done: 19 figures
+## Done: 20 figures
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -31,19 +31,24 @@ Captured 2026-08-11 in an unlocked session, with menus composited in by
 `capture.py --popups`: `00-02` nodal view · `02-01` one instant ·
 `05-01` project folder panel · `06-01` device menu · `12-01` Record submenu ·
 `14-01` library search · `18-01` transport and play-from-here ·
-`24-01` interval metrics inspector.
+`24-01` interval metrics inspector · `01-01` the start screen.
 
-## Pending: 28 figures
+## Pending: 27 figures
 
-### Interaction only — what is left (5)
+### Interaction only — what is left (4)
+
+**Important**: these need the score window to be the **topmost** window. An attempt on
+2026-08-11 failed silently because a fullscreen browser was above score, so the synthetic
+clicks went to the browser instead. `capture.py` now refuses to send input in that
+situation rather than clicking into somebody else's window, and `capture.py menu` opens a
+menu, measures its rows, and clicks one by index instead of by guessed coordinates.
 
 | Unit | Figure | What to capture | Note |
 |---|---|---|---|
-| 01 | `01-01` | The start screen with the bundled examples | Must be captured **at launch**: 3.8.2 has no menu entry that reopens it, which the lesson now says explicitly |
-| 07 | `07-01` | The Add-device dialog with its protocol list, and the OSC settings | `Ctrl+B` and the `+` button both failed to open the dialog under synthetic input; it may need a real click on the menu item |
-| 11 | `11-01` | An LFO patched to three destinations in the nodal view | Needs processes added to a score, then the view-mode button |
+| 07 | `07-01` | The Add-device dialog with its protocol list, and the OSC settings | Right-click the device explorer, then `capture.py menu --pick` the `Add device` row. `Ctrl+B` did not fire under synthetic input |
+| 11 | `11-01` | An LFO patched to three destinations in the nodal view | Add processes by double-clicking them in the library with an interval selected, then the view-mode button at roughly x=767, y=2098 |
 | 13 | `13-01` | A conditioning pipeline in the nodal view | Same |
-| 34 | `34-01` | A folded, named score | `Ctrl+Alt+F` did not fold under synthetic input; use `View > Fold intervals` from the menu |
+| 34 | `34-01` | A folded, named score | `View > Fold intervals`; `Ctrl+Alt+F` did not fire under synthetic input |
 
 ### Interaction plus transitions (3)
 
@@ -71,9 +76,13 @@ available in the user library. This removes the media blocker from most figures:
 | Faust amp models | `guitarix` | |
 | AI / vision models | `librediffusion`, `yolov8-pose`, `blazepose-full-body`, `resnet50-v2-7`, `affectnet`, `rtmpose-body-2d` | |
 
-Still missing locally: **video files** and **3D models**. A short video can be generated
-with `ffmpeg`, which is installed; a simple glTF can be written by hand or exported from
-any modelling tool.
+**Video**: solved. Two mockup clips are generated with `ffmpeg` and committed under
+`library/learn/25-video-pipeline/`, one H.264 and one MJPEG, with the generating commands
+printed in Lesson 25 so they can be remade at any resolution. No camera is needed.
+
+Still missing locally: **3D models**. A simple glTF can be written by hand or exported
+from any modelling tool; Lesson 27's figure can also be built from a primitive plus
+computed geometry, which needs no file at all.
 
 ### Interaction plus media (9)
 
@@ -102,7 +111,7 @@ Checked on this machine, 2026-08-11:
 | 23 | `23-01` | **doable**: ALSA `Midi Through Port-0` exists, so a MIDI device can be declared with no hardware; notes come from `free-midi-chords` |
 | 29 | `29-01` | **doable**: script editor and console are in-application |
 | 30 | `30-01` | **doable**: expression objects are in-application |
-| 32 | `32-01` | **blocked**: Pure Data is not installed. `sudo apt install puredata` |
+| 32 | `32-01` | **doable**: Pure Data 0.54.1 is now installed, and `lesson-32.pd` ships with the lesson |
 | 33 | `33-01` | **doable**: a browser on this machine can be the remote client over localhost |
 | 35 | `35-01` | **partly**: headless on this machine is doable; the Raspberry Pi half needs a board |
 | 36 | `36-01` | **doable**: two instances on one machine, which is the lesson's own first step |
@@ -115,13 +124,37 @@ Checked on this machine, 2026-08-11:
 
 Three things, and only three:
 
-1. **Pure Data**, for figure `32-01`. One command: `sudo apt install puredata`.
-2. **A Raspberry Pi or spare machine**, for the deployment half of `35-01`. A Pi 4 is the
-   board the reference documentation recommends. Without it, the headless part can still
-   be shown on this machine.
-3. **A camera and a real dome**, which are nice-to-have rather than blocking: `25-01` can
-   use two video files instead of a webcam, and `p6-01` is specified as a fisheye image in
-   a window precisely so that no dome is needed.
+1. **A Raspberry Pi or spare machine**, for the deployment half of `35-01`. See the note
+   below on exactly what the figure needs from it: a networked Pi 5 is sufficient.
+2. **A 3D model**, optional, for part of `27-01`. The figure can be built without one.
+
+Pure Data is installed. Video is generated. A camera and a dome are not needed: `25-01`
+uses the mockup clips and `p6-01` is specified as a fisheye image in a window.
+
+## What figure 35-01 actually needs from a Pi
+
+The figure has to show two things: score **playing a document with no editing interface**,
+and the **console output** that proves it started that way. The lesson's claims that need a
+real board are the ARM build, the graphics-driver configuration, the two launcher scripts,
+and the automatic start after a power cut.
+
+A **Raspberry Pi 5 reachable over the network is sufficient**, with three conditions:
+
+1. **64-bit OS.** The 64-bit build is the one to use on a Pi 5. Note that the reference
+   documentation was written for the Pi 3 and 4 on Debian Buster and Bullseye, so part of
+   what Lesson 35 says about configuration has to be re-verified on a current OS. That
+   re-verification is itself worth having.
+2. **`ssh` access**, to install score, run it, and read the console output. The console half
+   of the figure is text, so it needs nothing else.
+3. **For the screenshot half, one of**: the Pi running a desktop session, in which case
+   `capture.py` can be installed there and run over `ssh` with `DISPLAY` set, and the PNG
+   copied back; or the Pi rendering full screen through the direct path, which bypasses the
+   window system entirely and therefore **cannot be captured by any X11 tool**. In that
+   case the figure becomes console output plus a photograph of the screen.
+
+The honest recommendation: use the Pi 5 for the console output, the automatic start, and
+the power-cut recovery time, all of which are the parts a reader actually needs, and treat
+the full-screen photograph as optional.
 
 Everything else on this page can be produced on this machine in an unlocked session.
 
