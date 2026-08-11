@@ -2,6 +2,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
+  {% if site.noindex %}
+    {% comment %}
+      Keeps the course out of search engines while it is a draft. Set noindex to
+      false in _config.yml to publish it. A robots.txt cannot do this job here:
+      crawlers only read robots.txt at the domain root, which for a project site
+      belongs to the user-site repository rather than to this one, so the policy
+      has to travel on every page.
+    {% endcomment %}
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="googlebot" content="noindex, nofollow">
+  {% endif %}
+
   {% unless site.plugins contains "jekyll-seo-tag" %}
     <title>{{ page.title }} - {{ site.title }}</title>
 
@@ -14,13 +26,13 @@
 
   <link rel="stylesheet" href="{{ '/assets/css/just-the-docs-default.css' | relative_url }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:regular,bold">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GCNDFW0NH6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-GCNDFW0NH6');
-  </script>
+  {% comment %}
+    The vendored theme arrived with ossia's Google Analytics tag, G-GCNDFW0NH6,
+    inherited when this repository copied the score-docs backend. It has been
+    removed: it is not our property to report to, and a draft that is asking not
+    to be indexed should not be reporting its traffic to a third party either.
+    If the course is ever folded upstream, score-docs will apply its own tag.
+  {% endcomment %}
   
 
   {% if site.search_enabled != false %}

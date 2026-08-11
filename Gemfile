@@ -16,7 +16,11 @@ gem "sass-embedded"
 
 group :jekyll_plugins do
   gem 'jekyll-optional-front-matter'
-  gem "jekyll-sitemap"
+  # Deliberately off while the course is unindexed: the plugin writes a
+  # sitemap.xml and a robots.txt advertising it, which is the opposite of what
+  # `noindex: true` in _config.yml asks for. One line to restore when the course
+  # is published. This is the only intentional divergence from score-docs.
+  # gem "jekyll-sitemap"
   gem "jekyll-feed"
   gem "jekyll-seo-tag"
   gem "jekyll-mentions"

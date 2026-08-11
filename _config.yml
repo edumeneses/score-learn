@@ -148,6 +148,10 @@ wikirefs:
 
 img: "/score-learn/docs/learn/assets"
 scores: "/score-learn/library/learn"
+# While true, every page carries a robots noindex tag: see _includes/head.html.
+# Set to false to let search engines in.
+noindex: true
+
 score_version: "3.8.2"        # pinned target build; every lesson declares it too
 
 # Base of the reference documentation the course links into.
