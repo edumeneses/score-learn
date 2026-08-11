@@ -44,11 +44,15 @@ This is also the first lesson where you write code, and deliberately the gentles
 
 ## Walkthrough: edit a shader, then mix it
 
-{: .note }
-> A figure for this lesson is pending: it needs the shader editor with code and a rendered result, which requires a live GPU session. See `checks/26-shaders-and-mixing.md`.
+![The ISF shader editor open on a kaleidoscope filter, the inputs its header declares listed as ports in the inspector, and the rendered result playing in the inspector's preview]({{ site.img }}/26/26-01-shader-editor.png)
 
-1. **Add a shader process** from the library, from the visuals section, and cable it to your window device. An image appears.
-2. **Find its ports.** The parameters declared in its header are on the process. Move one and watch the image change.
+The figure is Lesson 25's document with one shader added after the H.264 source. Read across it and the lesson's argument is complete. The editor in the middle shows the ISF header, a JSON block at the top of the fragment source declaring `inputImage`, `sides`, `angle`, `slidex`, `slidey`, and `center`, each with its type, its range, and its default. The inspector on the right lists exactly those names, as ports. The panel below them is the rendered result.
+
+{: .note }
+> **The inspector previews the texture.** A process with a texture output shows its current frame in the inspector while the score plays, which is the quickest way to see what a shader is doing; the figure's result is that preview, not the output window. The output window is still where the work goes, but it is not where you have to look while you edit. The same panel carries the outlet's `Size`, `Format`, `Filter`, and `Address mode`. Note also that the editor has two tabs, `Fragment` and `Vertex`, and that a shader is compiled with the `Compile` button at its foot.
+
+1. **Add a shader process** from the library, under `Visuals > ISF Shader`, and set its output to your window device. An image appears. The fastest route is the one from Lesson 21: select the process the shader should follow, then double-click the library entry, and *score* connects it and moves the window output onto the new process for you.
+2. **Find its ports.** The parameters declared in its header are on the process, and the inspector lists them. Move one and watch the image change.
 3. **Automate a parameter.** Right-click a port, create an automation, draw a curve, play. The shader is now part of your timeline rather than a static effect.
 4. **Open the editor** with the window button on the process header and read the header block. Identify one declared input and find where the code uses it.
 5. **Change one number** in the code, something obviously visual such as a scale or a colour, then compile. The image updates while the score is running.

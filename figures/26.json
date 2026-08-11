@@ -1,0 +1,58 @@
+{
+  "_comment": "Lesson 26: the ISF shader editor open on the Kaleidoscope filter chained after Lesson 25's video, with the shader's declared inputs listed as ports in the inspector and the rendered result playing in the inspector's texture preview. Badges match walkthrough steps 1 (the image the shader produces), 2 (its declared parameters, now ports), 4 (the header block that declared them), and 5 (compile).",
+  "source": "raw/raw-26-01.png",
+  "out": "docs/learn/assets/26/26-01-shader-editor.png",
+  "crop": [
+    0,
+    240,
+    3840,
+    1860
+  ],
+  "font_size": 30,
+  "badges": [
+    {
+      "n": 4,
+      "at": [
+        2200,
+        555
+      ],
+      "to": [
+        1600,
+        555
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        3050,
+        811
+      ],
+      "to": [
+        3232,
+        811
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        2900,
+        1802
+      ],
+      "to": [
+        2795,
+        1802
+      ]
+    },
+    {
+      "n": 1,
+      "at": [
+        3060,
+        1533
+      ],
+      "to": [
+        3196,
+        1533
+      ]
+    }
+  ]
+}

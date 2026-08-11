@@ -52,3 +52,17 @@ cable definitions, which are path-based and awkward to generate.
 Not shown in the figure: the rendered output. The window opened at x=3765, off the right
 edge of the screen, so the capture contains the document only. To show the output too,
 move that window on-screen before capturing.
+
+## Correction made while capturing 26-01, 2026-08-11
+
+Step 3 told the reader to **cable** the video's output to the window device, which
+contradicts the finding already recorded on this page: an image reaches the window through
+an **output address**, not a cable. Confirmed again in 3.8.2 while building figure 26-01,
+where the inspector shows the outlet's destination as a list containing `Window`. Step 3
+now says to set the address.
+
+Also learned there, and relevant here: the output window is a GPU surface, so neither a
+window-drawable capture nor a root capture can photograph it, and it opens almost entirely
+off the right edge of the screen. The **process inspector previews the texture** while the
+score plays, which is how figure 26-01 shows a rendered result without the window. See
+`checks/26-shaders-and-mixing.md` for the whole account.

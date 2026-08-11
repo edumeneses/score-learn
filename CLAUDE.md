@@ -152,6 +152,17 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 - **The script editor opens as its own top-level window** named `score`, so `--popups`
   composites it. `capture.py` cannot move it; use `capture.window_list` plus
   `win.configure` when it covers something the figure needs.
+- **The `Window` device's output window cannot be captured.** It is a GPU surface: its own
+  drawable reads black and a root capture of the region reads flat grey. It also opens
+  almost entirely off the right edge, and moving or resizing it from outside stops it
+  opening at all until score restarts. **Use the process inspector's texture preview**,
+  which shows the live output frame inside the main window; that is what figure 26-01 is.
+- **Clicking a node's title does not select the process.** Selection comes from adding the
+  process, which leaves it selected, or from the object tree in the right dock. Budget for
+  this: a figure that needs a specific process's inspector is easiest to build by adding
+  that process last.
+- **The transport ignores a click when score is not focused**, and the first click only
+  focuses. Check the clock before assuming playback started.
 
 ## Facts about score itself, learned the hard way
 

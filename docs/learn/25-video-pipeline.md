@@ -62,7 +62,7 @@ The figure is `lesson-25.score`, which ships with this lesson: the two generated
 
 1. **Declare a window device.** Without it there is nowhere for an image to go. Do this first; it is the step people skip.
 2. **Drop a video file** into an interval, exactly as you did with a sound file in Lesson 20.
-3. **Cable its output to the window device.** Play. The image appears. Note that unlike audio, nothing happened until you drew that cable.
+3. **Send its output to the window device.** Select the video process and set the address on its outlet, which the inspector offers as a list of the declared windows. Play. The image appears. Note that unlike audio, nothing happened until you named a destination.
 4. **Switch to the nodal view.** As with audio effects, this is where video work belongs.
 5. **Add the alpha filter** from the user library between the video and the window, and cable it in.
 6. **Automate the opacity.** Right-click the filter's opacity port, create an automation, and draw a fade in and out. Play: you now have a video fade, built from the general mechanism rather than a special feature.
