@@ -1,0 +1,12 @@
+{
+  "_comment": "Lesson 25: two video sources addressed to the Window device, one H.264 and one MJPEG. Badges match walkthrough steps 1 (the window device), 2 (a video file), and 7 (a second source).",
+  "source": "raw/raw-25-01.png",
+  "out": "docs/learn/assets/25/25-01-video-sources.png",
+  "crop": [0, 240, 3300, 940],
+  "font_size": 30,
+  "badges": [
+    {"n": 1, "at": [420, 400], "to": [100, 322]},
+    {"n": 2, "at": [1000, 460], "to": [925, 600]},
+    {"n": 7, "at": [2250, 460], "to": [2160, 600]}
+  ]
+}

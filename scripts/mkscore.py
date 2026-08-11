@@ -41,6 +41,9 @@ GAIN_UUID = "9a13fb32-269a-47bf-99a9-930188c1f19c"
 AUTOMATION_OUT_UUID = "047e4cc2-4d99-4e8b-bf98-206018d02274"
 AUTOMATION_CTRL_UUID = "af2b4fc3-aecb-4c15-a5aa-1c573a239925"
 SOUND_UUID = "63174570-d608-44bf-a9cb-e6f5a11f73cc"
+VIDEO_UUID = "32dc5341-7748-4c31-a226-82e6bd685744"
+VIDEO_OUT_UUID = "f1c71046-b754-49a5-8e66-d01374773dfc"
+WINDOW_PROTOCOL_UUID = "5a181207-7d40-4ad8-814e-879fcdf8cc31"
 
 OSC_PROTOCOL_UUID = "9a42de4b-f6eb-4bca-9564-01b975f601b9"
 PLUGIN_MIDI_UUID = "1f923578-08c3-49be-9ba9-69c144ee2e32"
@@ -200,6 +203,60 @@ def sound(pid: int, filename: str, duration: int, name: str,
         "Stretch": 0,
         "Mode": 0,
         "Tempo": 120.0,
+    }
+
+
+def video(pid: int, filename: str, duration: int, name: str,
+          loops: bool = True, to_window: bool = True) -> dict:
+    """A video file player.
+
+    Its outlet carries a texture. Addressing that outlet to `Window:/` is what
+    puts the image on screen: no cable is needed, which is the same mechanism the
+    shipped video example uses.
+    """
+    outlet = {
+        "uuid": VIDEO_OUT_UUID,
+        "ObjectName": "Outlet",
+        "id": 0,
+        "Hidden": False,
+    }
+    if to_window:
+        outlet["Address"] = "Window:/"
+    return {
+        "uuid": VIDEO_UUID,
+        "ObjectName": "VideoProcess",
+        "id": pid,
+        "Metadata": meta(name),
+        "Duration": duration,
+        "Height": 300.0,
+        "StartOffset": 0,
+        "LoopDuration": duration,
+        "Pos": [40.0, 40.0],
+        "Size": [200.0, 100.0],
+        "Loops": loops,
+        "Inlets": [],
+        "Outlets": [outlet],
+        "FilePath": f"<PROJECT>:{filename}",
+        "Scale": 0,
+        "Tempo": 120.0,
+        "IgnoreTempo": False,
+    }
+
+
+def window_device() -> dict:
+    """The Window device, read from score's own video example."""
+    import json as _json
+    import pathlib as _pathlib
+    cached = _pathlib.Path("/tmp/windev.json")
+    if cached.exists():
+        return _json.loads(cached.read_text())
+    return {
+        "Device": {
+            "Name": "Window",
+            "Protocol": WINDOW_PROTOCOL_UUID,
+            "Background": False,
+        },
+        "Children": [],
     }
 
 
@@ -553,7 +610,7 @@ def lesson_00() -> dict:
                 "Reconnect": False,
                 "MidiRatio": 1.0,
             },
-            osc_device(),
+            _devices(extra_devices),
             {"uuid": PLUGIN_DATA_UUID, "Data": ""},
         ],
         "Version": 4,
@@ -589,7 +646,7 @@ def to_nodal(doc: dict) -> dict:
     return out
 
 
-def document(root: dict) -> dict:
+def document(root: dict, extra_devices: list | None = None) -> dict:
     """Wrap a root interval into a full score document."""
     return {
         "Document": {
@@ -617,13 +674,21 @@ def document(root: dict) -> dict:
                 "Reconnect": False,
                 "MidiRatio": 1.0,
             },
-            osc_device(),
+            _devices(extra_devices),
             {"uuid": PLUGIN_DATA_UUID, "Data": ""},
         ],
         "Version": 4,
         "Commit": "",
         "Tag": "3.8.2",
     }
+
+
+def _devices(extra: list | None) -> dict:
+    """The device plugin entry: the lesson OSC device plus anything else asked for."""
+    entry = osc_device()
+    if extra:
+        entry["Children"] = entry["Children"] + list(extra)
+    return entry
 
 
 def scenario(pid: int, duration: int, timenodes: list[dict], events: list[dict],
@@ -896,6 +961,24 @@ def lesson_20() -> dict:
     return document(root)
 
 
+def lesson_25() -> dict:
+    """Two video sources, both addressed to the window device.
+
+    The clips are generated with ffmpeg and committed, so no camera and no
+    downloaded material are needed; the commands are printed in the lesson.
+    """
+    bars = video(2, "mock-bars.mp4", 8 * SEC, "Video.2")
+    second = video(3, "mock-second.avi", 8 * SEC, "Video.3")
+    tn, ev, st, iv = chain([
+        ("H.264 source", 0, 8, [bars], 0.22),
+        ("MJPEG source", 8, 8, [second], 0.22),
+    ])
+    root = interval(0, "lesson-25", 0, 1, 0, 16 * SEC,
+                    [scenario(1, 16 * SEC, tn, ev, st, iv)],
+                    height=0.5, rigid=False, fit=True)
+    return document(root, extra_devices=[window_device()])
+
+
 BUILDERS = {
     "00": ("00-what-score-is", lesson_00),
     "04": ("04-first-process", lesson_04),
@@ -906,6 +989,7 @@ BUILDERS = {
     "15": ("15-triggers", lesson_15),
     "16": ("16-conditions-and-branching", lesson_16),
     "20": ("20-sound-files", lesson_20),
+    "25": ("25-video-pipeline", lesson_25),
 }
 
 

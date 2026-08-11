@@ -46,8 +46,9 @@ It also means the mental model differs from audio in one respect that causes ear
 
 ## Walkthrough: an image on screen, then two
 
-{: .note }
-> A figure for this lesson is pending: it needs video content and a window device output, so it requires media this course does not ship and a live GPU session. See `checks/25-video-pipeline.md`.
+![Two video sources in a score, their thumbnails visible, with the Window device declared in the explorer]({{ site.img }}/25/25-01-video-sources.png)
+
+The figure is `lesson-25.score`, which ships with this lesson: the two generated clips, one H.264 and one MJPEG, each addressed to the `Window` device. Note what makes the image appear: not a cable, but an **address** of `Window:/` on each video outlet, which is the same mechanism a state uses to reach a device parameter. The output window itself opened off-screen when this was captured, so what you see here is the document rather than the rendered result.
 
 {: .note }
 > **Making your own test clips.** Test material is better generated than downloaded: you control the resolution, the length, and the codec, which are exactly the variables this lesson asks you to measure. Both clips shipped here came from `ffmpeg`, which is on most systems already:

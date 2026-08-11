@@ -101,6 +101,7 @@ Package your Lesson 04 document as a self-contained project directory including 
 
 ## Going further
 
+- [The course's own documents]({{ site.baseurl }}/downloads), every one of which is packaged the way this lesson describes.
 - [The project folder panel]({{ site.docs_baseurl }}/reference-manual/panels/), for what *score* considers part of a project.
 - [Presets]({{ site.docs_baseurl }}/presets.html), for scenario fragments in the user library, which [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html) uses again.
 - [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html), for addons a document may depend on.

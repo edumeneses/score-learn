@@ -20,7 +20,7 @@ consistent.
 
 ---
 
-## Done: 26 figures
+## Done: 27 figures
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -35,13 +35,14 @@ Captured 2026-08-11 in an unlocked session, with menus composited in by
 `11-01` an LFO patch · `13-01` the conditioning pipeline · `34-01` a folded score ·
 `07-01` the Add device dialog, captured with one human click ·
 `20-01` two sound files, from the installed Citizen DJ material ·
-`32-01` a hosted Pure Data patch with a control port derived from it.
+`32-01` a hosted Pure Data patch with a control port derived from it ·
+`25-01` two video sources addressed to the Window device.
 
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 21 figures
+## Pending: 20 figures
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -100,7 +101,6 @@ The audio and MIDI ones can be done now with the material above.
 |---|---|---|
 | 22 | `22-01` | A spatial scene in the nodal view: layout, path generator, DBAP, matrix |
 | P5 | `p5-01` | The looper set: four toggled layers and their key mapping |
-| 25 | `25-01` | Two video sources through the mixer into a window device |
 | 26 | `26-01` | The shader editor with code beside its rendered result |
 | 27 | `27-01` | A scene with a primitive, a loaded model, and generated geometry |
 | 28 | `28-01` | The three-object reactive chain with a signal display, beside the image it drives |

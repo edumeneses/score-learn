@@ -15,6 +15,7 @@ A graded course for *ossia score*, the interactive sequencer for the intermedia 
 The course is not a replacement for the [reference documentation]({{ site.docs_baseurl }}). The reference answers "what does this control do"; the course answers "what do I do next, and why". Every lesson links outward to the reference rather than restating it.
 
 [Start the course]({{ site.baseurl }}/learn){: .btn .btn-primary }
+[Download the example documents]({{ site.baseurl }}/downloads){: .btn }
 
 ## How the course is built
 
