@@ -22,3 +22,13 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 ## Claims that depend on external sources
 
 - The device list comes from the reference devices table include. The finding that devices are misconfigured through misunderstood parameters, and the recommendation to teach devices with examples, come from the SAT UI/UX study report.
+
+## Protocol list re-read 2026-08-11 from the running build
+
+The `Add device` dialog groups protocols as: Network (OSCQuery, OSC, Minuit, CoAP, MQTT,
+LSL, Bitfocus); Lights (Artnet, NeoPixel LEDs); Audio (Audio); Hardware (BLE, Evdev,
+Joystick, MIDI Controller, MIDI Input, MIDI Output, Raw I/O, Serial, Wiimote); Video
+(Camera input, NDI Input, NDI Output, Sh4lt Input, Sh4lt Output, Shmdata Input, Shmdata
+Output, Window); Web (HTTP, and more below the scroll). LSL, Bitfocus, NeoPixel LEDs,
+Evdev, MIDI Controller, NDI and Sh4lt are in the build but absent from the reference
+devices table, so the lesson's table now says it is read from the build.

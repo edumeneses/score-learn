@@ -30,7 +30,7 @@ The debugging routine matters more than the declaration. "It does not work" has 
 
 ## Concepts
 
-**Two ports, two directions.** An OSC device has a **listening** port, where *score* receives, and a **destination** host and port, where *score* sends. They are independent, and a working setup usually has different numbers for each. Sending to the port you are listening on is a classic self-inflicted silence.
+**Two ports, two directions.** The dialog names them precisely, and the names are worth learning because they are asymmetric: **`Device host`** and **`Device listening port`** are where *score* **sends**, meaning the address and port your receiver listens on; **`score listening port`** is where *score* **receives**. They are independent, and a working setup usually has different numbers for each. Sending to the port you are listening on is a classic self-inflicted silence.
 
 **Declaring is asserting.** Adding an address to a plain OSC device asserts that the other end has a parameter of that name and type. Nothing verifies it. A typo produces a perfectly functional address that no receiver will ever answer.
 
@@ -44,7 +44,7 @@ The debugging routine matters more than the declaration. "It does not work" has 
 
 1. **Open the device explorer**, `Ctrl+Shift+D`, and right-click in it. Choose the OSC protocol.
 2. **Name it after its function.** `lights`, `synth`, `sensors`. The name will prefix every address in the document; brand names age badly and equipment gets replaced.
-3. **Set the ports.** Destination host and port are where your receiver listens. The listening port is where *score* will receive, and it must not collide with anything else on the machine. Write both numbers down; you will need them in the receiver.
+3. **Set the ports.** `Device host` and `Device listening port` are where your receiver listens, so those are what *score* sends to. `score listening port` is where *score* receives, and it must not collide with anything else on the machine. Write both numbers down; you will need them in the receiver. If the dialog refuses with a note about names or ports being in use, as in the figure, either the name collides with an existing device or one of the ports is already taken.
 4. **Add a parameter.** Right-click the device and add an address. Give it a name, a type, and a range. Repeat until you have a small tree, at least one group with two parameters inside it, plus one impulse.
 5. **Test from the explorer, before touching the timeline.** Select a parameter and set its value in the panel inspector at the bottom. This sends a message immediately. Your receiver should show it. Doing this first isolates the connection from anything about your score.
 6. **Watch what leaves.** Open the message log with `Ctrl+Shift+G`, and the console with `Ctrl+Shift+C`. These tell you whether *score* believes it sent something, which is the first of the three questions.
@@ -53,8 +53,7 @@ The debugging routine matters more than the declaration. "It does not work" has 
 9. **Break it deliberately.** Change the destination port to a wrong number and play again. Notice what the failure looks like from inside *score*: no error, no warning, the automation runs as before. That silence is the thing to recognise.
 10. **Fix it and save.** The declaration lives in the document, so this device travels with your score, as Lesson 05 established.
 
-{: .note }
-> A figure for this lesson is pending: it needs the OSC protocol dialog and the address editor photographed, which requires interaction. See `checks/07-osc-devices.md`.
+![The Add device dialog: the protocol list, the devices already declared, and the OSC settings with both ports]({{ site.img }}/07/07-01-add-device.png)
 
 ## The thirty-second diagnosis
 

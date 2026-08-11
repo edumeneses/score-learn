@@ -1,0 +1,12 @@
+{
+  "_comment": "Lesson 07: the Add device dialog. Badges match walkthrough steps 1 (choose the protocol), 2 (name it), and 3 (set the two ports).",
+  "source": "raw/raw-07-01.png",
+  "out": "docs/learn/assets/07/07-01-add-device.png",
+  "crop": [1690, 350, 3420, 1480],
+  "font_size": 32,
+  "badges": [
+    {"n": 1, "at": [1900, 760], "to": [1790, 620]},
+    {"n": 2, "at": [3250, 560], "to": [3060, 462]},
+    {"n": 3, "at": [2380, 1000], "to": [2700, 890]}
+  ]
+}

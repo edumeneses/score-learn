@@ -201,6 +201,29 @@ def grab(d: display.Display, box: tuple[int, int, int, int]) -> Image.Image:
     return Image.frombytes("RGB", (w, h), raw.data, "raw", "BGRX")
 
 
+def _score_descendant(d: display.Display, win, depth: int = 3):
+    """First descendant whose WM_CLASS is score's, or None."""
+    if depth <= 0:
+        return None
+    try:
+        kids = win.query_tree().children
+    except Exception:
+        return None
+    for kid in kids:
+        try:
+            if kid.get_attributes().map_state != X.IsViewable:
+                continue
+            cls = kid.get_wm_class()
+            if cls and any("score" in c.lower() or "ossia" in c.lower() for c in cls):
+                return kid
+            deeper = _score_descendant(d, kid, depth - 1)
+            if deeper is not None:
+                return deeper
+        except Exception:
+            continue
+    return None
+
+
 def popups(d: display.Display, exclude_id: int) -> list:
     """score's own menus, dialogs, and tooltips, bottom-to-top.
 
@@ -226,6 +249,7 @@ def popups(d: display.Display, exclude_id: int) -> list:
                 continue
 
             mine = False
+            target = child
             if attrs.override_redirect:
                 mine = True                        # menu, combo, or tooltip
             else:
@@ -233,9 +257,17 @@ def popups(d: display.Display, exclude_id: int) -> list:
                 if cls and any("score" in c.lower() or "ossia" in c.lower()
                                for c in cls):
                     mine = True                    # score's own dialog
+                elif cls and "mutter" in cls[0].lower():
+                    # A reparenting window manager wraps dialogs in a frame whose
+                    # WM_CLASS is the manager's, not the application's. Descend to
+                    # find the real window: score's add-device dialog is only
+                    # reachable this way.
+                    inner = _score_descendant(d, child)
+                    if inner is not None:
+                        mine, target = True, inner
             if not mine:
                 continue
-
+            child = target
             geo = child.get_geometry()
             if geo.width < 16 or geo.height < 16:
                 continue
@@ -486,6 +518,55 @@ def type_text(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------- launch
 
 
+def waitshot(args: argparse.Namespace) -> int:
+    """Wait for a dialog to appear, then capture the window with it composited.
+
+    Some dialogs cannot be opened by synthetic input at all: score's add-device
+    dialog registers the click on the menu row and simply does not appear. The
+    remedy is to let a human open it while this watches, so nobody has to reach
+    for a terminal while a modal dialog is in the way.
+    """
+    d = dpy()
+    deadline = time.time() + args.timeout
+    print(f"watching for a dialog at least {args.min_size} px wide, "
+          f"{args.timeout:.0f}s to go; open it now")
+    while time.time() < deadline:
+        found = find_window(d, args.match)
+        if found:
+            big = []
+            for cand in popups(d, found[0].id):
+                if cand[3] < args.min_size or cand[4] < 120:
+                    continue
+                if args.title:
+                    try:
+                        nm = cand[0].get_wm_name() or ""
+                    except Exception:
+                        nm = ""
+                    if args.title.lower() not in nm.lower():
+                        print(f"  ignoring {cand[3]}x{cand[4]} titled {nm!r}")
+                        continue
+                big.append(cand)
+            if big:
+                for _child, px, py, pw, ph in big:
+                    print(f"  dialog {pw}x{ph} at {px},{py}")
+                time.sleep(args.settle)          # let it finish drawing
+                win, _name, geo = find_window(d, args.match)
+                image = grab_window(win, (0, 0, geo[2], geo[3]))
+                for child, px, py, pw, ph in popups(d, win.id):
+                    try:
+                        layer = grab_window(child, (0, 0, pw, ph))
+                    except Exception:
+                        continue
+                    image.paste(layer, (px - geo[0], py - geo[1]))
+                os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+                image.save(args.out)
+                print(f"wrote {args.out} ({image.width}x{image.height})")
+                return 0
+        time.sleep(1.0)
+    print("timed out with no dialog")
+    return 1
+
+
 def menu(args: argparse.Namespace) -> int:
     """Open a menu, measure its rows, and click one by index.
 
@@ -684,6 +765,16 @@ def main() -> int:
     p = sub.add_parser("type")
     p.add_argument("text")
     p.set_defaults(func=type_text)
+
+    p = sub.add_parser("waitshot", help="wait for a dialog, then capture")
+    p.add_argument("out")
+    p.add_argument("--timeout", type=float, default=180.0)
+    p.add_argument("--min-size", type=int, default=300, help="dialog width to accept")
+    p.add_argument("--title", default=None,
+                   help="only accept a dialog whose title contains this, which is "
+                        "how the start screen stops being mistaken for a dialog")
+    p.add_argument("--settle", type=float, default=1.2)
+    p.set_defaults(func=waitshot)
 
     p = sub.add_parser("menu", help="open a menu and click one of its rows")
     p.add_argument("x", type=int, help="where to click to open the menu")

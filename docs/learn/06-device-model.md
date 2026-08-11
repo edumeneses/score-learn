@@ -48,15 +48,18 @@ The idea is worth the effort because of what it buys: a score written against `l
 
 Grouped by what they are for, not by how they work:
 
-| For | Protocols |
+Grouped as the `Add device` dialog groups them, read from *score* {{ page.score_version }} rather than from the manual, which is a release or two behind:
+
+| Group | Protocols |
 |---|---|
-| Network and general purpose | OSCQuery, OSC, Minuit, CoAP, MQTT |
+| Network | OSCQuery, OSC, Minuit, CoAP, MQTT, LSL, Bitfocus |
+| Lights | Art-Net, NeoPixel LEDs |
+| Audio | Audio, covered in [Lesson 19]({{ site.baseurl }}/learn/19-audio-setup.html) |
+| Hardware | MIDI Input, MIDI Output, MIDI Controller, Serial, Joystick, Wiimote, Evdev, Raw I/O, Bluetooth Low Energy |
+| Video | Window, Camera input, NDI Input, NDI Output, Shmdata Input, Shmdata Output, Sh4lt Input, Sh4lt Output |
 | Web | HTTP, WebSocket |
-| Musical hardware and control | MIDI in, MIDI out, serial, joystick, Wiimote, GPS, Leap Motion, raw I/O, Bluetooth Low Energy |
-| Lighting | Art-Net |
-| Audio | the audio device, covered in [Lesson 19]({{ site.baseurl }}/learn/19-audio-setup.html) |
-| Video sharing | window, camera, Spout, Syphon, shmdata, NDI |
-| Inside *score* | local, mapper |
+
+The list is scrollable and longer than any one screen, and it also carries the two devices that are not equipment at all, **local** and **mapper**, discussed below. Treat this table as what one build offered rather than as a fixed set: several entries here, LSL and NeoPixel LEDs among them, are not in the reference table at all.
 
 Two entries deserve a note now. The **local** device exposes *score*'s own parameters, which is how a score controls itself, and how [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) drives one machine from another. The **mapper** device is a device whose parameters are computed from other parameters, which is one way to keep conversion logic out of the timeline; [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html) compares it with the alternatives.
 
