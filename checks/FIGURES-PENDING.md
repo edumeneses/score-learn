@@ -18,9 +18,12 @@ Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
 consistent.
 
+Counting note: unit 00 carries two figures, so 26 figures cover 25 units. Unit 40, the
+capstone, needs none, which leaves 46 units wanting a figure and 21 still without.
+
 ---
 
-## Done: 27 figures
+## Done: 26 figures, covering 25 of the 46 units that need one
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -42,7 +45,7 @@ The nodal-patch figures were built by selecting an interval, filtering the proce
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 20 figures
+## Pending: 21 units
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.

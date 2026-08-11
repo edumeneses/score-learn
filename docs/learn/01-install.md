@@ -66,9 +66,6 @@ Keeping it in a directory such as `~/Applications` lets several pinned versions 
 5. **Check the version.** It appears in the window title, and on the command line as `--version`. It should read `3.8.2` if you are following the pinned course.
 6. **Leave a scratch project.** Save an empty document somewhere you will find it, for example `~/score/scratch.score`. Lesson 05 explains what that file contains and what travels with it.
 
-{: .note }
-> A figure for this lesson is pending: it needs the start screen and the `File` menu photographed, and those require interaction rather than a document opened from the command line. See `checks/01-install.md`.
-
 ## Installing packages
 
 Much of what this course uses later does not ship with the application: sound and MIDI material, Faust libraries, shader collections, and models. All of it arrives through the **package manager**, which lives in the application's settings, and it is worth installing a few packages now rather than in the middle of a lesson.

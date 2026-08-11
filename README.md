@@ -12,6 +12,8 @@ Authored by Eduardo Meneses (Société des Arts Technologiques, Montréal). Cont
 
 Readable while it is written, at <https://www.edumeneses.com/score-learn/>. **Not indexed**: every page carries a `noindex, nofollow` robots tag while `noindex: true` is set in `_config.yml`, no sitemap is generated, and the inherited analytics tag has been removed. One flag and one Gemfile line reverse all of that when the course is published. Note that the repository itself is public, so the Markdown remains readable on GitHub regardless. That is a review deployment, not the eventual home: it exists so the content can be judged in its real form rather than as Markdown in a diff. Every push to `main` runs the structural checks and, if they pass, redeploys.
 
+Working on this repository: read [CLAUDE.md](CLAUDE.md) for the toolchain and the rules, then [HANDOVER.md](HANDOVER.md) for current status and the task queue.
+
 The full plan, including the audit of the material this course is built on, is at `Documents/ossia_score_tutorial_syllabus.md` in the Assistant repository.
 
 ## Decisions this repository implements
