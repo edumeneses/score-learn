@@ -1,0 +1,36 @@
+{
+  "_comment": "Lesson 32: a hosted Pure Data patch as a process, with an audio inlet, an audio outlet, and a control inlet derived from the patch's annotated receive object. Badges match walkthrough steps 2 and 3.",
+  "source": "raw/raw-32-01.png",
+  "out": "docs/learn/assets/32/32-01-hosted-patch.png",
+  "crop": [
+    1250,
+    950,
+    2500,
+    1350
+  ],
+  "font_size": 28,
+  "badges": [
+    {
+      "n": 2,
+      "at": [
+        1600,
+        1060
+      ],
+      "to": [
+        2030,
+        1120
+      ]
+    },
+    {
+      "n": 3,
+      "at": [
+        1560,
+        1270
+      ],
+      "to": [
+        1940,
+        1200
+      ]
+    }
+  ]
+}

@@ -32,7 +32,13 @@ That combination is the interesting part, and it is worth naming as a division o
 
 **A patch becomes a process.** Add the Pure Data process, point it at a patch file, and it appears in the score like any other process, with its own place in an interval and its own ports.
 
-**Inlets and outlets map to ports.** The patch's inlets and outlets become the process's ports, which is what makes the whole thing work: everything you know about ports applies. A patch inlet can be driven by an automation, by a mapping, by a sensor through the pipeline of Lesson 13; a patch outlet can drive a device parameter or another process.
+**Annotated receives and sends become ports.** Not the patch's `inlet` and `outlet` objects, which is the natural guess and is wrong. *score* reads the patch and creates a control port for every **receive** carrying its annotations:
+
+```
+r $0-gain @type float @range 0 1 @default 1
+```
+
+gives a `gain` control inlet with that range and default. A matching `s $0-name` send becomes an outlet, and `adc~` and `dac~` give the audio inlet and outlet. Everything you know about ports then applies: a control port can be driven by an automation, by a mapping, or by a sensor through the pipeline of Lesson 13.
 
 **The patch is a referenced file.** Like a sound file, per Lesson 05, it is pointed at rather than embedded. It travels with the project directory and it must be found at the path you stored, which makes patch files subject to the same portability discipline as media.
 
@@ -42,21 +48,24 @@ That combination is the interesting part, and it is worth naming as a division o
 
 ## Walkthrough: host, drive, and read back
 
-{: .note }
-> A figure for this lesson is pending: it needs a patch file and the hosted process's ports, which requires interaction and a patch this course does not ship. See `checks/32-puredata.md`.
+![A hosted Pure Data patch as a process, with an audio inlet, an audio outlet, and a gain control derived from the patch]({{ site.img }}/32/32-01-hosted-patch.png)
 
-1. **Prepare a small patch first.** Not your most complex one: a patch with two inlets and one outlet, so that every step of this walkthrough is verifiable. Save it in your project directory. The shipped `lesson-32.pd` is exactly this, and it is short enough to read in full:
+1. **Prepare a small patch first.** Not your most complex one: a patch with one control in, one control out, and audio through, so that every step of this walkthrough is verifiable. The shipped `lesson-32.pd` is exactly that, and its whole content is these six objects:
 
    ```
-   #N canvas 320 220 480 320 12;
-   #X obj 40 40 inlet;      <- gain
-   #X obj 210 40 inlet;     <- offset
-   #X obj 40 130 *;
-   #X obj 40 190 +;
-   #X obj 40 250 outlet;    -> scaled value
+   adc~                                          audio in
+   *~ 1                                          scaled by the control
+   dac~                                          audio out
+   r $0-gain @type float @range 0 1 @default 1    becomes a control inlet
+   env~                                          follows the level
+   s $0-level @type float                        becomes a control outlet
    ```
+
+   Compare it with the `3band.pd` preset that ships in *score*'s default package, which declares four controls the same way.
 2. **Add the Pure Data process** in an interval and point it at the patch.
-3. **Find its ports.** Confirm that the patch's inlets and outlets appear on the process. If a port you expected is missing, the patch's declaration is where to look.
+3. **Find its ports.** Confirm that `gain` appears as a control on the process, alongside the audio inlet and outlet, as in the figure. If a port you expected is missing, the patch's *annotation* is where to look: a receive without `@type` is not a port.
+
+   One consequence worth knowing: the port list is stored **in the document**, and *score* does not re-read the patch when the document opens. Adding a control to the patch therefore means re-selecting it in the inspector so the ports are derived again, and a document hand-edited to point at a different patch will keep the old ports until you do.
 4. **Drive one inlet from an automation.** Right-click the port, create an automation, draw a curve, and play. The patch is now under the timeline's control.
 5. **Drive a second inlet from your bench**, through the conditioning pipeline from Lesson 13, so a live input reaches the patch already scaled and smoothed.
 6. **Read an outlet.** Cable the patch's outlet to a device parameter, or to a signal display so you can watch it, and confirm values leave the patch.
@@ -91,7 +100,7 @@ A last observation about maintenance. A hosted patch is a second file that has t
 ## Common mistakes
 
 - **Hosting a patch that contains its own sequencer.** Two time systems, and neither is in charge.
-- **Parameters buried inside the patch.** If it is not an inlet, the score cannot touch it.
+- **Parameters buried inside the patch.** If it is not an annotated receive, the score cannot touch it.
 - **A patch path outside the project directory.** Same failure as media, same fix.
 - **Forgetting the dependency.** Pure Data and its externals must exist on the machine.
 - **Expecting the patch's own interface.** You are hosting the processing, not the window; drive it through ports.
