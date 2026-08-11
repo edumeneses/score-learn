@@ -32,7 +32,7 @@ Branching is also where a *score* document stops being expressible as a linear r
 
 **A condition belongs to an event, not to a state.** Lesson 02 insisted on this distinction and here is where it pays. Messages live on states; conditions live on events. An instant can carry several events, each with its own condition, and that is the mechanism of a branch.
 
-**Splitting an instant.** Two intervals leaving the same instant share one event by default, which means they run together. To make them alternatives, the instant must be **split into separate events**, one per branch, using the scenario's *split condition* function. Only then can each carry its own condition. This is the step people miss, and the symptom is unmistakable: both branches run.
+**Splitting an instant.** Two intervals leaving the same instant share one event by default, which means they run together. To make them alternatives, each branch needs its **own event**, and each event its own condition. The `Object` menu is where this lives: `Add Condition`, shortcut `C`, and `Remove Condition`, `Shift+C`, together with `Merge events` and `Synchronize`, `Shift+M`, which control whether things share an instant at all. This is the step people miss, and the symptom is unmistakable: both branches run.
 
 **Parallel against exclusive.** Both are useful and the distinction is structural. Two intervals on the *same* event run in parallel, every time. Two intervals on *separate* events at the same instant, each with a condition, are alternatives. A score often wants both at once: a branch that chooses, alongside a layer that always runs.
 

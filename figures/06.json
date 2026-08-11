@@ -1,0 +1,25 @@
+{
+  "_comment": "Lesson 06: the device explorer's own menu, where devices are created and edited.",
+  "source": "raw/raw-06-01.png",
+  "out": "docs/learn/assets/06/06-01-device-menu.png",
+  "crop": [
+    100,
+    430,
+    1400,
+    1750
+  ],
+  "font_size": 30,
+  "badges": [
+    {
+      "n": 5,
+      "at": [
+        900,
+        1000
+      ],
+      "to": [
+        430,
+        822
+      ]
+    }
+  ]
+}

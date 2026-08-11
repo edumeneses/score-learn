@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 06-01 | The protocol chooser and a device's edit dialog | pending: needs interaction (right-click menu and modal dialog) |
+| 06-01 | The device explorer's menu, with Add device (Ctrl+B) | **done**, docs/learn/assets/06/06-01-device-menu.png |
 
 Figures are produced by the pipeline described in the README: `scripts/mkscore.py`,
 `scripts/capture.py`, then `scripts/annotate.py` against a spec in `figures/`.

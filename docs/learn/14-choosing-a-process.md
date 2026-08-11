@@ -69,8 +69,9 @@ The last row matters as much as the others. When nothing fits, a script is a leg
 
 ## Walkthrough: five searches, done properly
 
-{: .note }
-> A figure for this lesson is pending: it needs the process library panel with a search in progress, which requires interaction. See `checks/14-choosing-a-process.md`.
+![The process library filtered by a search, showing the Control and Mappings families]({{ site.img }}/14/14-01-library-search.png)
+
+The figure is the library filtered by four characters. Note what it reveals: the `Control > Mappings` family, with the objects Lesson 13 used, and a good deal more besides.
 
 For each of the following, find the process before reading the answer, using the two questions rather than the search box.
 

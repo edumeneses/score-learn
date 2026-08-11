@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 19]({{ site.baseurl }}/learn/19-audio-setup.html).
 >
-> **You will need** three or four sound files, ideally of different lengths and channel counts.
+> **You will need** three or four sound files, ideally of different lengths and channel counts. If you have none to hand, install the *Citizen DJ* packages through the package manager, per [Lesson 01]({{ site.baseurl }}/learn/01-install.html); they provide several thousand short, freely usable excerpts, and they appear in the user library ready to drag into a score.
 >
 > **You will build** a small sound-based document that plays, loops, fades, and reports what it is doing, and that travels without breaking.
 

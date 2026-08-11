@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 18-01 | The transport bar with its four buttons identified, and the play-from-here menu | needs interaction: menus |
+| 18-01 | Play-from-here in the context menu, above the transport bar | **done**, docs/learn/assets/18/18-01-transport.png |
 
 See `checks/FIGURES-PENDING.md` for the consolidated list of figures that need
 an interactive session, and why each one cannot be produced by the scripted
@@ -24,3 +24,10 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Corrected 2026-08-11 against the running build
+
+The Play menu names all four transport actions and their shortcuts: Play (space),
+Play (global) (Shift+Space), Stop (Return), Reinitialize (Ctrl+Return), plus
+Play (Network) and Stop (Network). The Object menu carries Synchronize (Shift+M)
+and Merge events, which is the clearest way to find the synchronisation function.

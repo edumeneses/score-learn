@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 12-01 | The record-automations menu, plus a dense curve before and after reduction | needs interaction: context menu, live performance |
+| 12-01 | The Record submenu in the scenario's context menu | **done**, docs/learn/assets/12/12-01-record-menu.png |
 
 See `checks/FIGURES-PENDING.md` for the consolidated list of figures that need
 an interactive session, and why each one cannot be produced by the scripted

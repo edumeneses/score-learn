@@ -23,3 +23,9 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Corrected 2026-08-11 against the running build
+
+The Object menu offers Add Condition (C), Remove Condition (Shift+C), Merge events,
+and Synchronize (Shift+M). An earlier draft named a 'split condition' function; the
+mechanism is real but those are the names the interface uses.

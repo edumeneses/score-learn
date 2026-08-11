@@ -67,8 +67,11 @@ The figure below is a small finished score, `lesson-00.score`, which ships with 
 6. **The branch.** Two intervals, `Bright` and `Dark`, leave that same instant. Each is guarded by a condition on the value of `lesson:/level`, so exactly one of them runs. A linear reading of this document is impossible, which is precisely the point.
 7. **Where the outside world appears.** Each automation's slot header names its destination, in the form `device:/parameter`, here `lesson:/colour`. The score writes values to names; what those names are attached to, a piece of software or a piece of hardware, is configured once and separately, in [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html). The device itself, `lesson`, is listed in the panel on the left.
 
-{: .note }
-> A second figure, the same document seen as a node graph rather than a timeline, is pending. See `checks/00-what-score-is.md` for why and for what has to be re-verified when the pinned version changes.
+Now look at the same document the other way. Nothing about the file changed; only the view did.
+
+![The same document drawn as a node graph, the root scenario containing its intervals as nested nodes]({{ site.img }}/00/00-02-nodal-view.png)
+
+1. **The root scenario, as one node**, containing the same intervals you just read as a timeline. This is the second of the two paradigms named above, and the button that switches between them sits at the bottom left of the window. Lesson 03 finds it, and Lesson 11 is where the graph view starts to earn its place.
 
 ## Common mistakes
 

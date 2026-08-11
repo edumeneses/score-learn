@@ -24,3 +24,10 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 
 - Platform and packaging details come from the reference installation page; re-read it at each pin.
 - The documentation-quality and start-screen findings come from the SAT Ossia score UI/UX study report.
+
+## Corrected 2026-08-11 against the running build
+
+The start screen **cannot be reopened from any menu** in 3.8.2. File offers New, Load,
+Recent files, Save, Save as, Close, Quit, Make Server, Join Server; View, Play, and
+Help have no entry for it. An earlier draft of this lesson said it could be reopened
+from the File menu, which was wrong.

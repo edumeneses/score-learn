@@ -20,16 +20,15 @@ Capture format: fullscreen on a 3840x2160 screen with `QT_SCALE_FACTOR=2`, which
 | ID | Content | Status |
 |---|---|---|
 | 00-01 | Annotated `lesson-00.score`, badges 1 to 7 matching the walkthrough steps | **done**, `docs/learn/assets/00/00-01-annotated-score.png` |
-| 00-02 | The same document as a node graph | **pending**, see below |
+| 00-02 | The same document as a node graph | **done**, docs/learn/assets/00/00-02-nodal-view.png |
 
-## Why 00-02 is pending
+## How 00-02 was produced
 
-`scripts/mkscore.py` can flip the racks to nodal (`lesson-00-nodal.score` is generated), but a document authored as JSON carries no node positions, so score draws the graph collapsed and the figure teaches nothing. Two ways out, in order of preference:
-
-1. open `lesson-00.score` in score, switch the intervals to nodal view, lay the nodes out by hand, save as `lesson-00-nodal.score`, then capture with the same commands. This requires an unlocked session, since it needs real interaction.
-2. give the builder explicit `Pos` values per process and find the coordinate space score expects for nodal layout.
-
-Until then Lesson 00 states plainly that the figure is pending rather than shipping a misleading one.
+`mkscore.py` can flip the racks to nodal, but a JSON-authored document carries no node
+positions, so score drew that graph collapsed. The figure was captured instead by
+opening `lesson-00.score` and pressing the view-mode button at the bottom left of the
+window, at roughly x=767, y=2098 in the capture format, which switches the editor to the
+node graph and lays it out. That needed an unlocked session.
 
 ## Re-verify when the pinned version changes
 

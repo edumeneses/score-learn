@@ -23,3 +23,8 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Corrected 2026-08-11 against the running build
+
+Encapsulate (Ctrl+Alt+E) and Decapsulate (Ctrl+Alt+D), in the Object menu, are the
+commands that put a selection into a sub-scenario and take it back out.

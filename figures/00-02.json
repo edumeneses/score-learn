@@ -1,0 +1,25 @@
+{
+  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point.",
+  "source": "raw/raw-00-02.png",
+  "out": "docs/learn/assets/00/00-02-nodal-view.png",
+  "crop": [
+    1380,
+    720,
+    2150,
+    1120
+  ],
+  "font_size": 30,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        1500,
+        800
+      ],
+      "to": [
+        1620,
+        860
+      ]
+    }
+  ]
+}

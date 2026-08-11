@@ -42,7 +42,9 @@ There is a second reason. A `.score` file is JSON, which means you can read it, 
 
 ## Walkthrough: package a project properly
 
-1. **Make a project directory.** One directory per piece, for example `~/score/fade-study/`. Put the `.score` file in it.
+![The project folder panel, listing the documents that sit beside the score]({{ site.img }}/05/05-01-project-folder.png)
+
+1. **Make a project directory.** One directory per piece, for example `~/score/fade-study/`. Put the `.score` file in it. The project folder panel, `Ctrl+Shift+L`, then lists what is in it, as in the figure.
 2. **Put media beside the score.** Copy, do not link, every sound file, image, and script the document uses into that directory, or a `media/` subdirectory of it.
 3. **Re-point the document at the copies.** Reselect each media file from inside the project directory, so the stored paths are the ones you control.
 4. **Save, close, and reopen.** Confirm nothing is missing. This step is not optional: it is the only way to know that what you think is stored is stored.

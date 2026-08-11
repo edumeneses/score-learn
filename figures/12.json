@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 12: the scenario's context menu with the Record submenu open. Badge matches walkthrough step 3.",
+  "source": "raw/raw-12-01.png",
+  "out": "docs/learn/assets/12/12-01-record-menu.png",
+  "crop": [1300, 1350, 3000, 1800],
+  "font_size": 30,
+  "badges": [{"n": 3, "at": [2550, 1720], "to": [2060, 1575]}]
+}

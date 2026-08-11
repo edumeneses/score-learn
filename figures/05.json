@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 05: the project folder panel listing what sits beside the score.",
+  "source": "raw/raw-05-01.png",
+  "out": "docs/learn/assets/05/05-01-project-folder.png",
+  "crop": [0, 100, 780, 700],
+  "font_size": 30,
+  "badges": [{"n": 1, "at": [560, 165], "to": [300, 150]}, {"n": 5, "at": [560, 300], "to": [270, 240]}]
+}

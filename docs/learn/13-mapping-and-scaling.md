@@ -38,7 +38,7 @@ The mistake to avoid is treating this as arithmetic. Scaling a range is arithmet
 
 **Calibrator.** Learns the actual range of an input by watching it. Essential with physical sensors, whose real-world range is never the range on the datasheet, and whose range changes when someone moves the installation.
 
-**Smooth.** Filters jitter, at the cost of latency. The trade-off is the point: more smoothing means a calmer output and a later one. For a light, smooth generously; for a percussive trigger, barely at all.
+**Smoothing.** Filters jitter, at the cost of latency. The trade-off is the point: more smoothing means a calmer output and a later one. For a light, smooth generously; for a percussive trigger, barely at all. In the library this is `Exp Smoothing`, under `Control > Mappings`, with a `Smoother` in the analysis family as well.
 
 **Rate limiter.** Caps how often values pass. Where smoothing changes values, rate limiting changes their frequency, which is what you need when a sensor floods the network or when a receiver cannot keep up.
 

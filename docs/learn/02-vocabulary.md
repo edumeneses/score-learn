@@ -54,6 +54,10 @@ A **score** contains one root **interval**. An interval contains **processes**, 
 
 Open `lesson-00.score` and work down the list. For each step, click the object and read the right-hand panel before moving on.
 
+![One instant of a score, zoomed: a state on its event, and the trigger marker above it]({{ site.img }}/02/02-01-instant.png)
+
+The figure zooms on one instant of `lesson-00.score`, with the two objects that are easiest to confuse marked: the **state**, step 5 below, and the **trigger** on the instant it sits at, step 7.
+
 1. **The root interval.** Click the outermost horizontal bar. The inspector shows its duration and its name, `lesson-00`. Note that it has a duration at all: the document is an interval like any other.
 2. **A nested interval.** Click `Approach`. Confirm that the inspector describes an interval, and that its contents include a scenario, `Scenario.10`, which in turn holds `Shutter`. Three levels, one mechanism.
 3. **A process.** Click the slot header reading `Automation (float).2 -> lesson:/level`. The inspector now describes an automation: its address, and the minimum and maximum it drives between. This is the moment to notice that a process's destination is a property of the process, not of the interval.

@@ -49,7 +49,7 @@ This lesson is therefore mostly about orientation and recovery. Nothing in it pr
 3. **The scenario editor**, the large central area. This is the only place where the document is edited. Above it is the time ruler, reading in minutes and seconds.
 4. **The document breadcrumb**, just under the ruler, reading `lesson-00 /`. This tells you which level of the hierarchy you are looking at, and it is clickable. Remember it: it is your way out of a nested view.
 5. **The object inspector** on the right, with its two halves. In the figure it is empty, because nothing is selected, and the panel above it is the history. Click `Approach` and read both halves.
-6. **The transport bar**: position readout, play, stop, speed, and volume. Press `space` to play and `↵` to stop. Do it now with `lesson-00.score`: playback will run through `Approach` and then stop at the trigger, waiting. That is not a freeze. Click the trigger's T marker to release it and watch one of the two branches run.
+6. **The transport bar**: position readout, the four transport buttons, speed, and volume. The `Play` menu names all four and their shortcuts: play, `space`; play globally, `Shift+Space`; stop, `↵`; reinitialise, `Ctrl+↵`. Press `space` now with `lesson-00.score`: playback will run through `Approach` and then stop at the trigger, waiting. That is not a freeze. Click the trigger's T marker to release it and watch one of the two branches run.
 
 ## Moving around without getting lost
 

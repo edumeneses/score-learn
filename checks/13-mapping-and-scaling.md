@@ -22,3 +22,12 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Confirmed 2026-08-11 against the running build
+
+The library path Control > Mappings is correct, and contains: ADSR, Accumulator,
+Angle mapper, Array Flattener, Array Recombiner, Array Value Combiner, Array tool,
+Arraymap, Calibrator, Combine inlets, Counter, Easetanbul, Empty audio/midi/value
+mapper, Exp Smoothing, Expression Value Filter, Mapping curve, Mapping tool,
+Micromap, Multi-choice, Range Filter, Rate Limiter, Repetition Filter, Smooth.
+The smoothing object is named Exp Smoothing.

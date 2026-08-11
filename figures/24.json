@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 24: an interval's inspector. Badges mark the metrics button and the quantisation setting.",
+  "source": "raw/raw-24-01.png",
+  "out": "docs/learn/assets/24/24-01-metrics.png",
+  "crop": [2880, 150, 3840, 900],
+  "font_size": 30,
+  "badges": [{"n": 1, "at": [3150, 290], "to": [3335, 350]}, {"n": 7, "at": [3120, 760], "to": [3390, 688]}]
+}

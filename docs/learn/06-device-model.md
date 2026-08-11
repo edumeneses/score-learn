@@ -70,8 +70,9 @@ Two entries deserve a note now. The **local** device exposes *score*'s own param
 6. **Look at how the score refers to it.** Click any automation and read its address in the inspector. Nothing in the timeline mentions ports, hosts, or protocols. That separation is the point.
 7. **Draw your own map.** On paper, list every piece of software and hardware in your project. For each, write the protocol you would use and, crucially, whether it can describe itself. That list is the input to Lesson 07.
 
-{: .note }
-> A figure for this lesson is pending: it needs the protocol chooser and the device edit dialog photographed, which requires interaction rather than a document opened from the command line. See `checks/06-device-model.md`.
+![The device explorer's own menu, with Add device and the per-device actions]({{ site.img }}/06/06-01-device-menu.png)
+
+The figure shows the menu that all of this happens through, reached by right-clicking in the device explorer. Note `Add device`, which is `Ctrl+B`, and note that the same menu carries `Edit`, `Refresh namespace`, `Disconnect`, and `Reconnect`: creating, editing, and reconnecting a device are all here rather than spread across the interface.
 
 ## Naming addresses so they survive the project
 

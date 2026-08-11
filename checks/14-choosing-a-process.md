@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 14-01 | The process library with a search in progress | needs interaction: panel with typed search |
+| 14-01 | The process library filtered, showing Control > Mappings | **done**, docs/learn/assets/14/14-01-library-search.png |
 
 See `checks/FIGURES-PENDING.md` for the consolidated list of figures that need
 an interactive session, and why each one cannot be produced by the scripted

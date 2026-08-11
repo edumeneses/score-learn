@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 14: the process library filtered. Badges mark the search field and the Control > Mappings family.",
+  "source": "raw/raw-14-01.png",
+  "out": "docs/learn/assets/14/14-01-library-search.png",
+  "crop": [0, 120, 800, 1150],
+  "font_size": 30,
+  "badges": [{"n": 1, "at": [640, 220], "to": [430, 192]}, {"n": 2, "at": [640, 420], "to": [310, 335]}]
+}

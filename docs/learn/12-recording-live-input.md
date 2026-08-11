@@ -42,8 +42,7 @@ There is a second, less obvious use. Recording is a measurement tool. When a sen
 
 ## Walkthrough: perform, record, clean
 
-{: .note }
-> A figure for this lesson is pending: it needs the right-click menu that starts a recording, plus a before-and-after of a dense curve, which requires interaction. See `checks/12-recording-live-input.md`.
+![The scenario's context menu with the Record submenu open, offering to record automations or messages]({{ site.img }}/12/12-01-record-menu.png)
 
 1. **Get input arriving first.** Before recording anything, confirm in the device explorer that the values you expect are moving. Recording an address that never receives produces an empty automation and a confusing five minutes.
 2. **Select the addresses to record** in the device explorer. One is enough for a first attempt; the mechanism handles several at once.

@@ -11,8 +11,8 @@ a script cannot supply, and the table says which:
 | Blocker | Why |
 |---|---|
 | **interaction** | The figure shows a menu, a modal dialog, a typed search, a nodal patch, or a transition. Synthetic input through XTEST is swallowed whenever the session is locked, and `mkscore.py` does not emit transitions or node positions |
-| **media** | The figure needs audio, video, or a 3D model that this course cannot ship for licensing reasons |
-| **hardware** | The figure needs a second machine, a Raspberry Pi, a plug-in, a MIDI controller, or a capture application |
+| **media** | The figure needs audio, video, or a 3D model. **Mostly solved**: see the local material below |
+| **hardware** | The figure needs a second machine, a Raspberry Pi, a webcam, or software that is not installed |
 
 Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
@@ -20,42 +20,30 @@ consistent.
 
 ---
 
-## Done: 11 figures
+## Done: 19 figures
 
-`00-01` annotated score · `03-01` window regions · `04-01` first automation ·
-`08-01` address and range · `09-01` cue list · `10-01` curve shapes ·
-`15-01` trigger · `16-01` branching · `p1-01` cue structure · `p2-01` light wash ·
-plus the raws in `figures/raw/` they were cropped from.
+Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
+`04-01` first automation · `08-01` address and range · `09-01` cue list ·
+`10-01` curve shapes · `15-01` trigger · `16-01` branching · `p1-01` cue structure ·
+`p2-01` light wash.
 
-## Pending: 36 figures
+Captured 2026-08-11 in an unlocked session, with menus composited in by
+`capture.py --popups`: `00-02` nodal view · `02-01` one instant ·
+`05-01` project folder panel · `06-01` device menu · `12-01` Record submenu ·
+`14-01` library search · `18-01` transport and play-from-here ·
+`24-01` interval metrics inspector.
 
-### Interaction only — fastest to clear (13)
+## Pending: 28 figures
 
-These need an **unlocked session** and nothing else. Most are one screenshot each.
-If you clear only one group, clear this one.
+### Interaction only — what is left (5)
 
-| Unit | Figure | What to capture |
-|---|---|---|
-| 01 | `01-01` | Start screen with the bundled examples, and the `File` menu showing how to reopen it |
-| 02 | `02-01` | Zoom on `lesson-00.score`'s trigger instant, badged for state, event, trigger |
-| 05 | `05-01` | The project folder panel beside a project directory on disk |
-| 06 | `06-01` | The protocol chooser, and a device's edit dialog |
-| 07 | `07-01` | The OSC protocol dialog with both port settings, and the address editor |
-| 11 | `11-01` | An LFO patched to three destinations in the nodal view |
-| 12 | `12-01` | The record-automations context menu, plus a dense curve before and after reduction |
-| 13 | `13-01` | A conditioning pipeline in the nodal view: calibrator, filter, curve, smooth |
-| 14 | `14-01` | The process library with a search in progress |
-| 18 | `18-01` | The transport bar with its four buttons identified, and the play-from-here menu |
-| 24 | `24-01` | The musical metrics area, and an interval's metrics inspector |
-| 34 | `34-01` | A folded, named score beside its documentation |
-| 38 | `38-01` | Contextual help open beside a selected object |
-
-Also in this group, and worth doing first because it is the one figure the course
-promises and does not have:
-
-| Unit | Figure | What to capture |
-|---|---|---|
-| 00 | `00-02` | `lesson-00.score` as a node graph. `mkscore.py` can flip the racks to nodal, but a JSON-authored document has no node positions, so score draws the graph collapsed. Open `lesson-00.score`, switch the intervals to nodal, lay the nodes out by hand, save as `lesson-00-nodal.score`, then capture |
+| Unit | Figure | What to capture | Note |
+|---|---|---|---|
+| 01 | `01-01` | The start screen with the bundled examples | Must be captured **at launch**: 3.8.2 has no menu entry that reopens it, which the lesson now says explicitly |
+| 07 | `07-01` | The Add-device dialog with its protocol list, and the OSC settings | `Ctrl+B` and the `+` button both failed to open the dialog under synthetic input; it may need a real click on the menu item |
+| 11 | `11-01` | An LFO patched to three destinations in the nodal view | Needs processes added to a score, then the view-mode button |
+| 13 | `13-01` | A conditioning pipeline in the nodal view | Same |
+| 34 | `34-01` | A folded, named score | `Ctrl+Alt+F` did not fold under synthetic input; use `View > Fold intervals` from the menu |
 
 ### Interaction plus transitions (3)
 
@@ -68,10 +56,28 @@ and out-of-time material. These have to be drawn.
 | P3 | `p3-01` | The mapping bench: one conditioned input, three branches, observation on each |
 | P4 | `p4-01` | Idle loop, visitor trigger, two branches, return transitions |
 
+## Material already on this machine
+
+Installed through the package manager, under `~/Documents/ossia/score/packages/`, and
+available in the user library. This removes the media blocker from most figures:
+
+| Kind | Package | Amount |
+|---|---|---|
+| Audio excerpts, freely usable | `citizen-dj-free-music`, `citizen-dj-musicbox`, `citizen-dj-variety-stage`, `citizen-dj-joe-smith`, `citizen-dj-american-english`, `citizen-dj-tony-schwartz`, `citizen-dj-inventing-entertainment`, `citizen-dj-national-screening-room` | ~4,400 WAV each in the two largest |
+| Percussive samples | `dirt-samples`, `drum-kits`, `the-libre-sample-pack`, `space-sounds` | ~1,800 WAV in dirt-samples alone |
+| MIDI files | `free-midi-chords` | 18,456 `.mid` |
+| Faust spatial library | `abclib` | ambisonics, decoders, geometry |
+| Hosted plug-ins | `jsfx_pack` | JSFX effects, including MIDI ones |
+| Faust amp models | `guitarix` | |
+| AI / vision models | `librediffusion`, `yolov8-pose`, `blazepose-full-body`, `resnet50-v2-7`, `affectnet`, `rtmpose-body-2d` | |
+
+Still missing locally: **video files** and **3D models**. A short video can be generated
+with `ffmpeg`, which is installed; a simple glTF can be written by hand or exported from
+any modelling tool.
+
 ### Interaction plus media (9)
 
-Need a sound file, a video file, or a model. Any material you already own works;
-what matters is that the figure shows real content rather than an empty slot.
+The audio and MIDI ones can be done now with the material above.
 
 | Unit | Figure | What to capture |
 |---|---|---|
@@ -85,23 +91,39 @@ what matters is that the figure shows real content rather than an empty slot.
 | P6 | `p6-01` | A fisheye output in a window, with the scene structure folded |
 | 31 | `31-01` | The Faust editor with code and a running audio chain |
 
-### Interaction plus hardware or extra software (11)
+### Interaction plus other software (11), and what this machine already has
 
-| Unit | Figure | Needs |
+Checked on this machine, 2026-08-11:
+
+| Unit | Figure | Status here |
 |---|---|---|
-| 19 | `19-01` | Audio preferences dialog and an audio outlet's inspector |
-| 21 | `21-01` | An effect chain with a hosted plug-in — needs a plug-in |
-| 23 | `23-01` | A piano roll with notes, beside a MIDI device tree — needs a controller or virtual port |
-| 29 | `29-01` | The script editor and the console panel |
-| 30 | `30-01` | An expression object's editor beside its result |
-| 32 | `32-01` | A hosted patch's ports in the nodal view — needs Pure Data and a patch |
-| 33 | `33-01` | A populated control surface, and a remote client connected — needs a second device |
-| 35 | `35-01` | Console output and full-screen playback on a deployed machine — needs a Pi or spare machine |
-| 36 | `36-01` | Two instances and their device trees — needs two machines |
-| 37 | `37-01` | A capture application alongside a running score — needs OBS |
-| 39 | `39-01` | The plug-in template's build output, and the new process in the library — needs CMake, Ninja, a compiler |
+| 19 | `19-01` | **doable**: audio preferences plus an outlet inspector, both in-application |
+| 21 | `21-01` | **doable**: `jsfx_pack` provides hosted plug-ins, no purchase needed |
+| 23 | `23-01` | **doable**: ALSA `Midi Through Port-0` exists, so a MIDI device can be declared with no hardware; notes come from `free-midi-chords` |
+| 29 | `29-01` | **doable**: script editor and console are in-application |
+| 30 | `30-01` | **doable**: expression objects are in-application |
+| 32 | `32-01` | **blocked**: Pure Data is not installed. `sudo apt install puredata` |
+| 33 | `33-01` | **doable**: a browser on this machine can be the remote client over localhost |
+| 35 | `35-01` | **partly**: headless on this machine is doable; the Raspberry Pi half needs a board |
+| 36 | `36-01` | **doable**: two instances on one machine, which is the lesson's own first step |
+| 37 | `37-01` | **doable**: OBS is installed at `/usr/bin/obs`, and its NDI plug-in (`distroav.so`) is present, so the score-to-OBS path can go over NDI. The Linux route in the lesson uses `shmdata` into GStreamer into `v4l2loopback`; neither the `libgstshmdata.so` GStreamer plug-in nor the `v4l2loopback` module is present, so NDI is the route to use here |
+| 39 | `39-01` | **doable**: `cmake`, `ninja`, and `g++` are installed |
 
 `40` (capstone) needs no figure: it is a brief and a rubric.
+
+## What genuinely needs something we do not have
+
+Three things, and only three:
+
+1. **Pure Data**, for figure `32-01`. One command: `sudo apt install puredata`.
+2. **A Raspberry Pi or spare machine**, for the deployment half of `35-01`. A Pi 4 is the
+   board the reference documentation recommends. Without it, the headless part can still
+   be shown on this machine.
+3. **A camera and a real dome**, which are nice-to-have rather than blocking: `25-01` can
+   use two video files instead of a webcam, and `p6-01` is specified as a fisheye image in
+   a window precisely so that no dome is needed.
+
+Everything else on this page can be produced on this machine in an unlocked session.
 
 ---
 

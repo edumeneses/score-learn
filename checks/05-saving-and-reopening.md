@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 05-01 | The project folder panel beside a project directory on disk | pending: needs a document with media, which this lesson does not ship |
+| 05-01 | The project folder panel | **done**, docs/learn/assets/05/05-01-project-folder.png |
 
 Figures are produced by the pipeline described in the README: `scripts/mkscore.py`,
 `scripts/capture.py`, then `scripts/annotate.py` against a spec in `figures/`.

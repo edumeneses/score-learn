@@ -30,7 +30,7 @@ It also settles the control the usability study named as unclear until it was ex
 
 ## Concepts
 
-**Four transport buttons, in order.** Local play, global play, stop, and reinitialise. The distinction between local and global is the one to learn: **local play** plays the object you are looking at, which is how you rehearse a scene without the rest of the score; **global play** plays the score from the top. Reinitialise stops and returns the document to its starting condition.
+**Four transport buttons, in order.** Local play, global play, stop, and reinitialise, which the `Play` menu names with their shortcuts: `space`, `Shift+Space`, `↵`, and `Ctrl+↵`. The distinction between local and global is the one to learn: **local play** plays the object you are looking at, which is how you rehearse a scene without the rest of the score; **global play** plays the score from the top. Reinitialise stops and returns the document to its starting condition. The same menu also carries `Play (Network)` and `Stop (Network)`, which [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) uses.
 
 **Start and stop cues.** A cue dropped on the **first** state of the score, in timeline view, is sent whenever the score starts and whenever it is reinitialised. A cue on the **last** state is sent whenever the score is stopped. These two states are therefore special, and they are the correct place for "everything to a known condition" and "everything off". This is the mechanism that answers the gap Milestone P1 identified: interrupted playback now has a defined ending, because stopping sends the last state.
 
@@ -50,12 +50,11 @@ Two intervals that end at the same instant are **synchronised**: they finish tog
 
 Unsynchronizing separates them, so each interval ends on its own instant and can finish and proceed independently. The reason it exists: a layer that should keep running while another layer waits for a cue cannot be synchronised to that cue, or it will wait too.
 
-The reason it confuses people is that the control is an icon whose effect is invisible until execution, when the two intervals suddenly behave differently from how they are drawn. If you are unsure whether two intervals are synchronised, look at whether they share an instant, and test by making one of them wait.
+The reason it confuses people is that the control is an icon whose effect is invisible until execution, when the two intervals suddenly behave differently from how they are drawn. The `Object` menu names the two halves of it, `Synchronize`, `Shift+M`, and `Merge events`, which is the clearest way to find the function when the icon is not obvious. If you are unsure whether two intervals are synchronised, look at whether they share an instant, and test by making one of them wait.
 
 ## Walkthrough: make a score operable
 
-{: .note }
-> A figure for this lesson is pending: it needs the transport bar photographed with its four buttons identified, plus the right-click transport menu, which requires interaction. See `checks/18-cues-and-transport.md`.
+![The scenario's context menu offering play from here, above the transport bar]({{ site.img }}/18/18-01-transport.png)
 
 1. **Take a score with three sections** and at least one condition. Your extended P1 cue is ideal.
 2. **Add a start cue.** Drop the parameters that must be in a known condition onto the very first state. Play, then reinitialise, and confirm the values are sent both times.

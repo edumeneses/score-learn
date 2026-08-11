@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 02: one instant, zoomed. Badges match walkthrough steps 5 (a state) and 7 (the trigger).",
+  "source": "raw/raw-00-01.png",
+  "out": "docs/learn/assets/02/02-01-instant.png",
+  "crop": [1500, 280, 2900, 1000],
+  "font_size": 32,
+  "badges": [{"n": 5, "at": [1680, 640], "to": [1932, 520]}, {"n": 7, "at": [1650, 330], "to": [1945, 358]}]
+}

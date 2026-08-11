@@ -46,8 +46,7 @@ That is not a novelty feature. It is the mechanism that makes polyrhythm, cross-
 
 ## Walkthrough: two metres and a quantised cue
 
-{: .note }
-> A figure for this lesson is pending: it needs the musical metrics area at the top of the score and an interval's metrics inspector, both of which require interaction. See `checks/24-tempo-and-sync.md`.
+![An interval's inspector, showing the metrics button, the speed control, and the quantisation setting]({{ site.img }}/24/24-01-metrics.png)
 
 1. **Give the root its own metrics.** Enter the root interval in full view, mark it as having its own metrics, and set four-four with a tempo you can hear.
 2. **Add something that pulses.** An LFO driving a parameter, or a piano roll playing quarter notes. You need an audible pulse to judge everything that follows.
@@ -82,6 +81,8 @@ Once two machines are involved, one question decides the whole design: which one
 **No shared tempo at all.** Two systems running independently, synchronised only at cue points by triggers. This is more robust than it sounds and often the correct answer: fewer things to go wrong, and each system stays internally consistent. Many productions that believe they need clock synchronisation actually need two cues.
 
 Decide this before building, write it in the technical page, and test the failure: what happens when the other machine stops. A follower that freezes when its master disappears is a design decision you should make deliberately rather than discover.
+
+One detail visible in the figure is worth naming, because it is where most of this lesson is actually operated from. An interval's inspector carries the metrics button, the speed control with its ratio presets, and the quantisation dropdown, all in one place. Speed and quantisation are easy to confuse and do different jobs: speed scales how fast the interval's contents run, while quantisation decides at which musical division its children are allowed to begin. A section that feels rushed wants speed; a section whose entries land untidily wants quantisation.
 
 ## Common mistakes
 

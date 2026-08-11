@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 02-01 | Zoom on the trigger instant of lesson-00.score, badges on state, event, and trigger | pending: a distinct crop of figures/raw/raw-00-01.png, spec not yet written |
+| 02-01 | One instant zoomed: state, event, trigger | **done**, docs/learn/assets/02/02-01-instant.png |
 
 Figures are produced by the pipeline described in the README: `scripts/mkscore.py`,
 `scripts/capture.py`, then `scripts/annotate.py` against a spec in `figures/`.

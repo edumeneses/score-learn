@@ -60,12 +60,27 @@ Keeping it in a directory such as `~/Applications` lets several pinned versions 
 1. **Launch it.** Startup takes a few seconds the first time while plug-ins are scanned.
 2. **Confirm the three areas.** A correct installation shows the `Device explorer` on the left, the scenario editor in the centre, and the object inspector on the right. If any is missing, you have almost certainly collapsed a panel rather than broken an install; Lesson 03 covers panel management.
 3. **Open something that already works.** The start screen offers bundled examples. Open one, look at it, and close it without saving. You are not expected to understand it; you are confirming that playback, audio, and graphics initialise on your machine.
-4. **Note where the examples live.** Before dismissing the start screen, notice how you got to the examples. This is the single most common early annoyance: the resources are easy to reach at launch and easy to lose afterwards. If you cannot find them again later, reopen the start screen from the `File` menu rather than hunting the filesystem.
+4. **Note where the examples live, before you dismiss the start screen.** This is the single most common early annoyance, and it is worse than it sounds: in {{ page.score_version }} the start screen **cannot be reopened from any menu**. `File` offers new, load, recent files, save, close, quit, and the two server entries; `View`, `Play`, and `Help` have nothing for it either. The usability study flagged exactly this. Two durable routes to the same material: the user library and project folder panels, `Ctrl+Shift+B` and `Ctrl+Shift+L`, and `Help > Documentation`, which opens the reference manual where the examples are also published.
 5. **Check the version.** It appears in the window title, and on the command line as `--version`. It should read `3.8.2` if you are following the pinned course.
 6. **Leave a scratch project.** Save an empty document somewhere you will find it, for example `~/score/scratch.score`. Lesson 05 explains what that file contains and what travels with it.
 
 {: .note }
 > A figure for this lesson is pending: it needs the start screen and the `File` menu photographed, and those require interaction rather than a document opened from the command line. See `checks/01-install.md`.
+
+## Installing packages
+
+Much of what this course uses later does not ship with the application: sound and MIDI material, Faust libraries, shader collections, and models. All of it arrives through the **package manager**, which lives in the application's settings, and it is worth installing a few packages now rather than in the middle of a lesson.
+
+**Where packages go.** Into `~/Documents/ossia/score/packages/` on Linux, one directory per package, and from there into the **user library**, which is the third face of the left panel, `Ctrl+Shift+B`. Anything installed is then draggable into a score exactly like your own files.
+
+**What to install now.** Two kinds are worth having before Module G:
+
+- **Material.** The *Citizen DJ* packages are the most useful: several thousand short audio excerpts drawn from the Library of Congress collections, free to use, which is exactly what the audio lessons need and what the milestones can be built from. `dirt-samples` and the drum kits give you percussive material; `free-midi-chords` gives you MIDI files for [Lesson 23]({{ site.baseurl }}/learn/23-midi-in-practice.html).
+- **Code libraries.** `abclib` for the ambisonics and spatial tools [Lesson 22]({{ site.baseurl }}/learn/22-spatial-audio-1.html) mentions, and the JSFX pack, which gives you hosted plug-ins for [Lesson 21]({{ site.baseurl }}/learn/21-effects-and-plugins.html) without buying anything.
+
+**Confirm the install.** Open the user library panel and find the package by name. If it is not there, it did not install, and the package directory above is where to look.
+
+One consequence worth noting now, since it saves confusion later: a package is installed on *your machine*, not into your document. A score that uses a packaged Faust object or sample has that package as a dependency, exactly like a plug-in, and [Lesson 34]({{ site.baseurl }}/learn/34-rehearsal-to-show.html) puts it in writing.
 
 ## The four places help lives
 

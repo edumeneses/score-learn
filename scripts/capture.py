@@ -201,6 +201,54 @@ def grab(d: display.Display, box: tuple[int, int, int, int]) -> Image.Image:
     return Image.frombytes("RGB", (w, h), raw.data, "raw", "BGRX")
 
 
+def popups(d: display.Display, exclude_id: int) -> list:
+    """score's own menus, dialogs, and tooltips, bottom-to-top.
+
+    Qt draws these in separate windows, so a capture of the main window's
+    drawable does not contain them. Compositing them back in keeps menu and
+    dialog figures in the same capture format as every other figure.
+
+    Two kinds qualify, and nothing else: override-redirect windows, which is
+    what menus, combo boxes, and tooltips are; and normal windows whose WM_CLASS
+    is score's, which is what modal dialogs are. Anything else on the desktop,
+    including other applications, is excluded -- an early version of this
+    composited the terminal it was being run from into a figure.
+    """
+    out = []
+    root = d.screen().root
+    screen = d.screen()
+    for child in root.query_tree().children:       # bottom-to-top stacking order
+        try:
+            if child.id == exclude_id:
+                continue
+            attrs = child.get_attributes()
+            if attrs.map_state != X.IsViewable:
+                continue
+
+            mine = False
+            if attrs.override_redirect:
+                mine = True                        # menu, combo, or tooltip
+            else:
+                cls = child.get_wm_class()
+                if cls and any("score" in c.lower() or "ossia" in c.lower()
+                               for c in cls):
+                    mine = True                    # score's own dialog
+            if not mine:
+                continue
+
+            geo = child.get_geometry()
+            if geo.width < 16 or geo.height < 16:
+                continue
+            if geo.width >= screen.width_in_pixels and \
+               geo.height >= screen.height_in_pixels:
+                continue                            # guard / desktop windows
+            coords = root.translate_coords(child, 0, 0)
+            out.append((child, coords.x, coords.y, geo.width, geo.height))
+        except Exception:
+            continue
+    return out
+
+
 def set_fullscreen(d: display.Display, win, on: bool = True) -> None:
     """Ask the window manager for fullscreen.
 
@@ -245,6 +293,16 @@ def shot(args: argparse.Namespace) -> int:
             rx, ry, rw, rh = (int(v) for v in args.region.split(","))
             box = (rx, ry, min(rw, geo[2] - rx), min(rh, geo[3] - ry))
         image = grab_window(win, box)
+
+        if args.popups:
+            for child, px, py, pw, ph in popups(d, win.id):
+                try:
+                    layer = grab_window(child, (0, 0, pw, ph))
+                except Exception:
+                    continue
+                # position relative to the captured region
+                image.paste(layer, (px - geo[0] - box[0], py - geo[1] - box[1]))
+                print(f"composited popup {pw}x{ph} at {px},{py}")
     if args.scale != 1.0:
         image = image.resize(
             (int(image.width * args.scale), int(image.height * args.scale)),
@@ -442,6 +500,12 @@ def main() -> int:
     p.add_argument("--full", action="store_true", help="whole screen")
     p.add_argument("--scale", type=float, default=1.0)
     p.add_argument("--settle", type=float, default=0.6)
+    p.add_argument(
+        "--popups",
+        action="store_true",
+        help="composite open menus, dialogs, and tooltips into the capture; "
+        "Qt draws them in separate windows that a window-drawable capture misses",
+    )
     p.add_argument(
         "--raise-first",
         action="store_true",

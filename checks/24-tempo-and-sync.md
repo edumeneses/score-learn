@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 24-01 | The musical metrics area and an interval's metrics inspector | needs interaction |
+| 24-01 | An interval's inspector: metrics button, speed, quantisation | **done**, docs/learn/assets/24/24-01-metrics.png |
 
 See `checks/FIGURES-PENDING.md` for the consolidated list of figures that need an
 interactive session or media, and why each cannot be produced by the scripted

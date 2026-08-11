@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 18: play-from-here in the context menu, and the transport bar. Badges match walkthrough steps 3 and 4.",
+  "source": "raw/raw-12-01.png",
+  "out": "docs/learn/assets/18/18-01-transport.png",
+  "crop": [1300, 1350, 3300, 2160],
+  "font_size": 32,
+  "badges": [{"n": 3, "at": [2350, 1450], "to": [1620, 1540]}, {"n": 4, "at": [2150, 1960], "to": [1680, 2112]}]
+}
