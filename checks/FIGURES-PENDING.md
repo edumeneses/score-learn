@@ -20,7 +20,7 @@ consistent.
 
 ---
 
-## Done: 24 figures
+## Done: 25 figures
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -33,13 +33,14 @@ Captured 2026-08-11 in an unlocked session, with menus composited in by
 `14-01` library search · `18-01` transport and play-from-here ·
 `24-01` interval metrics inspector · `01-01` the start screen ·
 `11-01` an LFO patch · `13-01` the conditioning pipeline · `34-01` a folded score ·
-`07-01` the Add device dialog, captured with one human click.
+`07-01` the Add device dialog, captured with one human click ·
+`20-01` two sound files, from the installed Citizen DJ material.
 
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 23 figures
+## Pending: 22 figures
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -96,7 +97,6 @@ The audio and MIDI ones can be done now with the material above.
 
 | Unit | Figure | What to capture |
 |---|---|---|
-| 20 | `20-01` | A sound file slot with a gain automation and a signal display |
 | 22 | `22-01` | A spatial scene in the nodal view: layout, path generator, DBAP, matrix |
 | P5 | `p5-01` | The looper set: four toggled layers and their key mapping |
 | 25 | `25-01` | Two video sources through the mixer into a window device |
@@ -117,7 +117,7 @@ Checked on this machine, 2026-08-11:
 | 23 | `23-01` | **doable**: ALSA `Midi Through Port-0` exists, so a MIDI device can be declared with no hardware; notes come from `free-midi-chords` |
 | 29 | `29-01` | **doable**: script editor and console are in-application |
 | 30 | `30-01` | **doable**: expression objects are in-application |
-| 32 | `32-01` | **doable**: Pure Data 0.54.1 is now installed, and `lesson-32.pd` ships with the lesson |
+| 32 | `32-01` | **doable, one unknown**: Pure Data 0.54.1 is installed and `lesson-32.pd` ships with the lesson, but the process library entry is not called `pure` (that search returns Airwindows plug-ins). Find it under `Script`, or try `pd` |
 | 33 | `33-01` | **doable**: a browser on this machine can be the remote client over localhost |
 | 35 | `35-01` | **partly**: headless on this machine is doable; the Raspberry Pi half needs a board |
 | 36 | `36-01` | **doable**: two instances on one machine, which is the lesson's own first step |

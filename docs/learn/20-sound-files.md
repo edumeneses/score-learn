@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 19]({{ site.baseurl }}/learn/19-audio-setup.html).
 >
-> **You will need** three or four sound files, ideally of different lengths and channel counts. If you have none to hand, install the *Citizen DJ* packages through the package manager, per [Lesson 01]({{ site.baseurl }}/learn/01-install.html); they provide several thousand short, freely usable excerpts, and they appear in the user library ready to drag into a score.
+> **You will need** three or four sound files, ideally of different lengths and channel counts. Two ship with this lesson, drawn from the *Citizen DJ* packages; for more, install those packages through the package manager, per [Lesson 01]({{ site.baseurl }}/learn/01-install.html); they provide several thousand short, freely usable excerpts, and they appear in the user library ready to drag into a score.
 >
 > **You will build** a small sound-based document that plays, loops, fades, and reports what it is doing, and that travels without breaking.
 
@@ -46,8 +46,9 @@ Paths in particular. Lesson 05 established that media is referenced rather than 
 
 ## Walkthrough: from a file to a readable document
 
-{: .note }
-> A figure for this lesson is pending: it needs a sound file's waveform in a slot with a gain automation and a signal display, which requires media this course does not ship for licensing reasons. See `checks/20-sound-files.md`.
+![Two intervals, each holding a sound file: the first plays once, the second loops to fill its interval]({{ site.img }}/20/20-01-sound-files.png)
+
+The figure is `lesson-20.score`, which ships with this lesson: two excerpts from the Citizen DJ packages, one played once and one set to loop. Both are freely usable, and both are referenced with a project-relative path, so the document travels. See `checks/20-sound-files.md`.
 
 1. **Make a project directory** and put your sound files in it, per Lesson 05, before you drop anything.
 2. **Drop one file** onto an empty scenario. An interval appears containing the waveform. Play it.

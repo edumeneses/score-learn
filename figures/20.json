@@ -1,0 +1,12 @@
+{
+  "_comment": "Lesson 20: two Citizen DJ excerpts, one played once and one looping to fill its interval. Badges match walkthrough steps 2, 3, and 4.",
+  "source": "raw/raw-20-01.png",
+  "out": "docs/learn/assets/20/20-01-sound-files.png",
+  "crop": [700, 480, 3300, 1120],
+  "font_size": 30,
+  "badges": [
+    {"n": 2, "at": [1150, 560], "to": [900, 645]},
+    {"n": 3, "at": [1600, 900], "to": [1340, 800]},
+    {"n": 4, "at": [2450, 560], "to": [2150, 604]}
+  ]
+}

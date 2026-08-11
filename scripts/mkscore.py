@@ -40,6 +40,7 @@ AUDIO_OUT_UUID = "a1d97535-18ac-444a-8417-0cbc1692d897"
 GAIN_UUID = "9a13fb32-269a-47bf-99a9-930188c1f19c"
 AUTOMATION_OUT_UUID = "047e4cc2-4d99-4e8b-bf98-206018d02274"
 AUTOMATION_CTRL_UUID = "af2b4fc3-aecb-4c15-a5aa-1c573a239925"
+SOUND_UUID = "63174570-d608-44bf-a9cb-e6f5a11f73cc"
 
 OSC_PROTOCOL_UUID = "9a42de4b-f6eb-4bca-9564-01b975f601b9"
 PLUGIN_MIDI_UUID = "1f923578-08c3-49be-9ba9-69c144ee2e32"
@@ -175,6 +176,30 @@ def automation(pid: int, address: str, duration: int, start: float, end: float,
             ],
         },
         "Tween": False,
+    }
+
+
+def sound(pid: int, filename: str, duration: int, name: str,
+          loops: bool = True) -> dict:
+    """A sound file player. `filename` is resolved against the project folder,
+    which is what the <PROJECT>: prefix means, so the document travels."""
+    return {
+        "uuid": SOUND_UUID,
+        "ObjectName": "Sound",
+        "id": pid,
+        "Metadata": meta(name),
+        "Duration": duration,
+        "Height": 300.0,
+        "StartOffset": 0,
+        "LoopDuration": duration,
+        "Pos": [40.0, 40.0],
+        "Size": [200.0, 100.0],
+        "Loops": loops,
+        "File": f"<PROJECT>:{filename}",
+        "Outlet": audio_outlet(),
+        "Stretch": 0,
+        "Mode": 0,
+        "Tempo": 120.0,
     }
 
 
@@ -853,6 +878,24 @@ def lesson_16() -> dict:
     return document(root)
 
 
+def lesson_20() -> dict:
+    """Two sound files: one played once, one looping to fill its interval.
+
+    The excerpts come from the Citizen DJ packages, which are freely usable and
+    installable through the package manager, so the document ships complete.
+    """
+    once = sound(2, "excerpt-ghosts.wav", 8 * SEC, "Sound.2", loops=False)
+    looped = sound(3, "excerpt-rocking-chair.wav", 8 * SEC, "Sound.3", loops=True)
+    tn, ev, st, iv = chain([
+        ("Plays once", 0, 8, [once], 0.22),
+        ("Loops to fill", 8, 8, [looped], 0.22),
+    ])
+    root = interval(0, "lesson-20", 0, 1, 0, 16 * SEC,
+                    [scenario(1, 16 * SEC, tn, ev, st, iv)],
+                    height=0.5, rigid=False, fit=True)
+    return document(root)
+
+
 BUILDERS = {
     "00": ("00-what-score-is", lesson_00),
     "04": ("04-first-process", lesson_04),
@@ -862,6 +905,7 @@ BUILDERS = {
     "10": ("10-automation-curves", lesson_10),
     "15": ("15-triggers", lesson_15),
     "16": ("16-conditions-and-branching", lesson_16),
+    "20": ("20-sound-files", lesson_20),
 }
 
 

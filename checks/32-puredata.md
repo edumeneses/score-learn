@@ -26,3 +26,15 @@ See `checks/FIGURES-PENDING.md` for the consolidated list.
 one outlet. Verified to load with Pure Data 0.54.1. It exists so the port-mapping steps
 can be followed without the reader supplying a patch, and it is small enough to print in
 the lesson.
+
+## Figure 32-01, attempt of 2026-08-11
+
+Not captured. Searching the process library for `pure` returns Airwindows plug-ins
+(PurestEcho, PurestAir, the PurestConsole family) and no Pure Data process, so the
+library entry is named something else: try `pd`, or browse the `Script` category, which
+is where the reference documentation groups the code-based processes.
+
+The route that will work, once the entry is found: copy the patch to a short path, select
+an interval, filter the library, double-click the entry to add and connect it, then set the
+patch path in the inspector. The same select-then-double-click technique produced figures
+11-01 and 13-01.
