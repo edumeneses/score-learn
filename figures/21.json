@@ -1,0 +1,13 @@
+{
+  "_comment": "Lesson 21: an effect chain in the nodal view, a sound file into a built-in Flanger into the hosted JSFX plug-in MGA_JSLimiterST, with the library filtered to the plug-in on the left and the plug-in's ports in the inspector on the right. Badges match walkthrough steps 3 (the cable that carries the file into the chain), 4 (the library entry double-clicked to chain the next process), 6 (the plug-in's control ports, where an automation is created), and 7 (the hosted plug-in itself).",
+  "source": "raw/raw-21-01.png",
+  "out": "docs/learn/assets/21/21-01-effect-chain.png",
+  "crop": [0, 180, 3840, 1990],
+  "font_size": 30,
+  "badges": [
+    {"n": 4, "at": [620, 391], "to": [380, 391]},
+    {"n": 3, "at": [1060, 1010], "to": [800, 918]},
+    {"n": 6, "at": [1350, 1410], "to": [1494, 1410]},
+    {"n": 7, "at": [2150, 1130], "to": [1925, 1205]}
+  ]
+}

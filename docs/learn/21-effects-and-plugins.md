@@ -44,8 +44,12 @@ This lesson also introduces two ideas with consequences well beyond audio. **Plu
 
 ## Walkthrough: a chain, an automation, an input
 
+![A sound file feeding a built-in flanger and then a hosted JSFX limiter, drawn as connected nodes, with the process library filtered to the plug-in and the plug-in's ports listed in the inspector]({{ site.img }}/21/21-01-effect-chain.png)
+
+The chain in the figure is two effects deep: the sound file's output reaches a built-in `Flanger`, and the flanger's output reaches `MGA_JSLimiterST`, a hosted JSFX plug-in. The inspector on the right is where the lesson's central claim becomes visible. The plug-in's `Threshold`, `Release`, `Link Stereo`, and `Ceiling` are listed under `Inputs`, as ports, exactly as a built-in process's parameters are; nothing about automating them differs from automating anything else in this course.
+
 {: .note }
-> A figure for this lesson is pending: it needs an effect chain drawn in the nodal view with a hosted plug-in visible, which requires interaction and a plug-in this course cannot ship. See `checks/21-effects-and-plugins.md`.
+> **You do not have to own a plug-in to do this lesson.** *score*'s package manager offers `jsfx_pack`, a large collection of JSFX effects under free licences, and the figure above uses one of them. Installed plug-ins appear in the process library under `Plugins`, which in 3.8.2 holds `Airwindows`, `CLAP`, `Faust`, `JSFX`, `LV2`, `PureData`, `VST`, and `VST 3`. Filtering the library by name, as in the figure, is faster than opening that tree: `JSFX` alone has dozens of folders.
 
 1. **Start from a sound file** in an interval, playing.
 2. **Switch to the nodal view.** From here on, work there.
