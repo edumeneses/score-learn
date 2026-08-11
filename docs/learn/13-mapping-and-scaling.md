@@ -60,8 +60,9 @@ Write the order down in your channel map. A pipeline whose order was chosen deli
 
 ## Walkthrough: sensor to two outputs
 
-{: .note }
-> A figure for this lesson is pending: it needs a patch assembled in the nodal view, which requires interaction. See `checks/13-mapping-and-scaling.md`.
+![The conditioning pipeline as a patch: calibrator, range filter, mapping curve, and smoothing in a chain]({{ site.img }}/13/13-01-pipeline.png)
+
+The figure is the pipeline, in order: a calibrator with its range and its averaging window, a range filter with a minimum, a maximum, and an invert, a mapping curve, and an exponential smoothing object with its alpha. Every stage is visible, which is the argument for building it this way rather than in one script.
 
 1. **Get the input arriving** and confirm it in the device explorer, as always.
 2. **Make an interval to hold the pipeline**, and remember that a mapping only runs while its interval runs. Give the interval's end a trigger that is never satisfied so that the pipeline runs for the whole score, which is the idiom from Lesson 11.

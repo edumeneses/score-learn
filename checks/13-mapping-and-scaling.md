@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 13-01 | A conditioning pipeline in the nodal view: calibrator, filter, curve, smooth | needs interaction: nodal patching |
+| 13-01 | The conditioning pipeline as a patch | **done**, docs/learn/assets/13/13-01-pipeline.png |
 
 See `checks/FIGURES-PENDING.md` for the consolidated list of figures that need
 an interactive session, and why each one cannot be produced by the scripted

@@ -6,7 +6,7 @@ Pinned build: **ossia score 3.8.2**
 
 | ID | Content | Status |
 |---|---|---|
-| 34-01 | A folded, named score beside its documentation | needs interaction |
+| 34-01 | The milestone cue folded: three named sections | **done**, docs/learn/assets/34/34-01-folded.png |
 
 See `checks/FIGURES-PENDING.md` for the consolidated list.
 

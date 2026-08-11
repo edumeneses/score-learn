@@ -44,8 +44,9 @@ The framing worth adopting: your document is one deliverable, and the paperwork 
 
 ## Walkthrough: five documents in ninety minutes
 
-{: .note }
-> A figure for this lesson is pending: it needs a folded, named score beside its documentation, which requires interaction. See `checks/34-rehearsal-to-show.md`.
+![The milestone cue folded: three named sections, with their processes reduced to badges]({{ site.img }}/34/34-01-folded.png)
+
+The figure is Milestone P1's cue with every interval folded, which is what step 1 asks you to produce. Three named sections, no slot contents, and the structure readable in one glance. Compare it with the same document unfolded in [Milestone P1]({{ site.baseurl }}/learn/p1-automated-cue.html): the folded view is the one you want at eight in the morning.
 
 1. **Fold your score** and read it. Every interval should have a name that means something. Fix the ones that do not; this is the cheapest legibility work available.
 2. **Colour by function**, not by taste: one colour for interactive material, one for automatic, one for anything unfinished. Consistency matters more than the palette.

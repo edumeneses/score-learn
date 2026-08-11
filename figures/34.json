@@ -1,0 +1,8 @@
+{
+  "_comment": "Lesson 34: p1-solution folded, so the three named sections are legible with no slots. Badge matches walkthrough step 1.",
+  "source": "raw/raw-34-01.png",
+  "out": "docs/learn/assets/34/34-01-folded.png",
+  "crop": [700, 450, 3300, 900],
+  "font_size": 30,
+  "badges": [{"n": 1, "at": [2000, 760], "to": [1660, 605]}]
+}

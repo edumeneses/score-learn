@@ -1,0 +1,12 @@
+{
+  "_comment": "Lesson 11: an automation feeding an LFO's frequency, then two conditioning objects, drawn as a patch. Badges match walkthrough steps 3, 5, and 6.",
+  "source": "raw/raw-11-01.png",
+  "out": "docs/learn/assets/11/11-01-lfo-patch.png",
+  "crop": [700, 560, 3200, 1400],
+  "font_size": 30,
+  "badges": [
+    {"n": 3, "at": [1200, 800], "to": [1300, 662]},
+    {"n": 5, "at": [2350, 1280], "to": [2460, 1080]},
+    {"n": 6, "at": [2950, 1280], "to": [2910, 1080]}
+  ]
+}

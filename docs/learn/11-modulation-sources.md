@@ -56,8 +56,9 @@ A newly created process is left selected, so chains can be built without returni
 
 ## Walkthrough: one generator, three destinations
 
-{: .note }
-> A figure for this lesson is pending: it needs a patch assembled in the nodal view, which requires interaction. See `checks/11-modulation-sources.md`.
+![An automation feeding an LFO's frequency, whose output passes through two conditioning objects]({{ site.img }}/11/11-01-lfo-patch.png)
+
+The figure is the patch this walkthrough builds. Note the slot header: it reads `Automation (float).2 -> Freq. (LFO)`, because dropping the LFO onto a selected process connected it automatically, which is the interaction described below.
 
 1. **Make an interval and put an LFO in it.** From the process library, `Ctrl+Shift+P`.
 2. **Address its output** to one of your parameters and play. A parameter that oscillates: the point of arrival, quickly.

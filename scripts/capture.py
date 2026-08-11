@@ -317,17 +317,11 @@ def shot(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------- input
 
 
-def is_topmost(d: display.Display, win_id: int) -> tuple[bool, str]:
-    """Is our window the topmost normal window?
-
-    Synthetic clicks go to whatever is under the pointer, not to the window we
-    think we are driving. A fullscreen browser over score turned a figure run
-    into clicks landing in somebody's browser, so every input command checks
-    this first.
-    """
+def _normal_windows(d: display.Display) -> list:
+    """Viewable, non-override, non-frame top-level windows, bottom-to-top."""
+    out = []
     root = d.screen().root
-    top = None
-    for child in root.query_tree().children:      # bottom-to-top
+    for child in root.query_tree().children:
         try:
             attrs = child.get_attributes()
             if attrs.map_state != X.IsViewable or attrs.override_redirect:
@@ -338,24 +332,61 @@ def is_topmost(d: display.Display, win_id: int) -> tuple[bool, str]:
             cls = child.get_wm_class()
             if cls and "mutter" in cls[0].lower():
                 continue                          # window-manager frames
-            top = (child.id, cls)
+            coords = root.translate_coords(child, 0, 0)
+            out.append((child.id, cls, coords.x, coords.y, geo.width, geo.height))
         except Exception:
             continue
-    if top is None:
-        return True, "unknown"
-    return top[0] == win_id, str(top[1])
+    return out
 
 
-def require_topmost(d: display.Display, match: str) -> None:
+def covered_at(d: display.Display, win_id: int, x: int, y: int):
+    """What, if anything, sits above `win_id` at the point (x, y).
+
+    Synthetic clicks go to whatever is under the pointer, not to the window we
+    think we are driving: a fullscreen browser above score once turned a figure
+    run into clicks landing in somebody's browser. Checking the specific point
+    rather than the whole stack matters, because a window parked mostly
+    off-screen is topmost and yet covers nothing we care about.
+    """
+    stack = _normal_windows(d)
+    ids = [w[0] for w in stack]
+    if win_id not in ids:
+        return None
+    above = stack[ids.index(win_id) + 1:]
+    for _id, cls, wx, wy, ww, wh in above:
+        if wx <= x < wx + ww and wy <= y < wy + wh:
+            return cls or "an unnamed window"
+    return None
+
+
+def require_clear(d: display.Display, match: str, x: int, y: int) -> None:
     found = find_window(d, match)
     if not found:
         raise SystemExit(f"no window matching {match!r}")
-    ok, who = is_topmost(d, found[0].id)
-    if not ok:
+    who = covered_at(d, found[0].id, x, y)
+    if who:
         raise SystemExit(
-            f"refusing to send input: {who} is above the target window. "
-            "Raise score, or close the window on top, and try again."
+            f"refusing to send input: {who} covers the target window at {x},{y}. "
+            "Raise score, or move that window, and try again."
         )
+
+
+def require_focus(d: display.Display, match: str) -> None:
+    """For keystrokes, which go to the focused window rather than to a point."""
+    found = find_window(d, match)
+    if not found:
+        raise SystemExit(f"no window matching {match!r}")
+    activate(d, found[0])
+    time.sleep(0.4)
+    win = d.get_input_focus().focus
+    for _ in range(8):                            # focus may be on a child
+        try:
+            if getattr(win, "id", None) == found[0].id:
+                return
+            win = win.query_tree().parent
+        except Exception:
+            break
+    print("warning: score may not have keyboard focus; sending anyway")
 
 
 def move(d: display.Display, x: int, y: int) -> None:
@@ -365,7 +396,7 @@ def move(d: display.Display, x: int, y: int) -> None:
 
 def click(args: argparse.Namespace) -> int:
     d = dpy()
-    require_topmost(d, args.match)
+    require_clear(d, args.match, args.x, args.y)
     move(d, args.x, args.y)
     time.sleep(0.15)
     for _ in range(args.count):
@@ -381,7 +412,7 @@ def click(args: argparse.Namespace) -> int:
 
 def drag(args: argparse.Namespace) -> int:
     d = dpy()
-    require_topmost(d, args.match)
+    require_clear(d, args.match, args.x1, args.y1)
     move(d, args.x1, args.y1)
     time.sleep(0.2)
     xtest.fake_input(d, X.ButtonPress, args.button)
@@ -412,7 +443,7 @@ def keycode(d: display.Display, name: str) -> int:
 
 def key(args: argparse.Namespace) -> int:
     d = dpy()
-    require_topmost(d, args.match)
+    require_focus(d, args.match)
     parts = args.combo.split("+")
     mods, base = parts[:-1], parts[-1]
     codes = [keycode(d, m) for m in mods]
@@ -431,7 +462,7 @@ def key(args: argparse.Namespace) -> int:
 
 def type_text(args: argparse.Namespace) -> int:
     d = dpy()
-    require_topmost(d, args.match)
+    require_focus(d, args.match)
     from Xlib import XK
 
     for char in args.text:
@@ -473,10 +504,10 @@ def menu(args: argparse.Namespace) -> int:
     main = found[0]
     activate(d, main)                       # the menu will not open unfocused
     time.sleep(0.8)
-    ok, who = is_topmost(d, main.id)
-    if not ok:
+    who = covered_at(d, main.id, args.x, args.y)
+    if who:
         raise SystemExit(
-            f"refusing to open a menu: {who} is above the target window."
+            f"refusing to open a menu: {who} covers the target at {args.x},{args.y}."
         )
 
     move(d, args.x, args.y)

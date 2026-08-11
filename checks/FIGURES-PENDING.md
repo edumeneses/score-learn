@@ -20,7 +20,7 @@ consistent.
 
 ---
 
-## Done: 20 figures
+## Done: 23 figures
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -31,11 +31,16 @@ Captured 2026-08-11 in an unlocked session, with menus composited in by
 `capture.py --popups`: `00-02` nodal view · `02-01` one instant ·
 `05-01` project folder panel · `06-01` device menu · `12-01` Record submenu ·
 `14-01` library search · `18-01` transport and play-from-here ·
-`24-01` interval metrics inspector · `01-01` the start screen.
+`24-01` interval metrics inspector · `01-01` the start screen ·
+`11-01` an LFO patch · `13-01` the conditioning pipeline · `34-01` a folded score.
 
-## Pending: 27 figures
+The nodal-patch figures were built by selecting an interval, filtering the process
+library, and double-clicking the result, which adds the process **and connects it**;
+`capture.py menu X Y --pick N` handled the menu-driven ones.
 
-### Interaction only — what is left (4)
+## Pending: 24 figures
+
+### Interaction only — what is left (1)
 
 **Important**: these need the score window to be the **topmost** window. An attempt on
 2026-08-11 failed silently because a fullscreen browser was above score, so the synthetic
@@ -45,10 +50,7 @@ menu, measures its rows, and clicks one by index instead of by guessed coordinat
 
 | Unit | Figure | What to capture | Note |
 |---|---|---|---|
-| 07 | `07-01` | The Add-device dialog with its protocol list, and the OSC settings | Right-click the device explorer, then `capture.py menu --pick` the `Add device` row. `Ctrl+B` did not fire under synthetic input |
-| 11 | `11-01` | An LFO patched to three destinations in the nodal view | Add processes by double-clicking them in the library with an interval selected, then the view-mode button at roughly x=767, y=2098 |
-| 13 | `13-01` | A conditioning pipeline in the nodal view | Same |
-| 34 | `34-01` | A folded, named score | `View > Fold intervals`; `Ctrl+Alt+F` did not fire under synthetic input |
+| 07 | `07-01` | The Add-device dialog with its protocol list, and the OSC settings | **Needs a human click.** Four attempts failed: `Ctrl+B` does not fire under synthetic input, and clicking `Add device` in the context menu registers (the click lands on the right row, verified by measuring the menu) without the dialog appearing. Everything else in this course was automatable; this one is not. Right-click the device explorer, choose `Add device`, and capture with `capture.py --match "score 3.8.2" shot figures/raw/raw-07-01.png --popups` |
 
 ### Interaction plus transitions (3)
 

@@ -1,0 +1,13 @@
+{
+  "_comment": "Lesson 13: the conditioning pipeline as a patch, calibrator to range filter to mapping curve to smoothing. Badges match walkthrough steps 3, 4, 5, and 7.",
+  "source": "raw/raw-13-01.png",
+  "out": "docs/learn/assets/13/13-01-pipeline.png",
+  "crop": [700, 560, 3450, 1500],
+  "font_size": 30,
+  "badges": [
+    {"n": 3, "at": [1700, 1350], "to": [1830, 1075]},
+    {"n": 4, "at": [2100, 1350], "to": [2050, 1060]},
+    {"n": 5, "at": [2500, 1350], "to": [2420, 1120]},
+    {"n": 7, "at": [2900, 1300], "to": [2820, 1045]}
+  ]
+}
