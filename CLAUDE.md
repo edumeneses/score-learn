@@ -143,7 +143,15 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 - **The start screen only appears when score is launched with no document argument**, and
   no menu reopens it.
 - **`pkill -f <pattern>` kills this shell** when the pattern matches the command line.
-  Use `pgrep -f 'ossia[-]score' | xargs -r kill`.
+  Use `pgrep -f 'ossia[-]score' | xargs -r kill`. Note that the running process is the
+  AppImage's mount, `/tmp/.mount_ossia*/usr/bin/ossia-score`, so a pattern matching
+  `ossia.score` misses it.
+- **The process library's filter lags.** Keystrokes queue behind the tree rebuild and
+  arrive seconds later, so a search that looks like it dropped characters usually did not.
+  Wait before retyping, or you get `javascriptavascript`.
+- **The script editor opens as its own top-level window** named `score`, so `--popups`
+  composites it. `capture.py` cannot move it; use `capture.window_list` plus
+  `win.configure` when it covers something the figure needs.
 
 ## Facts about score itself, learned the hard way
 

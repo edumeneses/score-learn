@@ -46,10 +46,14 @@ That third use is the one people do not expect, and it is the reason this lesson
 
 ## Walkthrough: three uses, smallest first
 
-{: .note }
-> A figure for this lesson is pending: it needs the script editor and the console panel, both of which require interaction. See `checks/29-javascript-processes.md`.
+![The script editor open on the shipped average example, the console panel below it having evaluated 2+2, and the ports the script declared listed in the process inspector]({{ site.img }}/29/29-01-script-editor-and-console.png)
 
-1. **Open the console** and evaluate something trivial, `2+2`, to confirm you have a working environment.
+The script in the figure is `average`, one of the JavaScript examples that ships in the process library under `Script > Javascript`. Starting from a working example is faster than starting from an empty editor, and this one contains everything the lesson describes. Its first three lines declare a `ValueInlet`, a `ValueOutlet`, and an `IntSlider`, and those declarations are precisely what produced the two ports and the `milliseconds` control that the inspector lists on the right. `property var avg: []` is the state that survives between ticks. `tick: function(token, state)` takes the token and the state described above. Below it, the console has evaluated `2+2` and answered `4`.
+
+{: .note }
+> **The editor opens in a window of its own**, not inside the main window, so you can leave it open beside the score. It carries two tabs, `Execution` and `GUI`, a log pane under the code where errors appear, and `Clear log`, `Close`, and `Compile` along the bottom. The button that opens it is on the process's header in the score, and again in the process inspector.
+
+1. **Open the console** and evaluate something trivial, `2+2`, to confirm you have a working environment. It announces itself as a JavaScript ES7 environment when it opens.
 2. **Inspect the score from the console.** Select an interval, then evaluate a call that returns the selected object and print it. You are now holding a piece of your document in a variable.
 3. **Play it from the console.** Call the play function on that object. This alone is a useful rehearsal tool.
 4. **Add a JavaScript process** to an interval, and open its editor with the window button on its header.

@@ -1,0 +1,13 @@
+{
+  "_comment": "Lesson 29: the script editor open on the shipped `average` JavaScript example, with the console panel below evaluating 2+2, and the process inspector on the right showing the ports the script declared. Badges match walkthrough steps 1 (the console), 4 (the button that opens the editor), 5 (the declared inlet and outlet), and 7 (state kept between ticks).",
+  "source": "raw/raw-29-01.png",
+  "out": "docs/learn/assets/29/29-01-script-editor-and-console.png",
+  "crop": [700, 100, 3840, 2160],
+  "font_size": 30,
+  "badges": [
+    {"n": 5, "at": [1790, 277], "to": [1645, 277]},
+    {"n": 7, "at": [1900, 432], "to": [1625, 432]},
+    {"n": 4, "at": [3155, 454], "to": [3292, 454]},
+    {"n": 1, "at": [1060, 1978], "to": [875, 1978]}
+  ]
+}

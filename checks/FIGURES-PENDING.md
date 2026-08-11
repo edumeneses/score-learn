@@ -18,12 +18,12 @@ Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
 consistent.
 
-Counting note: unit 00 carries two figures, so 28 figures cover 27 units. Unit 40, the
-capstone, needs none, which leaves 46 units wanting a figure and 19 still without.
+Counting note: unit 00 carries two figures, so 29 figures cover 28 units. Unit 40, the
+capstone, needs none, which leaves 46 units wanting a figure and 18 still without.
 
 ---
 
-## Done: 28 figures, covering 27 of the 46 units that need one
+## Done: 29 figures, covering 28 of the 46 units that need one
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -42,13 +42,14 @@ Captured 2026-08-11 in an unlocked session, with menus composited in by
 `25-01` two video sources addressed to the Window device.
 
 Captured 2026-08-11, second session: `19-01` the audio preferences beside an audio
-outlet's inspector; `21-01` an effect chain ending in a hosted JSFX plug-in.
+outlet's inspector; `21-01` an effect chain ending in a hosted JSFX plug-in; `29-01` the script editor
+and the console.
 
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 19 units
+## Pending: 18 units
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -113,14 +114,13 @@ The audio and MIDI ones can be done now with the material above.
 | P6 | `p6-01` | A fisheye output in a window, with the scene structure folded |
 | 31 | `31-01` | The Faust editor with code and a running audio chain |
 
-### Interaction plus other software (9), and what this machine already has
+### Interaction plus other software (8), and what this machine already has
 
 Checked on this machine, 2026-08-11:
 
 | Unit | Figure | Status here |
 |---|---|---|
 | 23 | `23-01` | **doable**: ALSA `Midi Through Port-0` exists, so a MIDI device can be declared with no hardware; notes come from `free-midi-chords` |
-| 29 | `29-01` | **doable**: script editor and console are in-application |
 | 30 | `30-01` | **doable**: expression objects are in-application |
 | 33 | `33-01` | **doable**: a browser on this machine can be the remote client over localhost |
 | 35 | `35-01` | **partly**: headless on this machine is doable; the Raspberry Pi half needs a board |
