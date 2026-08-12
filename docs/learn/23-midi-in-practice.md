@@ -46,14 +46,18 @@ The useful surprise is that MIDI in *score* is not a special subsystem. It arriv
 
 ## Walkthrough: receive, transform, send
 
-{: .note }
-> A figure for this lesson is pending: it needs a piano roll with note content and a MIDI device tree, which requires interaction. See `checks/23-midi-in-practice.md`.
+![A MIDI input and a MIDI output declared in the device explorer, a piano roll carrying a written phrase, and the inspector showing the channel, the note range, and the output device the roll feeds]({{ site.img }}/23/23-01-piano-roll.png)
 
-1. **Declare a MIDI input device** and confirm in the device explorer that your keyboard's values arrive. As always, do this before touching the timeline.
+Both devices are declared before anything is drawn, which is the order this course keeps insisting on. The inspector says the rest: this piano roll writes to channel 1, its grid covers notes 60 to 71, and its output goes to the device named `MIDI Out`. Dwell on that range, because it is this lesson's warning made concrete. The roll speaks in note numbers, and 60 to 71 is exactly one octave upward from middle C.
+
+{: .note }
+> **Notes are placed by double-clicking the grid.** Dragging across an empty lane does nothing at all, which is the first thing to try and the first thing to fail. The `Min` and `Max` fields in the inspector bound the range of notes the grid covers, so a phrase that needs two octaves needs them widened before there is anywhere to put it. Note also that *score* offers three MIDI protocols rather than two: `MIDI Input`, `MIDI Output`, and `MIDI Controller`, all under `Hardware` in the add-device dialog.
+
+1. **Declare a MIDI input device** and confirm in the device explorer that your keyboard's values arrive. As always, do this before touching the timeline. With no hardware attached at all you will still find `Midi Through Port-0` listed under software inputs, which is enough to build against.
 2. **Fire a trigger from a key**, using Lesson 15's technique: drop a note or controller address onto a trigger. You now have a MIDI-cued score, which is most of what a lot of theatre work needs.
 3. **Map a controller to a gain.** Address a knob to the gain sub-port of an audio outlet from Module G, with the range set to 0 to 127 on the source side. Move the knob and hear the level change.
 4. **Declare a MIDI output device** and connect something that makes sound.
-5. **Add a piano roll** in an interval, draw a few notes, connect its output to the MIDI output device's node, and play. You are now sequencing an external instrument.
+5. **Add a piano roll** in an interval, double-click the grid a few times to place notes, set its output to the MIDI output device in the inspector, and play. You are now sequencing an external instrument.
 6. **Drop a MIDI file** onto the scenario. It arrives as a piano roll you can edit. Play it, then change a few notes: the file was a starting point, not a black box.
 7. **Insert an arpeggiator** from the MIDI utilities between the piano roll and the output, and play again. The stream is being transformed on the way through, which is the mental model to keep.
 8. **Add a patternist** on a second channel, so you have generated material alongside written material.

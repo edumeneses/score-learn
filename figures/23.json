@@ -1,0 +1,12 @@
+{
+  "_comment": "Lesson 23: a MIDI input and a MIDI output declared in the device explorer, a piano roll carrying a written phrase, and the process inspector showing its channel, its note range, and the output device it feeds. Badges match walkthrough steps 1 (the input device), 4 (the output device), and 5 (the notes drawn in the piano roll).",
+  "source": "raw/raw-23-01.png",
+  "out": "docs/learn/assets/23/23-01-piano-roll.png",
+  "crop": [0, 250, 3840, 1110],
+  "font_size": 30,
+  "badges": [
+    {"n": 1, "at": [560, 324], "to": [335, 324]},
+    {"n": 4, "at": [780, 358], "to": [250, 358]},
+    {"n": 5, "at": [1700, 706], "to": [1425, 706]}
+  ]
+}

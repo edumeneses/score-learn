@@ -129,8 +129,16 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   above score once ate an entire capture run. `capture.py` refuses to send input when
   something covers the target.
 - **Some things cannot be automated.** `Ctrl+B` (add device) and `Ctrl+Alt+F` (fold) never
-  fire under XTEST; use the menu items. The add-device dialog needed a human click even
-  then, which is what `waitshot` exists for.
+  fire under XTEST; use the menu items. `waitshot` exists for whatever is left.
+- **The add-device dialog does open under synthetic input.** An earlier note here said it
+  needed a human click; that was the `find_window` frame bug, which made the dialog
+  invisible to the capture rather than absent. Right-click a device in the explorer and
+  `menu --pick 4` for `Add device`. Its protocol and device lists take clicks normally.
+- **Some dialog widgets still refuse synthetic clicks.** The `Create whole tree` checkbox
+  in the add-device dialog does not toggle, whether clicked on its indicator, on its label,
+  or with the dialog activated first, while the lists beside it work. Ask for one human
+  click rather than spending an hour on it.
+- **A piano roll's notes are made by double-clicking the grid.** Dragging does nothing.
 - **Guessed menu coordinates always fail.** Use `menu --pick`, which measures rows.
 - **A one-row menu is invisible to `menu --pick`**, which needs a popup over 40 px tall.
   The `Settings` menu is 288x36, so `menu` reports `no menu appeared` while the menu is in

@@ -18,12 +18,12 @@ Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
 consistent.
 
-Counting note: unit 00 carries two figures, so 32 figures cover 31 units. Unit 40, the
-capstone, needs none, which leaves 46 units wanting a figure and 15 still without.
+Counting note: unit 00 carries two figures, so 33 figures cover 32 units. Unit 40, the
+capstone, needs none, which leaves 46 units wanting a figure and 14 still without.
 
 ---
 
-## Done: 32 figures, covering 31 of the 46 units that need one
+## Done: 33 figures, covering 32 of the 46 units that need one
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -48,13 +48,15 @@ rendered result, taken from the inspector's texture preview because the output w
 a GPU surface and cannot be captured.
 
 Captured 2026-08-12: `31-01` a Faust processor written in the editor, compiled, and
-running, which needed `scripts/typeinto.py` to type code that `capture.py type` mangles.
+running, which needed `scripts/typeinto.py` to type code that `capture.py type` mangles; `23-01` a piano roll with a written phrase beside two declared
+MIDI devices, which also proved that the add-device dialog opens under synthetic input
+after all.
 
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 15 units
+## Pending: 14 units
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -117,13 +119,12 @@ The audio and MIDI ones can be done now with the material above.
 | 28 | `28-01` | The three-object reactive chain with a signal display, beside the image it drives |
 | P6 | `p6-01` | A fisheye output in a window, with the scene structure folded |
 
-### Interaction plus other software (7), and what this machine already has
+### Interaction plus other software (6), and what this machine already has
 
 Checked on this machine, 2026-08-11:
 
 | Unit | Figure | Status here |
 |---|---|---|
-| 23 | `23-01` | **doable**: ALSA `Midi Through Port-0` exists, so a MIDI device can be declared with no hardware; notes come from `free-midi-chords` |
 | 33 | `33-01` | **doable**: a browser on this machine can be the remote client over localhost |
 | 35 | `35-01` | **partly**: headless on this machine is doable; the Raspberry Pi half needs a board |
 | 36 | `36-01` | **doable**: two instances on one machine, which is the lesson's own first step |
