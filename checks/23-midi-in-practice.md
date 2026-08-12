@@ -45,14 +45,60 @@ pipeline.
   Serial, Wiimote; **Video** Camera input, NDI Input, NDI Output, Sh4lt Input, Sh4lt Output,
   Shmdata Input, Shmdata Output, Window; **Web** HTTP and below.
 
-## What is missing from the figure, and why
+## Correction to my own first attempt at this figure
 
-The figure shows the two devices as rows, **not as an expanded address tree**. Building the
-tree needs the `Create whole tree` checkbox in the add-device dialog, and that checkbox does
-not respond to synthetic clicks: tried on the indicator, on the label, and with the dialog
-activated first, in all three cases with no effect, while clicks in the same dialog's
-protocol and device lists work normally. One human click on that checkbox would complete
-the figure; nothing else is missing.
+I recorded that the `Create whole tree` checkbox "does not respond to synthetic clicks",
+having tried it on the indicator, on the label, and with the dialog activated. That was
+wrong, and the wrong conclusion came from testing only one protocol. Edu looked at the
+screen and said the box was **greyed out**.
+
+The rule is: **`Create whole tree` is offered for `MIDI Output` and disabled for
+`MIDI Input`.** It makes sense once seen. An output's namespace is knowable in advance,
+sixteen channels of the same five addresses, so score can build it; an input's is whatever
+arrives, so score fills it in as messages come. Under `MIDI Output` the checkbox takes a
+synthetic click on the first attempt.
+
+The general lesson, which cost an hour: **a widget that ignores clicks may simply be
+disabled.** Check the other protocols, or ask someone to look at the screen, before
+concluding that synthetic input is at fault. `Virtual Port`, one row below it, took a
+synthetic click straight away, which would have told me the same thing.
+
+## The device tree, and how to get it without any clicking
+
+With `CreateWholeTree` set, the output device expands to sixteen channels, each holding
+`on`, `off`, `control`, `program`, and `pitchbend`. The first three read `[64, 64]`, a pair,
+and `program` reads `64`, `pitchbend` `0`.
+
+The saved document gives the shape, so no future figure needs the dialog at all. **The tree
+is not stored**: `Children` is empty and score rebuilds it on load from the flag.
+
+MIDI output, protocol `d5a4a701-d152-4b3b-be05-4d847b623451`:
+
+```json
+{"Device": {"Name": "MIDI Out", "Protocol": "d5a4a701-d152-4b3b-be05-4d847b623451",
+            "API": 0, "IO": 1, "Port": 18446744073709551615,
+            "CreateWholeTree": true, "VirtualPort": false,
+            "VelocityZeroIsNoteOff": false},
+ "Children": []}
+```
+
+MIDI input, protocol `f5e04ef0-16dd-4997-8f81-f5a04b8702bc`:
+
+```json
+{"Device": {"Name": "Midi Through Port-0",
+            "Protocol": "f5e04ef0-16dd-4997-8f81-f5a04b8702bc",
+            "API": 2, "IO": 0, "Port": 14,
+            "DeviceName": "Midi Through", "PortName": "Midi Through Port-0",
+            "DisplayName": "Midi Through Port-0",
+            "CreateWholeTree": false, "VirtualPort": false,
+            "VelocityZeroIsNoteOff": false},
+ "Children": []}
+```
+
+`Port` on the output is 2^64-1, which is how "no specific port" is written. `API 0` against
+`API 2` is the difference between the default backend and ALSA. `mkscore.py` can emit both
+of these whenever unit 23 wants an example document; it has not been taught them yet
+because no lesson ships a MIDI score.
 
 ## Correction to a previous session's conclusion
 

@@ -134,10 +134,15 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   needed a human click; that was the `find_window` frame bug, which made the dialog
   invisible to the capture rather than absent. Right-click a device in the explorer and
   `menu --pick 4` for `Add device`. Its protocol and device lists take clicks normally.
-- **Some dialog widgets still refuse synthetic clicks.** The `Create whole tree` checkbox
-  in the add-device dialog does not toggle, whether clicked on its indicator, on its label,
-  or with the dialog activated first, while the lists beside it work. Ask for one human
-  click rather than spending an hour on it.
+- **A widget that ignores clicks may just be disabled.** `Create whole tree` in the
+  add-device dialog swallowed every synthetic click; it was greyed out, which only a human
+  looking at the screen noticed. It is offered for `MIDI Output` and disabled for
+  `MIDI Input`. Check another protocol, or a neighbouring widget, before blaming XTEST:
+  `Virtual Port` one row below took a click first time and would have settled it.
+- **A MIDI device's address tree is not stored in the document.** `CreateWholeTree: true`
+  on the device makes score rebuild the sixteen channels on load, so a generated document
+  gets the tree with no dialog at all. Both MIDI protocol UUIDs and their settings are in
+  `checks/23-midi-in-practice.md`.
 - **A piano roll's notes are made by double-clicking the grid.** Dragging does nothing.
 - **Guessed menu coordinates always fail.** Use `menu --pick`, which measures rows.
 - **A one-row menu is invisible to `menu --pick`**, which needs a popup over 40 px tall.
