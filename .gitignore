@@ -16,6 +16,14 @@ node_modules
 
 # editor-hook backups: same front matter, so they would shadow real pages
 backups/
-*.backupclaude*
+*.backup
 __pycache__/
 *.pyc
+
+# Claude Code's local session state. CLAUDE.md is deliberately tracked and must
+# stay so: it is the project's instructions, which is why it was committed.
+.claude/
+.claude.json
+.claude.json.backup
+CLAUDE.local.md
+.mcp.json
