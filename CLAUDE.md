@@ -171,10 +171,20 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   almost entirely off the right edge, and moving or resizing it from outside stops it
   opening at all until score restarts. **Use the process inspector's texture preview**,
   which shows the live output frame inside the main window; that is what figure 26-01 is.
-- **Clicking a node's title does not select the process.** Selection comes from adding the
-  process, which leaves it selected, or from the object tree in the right dock. Budget for
-  this: a figure that needs a specific process's inspector is easiest to build by adding
-  that process last.
+- **Clicking a node's title selects the process**, so the inspector follows. An earlier note
+  here said it did not; that case had a floating editor window over the point being clicked.
+  The object tree in the right dock also selects, but it is empty until something is
+  selected, and `Ctrl+Z` empties it.
+- **Cables can be drawn and deleted.** Drag from an outlet dot to an inlet dot to make one;
+  click a cable and press `Delete` to remove it. Worth knowing because chaining connects by
+  *first port*, which is often the wrong one: a micromap chained onto an ISF shader lands on
+  its first declared input rather than on the parameter you meant.
+- **The nodal slot's fourth small icon fits the graph** to the view, which is how to find a
+  node that chaining placed outside the interval's width. Its bottom edge drags down for
+  more room, which is what makes a two-row layout possible.
+- **`set -- $var` does not word-split in zsh.** A loop feeding coordinates to `capture.py`
+  that way passes the whole string as `$1` and every click fails; with output suppressed it
+  looks like score ignoring input. Use `${var%%,*}` and `${var##*,}`.
 - **The transport ignores a click when score is not focused**, and the first click only
   focuses. Check the clock before assuming playback started. Its buttons also move with the
   width of the clock text, so measure them in the capture rather than reusing coordinates.

@@ -1,4 +1,4 @@
-# Handover — 2026-08-11
+# Handover — 2026-08-12
 
 State of the *Learn score* course, and what to do next. Read `CLAUDE.md` first for the
 toolchain and the rules; this file is status and queue.
@@ -10,8 +10,8 @@ toolchain and the rules; this file is status and queue.
 stability, the pinned version, score files, `checks/` notes, and every internal link.
 635 minutes of reading, 1,340 minutes of practice.
 
-**31 figures exist**, covering 30 of the 46 units that need one; unit 00 has two, and the
-capstone needs none. **16 units still have no figure.**
+**34 figures exist**, covering 33 of the 46 units that need one; unit 00 has two, and the
+capstone needs none. **13 units still have no figure.**
 
 **12 example documents** ship, with their media, all downloadable.
 
@@ -21,8 +21,8 @@ clean.
 | Phase | Units | Text | Figures |
 |---|---|---|---|
 | 1 — authoring interactive scores | 00-18, P1-P4 (23) | done | 16 of 22 |
-| 2 — media | 19-28, P5-P6 (12) | done | 6 of 12 |
-| 3 — scripting, deployment, contributing | 29-40 (12) | done | 3 of 11 |
+| 2 — media | 19-28, P5-P6 (12) | done | 8 of 12 |
+| 3 — scripting, deployment, contributing | 29-40 (12) | done | 4 of 11 |
 
 ### Figures done
 
@@ -32,9 +32,10 @@ menu · `07-01` add-device dialog · `08-01` address and range · `09-01` cue li
 `10-01` curve shapes · `11-01` LFO patch · `12-01` Record submenu · `13-01` conditioning
 pipeline · `14-01` library search · `15-01` trigger · `16-01` branching · `18-01` transport ·
 `19-01` audio preferences · `20-01` sound files · `21-01` effect chain with a plug-in ·
-`24-01` metrics inspector · `25-01` video sources · `26-01` shader editor ·
-`29-01` script editor and console · `30-01` expression object ·
-`32-01` hosted Pd patch · `34-01` folded score · `p1-01` cue structure · `p2-01` light wash
+`23-01` piano roll and MIDI tree · `24-01` metrics inspector · `25-01` video sources ·
+`26-01` shader editor · `28-01` audio-reactive chain · `29-01` script editor and console ·
+`30-01` expression object · `31-01` Faust editor · `32-01` hosted Pd patch ·
+`34-01` folded score · `p1-01` cue structure · `p2-01` light wash
 
 ### Documents that ship
 
@@ -48,31 +49,20 @@ scenarios, intervals, states with messages, events with conditions, triggers, ch
 
 ## The queue, in the order I would take it
 
-### 1. Three that need one new process shape learned
-
-| Unit | Figure | Shape to find |
-|---|---|---|
-| 23 | a piano roll with notes, beside a MIDI device tree | Piano roll process; `free-midi-chords` has 18,456 `.mid` files installed |
-| 28 | envelope and signal display driving an image | Envelope and signal-display processes |
-| 31 | the Faust editor with code and a running chain | Faust process; `guitarix` and `abclib` presets are installed |
-
-Method: `grep -rl "<ProcessName>" /media/Storage/score-docs/assets/scores/`, or add it once
-through the interface in a throwaway copy and save.
-
-### 2. Structural figures needing hand-drawn transitions
+### 1. Structural figures needing hand-drawn transitions
 
 `17-01`, `p3-01`, `p4-01`. `mkscore.py` cannot emit transitions, the instantaneous
 intervals that make loops and out-of-time material. These have to be drawn in the
 interface, then captured. Doing this once and reading the saved JSON would teach
 `mkscore.py` transitions and unlock all three.
 
-### 3. Multi-object scenes
+### 2. Multi-object scenes
 
 `22-01` spatial (layout, path generator, DBAP, matrix) · `27-01` a 3D scene ·
 `33-01` a control surface with a remote client · `p5-01` the looper set ·
 `p6-01` a fisheye output. Each is an afternoon rather than an hour.
 
-### 4. Needs something not on this machine
+### 3. Needs something not on this machine
 
 | Unit | Figure | Needs |
 |---|---|---|
@@ -109,14 +99,22 @@ Lesson 25. There is **no webcam** and **no 3D model** on this machine.
 
 ## Things worth knowing before you touch anything
 
-- Figures have corrected the prose seven times so far: the start screen cannot be reopened
-  from a menu; the transport shortcuts; how Pure Data ports are declared; the protocol
-  list; the buffer size is not settable at all under PipeWire, which prints an environment
-  variable to set instead; a texture reaches a window device through an **output address**
-  and not a cable, which Lessons 25 and 26 both got wrong; and an expression object's
-  formula is typed on the process rather than in the shared script editor. **Treat a
-  figure as a test of the lesson**, and when they disagree, fix the lesson and record it
-  in `checks/`.
+- Figures have corrected the prose **ten times** so far: the start screen cannot be
+  reopened from a menu; the transport shortcuts; how Pure Data ports are declared; the
+  protocol list; the buffer size is not settable at all under PipeWire, which prints an
+  environment variable to set instead; a texture reaches a window device through an
+  **output address** and not a cable, which Lessons 25 and 26 both got wrong; an expression
+  object's formula is typed on the process rather than in the shared script editor; piano
+  roll notes are placed by **double-clicking**, since dragging does nothing; there is **no
+  blank Faust process** in the library, only presets to start from; and the envelope's "two
+  outputs" are in fact **two separate processes**, `RMS` and `Peak`, with a third,
+  `Envelope Follower (audio)`, whose output is audio and which is the wrong object
+  entirely. **Treat a figure as a test of the lesson**, and when they disagree, fix the
+  lesson and record it in `checks/`.
+- **Check whether a widget is disabled before blaming synthetic input.** An hour went into
+  concluding that a checkbox refused XTEST clicks; it was greyed out, and only a human
+  looking at the screen saw it. The neighbouring checkbox took a click first time and would
+  have settled it.
 - The `Window` device's output window **cannot be captured** by any tool here: it is a GPU
   surface, it opens almost entirely off the right edge, and interfering with its geometry
   stops it opening at all. Use the **process inspector's texture preview**, which shows the

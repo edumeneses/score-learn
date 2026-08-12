@@ -18,12 +18,12 @@ Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
 consistent.
 
-Counting note: unit 00 carries two figures, so 33 figures cover 32 units. Unit 40, the
-capstone, needs none, which leaves 46 units wanting a figure and 14 still without.
+Counting note: unit 00 carries two figures, so 34 figures cover 33 units. Unit 40, the
+capstone, needs none, which leaves 46 units wanting a figure and 13 still without.
 
 ---
 
-## Done: 33 figures, covering 32 of the 46 units that need one
+## Done: 34 figures, covering 33 of the 46 units that need one
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -50,13 +50,14 @@ a GPU surface and cannot be captured.
 Captured 2026-08-12: `31-01` a Faust processor written in the editor, compiled, and
 running, which needed `scripts/typeinto.py` to type code that `capture.py type` mangles; `23-01` a piano roll with a written phrase beside two declared
 MIDI devices, which also proved that the add-device dialog opens under synthetic input
-after all.
+after all; `28-01` the audio-reactive chain, sound to RMS to micromap to a shader
+parameter, with the rendered image taken from the inspector preview.
 
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 14 units
+## Pending: 13 units
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -107,7 +108,7 @@ Still missing locally: **3D models**. A simple glTF can be written by hand or ex
 from any modelling tool; Lesson 27's figure can also be built from a primitive plus
 computed geometry, which needs no file at all.
 
-### Interaction plus media (7)
+### Interaction plus media (6)
 
 The audio and MIDI ones can be done now with the material above.
 
@@ -116,7 +117,6 @@ The audio and MIDI ones can be done now with the material above.
 | 22 | `22-01` | A spatial scene in the nodal view: layout, path generator, DBAP, matrix |
 | P5 | `p5-01` | The looper set: four toggled layers and their key mapping |
 | 27 | `27-01` | A scene with a primitive, a loaded model, and generated geometry |
-| 28 | `28-01` | The three-object reactive chain with a signal display, beside the image it drives |
 | P6 | `p6-01` | A fisheye output in a window, with the scene structure folded |
 
 ### Interaction plus other software (6), and what this machine already has

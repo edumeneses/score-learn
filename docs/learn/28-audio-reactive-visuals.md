@@ -32,7 +32,7 @@ The lesson also collects a specific trap that has appeared twice already. Routin
 
 **The chain is three objects.** An **envelope** turns audio into a number. A **conditioning** stage scales and smooths it. A **destination** parameter on an image process consumes it. Everything difficult is in the middle object.
 
-**Two measures, different characters.** The envelope's first output is a root-mean-square measure, which follows perceived loudness and moves smoothly. Its second is a peak measure, which follows transients and moves abruptly. Use the first for anything continuous, brightness, scale, drift; use the second for anything that should hit, a flash, a jump, a trigger.
+**Two measures, different characters.** A root-mean-square measure follows perceived loudness and moves smoothly; a peak measure follows transients and moves abruptly. Use the first for anything continuous, brightness, scale, drift; use the second for anything that should hit, a flash, a jump, a trigger. In *score* these are two separate processes rather than two outputs of one, so the choice is which of them you add.
 
 **Range is the first problem.** Envelope output is small, and image parameters usually expect something else entirely. Without scaling, the image does not move and the technique appears not to work. A small multiplying and offsetting object, or a mapping curve per Lesson 13, is the fix.
 
@@ -46,18 +46,22 @@ The lesson also collects a specific trap that has appeared twice already. Routin
 
 ## Walkthrough: from sound to image, tuned
 
+![A sound file feeding an RMS envelope, its reading drawn by a signal display over the waveform, a micromap scaling it, and the result driving a shader's zoom parameter, with the rendered image in the inspector]({{ site.img }}/28/28-01-audio-reactive-chain.png)
+
+The chain is the whole lesson in one frame. The sound file's output reaches `RMS`; the signal display draws the reading as a white line over the waveform; `Micromap` multiplies it by twenty; and the result is cabled into the `zoom` parameter of a shader, whose rendered image sits in the inspector on the right. The capture is paused part-way through, which is why the white line stops where it does: everything to the left of that point is what the analysis actually produced from this material.
+
 {: .note }
-> A figure for this lesson is pending: it needs audio content and a live GPU session, so it requires media this course does not ship. See `checks/28-audio-reactive-visuals.md`.
+> **The two measures are two processes, not two outputs of one.** `Analysis > Envelope` holds three entries in 3.8.2. `RMS` and `Peak` each take an audio input and give a single value out, alongside `Gain` and `Gate` controls, so you choose between them by adding the one you want. `Envelope Follower (audio)` is a different animal: a sample-level follower whose output is **audio**, not a number, so it is not the object this lesson wants.
 
 1. **Start with both halves working separately.** A sound file playing, per Lesson 20, and a shader on screen through a window device, per Lesson 25. Confirm each independently before connecting them.
-2. **Add an envelope** and cable the sound file's audio output into it.
+2. **Add an envelope** and cable the sound file's audio output into it. `RMS` for continuous work, `Peak` for transients.
 3. **Turn propagate back on** in the sound file's outlet inspector, so you can still hear the material. Do this now rather than wondering later.
 4. **Observe the envelope.** Add a signal display on its first output and play. You should see a reading that follows the loudness. If it looks flat, it is scale, not failure.
 5. **Scale it.** Insert a small multiplying object and raise the value until the display uses its full height. You are now looking at a usable control signal.
 6. **Cable it to a shader parameter** and play. Something should move. This is the whole technique, and it probably looks bad.
 7. **Now tune it.** Insert a mapping curve and draw a relationship: flat at the bottom so silence does nothing, steep through the range your material actually occupies.
 8. **Add smoothing** and increase it until the movement stops twitching, then reduce it until the response stops feeling late. Note both values.
-9. **Compare the two measures.** Swap the root-mean-square output for the peak output and watch the difference: continuous against percussive. Keep whichever suits the parameter.
+9. **Compare the two measures.** Swap the `RMS` process for a `Peak` process and watch the difference: continuous against percussive. Keep whichever suits the parameter.
 10. **Drive a second parameter differently.** From the same envelope, take a second branch with its own curve and smoothing, so one sound moves two visual properties with different characters. This is where the result starts to look composed rather than automatic.
 11. **Change the material.** Play a different sound file through the same chain. If the visual stops responding, your curve is tuned to one recording rather than to a range, which is the most common fragility in this technique.
 12. **Analyse a group instead of everything.** Move the analysis from the master to one sub-scenario and hear the difference in what the image is following.

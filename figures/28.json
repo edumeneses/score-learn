@@ -1,0 +1,58 @@
+{
+  "_comment": "Lesson 28: the reactive chain built and paused mid-playback. A sound file feeds an RMS envelope, a signal display draws the reading over the waveform, a micromap scales it, and the result drives the zoom parameter of an ISF shader whose rendered output is previewed in the inspector. Badges match walkthrough steps 2 (the envelope), 4 (the reading on the signal display), 5 (the scaling stage), and 6 (the image it drives).",
+  "source": "raw/raw-28-01.png",
+  "out": "docs/learn/assets/28/28-01-audio-reactive-chain.png",
+  "crop": [
+    700,
+    540,
+    3840,
+    2000
+  ],
+  "font_size": 30,
+  "badges": [
+    {
+      "n": 4,
+      "at": [
+        1620,
+        645
+      ],
+      "to": [
+        1178,
+        690
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        1024,
+        1005
+      ],
+      "to": [
+        1024,
+        1072
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        1620,
+        1162
+      ],
+      "to": [
+        1450,
+        1162
+      ]
+    },
+    {
+      "n": 6,
+      "at": [
+        3195,
+        1524
+      ],
+      "to": [
+        3286,
+        1524
+      ]
+    }
+  ]
+}
