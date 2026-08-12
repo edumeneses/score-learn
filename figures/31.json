@@ -1,0 +1,13 @@
+{
+  "_comment": "Lesson 31: a Faust processor written in score's editor and compiled, chained after Lesson 20's sound file and playing. Two hslider declarations in the code produced the two ports the inspector lists. Badges match walkthrough steps 1 (the process placed where audio already arrives), 2 (compile), 3 (the port a declared control produced), and 5 (the filter's cutoff, declared the same way).",
+  "source": "raw/raw-31-01.png",
+  "out": "docs/learn/assets/31/31-01-faust-editor.png",
+  "crop": [700, 200, 3840, 2150],
+  "font_size": 30,
+  "badges": [
+    {"n": 1, "at": [900, 1300], "to": [988, 1040]},
+    {"n": 5, "at": [2500, 332], "to": [2390, 332]},
+    {"n": 2, "at": [3160, 1695], "to": [3090, 1695]},
+    {"n": 3, "at": [3500, 900], "to": [3420, 672]}
+  ]
+}

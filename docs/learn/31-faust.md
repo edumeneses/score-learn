@@ -44,10 +44,14 @@ It is also fast. Faust compiles to code optimised for the processor it is runnin
 
 ## Walkthrough: from a one-liner to a spatialiser
 
-{: .note }
-> A figure for this lesson is pending: it needs the Faust editor with code and a running audio chain, which requires interaction. See `checks/31-faust.md`.
+![A Faust processor written in score's editor and compiled, chained after a sound file that is playing, with the two controls its code declares listed as ports on the process]({{ site.img }}/31/31-01-faust-editor.png)
 
-1. **Add a Faust process** in an interval that already receives audio, per Lesson 21.
+Six lines of Faust, and every claim in this lesson is visible at once. The two `hslider` declarations became the `cutoff` and `gain` ports that the inspector lists on the right, and the same two appear on the process in the score. A moment earlier that process had sixteen ports, because it began as a library preset: ports are derived from the code and from nothing else, so recompiling replaced them.
+
+{: .note }
+> **There is no blank Faust process in the library.** `Plugins > Faust` holds presets rather than an empty processor, so the way to start is to add any preset and replace its code, which is what the figure did. Note that the process keeps the preset's label afterwards, `16_channel_volume` here, while its ports are entirely yours. That mismatch is worth recognising before you go hunting for a bug: the label says where the process came from, the ports say what it now is.
+
+1. **Add a Faust process** in an interval that already receives audio, per Lesson 21. Take any preset from `Plugins > Faust`, since there is no empty one and you are about to replace its code.
 2. **Write the smallest possible processor**, a pass-through: `process = _ : _;`. Compile. Sound goes through unchanged, and you have confirmed the plumbing.
 3. **Make it do something.** Add a gain with a declared control, so the code multiplies the signal by a slider. Compile, and find the new port on the process.
 4. **Automate that port** from the timeline. You are now automating a parameter of a processor you wrote, which is the moment the two halves of this course meet.

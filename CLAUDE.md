@@ -66,6 +66,7 @@ scripts/                       the toolchain, below
 python3 scripts/check_lessons.py      # run before every commit
 python3 scripts/mkscore.py 04         # build a lesson's .score document
 python3 scripts/annotate.py figures/04.json
+python3 scripts/typeinto.py 2000 800 --select-all --file code.dsp   # type into an editor
 python3 scripts/make_downloads.py     # after adding or changing any library file
 ```
 
@@ -162,7 +163,23 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   this: a figure that needs a specific process's inspector is easiest to build by adding
   that process last.
 - **The transport ignores a click when score is not focused**, and the first click only
-  focuses. Check the clock before assuming playback started.
+  focuses. Check the clock before assuming playback started. Its buttons also move with the
+  width of the clock text, so measure them in the capture rather than reusing coordinates.
+- **Never type into a sub-widget with `capture.py type`.** It calls `require_focus`, which
+  activates the main window and thereby resets keyboard focus, so the keystrokes land in
+  the score. `ctrl+a` then `delete`, meant to clear a script editor, is Select All and
+  Delete on the document. Use `scripts/typeinto.py X Y --file code.dsp`, which clicks to
+  place focus and then types without activating anything.
+- **The keyboard here is a multilingual layout with dead keys.** Keycode 48 carries
+  `dead_acute`, `dead_diaeresis`, `apostrophe`, and `quotedbl` at levels 0 to 3, so a double
+  quote is AltGr plus shift. `capture.py type` assumes a US layout and guesses shift from a
+  fixed list of characters, which silently drops quotes; `typeinto.py` reads the server's
+  keymap and presses the modifiers each character's level actually needs. Check typed code
+  in a capture before compiling: a missing quote is a compile error, not a visible typo.
+- **python-xlib can raise `AttributeError: 'BadRRModeError' object has no attribute
+  'sequence_number'`** from inside its own error handler, when a RandR event is sitting in
+  the connection's queue. It is not catchable by type in any useful way. Read the keymap on
+  a freshly opened `Display`, which has no queue, as `typeinto.py` does.
 
 ## Facts about score itself, learned the hard way
 
