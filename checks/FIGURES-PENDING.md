@@ -18,12 +18,12 @@ Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
 consistent.
 
-Counting note: unit 00 carries two figures, so 35 figures cover 34 units. Unit 40, the
-capstone, needs none, which leaves 46 units wanting a figure and 12 still without.
+Counting note: unit 00 carries two figures, so 36 figures cover 35 units. Unit 40, the
+capstone, needs none, which leaves 46 units wanting a figure and 11 still without.
 
 ---
 
-## Done: 35 figures, covering 34 of the 46 units that need one
+## Done: 36 figures, covering 35 of the 46 units that need one
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -55,12 +55,13 @@ parameter, with the rendered image taken from the inspector preview.
 
 Captured 2026-08-18: `17-01` a loop made from a transition, beside out-of-time material.
 Edu drew both shapes by hand once; `mkscore.py` now emits them, so this one is scripted.
+`p4-01` the installation's structure, generated the same way.
 
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 12 units
+## Pending: 11 units
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -77,7 +78,7 @@ Three lessons for whoever continues this:
   `capture.py waitshot`, which polls until a dialog appears and then captures it, so a
   human only has to open the thing and walk away.
 
-### Structural, and now scripted (2)
+### Structural, and now scripted (1)
 
 `mkscore.py` **can** emit transitions since 2026-08-18, so these no longer need drawing:
 build the document with a builder and capture it like any early figure. See
@@ -87,7 +88,6 @@ example carrying both a loop and out-of-time material.
 | Unit | Figure | What to capture |
 |---|---|---|
 | P3 | `p3-01` | The mapping bench: one conditioned input, three branches, observation on each |
-| P4 | `p4-01` | Idle loop, visitor trigger, two branches, return transitions |
 
 ## Material already on this machine
 

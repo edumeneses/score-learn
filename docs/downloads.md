@@ -32,6 +32,7 @@ Keep each unit's folder together: the documents reference their media by a proje
 | [32]({{ site.baseurl }}/learn/32-puredata.html) | Faust inside score | [lesson-32.pd]({{ site.baseurl }}/library/learn/32-puredata/lesson-32.pd) <small>(Pure Data patch, 408 B)</small> · [lesson-32.score]({{ site.baseurl }}/library/learn/32-puredata/lesson-32.score) <small>(score document, 20.7 kB)</small> |
 | [P1]({{ site.baseurl }}/learn/p1-automated-cue.html) | Saving, versioning, and reopening | [p1-solution.score]({{ site.baseurl }}/library/learn/p1-automated-cue/p1-solution.score) <small>(score document, 32.0 kB)</small> |
 | [P2]({{ site.baseurl }}/learn/p2-light-wash.html) | States, snapshots, and presets | [p2-solution.score]({{ site.baseurl }}/library/learn/p2-light-wash/p2-solution.score) <small>(score document, 24.7 kB)</small> |
+| [P4]({{ site.baseurl }}/learn/p4-interactive-installation.html) | Cues, seek, and transport control | [p4-solution.score]({{ site.baseurl }}/library/learn/p4-interactive-installation/p4-solution.score) <small>(score document, 36.5 kB)</small> |
 
 ## How these were made
 

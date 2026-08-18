@@ -1,0 +1,54 @@
+{
+  "_comment": "Milestone P4: the installation's whole structure. An idle phrase, a trigger released by a visitor, two branches chosen by conditions over the input range, and a return transition from each branch's end back to the first instant, so the piece returns to idle whatever happened and repeats indefinitely. Badges match walkthrough steps 1 (the idle phrase), 2 (the visitor trigger), 3 (the branches and their conditions), and 5 (the return transitions).",
+  "source": "raw/raw-p4-01.png",
+  "out": "docs/learn/assets/p4/p4-01-installation-structure.png",
+  "crop": [
+    700,
+    400,
+    2600,
+    1700
+  ],
+  "font_size": 30,
+  "badges": [
+    {
+      "n": 1,
+      "at": [
+        1050,
+        620
+      ]
+    },
+    {
+      "n": 2,
+      "at": [
+        1640,
+        433
+      ],
+      "to": [
+        1478,
+        455
+      ]
+    },
+    {
+      "n": 3,
+      "at": [
+        1290,
+        1120
+      ],
+      "to": [
+        1448,
+        1120
+      ]
+    },
+    {
+      "n": 5,
+      "at": [
+        900,
+        1150
+      ],
+      "to": [
+        900,
+        1045
+      ]
+    }
+  ]
+}

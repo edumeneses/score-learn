@@ -1067,6 +1067,77 @@ def lesson_17() -> dict:
     return document(root, endless=True)
 
 
+def p4_solution() -> dict:
+    """Milestone P4: an installation that idles, reacts, and returns to idle.
+
+        0s --[ Idle ]-- 4s --(visitor)--+-- level > 0.5 --[ Bright ]-- 10s --+
+             ^                          |                                    |
+             |                          +-- level <= 0.5 --[ Quiet ]-- 8s ---+
+             |                                                               |
+             +---------------- return transitions ---------------------------+
+
+    The trigger and the conditions are two mechanisms doing two jobs, which is
+    the distinction Lesson 16 insisted on: the visitor's arrival *releases* the
+    instant, and the conditions *choose* which branch leaves it.
+
+    Both branches return to the score's first instant, so the idle phrase plays
+    again and the piece repeats indefinitely. The two outcomes are deliberately
+    different lengths, because a return path that only works when both branches
+    are the same duration is not a return path.
+    """
+    idle = automation(20, f"{DEVICE}:/haze", 4 * SEC, 0.1, 0.25,
+                      "Automation (float).20")
+    bright = automation(21, f"{DEVICE}:/level", 6 * SEC, 0.2, 1.0,
+                        "Automation (float).21", 1.7)
+    quiet = automation(22, f"{DEVICE}:/colour", 4 * SEC, 0.6, 0.05,
+                       "Automation (float).22", 0.6)
+
+    scen = scenario(
+        1, 14 * SEC,
+        [
+            timesync(0, 0, [0], start=True),
+            timesync(1, 4 * SEC, [1, 2, 3], active=True,
+                     label="a visitor arrives"),
+            timesync(2, 10 * SEC, [4]),
+            timesync(3, 8 * SEC, [5]),
+        ],
+        [
+            # the first instant also receives both return transitions
+            event(0, 0, [0, 8, 9], 0),
+            event(1, 1, [1], 4 * SEC),
+            event(2, 1, [2], 4 * SEC,
+                  condition=f" {{ {DEVICE}:/level > 0.5 }} "),
+            event(3, 1, [3], 4 * SEC,
+                  condition=f" {{ {DEVICE}:/level <= 0.5 }} "),
+            event(4, 2, [4, 6], 10 * SEC),
+            event(5, 3, [5, 7], 8 * SEC),
+        ],
+        [
+            state(0, 0, 0.15, nxt=0, messages=message("haze", 0.1)),
+            state(1, 1, 0.15, prev=0),
+            state(2, 2, 0.35, nxt=1, messages=message("level", 0.2)),
+            state(3, 3, 0.60, nxt=2, messages=message("colour", 0.6)),
+            state(4, 4, 0.35, prev=1),
+            state(5, 5, 0.60, prev=2),
+            # each branch's end departs on a transition back to the beginning
+            state(6, 4, 0.45, nxt=3),
+            state(7, 5, 0.70, nxt=4),
+            state(8, 0, 0.45, prev=3),
+            state(9, 0, 0.70, prev=4),
+        ],
+        [
+            interval(0, "Idle", 0, 1, 0, 4 * SEC, [idle], height=0.15),
+            interval(1, "Bright", 2, 4, 4 * SEC, 6 * SEC, [bright], height=0.35),
+            interval(2, "Quiet", 3, 5, 4 * SEC, 4 * SEC, [quiet], height=0.60),
+            transition(3, 6, 8, 10 * SEC, height=0.45, name="Return (bright)"),
+            transition(4, 7, 9, 8 * SEC, height=0.70, name="Return (quiet)"),
+        ],
+    )
+    root = interval(0, "p4-interactive-installation", 0, 1, 0, 14 * SEC, [scen],
+                    height=0.5, rigid=False, fit=True, max_inf=True)
+    return document(root, endless=True)
+
+
 def lesson_20() -> dict:
     """Two sound files: one played once, one looping to fill its interval.
 
@@ -1113,6 +1184,7 @@ BUILDERS = {
     "15": ("15-triggers", lesson_15),
     "16": ("16-conditions-and-branching", lesson_16),
     "17": ("17-loops-and-out-of-time", lesson_17),
+    "P4": ("p4-interactive-installation", p4_solution),
     "20": ("20-sound-files", lesson_20),
     "25": ("25-video-pipeline", lesson_25),
 }
@@ -1128,7 +1200,8 @@ def main() -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     doc = builder()
-    stem = {"P1": "p1-solution", "P2": "p2-solution"}.get(which, f"lesson-{which}")
+    stem = {"P1": "p1-solution", "P2": "p2-solution",
+            "P4": "p4-solution"}.get(which, f"lesson-{which}")
     temporal = out_dir / f"{stem}.score"
     temporal.write_text(json.dumps(doc, indent=1), encoding="utf8")
     print(f"wrote {temporal.relative_to(ROOT)}")

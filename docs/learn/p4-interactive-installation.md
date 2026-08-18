@@ -9,7 +9,7 @@ permalink: /learn/p4-interactive-installation.html
 score_version: "3.8.2"
 reading_time: "15 min"
 practice_time: "60 min"
-score_file: none
+score_file: p4-interactive-installation/p4-solution.score
 ---
 
 # Milestone P4: an interactive installation with two branches
@@ -54,8 +54,11 @@ Build a document that:
 
 ## Walkthrough
 
-{: .note }
-> A figure for this lesson is pending: the structure includes transitions, which need to be drawn interactively. See `checks/p4-interactive-installation.md`.
+![An idle phrase, a trigger labelled "a visitor arrives", two branches of different lengths leaving the same instant, and a dash-dot return transition from each branch back to the beginning]({{ site.img }}/p4/p4-01-installation-structure.png)
+
+The reference solution, `p4-solution.score`, ships with this milestone; the whole brief is legible as shape. `Idle` runs, the instant at its end waits for the visitor, and two branches leave that instant under conditions partitioned over the input range. Both ends carry a dash-dot transition back to the score's first instant, which is what makes the return automatic and the repetition indefinite.
+
+Two details in the drawing are worth naming. The branches are **deliberately different lengths**, because a return path that only works when both outcomes take the same time is not a return path. And the trigger and the conditions are visibly separate things: the yellow marker releases the instant, the conditions choose what leaves it. That separation is the distinction Lesson 16 insisted on, and here it is doing real work.
 
 1. **Build the idle loop first**, and let it run for five minutes while you watch. If it drifts, accumulates, or gets slower, fix that now: everything else sits on top of it.
 2. **Add the visitor trigger** at the end of the idle phrase, fired from your bench, with a minimum duration so a single approach does not read as several.
