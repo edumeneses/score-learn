@@ -1,0 +1,14 @@
+{
+  "_comment": "Milestone P3: the mapping bench in the nodal view. An LFO stands in for the sensor, a Range Filter conditions it once, and three branches take that same conditioned value: straight to a signal display, through Smooth to a value display, and through Multi-choice to a third. Badges match walkthrough steps 1 (the emulated input), 4 (conditioning done once, centrally), 6 (the smoothed branch), 7 (the stepped branch), and 8 (observation on each).",
+  "source": "raw/raw-p3-01.png",
+  "out": "docs/learn/assets/p3/p3-01-mapping-bench.png",
+  "crop": [760, 150, 3150, 1400],
+  "font_size": 30,
+  "badges": [
+    {"n": 1, "at": [860, 285], "to": [882, 348]},
+    {"n": 4, "at": [1620, 282], "to": [1620, 344]},
+    {"n": 8, "at": [2500, 200], "to": [2330, 262]},
+    {"n": 6, "at": [1990, 458], "to": [1990, 512]},
+    {"n": 7, "at": [2126, 978], "to": [2126, 1032]}
+  ]
+}

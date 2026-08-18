@@ -9,7 +9,7 @@ permalink: /learn/p3-mapping-bench.html
 score_version: "3.8.2"
 reading_time: "15 min"
 practice_time: "60 min"
-score_file: none
+score_file: p3-mapping-bench/p3-bench.score
 ---
 
 # Milestone P3: a sensor to sound and light mapping bench
@@ -64,8 +64,16 @@ Whichever you choose, deliberately give the input two defects to work against: a
 
 ## Walkthrough
 
+![An LFO standing in for a sensor, conditioned once by a range filter, then branching three ways: straight to a signal display, through a smoothing filter, and through a multi-choice step, each branch ending in its own observation]({{ site.img }}/p3/p3-01-mapping-bench.png)
+
+`p3-bench.score` ships with this milestone. It is the skeleton rather than the finished answer: one input, conditioned once, three branches, an observation on each. The calibration, the rate limiting, and the written map are yours to add.
+
+Read it left to right. The `LFO` stands in for a sensor, which is the third emulation option above. The `Range Filter` conditions that value **once**, and all three branches consume its output; that is what keeps them comparable and what makes re-calibrating a single edit rather than three. Then the three characters: straight through to a signal display, through `Smooth` set to a One Euro filter, and through `Multi-choice`, which turns the continuous value into a small number of levels.
+
+Notice that the third branch's display is blank while the other two are alive. That is not a mistake in the figure; it is what this milestone's fifth requirement buys you. A branch has gone quiet, and because every stage is observed you can see *which* one, which is the difference between a question with a location and a guess.
+
 {: .note }
-> A figure for this lesson is pending: the bench is assembled in the nodal view, which requires interaction. See `checks/p3-mapping-bench.md`.
+> **The processes, by library path.** `Control > Generators > LFO`; `Control > Mappings > Range Filter`, `Smooth`, and `Multi-choice`; and, for observation, `Monitoring > Signal display` beside the plain value display. `Smooth` offers `OneEuro`, `LowPass`, `Average`, and `Median` as its `Type`, which is where the character of the smoothed branch is actually chosen.
 
 1. **Set up the input** and confirm values arrive in the device explorer.
 2. **Make the pipeline interval** and give its end a trigger that is never satisfied, so it runs indefinitely.
