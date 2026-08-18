@@ -9,7 +9,7 @@ permalink: /learn/17-loops-and-out-of-time.html
 score_version: "3.8.2"
 reading_time: "13 min"
 practice_time: "25 min"
-score_file: none
+score_file: 17-loops-and-out-of-time/lesson-17.score
 ---
 
 # Lesson 17: Loops and out of time
@@ -44,8 +44,11 @@ This lesson is also where the timeline stops being a line at all. The mechanism 
 
 ## Walkthrough: three structures
 
-{: .note }
-> A figure for this lesson is pending: transitions and their dotted connections need to be drawn interactively, since the builder used for this course's example documents does not yet emit them. See `checks/17-loops-and-out-of-time.md`.
+![A two-interval phrase with a dash-dot transition running back from its end to the instant before it, and below, an interval joined to nothing, carrying a trigger armed on play]({{ site.img }}/17/17-01-loop-and-out-of-time.png)
+
+Both structures are in `lesson-17.score`, which ships with this lesson. The dash-dot line with the arrowhead is the transition: it leaves the instant at the end of `Phrase` and arrives at the instant before it, so `Phrase` repeats and the score never reaches an end. Below it, `On demand` is joined to nothing the score starts from, which is the whole of what "out of time" means; the yellow marker on its first instant is a trigger with start on play enabled, and it is the only way that material will ever run.
+
+Note what the drawing tells you about the mechanism. A transition looks different from an interval because it *is* different: it has no duration, so there is nothing to draw across, only a line from one instant to another.
 
 1. **Build a two-interval phrase**, each with an automation, so you can hear or see where you are.
 2. **Add a transition back.** From the last state, drag a connection back to the first instant. Play: the phrase repeats indefinitely.

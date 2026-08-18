@@ -1,0 +1,11 @@
+{
+  "_comment": "Lesson 17: a loop made from a transition, and material that lives outside the timeline. The dash-dot line with the arrowhead is the transition, running from the end of Phrase back to the instant before it, so Phrase repeats forever. The lower interval is joined to nothing that the score starts from, and carries a trigger armed on play. Badges match walkthrough steps 2 (the transition drawn back to an earlier instant) and 8 (the out-of-time material and its trigger).",
+  "source": "raw/raw-17-01.png",
+  "out": "docs/learn/assets/17/17-01-loop-and-out-of-time.png",
+  "crop": [700, 520, 2500, 1730],
+  "font_size": 30,
+  "badges": [
+    {"n": 2, "at": [2440, 769], "to": [2335, 769]},
+    {"n": 8, "at": [1250, 1306], "to": [1432, 1306]}
+  ]
+}

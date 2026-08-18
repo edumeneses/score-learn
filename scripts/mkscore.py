@@ -264,7 +264,7 @@ def interval(iid: int, name: str, start_state: int, end_state: int,
              start_date: int, duration: int, processes: list[dict],
              *, height: float = 0.4, rigid: bool = True,
              max_duration: int | None = None, nodal: bool = False,
-             label: str = "", fit: bool = False) -> dict:
+             label: str = "", fit: bool = False, max_inf: bool = False) -> dict:
     """One stretch of time, holding processes in its racks."""
     slots = [
         {"Processes": [p["id"]], "Process": p["id"], "Height": 140.0, "Nodal": nodal}
@@ -286,7 +286,10 @@ def interval(iid: int, name: str, start_state: int, end_state: int,
         "Speed": 1.0,
         "Rigidity": rigid,
         "MinNull": False,
-        "MaxInf": False,
+        # A document whose root has a bounded maximum stops when that maximum is
+        # reached, however its contents are structured, so an endless inner loop
+        # still ends. `max_inf` is what lets a loop actually run forever.
+        "MaxInf": max_inf,
         "Signatures": [],
         "StartState": start_state,
         "EndState": end_state,
@@ -308,8 +311,14 @@ def interval(iid: int, name: str, start_state: int, end_state: int,
 
 
 def timesync(tid: int, date: int, events: list[int], *, active: bool = False,
-             label: str = "", start: bool = False) -> dict:
-    """An instant. `active` is what makes it a trigger: it waits."""
+             label: str = "", start: bool = False, auto: bool = False) -> dict:
+    """An instant. `active` is what makes it a trigger: it waits.
+
+    `auto` is the interface's **start on play**, and `start` marks the instant as
+    a place execution can begin. Out-of-time material needs all three together:
+    a trigger, armed when the score starts, at an instant execution may enter,
+    on a chain that nothing connects to the score's own beginning.
+    """
     return {
         "ObjectName": "Scenario::TimeSyncModel",
         "id": tid,
@@ -317,10 +326,42 @@ def timesync(tid: int, date: int, events: list[int], *, active: bool = False,
         "Date": date,
         "Events": events,
         "MusicalSync": -1.0,
-        "AutoTrigger": False,
+        "AutoTrigger": auto,
         "Start": start,
         "Active": active,
         "Expression": " { true == false } ",
+    }
+
+
+def transition(iid: int, start_state: int, end_state: int, date: int,
+               *, height: float = 0.4, name: str = "") -> dict:
+    """An instantaneous interval, which is what score calls a transition.
+
+    Zero duration is the whole point: taking no time, it can join two states in
+    either chronological direction, and a loop is simply one pointing backwards.
+    `Graphal` is the flag that marks it as one.
+
+    It carries none of an ordinary interval's machinery, no racks, no ports, no
+    processes, because there is no time in which anything could run; writing
+    those keys anyway is what made the first attempts here fail to load.
+    """
+    return {
+        "ObjectName": "Scenario::IntervalModel",
+        "id": iid,
+        "Metadata": meta(name or f"Transition.{iid}"),
+        "Graphal": True,
+        "DefaultDuration": 0,
+        "MinDuration": 0,
+        "MaxDuration": 0,
+        "GuiDuration": 0,
+        "Speed": 1.0,
+        "Rigidity": True,
+        "MinNull": False,
+        "MaxInf": False,
+        "StartState": start_state,
+        "EndState": end_state,
+        "StartDate": date,
+        "HeightPercentage": height,
     }
 
 
@@ -646,8 +687,17 @@ def to_nodal(doc: dict) -> dict:
     return out
 
 
-def document(root: dict, extra_devices: list | None = None) -> dict:
-    """Wrap a root interval into a full score document."""
+def document(root: dict, extra_devices: list | None = None,
+             endless: bool = False) -> dict:
+    """Wrap a root interval into a full score document.
+
+    `endless` makes the base scenario's closing instant a **trigger**, with the
+    never-true expression every sync already carries. Without it the document
+    stops when that instant's date arrives, however its contents are structured,
+    so a score whose inner loop should run forever still ends. This is the same
+    idiom Lesson 17 describes for bounding a loop, used here to refuse to bound
+    one: `MaxInf` on the root is necessary and, on its own, not sufficient.
+    """
     return {
         "Document": {
             "ObjectName": "Scenario::ScenarioDocumentModel",
@@ -657,7 +707,8 @@ def document(root: dict, extra_devices: list | None = None) -> dict:
                 "id": 0,
                 "Constraint": root,
                 "StartTimeNode": timesync(0, 0, [0], start=True),
-                "EndTimeNode": timesync(1, root["DefaultDuration"], [1]),
+                "EndTimeNode": timesync(1, root["DefaultDuration"], [1],
+                                        active=endless),
                 "StartEvent": event(0, 0, [0], 0),
                 "EndEvent": event(1, 1, [1], root["DefaultDuration"]),
                 "StartState": state(0, 0, 0.5, nxt=0),
@@ -943,6 +994,79 @@ def lesson_16() -> dict:
     return document(root)
 
 
+def lesson_17() -> dict:
+    """A loop made with a transition, and material that lives outside the timeline.
+
+    Two structures side by side, because the lesson's point is that they are the
+    same mechanism seen twice:
+
+        0s ---[ Intro ]--- 3s ---[ Phrase ]--- 9s
+                            ^                   |
+                            \\--- transition ---/     loops the phrase forever
+
+              (nothing connects this to the start)
+                           4s ---[ On demand ]--- 8s
+                            ^
+                            trigger, armed on play
+
+    The loop returns to the *second* instant rather than the first, so the intro
+    plays once and the phrase repeats, which is easier to read in a figure than a
+    loop over everything.
+
+    The out-of-time chain is out of time for one reason only: no interval joins it
+    to the instant the score starts from. Its own instant carries a trigger with
+    start on play, which is what makes it fireable while the rest runs.
+    """
+    intro = automation(10, f"{DEVICE}:/level", 3 * SEC, 0.0, 1.0,
+                       "Automation (float).10", 1.5)
+    phrase = automation(11, f"{DEVICE}:/colour", 6 * SEC, 0.9, 0.1,
+                        "Automation (float).11")
+    onwards = automation(12, f"{DEVICE}:/haze", 4 * SEC, 0.1, 0.8,
+                         "Automation (float).12")
+
+    scen = scenario(
+        1, 14 * SEC,
+        [
+            timesync(0, 0, [0], start=True),
+            timesync(1, 3 * SEC, [1]),
+            timesync(2, 9 * SEC, [2]),
+            # the out-of-time chain begins here: a trigger, armed on play, at an
+            # instant execution is allowed to start from
+            timesync(3, 4 * SEC, [3], active=True, auto=True, start=True,
+                     label="fires on demand"),
+            timesync(4, 8 * SEC, [4]),
+        ],
+        [
+            event(0, 0, [0], 0),
+            event(1, 1, [1, 4], 3 * SEC),
+            event(2, 2, [2, 3], 9 * SEC),
+            event(3, 3, [5], 4 * SEC),
+            event(4, 4, [6], 8 * SEC),
+        ],
+        [
+            state(0, 0, 0.20, nxt=0, messages=message("level", 0.0)),
+            state(1, 1, 0.20, prev=0, nxt=1),
+            state(2, 2, 0.20, prev=1),
+            # the two ends of the transition: it leaves the later instant and
+            # arrives at the earlier one
+            state(3, 2, 0.30, nxt=3),
+            state(4, 1, 0.30, prev=3),
+            state(5, 3, 0.62, nxt=2),
+            state(6, 4, 0.62, prev=2),
+        ],
+        [
+            interval(0, "Intro", 0, 1, 0, 3 * SEC, [intro], height=0.20),
+            interval(1, "Phrase", 1, 2, 3 * SEC, 6 * SEC, [phrase], height=0.20),
+            interval(2, "On demand", 5, 6, 4 * SEC, 4 * SEC, [onwards],
+                     height=0.62),
+            transition(3, 3, 4, 9 * SEC, height=0.30, name="Loop"),
+        ],
+    )
+    root = interval(0, "lesson-17", 0, 1, 0, 14 * SEC, [scen],
+                    height=0.5, rigid=False, fit=True, max_inf=True)
+    return document(root, endless=True)
+
+
 def lesson_20() -> dict:
     """Two sound files: one played once, one looping to fill its interval.
 
@@ -988,6 +1112,7 @@ BUILDERS = {
     "10": ("10-automation-curves", lesson_10),
     "15": ("15-triggers", lesson_15),
     "16": ("16-conditions-and-branching", lesson_16),
+    "17": ("17-loops-and-out-of-time", lesson_17),
     "20": ("20-sound-files", lesson_20),
     "25": ("25-video-pipeline", lesson_25),
 }

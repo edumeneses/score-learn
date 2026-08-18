@@ -185,6 +185,9 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 - **`set -- $var` does not word-split in zsh.** A loop feeding coordinates to `capture.py`
   that way passes the whole string as `$1` and every click fails; with output suppressed it
   looks like score ignoring input. Use `${var%%,*}` and `${var##*,}`.
+- **`launch --open` takes a shell-quoted path**, since it is parsed with `shlex`. A path
+  containing a space used to be split into two nonexistent files, and score then opened an
+  empty window that looks exactly like a document which failed to load.
 - **The transport ignores a click when score is not focused**, and the first click only
   focuses. Check the clock before assuming playback started. Its buttons also move with the
   width of the clock text, so measure them in the capture rather than reusing coordinates.
@@ -207,6 +210,18 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 ## Facts about score itself, learned the hard way
 
 - A curve's **last segment must end at x = 1.0119**, not 1.0, or score draws it flat.
+- **A transition is an interval with `Graphal: true`** and zero durations, carrying none of
+  an ordinary interval's machinery. Its `StartState` is at the later instant and its
+  `EndState` at the earlier one; that is what points it backwards and makes a loop.
+- **An endless document needs two things, not one**: `MaxInf: true` on the root interval,
+  *and* `Active: true` on the base scenario's `EndTimeNode`, which makes the document's own
+  closing instant a trigger that waits. Miss the second and an inner loop still stops when
+  the root's duration runs out. Score writes both into every new document; `mkscore.py`
+  did not, which is why generated loops ended and hand-drawn ones did not. Use
+  `document(..., endless=True)`.
+- **Out-of-time material has no marker.** It is a chain nothing connects to the start
+  instant. Its trigger needs `Active`, `AutoTrigger` and `Start` all true; `AutoTrigger` is
+  the interface's *start on play*.
 - **Three intervals cannot share one end state.** Each branch needs its own end instant,
   or score silently drops the whole scenario.
 - **score fits a document to the editor width on load**; the stored `Zoom` is effectively

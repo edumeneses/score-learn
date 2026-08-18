@@ -18,12 +18,12 @@ Pinned build for every capture: **ossia score 3.8.2**, fullscreen at
 `QT_SCALE_FACTOR=2` on a 3840x2160 screen. Keep that format so the set stays
 consistent.
 
-Counting note: unit 00 carries two figures, so 34 figures cover 33 units. Unit 40, the
-capstone, needs none, which leaves 46 units wanting a figure and 13 still without.
+Counting note: unit 00 carries two figures, so 35 figures cover 34 units. Unit 40, the
+capstone, needs none, which leaves 46 units wanting a figure and 12 still without.
 
 ---
 
-## Done: 34 figures, covering 33 of the 46 units that need one
+## Done: 35 figures, covering 34 of the 46 units that need one
 
 Scripted, no interaction: `00-01` annotated score · `03-01` window regions ·
 `04-01` first automation · `08-01` address and range · `09-01` cue list ·
@@ -53,11 +53,14 @@ MIDI devices, which also proved that the add-device dialog opens under synthetic
 after all; `28-01` the audio-reactive chain, sound to RMS to micromap to a shader
 parameter, with the rendered image taken from the inspector preview.
 
+Captured 2026-08-18: `17-01` a loop made from a transition, beside out-of-time material.
+Edu drew both shapes by hand once; `mkscore.py` now emits them, so this one is scripted.
+
 The nodal-patch figures were built by selecting an interval, filtering the process
 library, and double-clicking the result, which adds the process **and connects it**;
 `capture.py menu X Y --pick N` handled the menu-driven ones.
 
-## Pending: 13 units
+## Pending: 12 units
 
 **Every figure that needs only clicks is now done.** What remains needs media, other
 software, or hardware.
@@ -74,14 +77,15 @@ Three lessons for whoever continues this:
   `capture.py waitshot`, which polls until a dialog appears and then captures it, so a
   human only has to open the thing and walk away.
 
-### Interaction plus transitions (3)
+### Structural, and now scripted (2)
 
-`mkscore.py` cannot emit transitions, the instantaneous intervals that make loops
-and out-of-time material. These have to be drawn.
+`mkscore.py` **can** emit transitions since 2026-08-18, so these no longer need drawing:
+build the document with a builder and capture it like any early figure. See
+`checks/17-loops-and-out-of-time.md` for the shape, and `lesson_17()` for a worked
+example carrying both a loop and out-of-time material.
 
 | Unit | Figure | What to capture |
 |---|---|---|
-| 17 | `17-01` | A loop built from a transition, and out-of-time material |
 | P3 | `p3-01` | The mapping bench: one conditioned input, three branches, observation on each |
 | P4 | `p4-01` | Idle loop, visitor trigger, two branches, return transitions |
 

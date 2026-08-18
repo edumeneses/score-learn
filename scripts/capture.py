@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import shlex
 import subprocess
 import sys
 import time
@@ -669,7 +670,10 @@ def launch(args: argparse.Namespace) -> int:
         if not os.path.exists(args.appimage):
             print(f"missing {args.appimage}")
             return 1
-        cmd = [args.appimage] + (args.open.split() if args.open else [])
+        # shlex, not str.split: a path with a space in it was being split into
+        # two nonexistent paths, and score then opened an empty window that looks
+        # exactly like a document which failed to load for some interesting reason.
+        cmd = [args.appimage] + (shlex.split(args.open) if args.open else [])
         env = dict(os.environ)
         if args.qt_scale:
             # Figures are specified at 2x device pixels. On a display with no
