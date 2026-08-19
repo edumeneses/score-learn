@@ -1,7 +1,61 @@
-# Handover — 2026-08-18
+# Handover — 2026-08-19
 
 State of the *Learn score* course, and what to do next. Read `CLAUDE.md` first for the
 toolchain and the rules; this file is status and queue.
+
+## Start here: the next two figures, both waiting on a decision
+
+Everything else in the queue is ordinary work. These two are scoped, and each raises a
+question that is Edu's to answer rather than the next session's to guess.
+
+### `39-01`, the plug-in build. Two questions before starting.
+
+The toolchain is all present: `cmake`, `ninja`, `g++`, `git`, `/media/Storage/avendish`,
+and `/media/Storage/score-addon-puara`, which is a real addon rather than the template.
+
+1. **The SDK on this machine is 3.8.0 and the course is pinned to 3.8.2.**
+   `~/Documents/ossia/score/sdk/3.8.0` is the only one there. Building an addon against a
+   mismatched SDK is the exact failure Lesson 39 step 5 warns about, so the SDK wants
+   downloading for 3.8.2, through the application's settings, before any build output is
+   treated as authoritative.
+2. **What genre should this figure be?** "The template's build output" implies a terminal
+   screenshot, and **no figure in this course is one**: every other figure is a score
+   window at the pinned 3840x2160, `QT_SCALE_FACTOR=2` format. The recommendation on the
+   table is to make the figure **the new process appearing in score's library**, which is
+   a score window and consistent with its neighbours, and to quote the build log as a
+   fenced code block in the lesson text, where it can be corrected, translated, and read
+   aloud like everything else. Not yet agreed.
+
+Note also that the walkthrough says to build the **untouched template**, so
+`score-addon-puara` is not a substitute: it is Edu's own project, and step 6 exists
+precisely so that a first build fails with no code of your own in it.
+
+### `36-01`, two instances and their device trees. One question, one unknown.
+
+1. **It breaks the capture format.** Two instances side by side means two non-fullscreen
+   windows and a **root-window capture** rather than the window-drawable capture every
+   other figure uses. Root capture works only when score is not fullscreen, which is
+   recorded in `CLAUDE.md`. The figure will therefore look unlike its neighbours. That may
+   be fine, since the subject genuinely is two windows, but it should be a decision.
+2. **"Enable the local device" was not located.** Lesson 36 step 2 says to enable the
+   local device on the instance being controlled. There is no `Local` entry in the
+   add-device dialog's protocol list, which is recorded in full in
+   `checks/23-midi-in-practice.md`; it is presumably a page in `Settings`. Find it before
+   building the figure, and record where it was.
+
+Practical note for whoever builds it: `capture.py` sends **screen** coordinates, so with
+two windows every click needs the window's own origin added to the in-window coordinate.
+Position both windows deliberately first, with Xlib or `launch --geometry`, and compute
+from those origins.
+
+### One loose end from `p3-01`
+
+The third branch's observation in `p3-bench.score` is blank while the other two are live,
+and stays blank however long the score plays. The cause was **not** established, and the
+lesson deliberately asserts none: it points at the blank display as an illustration of why
+the milestone asks for observation on every stage. If a later session works out why
+`Multi-choice` reports nothing there, fix the lesson and `checks/p3-mapping-bench.md`
+together.
 
 ## Where things stand
 
@@ -64,14 +118,17 @@ the time goes, and it is the one part a person at the machine is simply faster a
 `checks/p3-mapping-bench.md` records the process uuids and the cable format, which are
 generatable and were previously thought not to be.
 
-### 2. Needs something not on this machine
+### 2. Scoped, and waiting on a decision
+
+`36-01` and `39-01`. Both are described at the top of this file; do not start either
+without answering the question attached to it.
+
+### 3. Needs something not on this machine
 
 | Unit | Figure | Needs |
 |---|---|---|
-| 35 | console output and full-screen playback on a deployed machine | **A Raspberry Pi 5 over the network is sufficient.** See the detailed note in `checks/FIGURES-PENDING.md`: ssh gets the console output, the autostart, and the power-cut recovery time, which are the parts a reader needs. A screenshot needs the Pi running a desktop so `capture.py` can run there over ssh; the direct full-screen path bypasses the window system and cannot be captured by any X11 tool |
-| 36 | two instances and their device trees | Two instances on this machine works, and is the lesson's own first step |
+| 35 | console output and full-screen playback on a deployed machine | **A Raspberry Pi 5 over the network is sufficient.** See the detailed note in `checks/FIGURES-PENDING.md`: ssh gets the console output, the autostart, and the power-cut recovery time, which are the parts a reader needs. A screenshot needs the Pi running a desktop so `capture.py` can run there over ssh; the direct full-screen path bypasses the window system and cannot be captured by any X11 tool. **Edu has said a networked Pi 5 is available; it needs ssh access handing to the session** |
 | 37 | a capture application alongside a running score | OBS is installed with its NDI plug-in; **use NDI**, since `libgstshmdata.so` and `v4l2loopback` are absent |
-| 39 | the plug-in template's build output | `cmake`, `ninja`, `g++` are installed |
 | 27 | part of the 3D scene | A glTF model would help; the figure can be built from a primitive plus computed geometry instead |
 
 ## Material available locally
@@ -122,6 +179,24 @@ Lesson 25. There is **no webcam** and **no 3D model** on this machine.
   stops it opening at all. Use the **process inspector's texture preview**, which shows the
   live output frame inside the main window. That is what figure 26-01 is, and it is the
   same class of problem as the Raspberry Pi's direct rendering path in unit 35.
+- **The toolchain gained four things recently**, all documented in `CLAUDE.md`, and worth
+  knowing before you reinvent any of them. `scripts/typeinto.py` types into a focused
+  sub-widget without stealing focus, and reads the server's keymap, because this keyboard
+  is a multilingual layout on which `capture.py type` silently drops quotes.
+  `capture.py find_window` now prefers the application's window over the identically named
+  window-manager frame, which had been making dialogs invisible to captures at random.
+  `launch --open` parses with `shlex`, so a path with a space in it works. And `mkscore.py`
+  emits **transitions** and out-of-time material, which is how `17-01`, `p4-01` were built
+  with no interaction at all.
+- **Cables are generatable**, contrary to an earlier note. Each end is a list of
+  `{ObjectName, ObjectId}` from the document root down to the port;
+  `checks/p3-mapping-bench.md` has a worked example and the six process uuids the bench
+  uses. Nobody has taught `mkscore.py` process shapes beyond the ones listed above, because
+  no figure has needed it yet.
+- **An endless document needs two settings, not one**: `MaxInf` on the root interval *and*
+  `Active` on the base scenario's `EndTimeNode`. Miss the second and an inner loop still
+  stops when the root's duration runs out. Score writes both into every new document;
+  `mkscore.py` did not, which is why generated loops ended and hand-drawn ones did not.
 - `checks/<slug>.md` is the memory of each unit: figure status, what to re-verify at the
   next version pin, corrections made, and which reference page the lesson was written
   against. Keep writing them.
