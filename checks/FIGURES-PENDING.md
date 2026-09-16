@@ -204,3 +204,29 @@ Two format notes learned the hard way, both in the per-unit checks files:
   document's last state.
 - Capture from the **window's own drawable**, not the root window, which returns
   black under a compositing window manager. `capture.py` already does this.
+
+---
+
+## Crop audit, 2026-09-16: re-shoot queue
+
+Every one of the 37 figures was viewed against its lesson text and its raw capture.
+Four specs were corrected in place and re-rendered (`15-01` badge 7 now points at the
+trigger label, `16-01` starts above the `Approach` header, `24-01` badge 1 now points at
+the metrics icon, `p2-01` includes the fourth automation slot). Four figures need a new
+capture, because the fault is in the raw and no crop can recover it:
+
+| Figure | Fault | What the re-shoot needs |
+|---|---|---|
+| `00-02` nodal view | graph captured unfitted, node tiny and its labels truncated by *score* | open `lesson-00-nodal.score`, switch to the nodal view (third view-mode button, raw 899,2112), click the slot's fit icon (fourth small icon, raw 768,182) |
+| `13-01` pipeline | node titles clipped at the nodal slot's top edge | rebuild the four-process patch on `lesson-04.score`, then fit the graph before shooting |
+| `31-01` Faust | Faust node title clipped at the slot's top edge | same fit before shooting; the code can be typed with `typeinto.py` |
+| `00-01` annotated score | `Bright` runs past the editor's right edge | zoom the document out (or shorten `Bright`) so its end state is on screen |
+
+`00-02` carries a stopgap recrop until then, marked in `figures/00-02.json`.
+
+A re-shoot was attempted on 2026-09-16 and stopped at input: launch and capture
+worked, every click was swallowed, and `loginctl` reported the session locked. Three
+environment facts from that attempt are in CLAUDE.md under capturing: the live Xwayland
+display is `:0`, python-xlib needs `XAUTHORITY` pointed at mutter's auth file, and
+*score* must be launched with `QT_QPA_PLATFORM=xcb` or it opens as a Wayland client
+that no X tool can see.

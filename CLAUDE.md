@@ -70,7 +70,7 @@ python3 scripts/typeinto.py 2000 800 --select-all --file code.dsp   # type into 
 python3 scripts/make_downloads.py     # after adding or changing any library file
 ```
 
-Python work uses the Assistant venv: `source /media/Storage/Assistant/venv/bin/activate`
+Python work uses the Assistant venv: `source /home/edu/Assistant/venv/bin/activate`
 (it has `python-xlib` and `Pillow`). Ruby/Jekyll uses the vendored bundle; add
 `export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"` before `bundle`.
 
@@ -118,6 +118,13 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 
 ## Hard-won facts about capturing. Do not rediscover these.
 
+- **The session is Wayland now, and three things follow.** The live Xwayland display is
+  `:0` (`:1` answers but has no clients); python-xlib needs
+  `XAUTHORITY=/run/user/$(id -u)/.mutter-Xwaylandauth.*` or it gets `Authorization
+  required`; and *score* must be launched with `QT_QPA_PLATFORM=xcb`, or Qt picks the
+  Wayland backend and the window never appears to any X tool while the process runs
+  happily. Launch and capture work under a locked session; every XTEST click is
+  swallowed until someone unlocks it, and the only symptom is byte-identical captures.
 - **Root-window capture returns black** under this compositor. Capture the window's own
   drawable, which `capture.py` does. Root capture works only when score is *not*
   fullscreen.

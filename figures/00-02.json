@@ -1,24 +1,24 @@
 {
-  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point.",
+  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point. STOPGAP 2026-09-16: recropped to include the whole node; the raw was captured with the graph unfitted, so the node is tiny and its labels are truncated by score itself. Re-shoot with the nodal fit icon (fourth small icon, raw ~768,182) when the session is unlocked.",
   "source": "raw/raw-00-02.png",
   "out": "docs/learn/assets/00/00-02-nodal-view.png",
   "crop": [
-    1380,
-    720,
-    2150,
-    1120
+    1690,
+    820,
+    2240,
+    1190
   ],
   "font_size": 30,
   "badges": [
     {
       "n": 1,
       "at": [
-        1500,
-        800
+        1790,
+        858
       ],
       "to": [
-        1620,
-        860
+        1900,
+        914
       ]
     }
   ]
