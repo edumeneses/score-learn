@@ -235,8 +235,9 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 
 ## Writing style
 
-Edu's profile is at `/media/Storage/Assistant/writing_style_profile.md`; read it before
-drafting prose. In short: direct topic sentences, active voice, Oxford commas, **no em or
+Edu's profile is `WRITING_STYLE.md` in this repo; read it before drafting prose. It is a
+copy of `writing_style_profile.md` in the Assistant repo (`/home/edu/Assistant`), which
+is the source of record; when that file changes, copy it over again. In short: direct topic sentences, active voice, Oxford commas, **no em or
 en dashes**, semicolons for parallel clauses, precise transitions ("However", "In
 contrast", never "Also"), no clichés, no padding. Lessons are written to be read aloud:
 "Why this matters", "Concepts", and "Exercise" become video narration nearly verbatim.
