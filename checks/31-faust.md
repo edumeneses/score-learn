@@ -73,3 +73,5 @@ in `CLAUDE.md` and that cost most of the time on this figure:
    with the quotes missing, and then a page of diaereses. A missing quote is a compile
    error, not a visible typo, so it is worth checking the code in the capture before
    pressing compile.
+
+- 2026-09-16 crop audit: Figure `31-01`: the Faust node title is clipped at the nodal slot top edge in the raw; re-shoot queued in `checks/FIGURES-PENDING.md` (fit the graph before shooting).

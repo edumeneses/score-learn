@@ -42,3 +42,5 @@ node graph and lays it out. That needed an unlocked session.
 
 - The usability finding on the learning curve and on the device separation comes from the SAT *Ossia score UI/UX study report*. If that study is superseded, re-check both mentions.
 - The *score* 3 feature list (GPU video pipeline, C++ live coding, tempo and musical metrics, hierarchical polyrhythms, generalised looping) comes from Celerier and Baltazar, *Networked Performances with Ossia Score*.
+
+- 2026-09-16 crop audit: Figure `00-02` recropped as a stopgap so the whole scenario node is in frame; the raw was captured unfitted, so a re-shoot with the nodal fit icon is queued (`scripts/reshoot_00_02.sh`). Figure `00-01`: `Bright` runs past the editor edge in the raw, so its end state is not visible; a re-shoot at a smaller zoom is queued.

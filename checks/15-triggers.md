@@ -24,3 +24,5 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+- 2026-09-16 crop audit: Figure `15-01`: badge 7 pointed at empty space; it now points at the "waits for /lesson/go" label. Re-rendered from the same raw.

@@ -31,3 +31,5 @@ Arraymap, Calibrator, Combine inlets, Counter, Easetanbul, Empty audio/midi/valu
 mapper, Exp Smoothing, Expression Value Filter, Mapping curve, Mapping tool,
 Micromap, Multi-choice, Range Filter, Rate Limiter, Repetition Filter, Smooth.
 The smoothing object is named Exp Smoothing.
+
+- 2026-09-16 crop audit: Figure `13-01`: node titles are clipped at the nodal slot top edge in the raw itself, so no crop recovers them; re-shoot queued in `checks/FIGURES-PENDING.md` (rebuild the patch, fit the graph, then shoot).

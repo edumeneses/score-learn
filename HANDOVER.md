@@ -66,8 +66,8 @@ the pass the prose obeyed the avoid-list and nothing else: mean sentence 14.5 wo
 of sentences under ten words, zero sentence-initial connectors, contrast carried by
 "rather than" 229 times. After it: mean 24.5 words, 8% under ten, 306 connectors, no
 verbless fragments, no aphoristic colon leads, acronyms glossed on first use, and every
-page inside the word budget. The scratchpad metrics tool used for the pass is not in the
-repo; `scripts/check_lessons.py` still passes on all pages. The pass also fixed the
+page inside the word budget. The metrics tool is now `scripts/check_voice.py` (advisory,
+`--strict` to fail); `scripts/check_lessons.py` still passes on all pages. The pass also fixed the
 contradictions the audit found (start-screen routes in 01, the view-switch references in
 00, counts in 14, 22, P2 and P3, the scripting-route tally across 29, 30 and 39, the
 capstone rubric weights, the ffmpeg continuation bug in 25, a fisheye mapping error in
@@ -76,7 +76,8 @@ P6, a stale patch description in 32, and the `Cmd` shortcuts in 03 and 04).
 Every figure was viewed against its lesson and its raw. Four specs were corrected and
 re-rendered; four need a re-shoot and are listed at the end of
 `checks/FIGURES-PENDING.md`. The re-shoot attempt stopped at a locked session; the
-capture environment facts it produced are in `CLAUDE.md`.
+capture environment facts it produced are in `CLAUDE.md`, and `scripts/reshoot_00_02.sh`
+runs the first re-shoot as one command once the session is unlocked.
 
 
 **The course text is finished.** All **47 units** are written and pass

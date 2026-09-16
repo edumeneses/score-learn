@@ -22,3 +22,5 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+- 2026-09-16 crop audit: Figure `p2-01`: crop extended to 1900 so the fourth automation slot (`lesson:/haze`) is complete. Re-rendered from the same raw.

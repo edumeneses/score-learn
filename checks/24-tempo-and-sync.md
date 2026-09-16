@@ -22,3 +22,5 @@ pipeline.
 ## Claims that depend on external sources
 
 - Grounded in the reference pages linked under 'Going further' on the lesson page.
+
+- 2026-09-16 crop audit: Figure `24-01`: badge 1 pointed at empty space; it now points at the metrics (4/4) icon in the interval inspector. Re-rendered from the same raw.

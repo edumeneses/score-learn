@@ -29,3 +29,5 @@ pipeline.
 The Object menu offers Add Condition (C), Remove Condition (Shift+C), Merge events,
 and Synchronize (Shift+M). An earlier draft named a 'split condition' function; the
 mechanism is real but those are the names the interface uses.
+
+- 2026-09-16 crop audit: Figure `16-01`: crop now starts above the `Approach` header instead of cutting through its curve. Re-rendered from the same raw.

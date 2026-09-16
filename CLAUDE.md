@@ -249,6 +249,31 @@ en dashes**, semicolons for parallel clauses, precise transitions ("However", "I
 contrast", never "Also"), no clichés, no padding. Lessons are written to be read aloud:
 "Why this matters", "Concepts", and "Exercise" become video narration nearly verbatim.
 
+**The avoid-list is not enough.** A 2026-09 audit found every lesson obeying it while
+missing the voice, so drafts must also carry the positive habits, which
+`scripts/check_voice.py` measures per page:
+
+- Sentences of 20 to 40 words with two or three clauses, subordinated with "because",
+  "which", "while", "although", "so that", "whereas". A short declarative only as a
+  paragraph opener.
+- Logical connectors where the argument turns: "However", "In contrast", "Furthermore",
+  "Moreover", "In other words", "Conversely", "Nevertheless", "Therefore". About one every
+  two paragraphs, never sprinkled.
+- Contrast by connector or by a "whereas" clause. "Rather than" at most three times a
+  lesson, ", not X" at most twice.
+- No verbless fragments ("Three items, and no more."), no preview openers ("Two things
+  matter here."), no aphoristic colon leads ("Play: it does not run."), no punchline
+  closers ("Declaring is asserting."). Paragraphs close on a consequence, a forward
+  reference, or a synthesis.
+- No absolutist or moralising vocabulary: nothing, everything, exactly, deliberately,
+  honestly, "worth stating", the discipline, the habit, the craft, the temptation.
+- Parenthetical definitions and acronym expansions on first use in each lesson: OSC (Open
+  Sound Control), MIDI (Musical Instrument Digital Interface), and so on.
+- Claims shown or argued, not asserted; hedge only where the outcome genuinely varies; no
+  anthropomorphised software or studies.
+- Credit by full name and role where a person is credited. Never attribute the usability
+  study to anyone: its authors are not on record.
+
 Each lesson follows one shape: before/need/build blockquote, Why this matters, Concepts,
 a numbered Walkthrough with the figure, one extra section, Common mistakes, Exercise,
 Going further.
