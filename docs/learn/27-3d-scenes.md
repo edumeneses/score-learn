@@ -16,94 +16,94 @@ score_file: none
 
 {% include lesson_meta.html %}
 
-> **Before this lesson** finish [Lesson 26]({{ site.baseurl }}/learn/26-shaders-and-mixing.html).
+> **Before this lesson** finish [Lesson 26]({{ site.baseurl }}/learn/26-shaders-and-mixing.html), because the textures this lesson wraps onto geometry come from the shaders it introduced.
 >
-> **You will need** a window device, and optionally a glTF model file.
+> **You will need** a window device, and optionally a glTF model file, since the model-loading step is the only one that depends on an external file.
 >
-> **You will build** a scene with a primitive, a loaded model, and a generated geometry, all animated from the timeline.
+> **You will build** a scene with a primitive, a loaded model, and a generated geometry, all animated from the timeline through the same automation you have used throughout the course.
 
 ## Why this matters
 
-Three-dimensional work in *score* is the same render graph as Lesson 25 with geometry added, and it fits the course's logic exactly: geometry is data, materials are shaders, and every parameter is a port. The reason to spend a lesson on it is that the vocabulary is new, and the failure modes are specific: a scene that renders black is usually missing one of four things, and knowing which four saves an hour.
+Work in three dimensions in *score* uses the same render graph as Lesson 25 with geometry added, and it fits the course's logic closely, because geometry is data, materials are shaders, and every parameter is a port. The reason to spend a lesson on it is that the vocabulary is new and the failure modes are specific: a scene that renders black is usually missing one of four requirements, and knowing which four saves an hour of guessing.
 
-It is also where generated geometry becomes interesting. Because arrays of numbers can be turned into meshes, a scene can be computed rather than modelled, and the array tools you met in Lesson 14 apply directly.
+Furthermore, this is where generated geometry becomes interesting, because arrays of numbers can be turned into meshes, so that a scene can be computed instead of modelled and the array tools you met in Lesson 14 apply directly to the render graph.
 
 ## Concepts
 
-**Four things a scene needs.** A scene renders only when it has geometry to draw, a material to draw it with, a camera to draw it from, and an output to draw into. A black window is almost always one of those four missing, and checking them in that order is the fastest diagnosis available.
+**A scene needs four things before it renders, and a black window is almost always one of them missing.** A scene renders only when it has geometry to draw, a material to draw it with, a camera to draw it from, and an output to draw into, so checking those four in that order is the fastest diagnosis available when the window stays black.
 
-**Primitives and loaded models.** Mesh processes provide primitives, cubes, planes, spheres, which are enough for a great deal of work. For modelled content, a model loader reads glTF, the standard interchange format that most modelling tools export.
+**Primitives cover a great deal of work, and loaded models cover the rest.** Mesh processes provide primitives such as cubes, planes, and spheres, which are enough for many pieces, whereas modelled content arrives through a model loader that reads glTF, the standard interchange format that most modelling tools export.
 
-**Geometry as data.** Arrays can be converted to meshes and to textures, and attributes can be extracted from geometry back into arrays. This is the door between the array tools of Module E and the render graph: generate positions with an expression, convert them to geometry, and you have a computed scene.
+**Geometry is data, and the conversion runs in both directions.** Arrays can be converted to meshes and to textures, and attributes can be extracted from geometry back into arrays, which makes this the door between the array tools of Module E and the render graph: generate positions with an expression, convert them to geometry, and you have a computed scene.
 
-**Compute shaders.** For work that belongs on the GPU but is not a picture, a compute shader runs a program over data rather than over pixels. Particle systems and large simulations are the usual reason to reach for one.
+**Compute shaders run a program over data on the GPU (graphics processing unit).** For work that belongs on the GPU but is not a picture, a compute shader operates over data instead of over pixels. Moreover, particle systems and large simulations are the usual reason to reach for one.
 
-**Textures come from anywhere.** A material's texture can be a video file, a camera, a shader from Lesson 26, or a script's output. Because these are all textures in the same graph, feeding a live camera onto a rotating model is a cable, not a feature.
+**Textures can come from any source in the graph.** A material's texture can be a video file, a camera, a shader from Lesson 26, or a script's output, and because these are all textures in the same graph, the same cable serves each of them. In other words, feeding a live camera onto a rotating model is a single connection and not a special feature.
 
-**Coordinates and the fisheye case.** A camera has a position and an orientation, both of which are ports and therefore automatable. For dome work, the projection matters more than the geometry: a fisheye output is what a dome expects, and [Milestone P6]({{ site.baseurl }}/learn/p6-fulldome-scene.html) covers it.
+**The camera is a set of ports, and dome work changes the projection.** A camera has a position and an orientation, both of which are ports and therefore automatable. However, for dome work the projection matters more than the geometry, because a fisheye output is what a dome expects, and [Milestone P6]({{ site.baseurl }}/learn/p6-fulldome-scene.html) covers it.
 
 ## Walkthrough: three kinds of geometry
 
 {: .note }
-> A figure for this lesson is pending: it needs a live GPU session and a model file, so it cannot be produced by the scripted pipeline. See `checks/27-3d-scenes.md`.
+> A figure for this lesson is pending, because it needs a live GPU session and a model file, which the scripted pipeline cannot produce; see `checks/27-3d-scenes.md`.
 
-1. **Declare a window device** if you have not, and switch to the nodal view.
-2. **Add a primitive mesh** and a model display process, cable the mesh into the display and the display into the window. Something should appear. If not, walk the four requirements above.
-3. **Move the camera.** Find the camera's position ports and automate one, so the scene rotates over twenty seconds. This is the same automation mechanism as everywhere else.
-4. **Give it a texture.** Cable a shader from Lesson 26 into the material's texture input. A generated image is now wrapped on a primitive.
-5. **Swap the texture for a camera** device and confirm it updates live.
-6. **Load a model.** Add a model loader, point it at a glTF file, and cable it in alongside the primitive. Note the scale: models exported from different tools arrive at wildly different sizes, and this is normal.
-7. **Generate geometry.** Use an array generator to produce a set of positions, convert the array to geometry, and render it. You now have a scene whose content is computed rather than authored.
-8. **Animate the generation.** Automate a parameter of the array generator so the computed geometry changes shape over time.
-9. **Extract an attribute.** Take positions back out of a geometry into an array, and drive something else with them, a sound parameter for instance. The graph runs in both directions.
-10. **Try a compute shader** if your scene wants many elements, and compare the frame rate with the array-based approach at the same element count.
-11. **Measure.** Note the frame rate with all three kinds of geometry present. This number decides how ambitious the milestone can be.
+1. **Declare a window device** if you have not already, and switch to the nodal view, where the cables between geometry, material, and output are visible.
+2. **Add a primitive mesh** and a model display process, cable the mesh into the display and the display into the window, and confirm that something appears; if the window stays black, walk the four requirements from Concepts in order.
+3. **Move the camera** by finding its position ports and automating one, so that the scene rotates over twenty seconds through the same automation mechanism you have used everywhere else.
+4. **Give it a texture** by cabling a shader from Lesson 26 into the material's texture input, which wraps a generated image onto a primitive.
+5. **Swap the texture for a camera device** and confirm that the surface updates live, since a camera is a texture like any other in this graph.
+6. **Load a model** by adding a model loader, pointing it at a glTF file, and cabling it in alongside the primitive; note the scale, because models exported from different tools arrive at wildly different sizes, and this is normal.
+7. **Generate geometry** by using an array generator to produce a set of positions, converting the array to geometry, and rendering it, so that you have a scene whose content is computed instead of authored.
+8. **Animate the generation** by automating a parameter of the array generator, so that the computed geometry changes shape over time.
+9. **Extract an attribute** by taking positions back out of a geometry into an array and driving something else with them, a sound parameter for instance, which shows that the graph runs in both directions.
+10. **Try a compute shader** if your scene needs many elements, and compare the frame rate with the array-based approach at the same element count.
+11. **Measure the frame rate** with all three kinds of geometry present, because this number decides how ambitious the milestone can be.
 
 ## Reading a black window
 
-The four-part check, expanded, because this is the most common experience in the lesson and the least documented.
+The four-part check from Concepts deserves expansion, because a black window is the most common experience in this lesson and the least documented one; the questions below are in the order in which to ask them.
 
-**Is there geometry?** A mesh process with no parameters set may produce nothing. Try a primitive first, always: it removes the question.
+**The first question is whether the scene contains geometry that can be drawn.** A mesh process with no parameters set may produce no output, so try a primitive first in every case, because a primitive that renders removes this question. Conversely, a primitive that does not render points further down the chain.
 
-**Is there a material?** Geometry with no material has nothing to be drawn with. Some processes provide a default; not all do.
+**The second question is whether the geometry has a material.** Geometry without a material cannot be drawn, and although some processes provide a default, not all of them do.
 
-**Is there a camera, pointing at the geometry?** A camera inside the object, or facing away, renders exactly what a camera facing a wall renders. Move it far back and rotate before assuming the geometry is missing.
+**The third question is whether a camera exists and points at the geometry.** A camera inside the object, or facing away from it, renders what a camera facing a wall renders, so move it far back and rotate it before assuming that the geometry is missing.
 
-**Is the output cabled?** Per Lesson 25, nothing appears until something reaches the window device.
+**The fourth question is whether the output is cabled.** Per Lesson 25, no image appears until something reaches the window device, however complete the rest of the scene is.
 
-Then two more, in order of how often they catch people:
+Once the four requirements are met, two further causes catch people, and scale is the more frequent of them.
 
-**Scale.** A loaded model may be a thousand times too large or small. If the camera is inside a vast object, you get a solid colour, which reads as a broken render rather than a scale problem.
+**Scale is the first, because a loaded model may be a thousand times too large or too small.** If the camera is inside a vast object, you get a solid colour, which reads as a broken render although it is a scale problem.
 
-**Depth and ordering.** Two surfaces at the same depth, or a scene lit from behind, produce images that look like errors and are geometry.
+**Depth and ordering are the second.** Two surfaces at the same depth, or a scene lit from behind, produce images that look like errors although they are correct renderings of the geometry as placed.
 
 ## Modelled or computed?
 
-Two ways to get geometry, with different consequences for the rest of the project.
+Geometry can be modelled or computed, and the choice has different consequences for the rest of the project.
 
-**Modelled**, in a dedicated tool and imported as glTF. Right when the shape is the point: an object, a building, a character. The cost is that the shape is now outside your document, so changing it means changing tools, and the file has to travel with the project like any other media, per Lesson 05.
+**Modelled geometry is made in a dedicated tool and imported as glTF**, which is the right choice when the shape itself is the point, as with an object, a building, or a character. The cost is that the shape now lives outside your document, so changing it means changing tools. Additionally, the file has to travel with the project like any other media, per Lesson 05.
 
-**Computed**, from arrays generated inside the score. Right when the shape is a consequence of something else: a field of points whose positions come from a sensor, a form that changes over the piece, a structure with a parameter you want to automate. The shape is then part of the document, versioned with it, and drivable from the timeline.
+**Computed geometry comes from arrays generated inside the score**, which is the right choice when the shape is a consequence of something else: a field of points whose positions come from a sensor, a form that changes over the piece, or a structure with a parameter you want to automate. The shape is then part of the document, versioned with it, and drivable from the timeline.
 
-The second is more distinctive to this software and the more common answer for the work this course describes. A useful hybrid is to import one modelled object and generate everything around it, which keeps the recognisable form and the parametric freedom at once.
+The second approach is more distinctive to this software and the more common answer for the work this course describes. However, a useful hybrid is to import one modelled object and generate the surroundings around it, which keeps the recognisable form and the parametric freedom at once.
 
-One more practical note on units. Nothing in the graph enforces a world scale, so a project mixing modelled and computed geometry has to pick one and convert at the boundary. Deciding that a unit is a metre, writing it down, and scaling imported models to match on arrival is far less work than discovering halfway through a piece that half your scene is a thousand times too large.
+A practical note on units follows from mixing the two, because no element of the graph enforces a world scale, so a project combining modelled and computed geometry has to pick one and convert at the boundary. Deciding that a unit is a metre, writing that decision down, and scaling imported models to match on arrival is far less work than discovering halfway through a piece that half your scene is a thousand times too large.
 
 ## Common mistakes
 
-- **Assuming a black window means a broken graph.** Walk the four requirements.
-- **Not trying a primitive first.** It isolates every question about a loaded model.
-- **Ignoring model scale.** Exporters disagree, and the symptom is not obviously a scale symptom.
-- **Building a scene in the temporal view.** Use the nodal view, as with all graph work.
-- **Cabling a texture into a geometry input** or the reverse. Read the port names.
-- **Reaching for a compute shader before measuring.** Array-based generation is often enough and much easier to debug.
+- **Assuming that a black window means a broken graph**, when walking the four requirements usually finds a missing one.
+- **Skipping the primitive test**, although a primitive isolates every question about a loaded model.
+- **Ignoring model scale**, since exporters disagree and the symptom does not present itself as a scale symptom.
+- **Building a scene in the temporal view**, whereas the nodal view is where graph work belongs, as with the rest of the course.
+- **Cabling a texture into a geometry input** or the reverse, which reading the port names prevents.
+- **Reaching for a compute shader before measuring**, although array-based generation is often enough and much easier to debug.
 - **Planning dome content on a flat monitor** without understanding the projection, which the next milestone addresses directly.
 
 ## Exercise
 
-Build a scene containing a primitive with a generated texture, a loaded glTF model, and a computed geometry from an array, with the camera animated over thirty seconds so all three are seen. Then extract one attribute from the computed geometry and use it to drive a parameter outside the render graph, in audio or in lighting.
+Build a scene containing a primitive with a generated texture, a loaded glTF model, and a computed geometry from an array, with the camera animated over thirty seconds so that all three are seen. Then extract one attribute from the computed geometry and use it to drive a parameter outside the render graph, in audio or in lighting, so that a value leaves the graph as well as entering it.
 
-**Success criterion:** all three kinds of geometry render together, the camera movement is written as an automation rather than performed, and one value crosses out of the graph into another medium. If the window was black at any point, note which of the four requirements was missing.
+**Success criterion:** all three kinds of geometry render together, the camera movement is written as an automation and not performed by hand, and one value crosses out of the graph into another medium. If the window was black at any point, note which of the four requirements was missing.
 
 ## Going further
 

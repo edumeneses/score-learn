@@ -59,6 +59,26 @@ together.
 
 ## Where things stand
 
+### 2026-09-16: voice pass over every lesson, and a crop audit of every figure
+
+All 47 lesson pages were rewritten into Edu's voice against `WRITING_STYLE.md`. Before
+the pass the prose obeyed the avoid-list and nothing else: mean sentence 14.5 words, 37%
+of sentences under ten words, zero sentence-initial connectors, contrast carried by
+"rather than" 229 times. After it: mean 24.5 words, 8% under ten, 306 connectors, no
+verbless fragments, no aphoristic colon leads, acronyms glossed on first use, and every
+page inside the word budget. The scratchpad metrics tool used for the pass is not in the
+repo; `scripts/check_lessons.py` still passes on all pages. The pass also fixed the
+contradictions the audit found (start-screen routes in 01, the view-switch references in
+00, counts in 14, 22, P2 and P3, the scripting-route tally across 29, 30 and 39, the
+capstone rubric weights, the ffmpeg continuation bug in 25, a fisheye mapping error in
+P6, a stale patch description in 32, and the `Cmd` shortcuts in 03 and 04).
+
+Every figure was viewed against its lesson and its raw. Four specs were corrected and
+re-rendered; four need a re-shoot and are listed at the end of
+`checks/FIGURES-PENDING.md`. The re-shoot attempt stopped at a locked session; the
+capture environment facts it produced are in `CLAUDE.md`.
+
+
 **The course text is finished.** All **47 units** are written and pass
 `scripts/check_lessons.py`: front matter, the 1,400 to 1,900 word budget, permalink
 stability, the pinned version, score files, `checks/` notes, and every internal link.

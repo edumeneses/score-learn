@@ -16,101 +16,101 @@ score_file: none
 
 {% include lesson_meta.html %}
 
-> **Before this lesson** finish [Lesson 38]({{ site.baseurl }}/learn/38-reading-the-docs.html).
+> **Before this lesson** finish [Lesson 38]({{ site.baseurl }}/learn/38-reading-the-docs.html), since the contribution this lesson ends on builds on the reporting practice described there.
 >
-> **You will need** CMake, Ninja, a C++ compiler, and on macOS Xcode. A day, realistically, for the first one.
+> **You will need** CMake, Ninja, a C++ compiler, and on macOS Xcode, together with a day, realistically, for the first process.
 >
-> **You will build** a process of your own that appears in the library like any other, from the project's plug-in template.
+> **You will build** a process of your own that appears in the library like any other, starting from the project's plug-in template.
 
 ## Why this matters
 
-This is the last lesson because it is the last resort, and because everything before it usually suffices. Module J gave you four ways to write behaviour without leaving the application. A compiled process is worth building for three reasons the scripts cannot cover: an algorithm that must run at full speed with no compile-at-load step, an existing C++ codebase you want to use, and something you intend to give to other people as an installable addon.
+This is the last lesson because it describes the last resort, and because the lessons before it usually suffice. Module J gave you four ways to write behaviour without leaving the application, so a compiled process is justified by three needs that the scripts cannot cover: an algorithm that must run at full speed with no compile-at-load step, an existing C++ codebase you want to use, and an object you intend to give to other people as an installable addon.
 
-The good news is that the barrier is much lower than it was. The **Avendish** API describes a process as a plain C++ structure whose inputs and outputs are simply **struct members**, requiring no library to be included, not even the standard one. Objects written this way are also not tied to *score*: the same code can be exported to other systems, including as a VST, which changes the economics of writing one.
+However, the barrier to writing one is much lower than it was, because the **Avendish** API (application programming interface) describes a process as a plain C++ structure whose inputs and outputs are **struct members**, requiring no library to be included, not even the standard one. Moreover, objects written this way are not tied to *score*, since the same code can be exported to other systems, including as a VST (Virtual Studio Technology), which changes the economics of writing one.
 
 ## Concepts
 
-**Two APIs, and you want the first.** *score* has its own internal plug-in API, which is powerful and verbose, and **Avendish**, which is declarative and much smaller. For a process, Avendish is the recommended route; the internal API is for extending the application itself rather than adding an object.
+**Of the two APIs available, Avendish is the one to choose.** *score* has its own internal plug-in API, which is capable and verbose, and it has **Avendish**, which is declarative and much smaller. For a process, Avendish is the recommended route, whereas the internal API serves those extending the application itself instead of adding an object to it.
 
-**Inputs and outputs are struct members.** You declare a structure, give it members for its ports, and write the processing function. The port names and ranges you declare become the ports you have been using all course, which is why your object behaves like a built-in one from the first build.
+**Inputs and outputs are struct members**, so you declare a structure, give it members for its ports, and write the processing function; the port names and ranges you declare become the ports you have been using all course, which is why your object behaves like a built-in one from the first build.
 
-**No dependencies by design.** An Avendish object needs no headers of its own, which is what makes the objects portable to other hosts and easy to reason about.
+**The API has no dependencies by design**, because an Avendish object needs no headers of its own. In other words, the objects stay portable to other hosts and easy to reason about.
 
-**Several kinds of object.** Not only audio effects: control processes, generators, and others. Choose the kind that matches what you are making before writing code, because it determines the shape of the structure.
+**Several kinds of object are possible**, since the API covers control processes, generators, and others as well as audio effects. Choose the kind that matches what you are making before writing code, because the kind determines the shape of the structure.
 
-**Two ways to build.** Either **build *score* from source**, which gives you everything and takes the longest, or download the **SDK** and build only your plug-in against it, which is much faster and is what the template expects. For a first process, take the SDK route.
+**There are two ways to build**, and **building *score* from source** gives you the whole application while taking the longest. In contrast, downloading the **SDK** (software development kit) and building only your plug-in against it is much faster and is what the template expects, so for a first process take the SDK route.
 
-**A template exists.** The project provides a GitHub template for a dynamic *score* plug-in: create a repository from it, install CMake and Ninja, point the build at the SDK, and you have a compiling addon before you have written any of your own logic. Starting from a compiling skeleton rather than from a blank file is the single best piece of advice in this lesson.
+**A template provides the whole skeleton**, because the project publishes a GitHub template for a dynamic *score* plug-in, so that you create a repository from it, install CMake and Ninja, point the build at the SDK, and have a compiling addon before you have written any of your own logic. Starting from a compiling skeleton instead of a blank file is the single most useful piece of advice in this lesson.
 
-**Publishing.** A built addon can be installed through the package manager, which is how the Faust libraries and shader collections you used in Modules G and I arrived. That is the path from "I wrote something" to "other people use it".
+**Publishing goes through the package manager**, through which a built addon can be installed; that is how the Faust libraries and shader collections you used in Modules G and I arrived, and it is the path from "I wrote something" to "other people use it".
 
 ## Walkthrough: from template to library entry
 
 {: .note }
 > A figure for this lesson is pending: it needs the plug-in template's build output and the new process appearing in the library, which requires a full toolchain and interaction. See `checks/39-writing-a-process.md`.
 
-1. **Read the Avendish documentation first.** An hour there saves a day of guessing, because the whole model is small and unusual enough that intuition from other plug-in formats misleads.
-2. **Decide what kind of object you are making**, and check honestly whether a Faust script or a JavaScript process would do. If either would, do that instead and stop here.
-3. **Create a repository from the template** rather than starting a project by hand.
-4. **Install the toolchain**: CMake and Ninja on every platform, plus Xcode on macOS.
-5. **Get the SDK** through the application's settings, and note whether you took the release or the continuous build, because that determines the path you configure.
-6. **Configure and build the untouched template.** Do not write anything of your own yet: confirm that the skeleton compiles and that the resulting object appears in *score*'s library. This step is where a first attempt usually fails, and finding out with no code of your own is much cheaper.
-7. **Now change one thing.** Rename the object and add one input member. Rebuild, and confirm the new port appears.
-8. **Implement your actual processing**, in the smallest form that does something. Rebuild, drop it in a score, and cable it up.
-9. **Automate one of its ports** from the timeline. Your object is now indistinguishable from a built-in process from the score's point of view, which is the moment the work pays off.
-10. **Test it where it will run.** If the piece will be deployed to the embedded target of Lesson 35, build for that architecture too, and find out now rather than at the installation.
-11. **Package it as an addon**, and install it through the package manager on a second machine to confirm the distribution path works.
-12. **Document it.** One page: what it does, its ports and their ranges, and one example score. Without this it is a private tool rather than a contribution.
+1. **Read the Avendish documentation first**, because an hour there saves a day of guessing; the model is small and unusual enough that intuition from other plug-in formats misleads.
+2. **Decide what kind of object you are making**, and check whether a Faust script or a JavaScript process would do; if either would, do that instead and stop here.
+3. **Create a repository from the template** instead of starting a project by hand.
+4. **Install the toolchain**, which means CMake and Ninja on every platform, plus Xcode on macOS.
+5. **Get the SDK** through the application's settings, and note whether you took the release or the continuous build, because that choice determines the path you configure.
+6. **Configure and build the untouched template** without writing anything of your own yet, and confirm that the skeleton compiles and that the resulting object appears in *score*'s library. This step is where a first attempt usually fails, and finding out with no code of your own is much cheaper.
+7. **Change one thing** by renaming the object and adding one input member, then rebuild and confirm that the new port appears.
+8. **Implement your actual processing** in the smallest form that does something, then rebuild, drop it in a score, and cable it up.
+9. **Automate one of its ports** from the timeline, at which point your object is indistinguishable from a built-in process from the score's point of view, which is the moment the work pays off.
+10. **Test it where it will run**, which means that if the piece will be deployed to the embedded target of Lesson 35, you build for that architecture too, and find out now instead of at the installation.
+11. **Package it as an addon**, and install it through the package manager on a second machine to confirm that the distribution path works.
+12. **Document it** on one page that states what it does, its ports and their ranges, and one example score, because without that page it is a private tool instead of a contribution.
 
 ## Before you write C++
 
-Four questions to answer honestly, because a compiled process carries a maintenance cost that scripts do not.
+A compiled process carries a maintenance cost that scripts do not, so four questions should be answered before the toolchain is installed.
 
-**Would a Faust script do?** For anything processing audio, usually yes, and the script travels inside the document, per Lesson 31, and compiles for the machine including ARM.
+**Would a Faust script do?** For an object that processes audio, the answer is usually yes, and the script travels inside the document, as Lesson 31 showed, and compiles for the machine it runs on, including ARM.
 
-**Would a JavaScript process do?** For control-rate logic with state, usually yes, and it needs no toolchain.
+**Would a JavaScript process do?** For control-rate logic with state, the answer is usually yes, and it needs no toolchain.
 
 **Would just-in-time C++ do?** If you need C++ specifically but not distribution, the process from Lesson 30 gives you the language without the build system.
 
-**Will anyone else use it?** This is the question that actually justifies a compiled addon. If the answer is yes, the packaging and documentation work is worth it; if the answer is no, one of the three routes above is less work forever.
+**Will anyone else use it?** This is the question that justifies a compiled addon, because if the answer is yes, the packaging and documentation work is justified. However, if the answer is no, one of the three routes above is less work for as long as the piece exists.
 
-When the answer to all four points at a real plug-in, build it. Then contribute it, because the ecosystem this course depends on is made of exactly that.
+When the answers to all four point at a real plug-in, build it, and then contribute it, because the ecosystem this course depends on is made of such contributions.
 
 ## Contributing, not only building
 
-The last thing worth saying in the last lesson: this software exists because people contributed to it, and the barrier to joining that list is lower than it looks.
+The last thing to say in the last lesson is that this software exists because people contributed to it, and the barrier to joining that list is lower than it looks.
 
-**A documentation page** is the smallest useful contribution and the most needed one, per Lesson 38. If you understood something the hard way, the page you wished existed is a contribution you are uniquely placed to write.
+**A documentation page** is the smallest useful contribution and the most needed one, as Lesson 38 argued, and if you understood something the hard way, the page you wished existed is a contribution you are uniquely placed to write.
 
-**A preset or a fragment** in the user library. The shader you adapted, the conditioning chain you tuned, the cue structure you use in every piece: all of these are useful to somebody else and cost nothing to publish.
+**A preset or a fragment** in the user library costs little to publish, and the shader you adapted, the conditioning chain you tuned, and the cue structure you use in every piece are all useful to somebody else.
 
-**An example score.** For anything you found underdocumented, a small working document is worth more than paragraphs, and this course's own experience confirms it: the shipped examples answered questions no page did.
+**An example score** is the best answer to whatever you found underdocumented, because a small working document teaches more than paragraphs, and this course's own experience confirms it: the shipped examples answered questions that no page did.
 
-**A process**, which is this lesson, and the largest of the four.
+**A process** is the subject of this lesson and the largest of the five kinds of contribution.
 
-**A bug report with a reproduction**, which is a contribution even though it does not feel like one.
+Additionally, **a bug report with a reproduction** is a contribution, even though it does not feel like one.
 
-You have now spent a course's worth of time with a tool that a small number of people gave away. The reciprocal act does not have to be code.
+You have now spent a course's worth of time with a tool that a small number of people gave away, and the reciprocal act can take any of the five forms above, of which code is only the largest.
 
 ## Common mistakes
 
-- **Writing code before the template compiles.** Then two classes of problem are indistinguishable.
-- **Choosing the internal API** for something Avendish handles.
+- **Writing code before the template compiles**, which makes two classes of problem indistinguishable.
+- **Choosing the internal API** for an object that Avendish handles.
 - **Skipping the Avendish documentation**, and importing assumptions from another plug-in format.
 - **Building only for your own architecture**, then discovering at deployment that the target needs another.
-- **No documentation.** An undocumented addon is a private tool.
+- **Shipping no documentation**, so that the addon remains a private tool.
 - **Reaching for a plug-in when a script would do**, which is the recurring theme of Module J.
-- **Not publishing it.** If it was worth writing, somebody else has the same problem.
+- **Not publishing it**, although if it was worth writing, somebody else has the same problem.
 
 ## Exercise
 
-Build the untouched template until the object appears in *score*'s library, then modify it minimally: rename it, add one declared input, and make it do something you can verify, however trivial. Automate its new port from a score and confirm it behaves.
+Build the untouched template until the object appears in *score*'s library, then modify it minimally by renaming it, adding one declared input, and making it do something you can verify, however trivial. Automate its new port from a score and confirm that it behaves.
 
-**Success criterion:** your object appears in the library, its port is automatable, and you can state which of the four questions above justified compiling it rather than scripting it. If none of them did, that is a legitimate result: you have learned the route exists and confirmed you do not need it yet.
+**Success criterion:** your object appears in the library, its port is automatable, and you can state which of the four questions above justified compiling it instead of scripting it. Nevertheless, if none of them did, that is a legitimate result, because you have learned that the route exists and confirmed that you do not need it yet.
 
 ## Going further
 
-- [Plug-ins]({{ site.docs_baseurl }}/development/plug-ins.html) for the choice between the two APIs.
-- [Plug-ins with Avendish]({{ site.docs_baseurl }}/development/plugins/plugins-with-avendish.html) and the [Avendish documentation](https://celtera.github.io/avendish).
-- [Building from source]({{ site.docs_baseurl }}/development/build-from-source.html), if you need the whole application.
-- [The architecture]({{ site.docs_baseurl }}/development/architecture.html), and [score-addon-tutorial](https://github.com/ossia/score-addon-tutorial) for the older API by example.
+- [Plug-ins]({{ site.docs_baseurl }}/development/plug-ins.html) explains the choice between the two APIs and when each applies.
+- [Plug-ins with Avendish]({{ site.docs_baseurl }}/development/plugins/plugins-with-avendish.html) and the [Avendish documentation](https://celtera.github.io/avendish) cover the recommended route in detail.
+- [Building from source]({{ site.docs_baseurl }}/development/build-from-source.html) applies if you need the whole application.
+- [The architecture]({{ site.docs_baseurl }}/development/architecture.html), and [score-addon-tutorial](https://github.com/ossia/score-addon-tutorial), show the older API by example.

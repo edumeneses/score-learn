@@ -16,89 +16,89 @@ score_file: none
 
 {% include lesson_meta.html %}
 
-> **Before this lesson** finish [Lesson 19]({{ site.baseurl }}/learn/19-audio-setup.html).
+> **Before this lesson** finish [Lesson 19]({{ site.baseurl }}/learn/19-audio-setup.html), whose routing rule this lesson applies to sound files.
 >
-> **You will need** three or four sound files, ideally of different lengths and channel counts. Two ship with this lesson, drawn from the *Citizen DJ* packages; for more, install those packages through the package manager, per [Lesson 01]({{ site.baseurl }}/learn/01-install.html); they provide several thousand short, freely usable excerpts, and they appear in the user library ready to drag into a score.
+> **You will need** three or four sound files, ideally of different lengths and channel counts. Two ship with this lesson, drawn from the *Citizen DJ* packages, and for more you can install those packages through the package manager, per [Lesson 01]({{ site.baseurl }}/learn/01-install.html), since they provide several thousand short, freely usable excerpts that appear in the user library ready to drag into a score.
 >
-> **You will build** a small sound-based document that plays, loops, fades, and reports what it is doing, and that travels without breaking.
+> **You will build** a small sound-based document that plays, loops, fades, and reports what it is doing, and that travels to another machine without breaking.
 
 ## Why this matters
 
-Playing a sound file is the easiest thing in this software: drag it in and it plays. That means this lesson can spend its time on the four things that are not obvious and that decide whether a sound-based piece survives production: looping, fading, analysis, and paths.
+Playing a sound file is the easiest operation in this software, because you drag the file in and it plays. This lesson can therefore spend its time on the four properties that are not obvious and that decide whether a sound-based piece survives production, which are looping, fading, analysis, and paths, and each of them is a small setting with a large consequence.
 
-Paths in particular. Lesson 05 established that media is referenced rather than embedded; here it becomes concrete, because a piece with forty sound files is a piece with forty ways to break at a venue.
+Paths deserve particular attention because Lesson 05 established that media is referenced by the document and not embedded in it, and here that principle becomes concrete, since a piece with forty sound files is a piece with forty ways to break at a venue. In contrast, a piece whose paths are all relative to the project folder moves as a single directory, which is the condition that the exercise at the end of this lesson tests.
 
 ## Concepts
 
-**Drag and drop, from anywhere.** A sound file can be dropped into the score from the user library or from the operating system's file manager. Dropping onto a scenario creates an interval containing it; dropping onto an existing interval adds it there.
+**A sound file can be dropped into the score from anywhere.** It can come from the user library or from the operating system's file manager, and the target decides what happens: dropping onto a scenario creates an interval containing the file, whereas dropping onto an existing interval adds the file there.
 
-**The interval's duration and the file's length are different things.** The interval is a stretch of time; the file has a length. Making the interval shorter does not shorten the file, it stops playing it early. This is obvious once stated and a frequent early confusion.
+**The interval's duration and the file's length are different quantities.** The interval is a stretch of time on the score, whereas the file has a length of its own, so making the interval shorter does not shorten the file; it stops playing the file early. However, the waveform drawn inside the interval suggests that the two are one thing, which is why the distinction is obvious once stated and still a frequent early confusion.
 
-**Looping is a property.** Set in the sound file's inspector, which makes the file repeat for as long as its interval runs. This is the *process* loop of Lesson 17, not a structural loop, and the two combine: a looping file inside a looping interval is a legitimate and occasionally confusing construction.
+**Looping is a property of the sound file process.** It is set in the file's inspector, and it makes the file repeat for as long as its interval runs. This is the *process* loop of Lesson 17 and not a structural loop, and the two combine, so that a looping file inside a looping interval is a legitimate and occasionally confusing construction in which each level repeats on its own terms.
 
-**Fades are gain automations.** Per Lesson 19, every audio outlet carries a gain sub-port. Right-click it and create an automation. There is no separate fade object and no need for one.
+**Fades are gain automations.** Per Lesson 19, every audio outlet carries a gain sub-port, so you right-click it and create an automation; there is no separate fade object, and none is needed, because the automation already gives you the curve, the duration, and the means to edit both.
 
-**Analysis: the envelope process.** An **envelope** process turns an audio signal into a control value: its first output is a root-mean-square measure, its second a peak measure. Combined with a **signal display**, this puts a visible reading of the sound on the timeline, which is how you see what you are hearing.
+**The envelope process turns an audio signal into a control value.** Its first output is an RMS (root mean square) measure and its second a peak measure, and combined with a **signal display** it puts a visible reading of the sound on the timeline, which is how you see what you are hearing.
 
-**Routing audio into analysis removes it from the mix.** Because connecting a cable removes propagation, sending audio into an envelope means it stops reaching your ears. Switch **propagate** on in the source outlet's inspector to keep both. This is the single most common surprise in audio-reactive work, and Lesson 28 depends on knowing it.
+**Routing audio into analysis removes it from the mix.** Because connecting a cable removes propagation, sending audio into an envelope means that it stops reaching your ears, and you switch **propagate** on in the source outlet's inspector to keep both the sound and the reading. This is the single most common surprise in audio-reactive work. Moreover, Lesson 28 depends on your knowing it, so find the toggle now.
 
-**Portable paths.** A relative path is looked up in the project folder, meaning the directory containing the `.score` file. Two special prefixes make intent explicit: `<PROJECT>:/` resolves inside the project directory and `<LIBRARY>:/` inside the user library. Using them is how a document says where its media is supposed to come from instead of hoping.
+**Portable paths are resolved against the project folder.** A relative path is looked up in the project folder, which means the directory containing the `.score` file, and two special prefixes make the intent explicit: `<PROJECT>:/` resolves inside the project directory and `<LIBRARY>:/` inside the user library. Using them is how a document states where its media is supposed to come from. In contrast, a bare absolute path only records where the media happened to be on the authoring machine.
 
 ## Walkthrough: from a file to a readable document
 
 ![Two intervals, each holding a sound file: the first plays once, the second loops to fill its interval]({{ site.img }}/20/20-01-sound-files.png)
 
-The figure is `lesson-20.score`, which ships with this lesson: two excerpts from the Citizen DJ packages, one played once and one set to loop. Both are freely usable, and both are referenced with a project-relative path, so the document travels. See `checks/20-sound-files.md`.
+The figure shows `lesson-20.score`, which ships with this lesson and holds two excerpts from the Citizen DJ packages, one played once and one set to loop. Both excerpts are freely usable, and both are referenced with a project-relative path, so that the document travels; the details are in `checks/20-sound-files.md`.
 
-1. **Make a project directory** and put your sound files in it, per Lesson 05, before you drop anything.
-2. **Drop one file** onto an empty scenario. An interval appears containing the waveform. Play it.
-3. **Shorten the interval** to half the file's length and play again: it stops early. Then lengthen it beyond the file: silence at the end. The interval is time, the file is content.
-4. **Turn on looping** in the inspector and lengthen the interval again. Now the file repeats to fill it.
-5. **Write a fade.** Right-click the gain port on the interval's audio outlet, create an automation, and draw a fade in and out. Play. Note that you did this without adding a process.
-6. **Add a second file** in the same interval and play. Both are audible: each mixes into the parent, per Lesson 19's rule.
-7. **Group them.** Put both into a sub-scenario and route that scenario's output through a single effect, which is the grouping technique from the previous lesson.
-8. **Analyse.** Add an envelope process and a signal display, route the sound into the envelope and the envelope's first output into the display. Play, and watch the reading move with the sound.
-9. **Notice the silence.** The sound has disappeared from your monitors, because the cable removed propagation. Turn propagate on in the source outlet's inspector to get both.
-10. **Scale the reading.** If the display barely moves, insert a small mapping process between the envelope and the display to multiply it into a useful range, exactly as Lesson 13 taught.
-11. **Make it portable.** Re-point each file using a path inside the project directory, save, move the whole directory elsewhere, and reopen. Nothing should be missing.
+1. **Make a project directory** and put your sound files in it, per Lesson 05, before you drop any of them into a score.
+2. **Drop one file** onto an empty scenario, so that an interval appears containing the waveform, and play it.
+3. **Shorten the interval** to half the file's length and play again, and the file stops early; then lengthen the interval beyond the file, and the end is silent, because the interval is time while the file is content.
+4. **Turn on looping** in the inspector and lengthen the interval again, so that the file now repeats to fill it.
+5. **Write a fade** by right-clicking the gain port on the interval's audio outlet, creating an automation, and drawing a fade in and out, then play and note that you did this without adding a process.
+6. **Add a second file** in the same interval and play, and both files are audible because each mixes into the parent, per Lesson 19's rule.
+7. **Group them** by putting both into a sub-scenario and routing that scenario's output through a single effect, which is the grouping technique from the previous lesson.
+8. **Analyse the sound** by adding an envelope process and a signal display, routing the sound into the envelope and the envelope's first output into the display, then play and watch the reading move with the sound.
+9. **Notice the silence**, because the sound has disappeared from your monitors now that the cable removed propagation, and turn propagate on in the source outlet's inspector to get both.
+10. **Scale the reading** if the display barely moves, by inserting a small mapping process between the envelope and the display to multiply it into a useful range, as Lesson 13 taught.
+11. **Make it portable** by re-pointing each file to a path inside the project directory, saving, moving the whole directory elsewhere, and reopening; no file should be missing.
 
 ## Long files, many files
 
-Two practical matters that decide whether a sound-heavy document stays workable.
+The length of the files and the number of them raise different practical problems, and each has a remedy that keeps a sound-heavy document workable.
 
-**Long files.** A forty-minute file in a score is fine to play and awkward to work with, because the waveform drawing and the seeking both operate over the whole thing. When a long file is really a sequence of sections, splitting it into sections that match the score's structure makes the document rehearsable, per Lesson 18. When it is genuinely one continuous thing, keep it whole and use start markers instead.
+**A long file is fine to play and awkward to work with**, because the waveform drawing and the seeking both operate over the whole forty minutes. When a long file is really a sequence of sections, splitting it into files that match the score's structure makes the document rehearsable, per Lesson 18. Conversely, when it is one continuous thing, keeping it whole and using start markers preserves the continuity.
 
-**Many files.** Forty short files is a different problem: not performance, but legibility. Three habits help. Name intervals after their content rather than leaving default names, so a folded score is readable. Group related files into sub-scenarios, which also gives you one place to apply an effect. And keep the files themselves in a subdirectory of the project rather than beside the score, so the project directory has a structure a stranger can navigate.
+**Many short files raise a problem of legibility, whereas performance is rarely the issue.** Forty short files are readable only if the intervals are named after their content, since a folded score with default names gives no clue to what it plays; grouping related files into sub-scenarios helps further, and gives you one place to apply an effect. Additionally, keeping the files in a subdirectory of the project, and not beside the score file, gives the project directory a structure that a stranger can navigate.
 
-Both cases share a rule: the structure of your media on disk should resemble the structure of your score. When those two diverge, every later change costs twice.
+Both cases share a rule. In other words, the structure of your media on disk should resemble the structure of your score, because every later change costs twice when the two diverge.
 
 ## Formats, and what to convert to
 
-The choice of audio format matters less than in video and it is not free, so it is worth one decision made once.
+The choice of audio format matters less than it does in video, although it is not free of consequences, so it deserves one decision made once and applied to every file in the project.
 
-**Uncompressed, for anything performed.** A file that decodes with no work is a file that will not glitch when the machine is busy with graphics. Disk space is cheap next to a dropout in front of an audience.
+**Uncompressed formats suit anything that is performed**, because a file that decodes with no work is a file that does not glitch when the machine is busy with graphics, and disk space is cheap next to a dropout in front of an audience.
 
-**Compressed, for long ambient material** where the file would otherwise be enormous and the timing is not critical. A forty-minute background bed is a reasonable exception.
+**Compressed formats suit long ambient material**, where the file would otherwise be enormous and the timing is not critical; a forty-minute background bed is therefore a reasonable exception to the rule above.
 
-**Sample rate should match the engine's.** A file at a different rate is converted at playback, which is work the machine does not need to do, and in some situations audibly.
+**The sample rate should match the engine's.** A file at a different rate is converted at playback, which is work the machine does not need to do and which, in some situations, is audible.
 
-**Channel count should be what you actually route.** A stereo file used as a mono source wastes a channel through every subsequent process; the fix belongs in the file, not in the score.
+**The channel count should match what you route.** A stereo file used as a mono source wastes a channel through every subsequent process, so the fix belongs in the file, where it is made once, and not in the score.
 
 ## Common mistakes
 
-- **Expecting the interval to define the file's length.** It defines how long the file gets to play.
-- **Looping in the wrong place.** A looping file and a looping interval are different statements; decide which you meant.
-- **Adding a gain process** when the outlet already has a gain port.
-- **Losing the sound when you add analysis.** Propagation was removed by the cable. Turn it back on.
-- **An envelope reading that barely moves** and concluding the analysis is broken. It is scaled for signals, not for displays; insert a mapping.
-- **Absolute paths.** They work until the piece travels, which is the definition of a bug in this field.
-- **Dropping files from a downloads folder.** The path is now outside the project and the piece is one cleanup away from silence.
+- **Expecting the interval to define the file's length** confuses two quantities, since the interval defines only how long the file gets to play.
+- **Looping in the wrong place** happens because a looping file and a looping interval are different statements, and you have to decide which of the two you meant.
+- **Adding a gain process** duplicates a function, because the outlet already has a gain port.
+- **Losing the sound when you add analysis** means that the cable removed propagation, which the toggle in the outlet's inspector turns back on.
+- **Concluding that a barely moving envelope is broken** misreads a value that is scaled for signals and not for displays, so insert a mapping between the two.
+- **Using absolute paths** works until the piece travels, which in this field is the definition of a bug.
+- **Dropping files from a downloads folder** places the path outside the project, leaving the piece one cleanup away from silence.
 
 ## Exercise
 
-Build a two-minute document from at least four sound files: one that plays once, one that loops to fill its interval, two grouped through a shared effect, and one whose level is visibly analysed on the timeline with an envelope and a signal display while remaining audible. Then move the project directory and reopen it.
+Build a two-minute document from at least four sound files: one that plays once, one that loops to fill its interval, two grouped through a shared effect, and one whose level is visibly analysed on the timeline with an envelope and a signal display while remaining audible. Then move the project directory to another location and reopen the document from there.
 
-**Success criterion:** everything plays after the move, the analysed file is both audible and visible, and you can point at the setting that made both true at once. If your signal display is flat, scale it rather than assuming the envelope failed.
+**Success criterion:** every file plays after the move, the analysed file is both audible and visible, and you can point at the setting that made both true at once. If your signal display is flat, scale the reading before assuming the envelope failed, because the scale is the likelier cause.
 
 ## Going further
 

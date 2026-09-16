@@ -17,7 +17,7 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 - Every install command: winget, pacman/MSYS2, brew cask, flatpak, AUR, nix, and the AppImage filename pattern.
 - The minimum requirements list, in particular the graphics API versions.
 - That the Windows OSCQuery note still requires Bonjour.
-- That the start screen still exposes the examples, and that the File menu still reopens it. The usability study's finding depends on this.
+- That the start screen still exposes the examples, and that no menu reopens it once dismissed. The routes to re-verify are the three step 4 of the lesson gives: relaunching with no document, the user library and project folder panels (`Ctrl+Shift+B` and `Ctrl+Shift+L`), and `Help > Documentation`. The usability study's finding depends on this.
 - The four help routes, especially that F1 still opens per-object reference pages.
 
 ## Claims that depend on external sources

@@ -16,99 +16,99 @@ score_file: p2-light-wash/p2-solution.score
 
 {% include lesson_meta.html %}
 
-> **Before this milestone** finish Lessons 06 to 09. This unit introduces nothing new.
+> **Before this milestone** finish Lessons 06 to 09, because this unit introduces no new technique and relies on those four lessons.
 >
-> **You will need** a software Art-Net receiver, or any DMX visualiser that listens on the network. No lighting hardware is required.
+> **You will need** a software Art-Net receiver, or any DMX (Digital Multiplex) visualiser that listens on the network; no lighting hardware is required.
 >
-> **You will build** a lighting look driven from one control, with a captured start state, a captured end state, and a documented channel map.
+> **You will build** a lighting look driven from one control, with a captured start state, a captured end state, and a channel map written down before the timeline is touched.
 
 ## Why this matters
 
-Module C taught you devices, addresses, types, ranges, and cues in the abstract. Lighting is where those four subjects stop being abstract, because a lighting rig punishes every one of the mistakes those lessons warned about: channels are integers, ranges are 0 to 255, and a fixture often uses one channel for discrete modes rather than for intensity. If your ranges are wrong, you do not get a subtle error; you get a fixture that strobes when you asked it to fade.
+Module C taught you devices, addresses, types, ranges, and cues in the abstract, and lighting is where those five subjects stop being abstract, because a lighting rig punishes every one of the mistakes those lessons warned about. Channels are integers, ranges run from 0 to 255, and a fixture often assigns one channel to discrete modes, so that a value on it selects a behaviour where you expected to set an intensity. A wrong range therefore does not produce a subtle error; it produces a fixture that strobes when you asked it to fade.
 
-The milestone is also the first time you build against a protocol that cannot describe itself and cannot answer back. An Art-Net device sends and does not report. Everything you learned about testing from the device explorer, and about the thirty-second diagnosis in Lesson 07, is what makes this tractable.
+Furthermore, this milestone is the first time you build against a protocol that cannot describe itself and cannot answer back, since an Art-Net device sends and does not report. What you learned about testing from the device explorer, and about the thirty-second diagnosis in Lesson 07, is what makes a silent protocol tractable, and the brief below leans on each of those lessons in turn.
 
 ## The brief
 
 Build a document that:
 
-1. declares an **Art-Net device** and a **channel map** you wrote down before touching the timeline;
+1. declares an **Art-Net device** and a **channel map** that you wrote down before touching the timeline;
 2. drives **at least four fixtures**, or four channel groups, from **one control value**;
-3. **captures a start state and an end state** rather than typing values, per Lesson 09;
-4. respects each channel's **real range**, with the conversion done in exactly one place, per Lesson 08;
+3. **captures a start state and an end state** instead of typing values, per Lesson 09;
+4. respects each channel's **real range**, with the conversion done in one place only, per Lesson 08;
 5. runs for a **fixed duration** with one transition between the two looks;
-6. is verified against a **software receiver**, with a screenshot or a log line proving the channels moved.
+6. is verified against a **software receiver**, with a screenshot or a log line proving that the channels moved.
 
 ## Concepts you are assembling
 
-**Art-Net as a fixed-shape protocol.** Created without fixture definitions, an Art-Net device exposes the raw DMX channels, plus the ability to send a whole-device message. That rawness is an advantage while learning: you see exactly what a channel is, with nothing interpreting it for you.
+**An Art-Net device created without fixture definitions exposes the raw DMX channels, plus a whole-device message.** That rawness is an advantage while learning, because you see what a channel is with no fixture definition interpreting it for you, so the range and meaning of each channel are yours to establish and write down.
 
-**A channel map is documentation, not a formality.** Universe, channel, what it controls, its range, and what is unsafe. Written down outside *score*, per Lesson 06, because the document holds the declaration and not the reasoning.
+**A channel map records, for every channel, its universe, its number, what it controls, its range, and what is unsafe.** It is written down outside *score*, per Lesson 06, because the document holds the declaration whereas the reasoning behind each value has no place in the device tree, and the reasoning is what a collaborator, or a later version of you, will need.
 
-**One control, many destinations.** The point of the milestone. There are three defensible ways to do it, and choosing deliberately is the exercise: one automation per channel, all reading the same shape; one automation into a mapping that fans out; or one address written with a pattern so that a single curve reaches several channels at once.
+**Driving many destinations from one control is the central problem of this milestone.** There are three defensible ways to do it, and choosing one on purpose is the exercise: a separate automation per channel, all reading the same shape; a single automation into a mapping that fans out; or a single address written with a pattern so that one curve reaches several channels at once.
 
-**Pattern matching over addresses.** *score* can send one value to many addresses by matching a pattern: `dmx:/fixture/*/intensity` reaches every fixture's intensity. Patterns support alternatives, `{foo,boo}`, numeric ranges, `foo.{5..23}`, character classes, `foo[1-5]`, and a recursive form, `device://intensity`. For a wash, where every fixture does the same thing, this is the shortest correct answer.
+**Pattern matching lets *score* send one value to many addresses at once.** An address such as `dmx:/fixture/*/intensity` reaches every fixture's intensity. Additionally, patterns support alternatives, `{foo,boo}`, numeric ranges, `foo.{5..23}`, character classes, `foo[1-5]`, and a recursive form, `device://intensity`. For a wash, where every fixture does the same thing, a pattern is the shortest correct answer, although the section on fan-out below explains what it cannot express.
 
 ## Walkthrough: the reference solution
 
 ![One interval holding four automations, one per channel group, with captured states at both ends]({{ site.img }}/p2/p2-01-light-wash.png)
 
-`p2-solution.score` ships with this milestone. It uses an OSC device rather than Art-Net, so that it runs for readers with no receiver installed; the structure is identical and the exercise below asks you to rebuild it against Art-Net.
+`p2-solution.score` ships with this milestone, and it uses an OSC (Open Sound Control) device in place of Art-Net so that it runs for readers with no receiver installed; the structure is identical, and the exercise below asks you to rebuild it against Art-Net.
 
-1. **Write the channel map first.** Four groups, one channel each, 0 to 255, plus a note that channel 5 on your imaginary fixture is a mode channel and must never be faded.
-2. **Declare the device.** An Art-Net device with no fixtures, so you get raw channels.
-3. **Capture the opening look.** Set the channels from the device explorer until the receiver shows what you want, select them, and drag them onto the timeline at zero.
-4. **One interval, one automation.** A twenty-second interval holding a single automation whose destination is a pattern reaching all four groups, with minimum 0 and maximum 255, set once.
-5. **Capture the closing look** at the end of the interval, so the document ends in a defined condition rather than wherever the curve stopped.
-6. **Play, and watch the receiver.** All four channels should move together, from the captured start to the captured end.
-7. **Break one thing on purpose.** Set the automation's maximum back to 1 and play again. The channels move by one part in 255, which is the exact failure Lesson 08 described, and it is worth seeing once in a context where you can see the consequence.
+1. **Write the channel map before you open the timeline**, listing four groups with one channel each, a range of 0 to 255, and a note that channel 5 on your imaginary fixture is a mode channel which must not be faded.
+2. **Declare an Art-Net device with no fixture definitions**, so that the device explorer shows raw channels and the map you wrote is the only description of what they mean.
+3. **Capture the opening look** by setting the channels from the device explorer until the receiver shows what you want, then selecting them and dragging them onto the timeline at zero.
+4. **Add a twenty-second interval holding a single automation** whose destination is a pattern reaching all four groups, with a minimum of 0 and a maximum of 255 set once on that automation.
+5. **Capture the closing look** at the end of the interval, so that the document ends in a defined condition instead of wherever the curve happened to stop.
+6. **Play, and watch the receiver**, where all four channels should move together from the captured start to the captured end.
+7. **Break one thing on purpose** by setting the automation's maximum back to 1 and playing again. The channels then move by one part in 255, which is the failure Lesson 08 described, and seeing it once where the consequence is visible makes the range check below meaningful.
 
 ## Choosing where the fan-out happens
 
-The three approaches differ in what they cost you later, which is the real lesson of this milestone.
+The three approaches to fan-out differ less in what they cost now than in what they cost later, when the rig grows or one fixture needs to differ, and that difference is the lesson of this milestone.
 
-**Four automations, one per channel.** Explicit and immediately readable. It scales badly: forty fixtures means forty curves to edit whenever the shape changes, and they will drift out of agreement.
+**A separate automation for each channel is explicit and immediately readable.** However, it scales badly, because forty fixtures mean forty curves to edit whenever the shape changes, and curves edited separately drift out of agreement.
 
-**One automation into a mapping.** The curve exists once, and the mapping decides how each destination responds. This is the right answer when the fixtures should *not* all do the same thing: a wash where the outer fixtures come up later than the centre. [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html) is the full treatment.
+**A single automation into a mapping lets the curve exist once while the mapping decides how each destination responds.** In contrast to a curve per channel, it is the right answer when the fixtures should *not* all do the same thing, as in a wash where the outer fixtures come up later than the centre, and [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html) is the full treatment.
 
-**One automation, one pattern.** Shortest and exactly right when every destination does the same thing. Its limitation is that it says nothing about individual fixtures, so the moment one of them needs to differ you are back to one of the other two.
+**A single automation addressed through a pattern is the shortest solution when every destination does the same thing.** Nevertheless, it cannot express a difference between individual fixtures, so the moment one of them needs to differ you are back to one of the other two approaches.
 
-Pick one, write down why in your channel map, and do not mix two of them for the same set of fixtures.
+Pick one, write down why in your channel map, and do not mix two of them for the same set of fixtures, because a collaborator needs a single place to look for the fan-out.
 
 ## How to know it is finished
 
-- The receiver shows all four channels moving, and their values reach the real bounds, not 0 to 1.
-- The document plays twice in a row identically, which the captured start state is what guarantees.
+- The receiver shows all four channels moving, and their values reach 0 and 255 at the ends of the curve, whereas values that stop at 1 leave the rig dark.
+- The document plays twice in a row identically, because the captured start state resets every channel before the curve begins.
 - The channel map exists as a text file beside the score, and it names the mode channel you must not fade.
-- The conversion from the curve's 0-to-1 space to 0-to-255 happens in exactly one place, and you can say which.
-- Folding the intervals with `Ctrl+Alt+F` leaves a structure a collaborator can read.
+- The conversion from the curve's 0-to-1 space to 0-to-255 happens in a single place, and you can say which place that is.
+- Folding the intervals with `Ctrl+Alt+F` leaves a structure that a collaborator can read.
 
 ## Why lighting punishes sloppy ranges
 
-Lighting is the first destination in this course that is unforgiving, and it is worth naming why so that the habit transfers to everything after it.
+Lighting is the first destination in this course that is unforgiving, and naming why matters because the same care with ranges transfers to every destination after it.
 
-A sound that is 1 part in 255 too quiet is inaudible and harmless. A light at 1 out of 255 is off, and a fixture sent a value in a channel that encodes a mode rather than an intensity does something categorical: it strobes, it changes colour wheel position, it resets. There is no graceful degradation. The value is either in the range the fixture expects for the behaviour you want, or it produces a different behaviour entirely.
+A sound that is 1 part in 255 too quiet is inaudible and harmless, whereas a light at 1 out of 255 is off. Furthermore, a fixture sent a value on a channel that encodes a mode does something categorical: it strobes, it changes colour wheel position, or it resets. In other words, there is no graceful degradation, because the value is either in the range the fixture expects for the behaviour you want or it produces a different behaviour entirely.
 
-The practical consequence is that the channel map stops being paperwork and becomes the thing that prevents a mistake you cannot see coming. Write it before the score, keep it beside the score, and record for each channel not only its range but what happens outside that range.
+The practical consequence is that the channel map stops being paperwork and becomes the one document that prevents a mistake you cannot see coming. Write it before the score, keep it beside the score, and record for each channel not only its range but what happens outside that range, since that second column is what stops a fade on a mode channel.
 
 ## Common mistakes
 
-- **Leaving the range at 0 to 1.** The single most likely reason a rig appears dead.
-- **Fading a mode channel.** Fixtures use channels for discrete behaviours as well as intensities. The channel map is what stops you.
-- **Assuming Art-Net confirms anything.** It does not report back. If the value column is empty, that is expected; the receiver is your only ground truth.
-- **Typing the looks instead of capturing them.** Lighting looks are judged by eye. Set them, look, then snapshot.
-- **Sending to a whole device by accident.** A raw Art-Net device also accepts a message to the device itself, which writes every channel at once. Useful deliberately, alarming otherwise.
-- **One universe assumed.** Four groups may live in different universes. The map is where that is recorded.
+- **Leaving the range at 0 to 1** is the single most likely reason a rig appears dead, because the highest value the curve can then reach is one part in 255.
+- **Fading a mode channel** happens because fixtures use channels for discrete behaviours as well as for intensities, and the channel map is what stops you from doing it.
+- **Assuming that Art-Net confirms a value** misreads a protocol that does not report back; an empty value column is expected, and the receiver is your only ground truth.
+- **Typing the looks instead of capturing them** ignores that lighting looks are judged by eye, so set them, look at the receiver, and then snapshot.
+- **Sending to a whole device by accident** is possible because a raw Art-Net device accepts a message to the device itself, which writes every channel at once; that is useful when intended and alarming when it is not.
+- **Assuming a single universe** fails when the four groups live in different universes, and the map is where each group's universe is recorded.
 
 ## Exercise
 
-Rebuild the reference against a real Art-Net device and a software receiver, then extend it in one of two directions.
+Rebuild the reference against a real Art-Net device and a software receiver, and then extend it in one of two directions.
 
-Either **make the wash asymmetric**: the outer groups reach full intensity one second after the centre, using a mapping rather than four hand-edited curves.
+Either **make the wash asymmetric**, so that the outer groups reach full intensity one second after the centre, using a mapping in place of four hand-edited curves.
 
-Or **make it operable**: add a second interval that returns everything to the opening look, and add a state at the very end of the score that sets all channels to zero, so that stopping the score cannot leave a light on. [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) explains why the last state of a score is special.
+Or **make it operable** by adding a second interval that returns every channel to the opening look, and a state at the end of the score that sets all channels to zero, so that stopping the score cannot leave a light on. [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) explains why the last state of a score is special.
 
-**Success criterion:** the receiver shows the intended movement, the score ends dark, and your channel map matches what the document actually sends. If you used a pattern, write down what would break if one fixture needed a different curve.
+**Success criterion:** the receiver shows the intended movement, the score ends dark, and your channel map matches what the document sends. If you used a pattern, write down what would break if one fixture needed a different curve, because that note tells you when to move to the mapping approach.
 
 ## Going further
 

@@ -23,3 +23,5 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 ## Claims that depend on external sources
 
 - The controls-and-shortcuts 2/5 rating, the lost-panels report, and the accidental-view-entry report all come from the SAT UI/UX study report.
+
+- 2026-09-16: `Cmd+↑` was normalised to `Ctrl+…`, matching the other 57 shortcuts in the course and Qt's control modifier on Linux. Upstream writes Cmd. Confirm in the pinned build that Ctrl is the modifier here.
