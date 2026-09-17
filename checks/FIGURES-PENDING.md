@@ -207,7 +207,7 @@ Two format notes learned the hard way, both in the per-unit checks files:
 
 ---
 
-## Crop audit, 2026-09-16: re-shoot queue
+## Crop audit, 2026-09-16: re-shoot queue (all four done 2026-09-17)
 
 Every one of the 37 figures was viewed against its lesson text and its raw capture.
 Four specs were corrected in place and re-rendered (`15-01` badge 7 now points at the
@@ -222,7 +222,12 @@ capture, because the fault is in the raw and no crop can recover it:
 | `31-01` Faust | Faust node title clipped at the slot's top edge | same fit before shooting; the code can be typed with `typeinto.py` |
 | `00-01` annotated score | `Bright` runs past the editor's right edge | zoom the document out (or shorten `Bright`) so its end state is on screen |
 
-`00-02` carries a stopgap recrop until then, marked in `figures/00-02.json`.
+All four were re-shot on 2026-09-17 once the session was unlocked; each spec's `_comment` and the
+unit's `checks/` note record the exact procedure. Two findings from that session matter for every
+future capture: **Settings > User interface > Show musical metrics** had been left on (probably for
+figure 24-01), which blanks the time ruler and replaces the transport's speed field with a tempo;
+it is off again, which is the state most figures were shot in. And the nodal view is the **first**
+view-mode button, not the third; the third is a different mode that leaves the timeline in place.
 
 A re-shoot was attempted on 2026-09-16 and stopped at input: launch and capture
 worked, every click was swallowed, and `loginctl` reported the session locked. Three

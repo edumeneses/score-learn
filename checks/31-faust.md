@@ -75,3 +75,5 @@ in `CLAUDE.md` and that cost most of the time on this figure:
    pressing compile.
 
 - 2026-09-16 crop audit: Figure `31-01`: the Faust node title is clipped at the nodal slot top edge in the raw; re-shoot queued in `checks/FIGURES-PENDING.md` (fit the graph before shooting).
+
+- 2026-09-17: `31-01` re-shot with the same procedure as 2026-08-12, plus the nodal slot's fit icon before shooting so the Faust node title is visible. The editor is a top-level X window named `score`; `win.configure(x=1830, y=300, width=1400, height=1450)` moved and shrank it so it sits between the node and the inspector, which the August capture achieved by hiding the left dock instead. The capture was taken 0.8 s after pressing play, since the excerpt ends within a few seconds and the transport rewinds to zero.

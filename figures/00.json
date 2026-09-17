@@ -1,11 +1,11 @@
 {
-  "_comment": "Lesson 00 figures. Badge numbers match the walkthrough steps of docs/learn/00-what-score-is.md. Coordinates are pixels in the raw capture (3840x2160, ossia score 3.8.2 fullscreen at QT_SCALE_FACTOR=2).",
-  "source": "raw/raw-00-01.png",
+  "_comment": "Lesson 00 figures. Badge numbers match the walkthrough steps of docs/learn/00-what-score-is.md. Coordinates are pixels in the raw capture (3840x2160, ossia score 3.8.2 fullscreen at QT_SCALE_FACTOR=2). Re-shot 2026-09-17 as raw-00-01b.png with the timeline zoomed out (Ctrl+wheel) so Bright and the root's flexible end are on screen; x coordinates were remapped by x' = 755 + (x-755)*0.646. raw-00-01.png is kept because figures 02-01 and 08-01 crop it.",
+  "source": "raw/raw-00-01b.png",
   "out": "docs/learn/assets/00/00-01-annotated-score.png",
   "crop": [
     720,
     64,
-    3240,
+    2800,
     1472
   ],
   "font_size": 34,
@@ -13,77 +13,77 @@
     {
       "n": 1,
       "at": [
-        1150,
-        200
+        1010,
+        235
       ],
       "to": [
-        1150,
+        1010,
         82
       ]
     },
     {
       "n": 2,
       "at": [
-        1520,
+        1249,
         900
       ],
       "to": [
-        980,
+        900,
         872
       ]
     },
     {
       "n": 3,
       "at": [
-        1180,
+        1030,
         830
       ],
       "to": [
-        1155,
+        1013,
         756
       ]
     },
     {
       "n": 4,
       "at": [
-        1690,
+        1359,
         545
       ],
       "to": [
-        1932,
+        1515,
         520
       ]
     },
     {
       "n": 5,
       "at": [
-        1650,
+        1333,
         330
       ],
       "to": [
-        1945,
+        1524,
         358
       ]
     },
     {
       "n": 6,
       "at": [
-        2250,
+        1721,
         720
       ],
       "to": [
-        1940,
+        1521,
         720
       ]
     },
     {
       "n": 7,
       "at": [
-        2620,
+        1960,
         318
       ],
       "to": [
-        2300,
+        1753,
         426
       ]
     }

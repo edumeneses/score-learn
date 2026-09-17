@@ -74,10 +74,11 @@ capstone rubric weights, the ffmpeg continuation bug in 25, a fisheye mapping er
 P6, a stale patch description in 32, and the `Cmd` shortcuts in 03 and 04).
 
 Every figure was viewed against its lesson and its raw. Four specs were corrected and
-re-rendered; four need a re-shoot and are listed at the end of
-`checks/FIGURES-PENDING.md`. The re-shoot attempt stopped at a locked session; the
-capture environment facts it produced are in `CLAUDE.md`, and `scripts/reshoot_00_02.sh`
-runs the first re-shoot as one command once the session is unlocked.
+re-rendered on the 16th; the four that needed a new capture (00-01, 00-02, 13-01, 31-01)
+were re-shot on the 17th once the session was unlocked, and every figure now shows what
+its lesson says it shows. The capture facts learned on the way (Wayland display and auth,
+the first view-mode button being nodal, the musical-metrics setting that blanks the ruler,
+moving editor windows by configure) are in `CLAUDE.md`.
 
 
 **The course text is finished.** All **47 units** are written and pass

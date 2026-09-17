@@ -33,3 +33,5 @@ Micromap, Multi-choice, Range Filter, Rate Limiter, Repetition Filter, Smooth.
 The smoothing object is named Exp Smoothing.
 
 - 2026-09-16 crop audit: Figure `13-01`: node titles are clipped at the nodal slot top edge in the raw itself, so no crop recovers them; re-shoot queued in `checks/FIGURES-PENDING.md` (rebuild the patch, fit the graph, then shoot).
+
+- 2026-09-17: `13-01` re-shot. Patch rebuilt on `lesson-04.score`: click the automation's slot header to select it, type each name into the process library search with `typeinto.py`, double-click the single result (Calibrator, Range Filter, Mapping curve, Exp Smoothing; each new process is selected, so the next chains after it), then the nodal slot's fourth small icon fits the graph and the titles clear the slot's top edge.

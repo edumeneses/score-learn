@@ -24,4 +24,4 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 
 - The gestures and modifiers come from the reference page on writing automations. The Cmd+Drag and Cmd+Up bindings are stated there in macOS form; verify the Linux and Windows equivalents before the video is recorded.
 
-- 2026-09-16: `Cmd+↑` and `Cmd+Drag` were normalised to `Ctrl+…`, matching the other 57 shortcuts in the course and Qt's control modifier on Linux. Upstream writes Cmd. Confirm in the pinned build that Ctrl is the modifier here.
+- 2026-09-16: `Cmd+↑` and `Cmd+Drag` were normalised to `Ctrl+…`, matching the other 57 shortcuts in the course and Qt's control modifier on Linux. Upstream writes Cmd. Confirmed in the pinned build on 2026-09-17: the View menu lists Go to parent as Ctrl+Up, and a Ctrl+Drag on an interval's end handle scales the automation while a plain drag preserves its length.

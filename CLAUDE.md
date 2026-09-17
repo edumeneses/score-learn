@@ -160,7 +160,20 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   window; before that, the same command sometimes captured a dialog and sometimes did not.
 - **The editor reaches about x=3225** in the capture format, wider than the panels
   suggest. A crop stopping at 3020 silently loses a document's last state.
-- **The view-mode buttons** (temporal ↔ nodal) are at roughly x=767, 833, 900, y=2098.
+- **The view-mode buttons** are at roughly x=767, 833, 900, y=2112. The **first** one toggles
+  nodal mode; the third does not, although it highlights. A nested scenario draws as one small
+  node whose labels *score* itself truncates: the nodal slot's `+` icon (768,73) zooms, its
+  fourth icon fits, and the node's bottom-right handle resizes it so the nested intervals become
+  legible; drag it by its title to make room. The first click on an unfocused window only
+  focuses, so click twice.
+- **`Settings > User interface > Show musical metrics` blanks the time ruler** and swaps the
+  transport's speed field for a tempo. It was left on after figure 24-01 and cost a morning;
+  check it before capturing anything with a ruler.
+- **Ctrl+wheel zooms the timeline**, a few percent per step (`scripts/wheel.py X Y STEPS --ctrl`).
+  **`scripts/ctrldrag.py`** drags with Control held; on Linux `Ctrl+Drag` on an interval's end
+  handle scales its automation, a plain drag preserves it, so upstream's `Cmd` is `Ctrl` here.
+- **The script and Faust editors can be moved and resized from outside** with
+  `win.configure(x=, y=, width=, height=)` on the client window named `score`; mutter honours it.
 - **The start screen only appears when score is launched with no document argument**, and
   no menu reopens it.
 - **`pkill -f <pattern>` kills this shell** when the pattern matches the command line.
