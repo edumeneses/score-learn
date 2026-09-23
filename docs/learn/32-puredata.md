@@ -30,9 +30,13 @@ That combination is the interesting part of the lesson, and it amounts to a divi
 
 ## Concepts
 
-**A patch becomes a process once it is hosted.** You add the Pure Data process, point it at a patch file, and it appears in the score like any other process, with its own place in an interval and its own ports.
+### Hosted patches as processes
 
-**Annotated receives and sends become the ports, whereas the patch's `inlet` and `outlet` objects do not.** The natural guess is that inlets and outlets map to ports, and that guess is wrong; *score* reads the patch and creates a control port for every **receive** carrying its annotations:
+A patch becomes a process once it is hosted. You add the Pure Data process, point it at a patch file, and it appears in the score like any other process, with its own place in an interval and its own ports.
+
+### Annotated receives as ports
+
+Annotated receives and sends become the ports, whereas the patch's `inlet` and `outlet` objects do not. The natural guess is that inlets and outlets map to ports, and that guess is wrong; *score* reads the patch and creates a control port for every **receive** carrying its annotations:
 
 ```
 r $0-gain @type float @range 0 1 @default 1
@@ -40,11 +44,9 @@ r $0-gain @type float @range 0 1 @default 1
 
 gives a `gain` control inlet with that range and default. A matching `s $0-name` send becomes an outlet, and `adc~` and `dac~` give the audio inlet and outlet. What you know about ports then applies, so that a control port can be driven by an automation, by a mapping, or by a sensor through the pipeline of Lesson 13.
 
-**The patch is a referenced file, like a sound file.** As Lesson 05 described for media, it is pointed at and not embedded, so it travels with the project directory and must be found at the path you stored, which makes patch files subject to the same portability rules as media.
+### Audio and control across the boundary
 
-**Pure Data must be present on the machine.** Hosting a patch is a dependency on the machine, in the sense Lesson 21 described for plug-ins, and it therefore belongs in your technical page.
-
-**Audio and control both cross the boundary.** A patch can process audio inside a *score* audio chain, and it can exchange control values. Moreover, mixing the two in one patch is normal, since both directions work at once.
+Audio and control both cross the boundary. A patch can process audio inside a *score* audio chain, and it can exchange control values. Moreover, mixing the two in one patch is normal, since both directions work at once.
 
 ## Walkthrough: host, drive, and read back
 
@@ -73,7 +75,14 @@ gives a `gain` control inlet with that range and default. A matching `s $0-name`
 8. **Use the timeline by putting the patch's interval inside a structure with a trigger**, so that the patch runs only during one section and stops when the section ends, which is the capability the patch did not have on its own.
 9. **Conversely, make it run indefinitely with the never-satisfied trigger idiom from Lesson 11**, and note that the patch now behaves as it did standing alone, which is a useful baseline.
 10. **Move the project and reopen it**, to confirm that the patch path survived, as you did with media in Lesson 05.
+
+    {: .warning }
+    > **The patch is a referenced file, like a sound file.** As Lesson 05 described for media, it is pointed at and not embedded, so it travels with the project directory and must be found at the path you stored, which makes patch files subject to the same portability rules as media.
+
 11. **Write down the dependency**, which means Pure Data, its version, and any externals the patch needs.
+
+    {: .warning }
+    > **Pure Data must be present on the machine.** Hosting a patch is a dependency on the machine, in the sense Lesson 21 described for plug-ins, and it therefore belongs in your technical page.
 
 ## Where to draw the line
 

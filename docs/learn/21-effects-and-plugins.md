@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 21: Effects and plug-ins"
+title: "Lesson 21: Audio effects, plug-ins, and live input"
 description: "Build effect chains in the nodal view, host VST and other plug-in formats, take a live input, and understand per-channel polyphony."
 parent: Lessons
 nav_order: 25
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 21: Effects and plug-ins
+# Lesson 21: Audio effects, plug-ins, and live input
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,17 @@ Furthermore, this lesson introduces two ideas whose consequences reach well beyo
 
 ## Concepts
 
-**A chain is made of cables.** Drop an effect from the library, connect the source's audio output to its input, and then connect that effect's output to the next, since the graph you draw is the one that runs and no connection is implied for you.
+### Effect chains
 
-**Fast chaining builds the graph from the library alone.** Per Lesson 11's interactions, with a process selected, double-clicking a new process in the library connects it after the selected one by first port. Since audio effects have audio in and out as their first ports by convention, this builds a chain without touching the score between steps. Additionally, each new process is left selected, so that the next double-click continues the chain.
+A chain is made of cables. Drop an effect from the library, connect the source's audio output to its input, and then connect that effect's output to the next, since the graph you draw is the one that runs and no connection is implied for you.
 
-**Several plug-in formats are hosted.** *score* hosts several external formats, VST (Virtual Studio Technology) among them, as well as the script-based processors covered in Module J. A hosted plug-in appears as a process with ports for its parameters, which means that its parameters are automatable in the same way as those of any built-in process.
+### Hosted plug-in formats
 
-**A plug-in is an installation requirement.** It lives on the machine, whereas the document only records that it is needed, so a score that needs three plug-ins is a score with a three-line prerequisite. Saying so in writing is the difference between a piece that installs in ten minutes and one that does not install at all.
+Several plug-in formats are hosted. *score* hosts several external formats, VST (Virtual Studio Technology) among them, as well as the script-based processors covered in Module J. A hosted plug-in appears as a process with ports for its parameters, which means that its parameters are automatable in the same way as those of any built-in process.
 
-**Live input comes from the audio device.** Declare the audio device in the device explorer, then use its input addresses as the input of an effect, after which a live signal is a source like any other and every technique in this lesson applies to it unchanged.
+### Polyphony
 
-**Polyphony replicates a mono processor per channel.** When a processor is mono, with one input and one output, *score* instantiates as many copies as there are channels arriving, so that three channels in give three processed channels out. Moreover, its controls accept a **list** in place of a single value, mapping one element to each channel. Today this works with Faust processors and selected others, which you should confirm before you plan a design around it.
+Polyphony replicates a mono processor per channel. When a processor is mono, with one input and one output, *score* instantiates as many copies as there are channels arriving, so that three channels in give three processed channels out. Moreover, its controls accept a **list** in place of a single value, mapping one element to each channel. Today this works with Faust processors and selected others, which you should confirm before you plan a design around it.
 
 ## Walkthrough: a chain, an automation, an input
 
@@ -55,11 +55,19 @@ The chain in the figure is two effects deep, since the sound file's output reach
 2. **Switch to the nodal view**, and work there for the rest of the lesson.
 3. **Add one effect** and cable the file's output into it, then play; you hear the processed signal only, because the cable removed propagation, as Lesson 19 established.
 4. **Chain a second effect** using the fast route, which means selecting the first effect and double-clicking the next process in the library, and confirm that the cable appeared.
+
+   {: .note }
+   > **Fast chaining connects by first port.** Per Lesson 11's interactions, the double-click connects the new process after the selected one by its first port, and since audio effects have audio in and out as their first ports by convention, the chain builds without touching the score between steps. Moreover, each new process is left selected, so that the next double-click continues the chain.
+
 5. **Reorder the chain on purpose** by moving an effect earlier and listening, because order is not a detail; a filter before a distortion is a different instrument from the reverse.
 6. **Automate a parameter** by right-clicking one of the effect's control ports, creating an automation, and drawing a sweep; you are now automating the inside of your score, whereas Lesson 10 automated the outside world through the same mechanism.
 7. **Host a plug-in** by adding one from the library, cabling it into the chain, and opening its interface, then automate one of its parameters the same way.
 8. **Write down the dependency** as one line in your project notes, giving the plug-in's name, its format, and where it came from.
-9. **Add a live input** by declaring the audio device and cabling one of its inputs into a fresh effect, then speak or play into it, with headphones on to avoid feedback.
+
+   {: .warning }
+   > **A plug-in is an installation requirement.** It lives on the machine, whereas the document only records that it is needed, so a score that needs three plug-ins is a score with a three-line prerequisite. Saying so in writing is the difference between a piece that installs in ten minutes and one that does not install at all.
+
+9. **Add a live input** by declaring the audio device in the device explorer and cabling one of its input addresses into a fresh effect, then speak or play into it, with headphones on to avoid feedback; from that point the live signal is a source like any other, and every technique in this lesson applies to it unchanged.
 10. **Try polyphony** by feeding a multichannel source into a mono Faust processor and confirming that you get the same number of channels out, then send a list to one of its controls and hear each channel take its own value.
 11. **Group and treat** by putting two sources in a sub-scenario and routing the scenario's output into your chain, and confirm that one chain now treats both, per Lesson 19.
 

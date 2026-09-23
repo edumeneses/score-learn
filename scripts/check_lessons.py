@@ -8,7 +8,9 @@ build rather than reaching a reader:
 
   1. required front matter keys are present;
   2. the reading budget holds: body text between MIN_WORDS and MAX_WORDS, which
-     corresponds to 10 to 15 minutes at 180 to 200 words per minute;
+     corresponds to 10 to 15 minutes at 180 to 200 words per minute. Headings
+     are not counted, as in check_voice.py, so that giving each concept its own
+     linkable heading does not spend the budget;
   3. every declared score_file exists under library/learn/ (or is `none`);
   4. permalink matches the file name, since published permalinks are contractual;
   5. score_version matches the pinned site version;
@@ -21,7 +23,10 @@ build rather than reaching a reader:
      has no place in a numeric sort;
   8. every internal /learn/<slug>.html link points at a slug that exists in
      _data/units.yml, so a forward reference to a lesson not yet written is
-     allowed while a reference to a lesson that will never exist is not.
+     allowed while a reference to a lesson that will never exist is not;
+  9. _data/topics.yml, which drives the knowledge-base page, names only units
+     that exist, every anchor it links to is a heading on that unit's page, and
+     every written unit is reachable from at least one topic.
 
 Exit code is non-zero if any check fails.
 """
@@ -37,6 +42,7 @@ LESSONS = ROOT / "docs" / "learn"
 LIBRARY = ROOT / "library" / "learn"
 CHECKS = ROOT / "checks"
 UNITS = ROOT / "_data" / "units.yml"
+TOPICS = ROOT / "_data" / "topics.yml"
 
 MIN_WORDS = 1400
 MAX_WORDS = 1900
@@ -110,8 +116,107 @@ def body_words(text: str) -> int:
     body = LIQUID_VAR.sub("", body)
     body = MD_LINK.sub(r"\1", body)          # keep link text, drop targets
     body = re.sub(r"```.*?```", "", body, flags=re.S)
+    body = re.sub(r"^#{1,6}\s.*$", "", body, flags=re.M)
     body = re.sub(r"[|>#*`_{}-]", " ", body)
     return len([w for w in body.split() if any(c.isalnum() for c in w)])
+
+
+HEADING = re.compile(r"^#{1,6}\s+(.*?)\s*#*\s*$", re.M)
+EXPLICIT_ID = re.compile(r"^\{:\s*#([\w-]+)\s*\}", re.M)
+
+
+def heading_ids(text: str) -> set[str]:
+    """Anchor ids kramdown's GFM parser gives a page's headings.
+
+    Mirrors generate_gfm_header_id: lowercase, drop every character that is not
+    a word character, a hyphen, or a space, then turn spaces into hyphens, with
+    -1, -2 appended to repeats. Markup is stripped first because the id is built
+    from the heading's rendered text, not its source.
+    """
+    body = FRONT_MATTER.sub("", text)
+    body = re.sub(r"```.*?```", "", body, flags=re.S)
+    ids: set[str] = set(EXPLICIT_ID.findall(body))
+    seen: dict[str, int] = {}
+    for raw in HEADING.findall(body):
+        plain = MD_LINK.sub(r"\1", raw)
+        plain = re.sub(r"[*`_]", "", plain)
+        base = re.sub(r"[^\w\- ]", "", plain.lower()).replace(" ", "-")
+        n = seen.get(base, 0)
+        ids.add(base if n == 0 else f"{base}-{n}")
+        seen[base] = n + 1
+    return ids
+
+
+def load_topics() -> list[dict]:
+    """Minimal reader for _data/topics.yml, kept flat for the same reason as units.yml.
+
+    Topics are `- id:` entries with `title` and `intro`; each has a `questions:`
+    list of `- q:` entries carrying `unit`, an optional `anchor`, and an optional
+    inline list `see: ["07", "15"]`.
+    """
+    topics: list[dict] = []
+    question: dict | None = None
+    for raw in TOPICS.read_text(encoding="utf8").splitlines():
+        line = raw.split(" #", 1)[0].rstrip() if not raw.lstrip().startswith("- q:") else raw.rstrip()
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        m = re.match(r"^- id:\s*(\S+)$", line)
+        if m:
+            topics.append({"id": m.group(1), "questions": []})
+            question = None
+            continue
+        m = re.match(r"^\s+- q:\s*(.+)$", line)
+        if m:
+            question = {"q": m.group(1).strip().strip('"'), "see": []}
+            topics[-1]["questions"].append(question)
+            continue
+        m = re.match(r"^\s+(\w+):\s*(.*)$", line)
+        if m and topics and m.group(1) != "questions":
+            key, value = m.group(1), m.group(2).strip()
+            target = question if question is not None and key in ("unit", "anchor", "see") else topics[-1]
+            if key == "see":
+                target["see"] = re.findall(r'"([^"]+)"', value)
+            else:
+                target[key] = value.strip('"').strip("'")
+    return topics
+
+
+def check_topics(units: dict[str, dict[str, str]], pages: list[Path]) -> list[str]:
+    if not TOPICS.exists():
+        return [f"{TOPICS.relative_to(ROOT)} is missing"]
+    failures: list[str] = []
+    by_num = {u["num"]: slug for slug, u in units.items()}
+    ids_by_slug = {p.stem: heading_ids(p.read_text(encoding="utf8")) for p in pages}
+    reached: set[str] = set()
+    seen_topics: set[str] = set()
+    for topic in load_topics():
+        tid = topic["id"]
+        if tid in seen_topics:
+            failures.append(f"topics.yml: topic id {tid!r} is used twice")
+        seen_topics.add(tid)
+        for key in ("title", "intro"):
+            if not topic.get(key):
+                failures.append(f"topics.yml: topic {tid!r} has no {key}")
+        if not topic["questions"]:
+            failures.append(f"topics.yml: topic {tid!r} has no questions")
+        for q in topic["questions"]:
+            for num in [q.get("unit", "")] + q["see"]:
+                slug = by_num.get(num)
+                if slug is None:
+                    failures.append(f"topics.yml: {tid}: {q['q']!r} names unit {num!r}, not in units.yml")
+                else:
+                    reached.add(slug)
+            slug = by_num.get(q.get("unit", ""))
+            anchor = q.get("anchor")
+            if slug and anchor and anchor not in ids_by_slug.get(slug, set()):
+                failures.append(
+                    f"topics.yml: {tid}: {q['q']!r} links to #{anchor}, "
+                    f"which is not a heading in {slug}.md"
+                )
+    for page in pages:
+        if page.stem in units and page.stem not in reached:
+            failures.append(f"topics.yml: {page.stem} is not reachable from any topic")
+    return failures
 
 
 def main() -> int:
@@ -209,6 +314,8 @@ def main() -> int:
                 )
 
         print(f"{rel}: {words} words")
+
+    failures.extend(check_topics(units, pages))
 
     if failures:
         print("\nFAILED")

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 26: Shaders and mixing"
+title: "Lesson 26: Shaders (ISF) and video mixing"
 description: "Use, edit, and write ISF shaders whose parameters become ports, and combine images with blend modes and pixel utilities."
 parent: Lessons
 nav_order: 31
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 26: Shaders and mixing
+# Lesson 26: Shaders (ISF) and video mixing
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,25 @@ Furthermore, this is the first lesson in which you write code, and it is the gen
 
 ## Concepts
 
-**An ISF shader is a fragment shader plus a JSON (JavaScript Object Notation) header declaring its inputs.** The header lists each input's name, type, range, and default, and *score* reads it to create the ports; because the format is an open specification with a large public library of shaders, a great deal of existing material works without modification.
+### The ISF header
 
-**The editor and the compile loop are how code reaches the running engine.** Code-based processes carry a window button on their header that opens a script editor, in which you edit and then press compile, or use `Ctrl+Enter`, so that the running engine takes the new code. Invalid code is refused instead of applied, which means a typo cannot produce a flash or a burst of noise mid-performance, and the errors appear in a pane at the bottom of the editor.
+An ISF shader is a fragment shader plus a JSON (JavaScript Object Notation) header declaring its inputs. The header lists each input's name, type, range, and default, and *score* reads it to create the ports; because the format is an open specification with a large public library of shaders, a great deal of existing material works without modification.
 
-**Generators and filters differ only in whether the header declares an image input.** A shader with no image input generates noise, gradients, patterns, or geometry. In contrast, a shader with an image input filters what arrives, and that single difference determines where in the graph the process belongs.
+### The compile loop
 
-**Blend modes do the compositing.** The eight-channel video mixer from Lesson 25 gives each input an opacity and a blend mode, and the blend modes are where most of the visual character of a mix comes from, which is why trying each one once on real material teaches more than reading their definitions.
+The editor and the compile loop are how code reaches the running engine. Code-based processes carry a window button on their header that opens a script editor, in which you edit and then press compile, or use `Ctrl+Enter`, so that the running engine takes the new code. Invalid code is refused instead of applied, which means a typo cannot produce a flash or a burst of noise mid-performance, and the errors appear in a pane at the bottom of the editor.
 
-**Pixel utilities cross the boundary between images and data.** A family of processes converts in both directions, and the most useful member is a lightness computer that turns a texture into a series of pixel values, which is how a shader ends up driving an LED strip. That conversion takes the image off the GPU (graphics processing unit), which Lesson 25 flagged as the expensive operation. Nevertheless, the result frequently justifies the cost.
+### Generators and filters
 
-**Live coding is supported and normal.** Shaders can be edited while the score plays, along with almost every other element of a document. However, one documented exception applies to the whole application: **devices cannot be added during playback**, so every window, camera, and output you will need must exist before you press play.
+Generators and filters differ only in whether the header declares an image input. A shader with no image input generates noise, gradients, patterns, or geometry. In contrast, a shader with an image input filters what arrives, and that single difference determines where in the graph the process belongs.
+
+### Blend modes
+
+Blend modes do the compositing. The eight-channel video mixer from Lesson 25 gives each input an opacity and a blend mode, and the blend modes are where most of the visual character of a mix comes from, which is why trying each one once on real material teaches more than reading their definitions.
+
+### Pixel utilities
+
+Pixel utilities cross the boundary between images and data. A family of processes converts in both directions, and the most useful member is a lightness computer that turns a texture into a series of pixel values, which is how a shader ends up driving an LED strip. That conversion takes the image off the GPU (graphics processing unit), which Lesson 25 flagged as the expensive operation. Nevertheless, the result frequently justifies the cost.
 
 ## Walkthrough: edit a shader, then mix it
 
@@ -59,6 +67,10 @@ The figure is Lesson 25's document with one shader added after the H.264 source,
 6. **Break it on purpose** by introducing a syntax error and compiling; the running image is unchanged and the error appears in the pane below, which is the refusal described in Concepts protecting the performance.
 7. **Add a declared input** by adding an entry to the header block, using it in the code, and compiling, so that a new port appears on the process and is automatable immediately.
 8. **Add a second source**, a video file or a camera, and the video mixer.
+
+   {: .warning }
+   > **Devices cannot be added during playback.** Shaders can be edited while the score plays, along with almost every other element of a document. However, one documented exception applies to the whole application, so every window, camera, and output you will need must exist before you press play, and a camera has to be declared with the score stopped.
+
 9. **Try every blend mode** on your shader's input against the video, and write down two you would use and one that surprised you.
 10. **Automate the blend** by automating the mixer's opacity for one input so that the composition changes over thirty seconds.
 11. **Cross the boundary** by adding a lightness computer on the shader's output and an LED view to see the resulting pixels, so that you can watch an image become data.
@@ -83,7 +95,7 @@ The compile loop makes *score* a live-coding environment, which can be used in r
 
 **In performance, the loop becomes material.** Editing a running score is supported, since processes, sounds, and shaders can be added, removed, and altered while it plays, and some performers work this way by choice; the refusal of invalid code described in Concepts is what makes it survivable.
 
-Performing this way requires that every output be declared in advance, as Concepts noted, and it requires accepting that the compile step is not instantaneous on a complex shader. A change made on a beat will therefore not land on that beat, so if timing matters, prepare the variant in advance and switch to it during the performance.
+Performing this way requires that every output be declared in advance, as the warning at step 8 noted, and it requires accepting that the compile step is not instantaneous on a complex shader. A change made on a beat will therefore not land on that beat, so if timing matters, prepare the variant in advance and switch to it during the performance.
 
 ## Common mistakes
 

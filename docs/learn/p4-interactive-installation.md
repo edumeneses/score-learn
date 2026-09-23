@@ -42,15 +42,21 @@ Build a document that:
 
 ## Concepts you are assembling
 
-**The idle loop is a short phrase that repeats while it waits.** It is built with a transition, per Lesson 17, or with a single interval whose end waits for the visitor trigger.
+### The idle loop
 
-**A single trigger releases the instant, and two conditions choose the branch.** The visitor's arrival releases the trigger, whereas the branch taken is decided by a condition on the same or another value; these are two separate mechanisms doing two separate jobs, which is the distinction Lesson 16 drew.
+The idle loop is a short phrase that repeats while it waits. It is built with a transition, per Lesson 17, or with a single interval whose end waits for the visitor trigger.
 
-**The return path leads both outcomes back to the idle instant.** It is either a transition from each branch's end or a shared instant that both branches reach and which transitions back, and without it the piece plays once and stops.
+### One trigger and two conditions
 
-**A maximum duration on every waiting instant is the insurance against a visitor who walks away mid-interaction.** The piece must recover on its own in that case, and without a maximum duration a departure leaves it stuck at whichever instant was waiting.
+A single trigger releases the instant, and two conditions choose the branch. The visitor's arrival releases the trigger, whereas the branch taken is decided by a condition on the same or another value; these are two separate mechanisms doing two separate jobs, which is the distinction Lesson 16 drew.
 
-**Start and stop cues from Lesson 18 make the whole piece operable by someone who has not seen it before.** The start cue puts the room into the idle look, whereas the stop cue sends every parameter to a safe condition.
+### The return path
+
+The return path leads both outcomes back to the idle instant. It is either a transition from each branch's end or a shared instant that both branches reach and which transitions back, and without it the piece plays once and stops.
+
+### Start and stop cues
+
+Start and stop cues from Lesson 18 make the whole piece operable by someone who has not seen it before. The start cue puts the room into the idle look, whereas the stop cue sends every parameter to a safe condition.
 
 ## Walkthrough
 
@@ -103,7 +109,7 @@ What to leave out matters as much as what to build. However, a first installatio
 
 ## Common mistakes
 
-- **Leaving out maximum durations** is the single most common reason an installation is found frozen, because one departed visitor leaves an instant waiting forever.
+- **Leaving out maximum durations** is the single most common reason an installation is found frozen, because one departed visitor leaves an instant waiting forever; a maximum duration on every waiting instant is the insurance that lets the piece recover on its own when a visitor walks away mid-interaction.
 - **An idle state that is not defined as a cue** makes the piece look different depending on which outcome ran last.
 - **Branches with different durations and one shared return timing** cut one outcome off, so test the return from both.
 - **Testing only for two minutes** finds none of the failures in the eight-hour test, since each of them needs time to appear.

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 38: Reading the documentation, and reporting what is missing"
+title: "Lesson 38: Using the documentation and reporting issues"
 description: "Navigate the reference manual, use contextual help properly, and turn a gap you found into a report someone can act on."
 parent: Lessons
 nav_order: 44
@@ -12,7 +12,7 @@ practice_time: "15 min"
 score_file: none
 ---
 
-# Lesson 38: Reading the documentation, and reporting what is missing
+# Lesson 38: Using the documentation and reporting issues
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,17 @@ Furthermore, reporting a gap serves you as much as it serves the project, becaus
 
 ## Concepts
 
-**The manual has four parts, and knowing which one you want is most of the skill.** A **quick start** is short and linear; **common practices** are organised as recipes for whole tasks, such as looping, scenes, spatial audio, and LED design; **in depth** covers the concepts underneath, including execution, routing, musical metrics, and scripting; and a **reference** holds one page per process and per device. When you cannot find something, you are usually looking in the wrong one of the four, which is why the walkthrough asks you to search them separately.
+### The four parts of the manual
 
-**Contextual help is the fastest route to an answer**, because selecting an object and pressing `F1` opens that object's reference page, and since most questions are about a specific object, this route answers them without a search.
+The manual has four parts, and knowing which one you want is most of the skill. A **quick start** is short and linear; **common practices** are organised as recipes for whole tasks, such as looping, scenes, spatial audio, and LED design; **in depth** covers the concepts underneath, including execution, routing, musical metrics, and scripting; and a **reference** holds one page per process and per device. When you cannot find something, you are usually looking in the wrong one of the four, which is why the walkthrough asks you to search them separately.
 
-**The examples are documentation in their own right**, since a shipped example score that does the thing you are attempting teaches more than a page describing it. Moreover, the examples section is large, so open them, take them apart, and keep the ones that taught you something.
+### Examples as documentation
 
-**The glossary is incomplete, which is itself useful information**, because several entries have headings and no text. However, when you find one that matters to you, it is an ideal first contribution, since you now know what the word means, and writing two sentences is a smaller job than any other item on the maintainers' list.
+The examples are documentation in their own right, since a shipped example score that does the thing you are attempting teaches more than a page describing it. Moreover, the examples section is large, so open them, take them apart, and keep the ones that taught you something.
 
-**An issue is either a bug report or a documentation gap.** Both belong on the project's tracker, and documentation gaps are welcome there, because they are cheap to fix and hard for a maintainer to notice alone.
+### Bug reports and documentation gaps
+
+An issue is either a bug report or a documentation gap. Both belong on the project's tracker, and documentation gaps are welcome there, because they are cheap to fix and hard for a maintainer to notice alone.
 
 ## Walkthrough: from confusion to contribution
 
@@ -47,12 +49,16 @@ Furthermore, reporting a gap serves you as much as it serves the project, becaus
 
 1. **Take out your list**, because every lesson since Lesson 02 has asked you to note what you could not answer. If your list is empty, you have not been keeping it, and the next-best source is the last task that took you longer than it should have.
 2. **Classify each item** as a gap in the documentation, an actual bug, an unimplemented feature, or something you had not yet read, since these receive different treatment and mislabelling one wastes a maintainer's time.
-3. **Try `F1` on the relevant object** for each remaining item. Some will be answered immediately, which tells you that the gap was in your reading rather than in the manual.
+3. **Try `F1` on the relevant object** for each remaining item, because contextual help is the fastest route to an answer: selecting an object and pressing `F1` opens that object's reference page, and most questions are about a specific object. Some will be answered immediately, which tells you that the gap was in your reading rather than in the manual.
 4. **Search the four parts separately**, because if you were looking in the reference for a workflow, the answer is in common practices instead. Conversely, if you were looking in common practices for a parameter, look in the reference.
 5. **Check the examples**, because for a surprising number of questions an example score is the answer.
 6. **Write one report** for the best remaining item, stating what you were trying to do, what you expected, what happened, which version you were on, and which sentence would have prevented the confusion.
 7. **Include a reproduction** if the item is a bug, which means the smallest document that shows it, and for this software that usually means a `.score` file you can attach. A bug with a reproduction gets fixed, whereas one without becomes a conversation.
 8. **Offer the fix if you can**, because for a documentation gap you have just understood, the two sentences you would have wanted are a better contribution than a request for them.
+
+   {: .note }
+   > **The glossary is incomplete, which is itself useful information**, because several entries have headings and no text. However, when you find one that matters to you, it is an ideal first contribution, since you now know what the word means, and writing two sentences is a smaller job than any other item on the maintainers' list.
+
 9. **Say which version you are on**, which is `3.8.2` for this course, because behaviour differs between releases and a report without a version costs a round trip.
 10. **Improve your own notes afterwards**, since whatever you just explained to a stranger belongs in your own project documentation too, which is the same practice Lesson 34 asked for.
 

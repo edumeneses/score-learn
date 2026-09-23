@@ -30,15 +30,21 @@ This lesson therefore involves no clicking, and instead establishes what *score*
 
 ## Concepts
 
-**An intermedia sequencer places heterogeneous material on one shared timeline.** In *score* that material includes sound files, video, MIDI (Musical Instrument Digital Interface) data, Open Sound Control (OSC) messages, DMX (Digital Multiplex) and Art-Net lighting, gamepad and sensor input, plug-ins, and scripts. The word *intermedia* carries a precise meaning here, because the software has no privileged medium, no mixer at the centre, and no assumption that the material being scored is music.
+### Intermedia sequencing
 
-**The software combines two paradigms that most tools keep apart.** Most tools in this space pick one of two organising ideas: a timeline places events in time and plays them back. In contrast, a dataflow graph connects producers to consumers and lets values circulate, and *score* is built on both at once, as a hierarchical, non-linear timeline whose contents are dataflow graphs. Reaching for one and finding the other is the single most common source of early confusion, which is why the interface offers a temporal view and a nodal view of the same score.
+An intermedia sequencer places heterogeneous material on one shared timeline. In *score* that material includes sound files, video, MIDI (Musical Instrument Digital Interface) data, Open Sound Control (OSC) messages, DMX (Digital Multiplex) and Art-Net lighting, gamepad and sensor input, plug-ins, and scripts. The word *intermedia* carries a precise meaning here, because the software has no privileged medium, no mixer at the centre, and no assumption that the material being scored is music.
 
-**In a linear sequencer, a duration is a fixed number.** However, an interval in *score* can declare a minimum, a nominal, and a maximum duration, while the event ending it can wait for a condition, such as an incoming OSC message, a sensor threshold, or an operator's key press. The score is therefore a *structure of possible timings* rather than a single fixed rendering, and this is the premise the other tools do not share; the features that distinguish *score* follow from it.
+### Timeline and dataflow together
 
-**Five nouns account for almost every object you will meet in the interface.** They are the **score** (the document), the **interval** (a stretch of time that can contain processes and other intervals), the **state** and its **event** and **trigger** (what happens at an instant, and the condition that decides when that instant arrives), the **process** (any object that produces or transforms values inside an interval, including automations, sound file players, shaders, and scripts), and the **device** (the outside world, addressed as a tree of named parameters). [Lesson 02]({{ site.baseurl }}/learn/02-vocabulary.html) defines each one precisely against the interface.
+The software combines two paradigms that most tools keep apart. Most tools in this space pick one of two organising ideas: a timeline places events in time and plays them back. In contrast, a dataflow graph connects producers to consumers and lets values circulate, and *score* is built on both at once, as a hierarchical, non-linear timeline whose contents are dataflow graphs. Reaching for one and finding the other is the single most common source of early confusion, which is why the interface offers a temporal view and a nodal view of the same score.
 
-**The software is free and open-source, and it runs on several platforms.** Those platforms are Linux, both desktop and embedded, macOS, and Windows, with a web version in development. No part of this course depends on a paid component. Moreover, the extension mechanisms in Phase 3 are available to you on the same terms as to the people who wrote the software.
+### Flexible durations
+
+In a linear sequencer, a duration is a fixed number. However, an interval in *score* can declare a minimum, a nominal, and a maximum duration, while the event ending it can wait for a condition, such as an incoming OSC message, a sensor threshold, or an operator's key press. The score is therefore a *structure of possible timings* rather than a single fixed rendering, and this is the premise the other tools do not share; the features that distinguish *score* follow from it.
+
+### The five core objects
+
+Five nouns account for almost every object you will meet in the interface. They are the **score** (the document), the **interval** (a stretch of time that can contain processes and other intervals), the **state** and its **event** and **trigger** (what happens at an instant, and the condition that decides when that instant arrives), the **process** (any object that produces or transforms values inside an interval, including automations, sound file players, shaders, and scripts), and the **device** (the outside world, addressed as a tree of named parameters). [Lesson 02]({{ site.baseurl }}/learn/02-vocabulary.html) defines each one precisely against the interface.
 
 ## Where *score* sits
 
@@ -52,6 +58,8 @@ This lesson therefore involves no clicking, and instead establishes what *score*
 | **Ableton Live, session-view improvisation** | Loops and clips launched by hand | Looping in *score* is a property of an interval, applied to anything, and interaction is a condition on an event rather than a clip launch quantised to a grid |
 
 The table reduces to a pair of statements about fit. *score* **is** the right tool when a work has a temporal shape that is neither fixed nor absent: an installation that waits for a visitor, a performance whose sections are cued live, a museum piece that runs for eight hours with branches. In contrast, *score* is **not** the right tool when you want a signal-processing patch with no time structure, in which case a Max or Pure Data patch is simpler and *score* can host it later, or when you want a fixed stereo master, in which case a workstation will get you there faster.
+
+The software is free and open-source, and it runs on Linux, both desktop and embedded, macOS, and Windows, with a web version in development. No part of this course depends on a paid component. Moreover, the extension mechanisms in Phase 3 are available to you on the same terms as to the people who wrote the software.
 
 ## Walkthrough: read a score before touching one
 

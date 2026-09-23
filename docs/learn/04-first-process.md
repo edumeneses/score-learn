@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 04: Your first process"
+title: "Lesson 04: Your first automation"
 description: "Place an automation on the timeline, give it a destination address, shape its curve, and learn the difference between a slot and a process."
 parent: Lessons
 nav_order: 4
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: 04-first-process/lesson-04.score
 ---
 
-# Lesson 04: Your first process
+# Lesson 04: Your first automation
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,17 @@ Furthermore, the lesson settles a distinction that causes real trouble later, be
 
 ## Concepts
 
-**The processes library is the left panel's second face, `Ctrl+Shift+P`.** It lists every process the installation provides, from automations to shaders, and you place a process by dragging it from this list onto the timeline. The library is large, which is why Lesson 14 is about navigating it by intent rather than by name.
+### The automation process
 
-**An automation is a breakpoint curve that drives one value over the length of its interval.** In the library it is called `automation (float)`, and it is the process to reach for whenever a value should change continuously over a known stretch of time.
+An automation is a breakpoint curve that drives one value over the length of its interval. In the library it is called `automation (float)`, and it is the process to reach for whenever a value should change continuously over a known stretch of time.
 
-**An automation has no effect until it knows where to send its output.** That destination is an address, in the `device:/parameter` form of Lesson 02. Moreover, it is set on the process, whereas the interval that holds the process carries no address of its own.
+### Automation destinations
 
-**The minimum and maximum map the curve onto real values.** A curve runs between 0 and 1 in its own space, and the minimum and maximum map that space onto the values the parameter expects, which is why they are shown in the slot header. However, a curve that appears to have no effect is often a curve mapped to a range where no audible or visible change happens.
+An automation has no effect until it knows where to send its output. That destination is an address, in the `device:/parameter` form of Lesson 02. Moreover, it is set on the process, whereas the interval that holds the process carries no address of its own.
 
-**Full-size edit zooms one process to fill the editor.** Editing a curve inside a 140-pixel band is imprecise, so double-clicking the process name above the slot zooms that process to fill the editor, while `Ctrl+Alt+↑`, or `Ctrl+↑` on macOS, returns to the parent. The zoomed view is the same document at a different magnification, and knowing the way back is what turns it from a trap into a tool.
+### Minimum and maximum
+
+The minimum and maximum map the curve onto real values. A curve runs between 0 and 1 in its own space, and the minimum and maximum map that space onto the values the parameter expects, which is why they are shown in the slot header. However, a curve that appears to have no effect is often a curve mapped to a range where no audible or visible change happens.
 
 ## Walkthrough: from empty document to running curve
 
@@ -46,12 +48,12 @@ Furthermore, the lesson settles a distinction that causes real trouble later, be
 
 1. **Start a new document**, which needs a device to aim at: for now, either open `lesson-04.score` to borrow its `lesson` device, or read ahead to [Lesson 07]({{ site.baseurl }}/learn/07-osc-devices.html) and declare one, since the rest of this lesson works either way.
 2. **Make an interval** by clicking and dragging in the empty scenario editor, which gives you an interval with a state at each end; give it about eight seconds, because precision comes later, from the inspector.
-3. **Open the processes library** with `Ctrl+Shift+P` and find `automation (float)`, which is the process this lesson uses.
+3. **Open the processes library** with `Ctrl+Shift+P`, the left panel's second face, which lists every process the installation provides, from automations to shaders; it is large, which is why Lesson 14 is about navigating it by intent rather than by name. Find `automation (float)`, which is the process this lesson uses.
 4. **Drag it onto the interval** and release inside it, and a slot appears containing a straight line rising from left to right, which is a one-segment linear automation, the default.
 5. **Give it a destination** by clicking the slot's top bar so that the inspector describes the automation, then dragging a parameter from the `Device explorer` onto the inspector's address field. The slot header now reads something like `Automation (float).2 -> lesson:/level`, which is the same header you read in Lesson 00's figure.
 6. **Play it** with `space`, and the playhead crosses the interval while the parameter ramps; watch the value move in the device explorer as it goes, and stop with `↵`.
 7. **Shape the curve** by double-clicking inside the slot to add a breakpoint, and by selecting a segment and using `Shift+Drag` to bend it, which changes curvature without adding a point. A slow start followed by a fast rise is two drags away, and it sounds and looks entirely different from the linear default.
-8. **Edit it at full size** by double-clicking the process name above the slot to enter full-size edit, adjusting precisely, and then pressing `Ctrl+Alt+↑` to come back out; clicking the document name under the time ruler does the same.
+8. **Edit it at full size**, because editing a curve inside a 140-pixel band is imprecise, by double-clicking the process name above the slot so that the process fills the editor, adjusting precisely, and then pressing `Ctrl+Alt+↑`, or `Ctrl+↑` on macOS, to come back out; clicking the document name under the time ruler does the same. The zoomed view is the same document at a different magnification, and knowing the way back is what turns it from a trap into a tool.
 9. **Set the range on purpose** by entering, in the inspector, the minimum and maximum your parameter expects, because leaving 0 to 1 while driving a parameter that expects 0 to 127 is the most common cause of "the automation runs but nothing happens".
 10. **Compare** what you built with the reference by opening `lesson-04.score`, which holds one interval named `Fade in`, one automation on `lesson:/level`, and a curve with a slow start.
 

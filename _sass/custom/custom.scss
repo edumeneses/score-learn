@@ -67,3 +67,51 @@ video {
 .page-nav-title {
     font-weight: 500;
 }
+
+// Callouts. `{: .note }` above a blockquote marks something useful to know at
+// that point; `{: .warning }` marks a gotcha or a requirement that bites if
+// ignored. Both sit beside the walkthrough step they concern, which keeps the
+// Concepts section for concepts.
+.main-content blockquote.note,
+.main-content blockquote.warning {
+    width: auto;
+    font-size: 90%;
+    border-left-width: 4px;
+    border-radius: 0 4px 4px 0;
+
+    &::before {
+        display: block;
+        margin-bottom: 0.25em;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+}
+
+.main-content blockquote.note {
+    border-left-color: $ossia-light-blue;
+    &::before { content: "Note"; color: $ossia-light-blue; }
+}
+
+.main-content blockquote.warning {
+    background-color: #fdf6e3;
+    border-left-color: $yellow-300;
+    &::before { content: "Watch out"; color: darken($yellow-300, 12%); }
+}
+
+// Topic chips under a lesson's metadata strip, generated from _data/topics.yml.
+.lesson-topics {
+    margin-top: -0.5em;
+    font-size: 0.8rem;
+    color: $grey-dk-100;
+
+    a {
+        display: inline-block;
+        margin: 0 0.25em 0.25em 0;
+        padding: 0 0.5em;
+        border: 1px solid $border-color;
+        border-radius: 3px;
+        text-decoration: none;
+    }
+}

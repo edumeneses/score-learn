@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 30: Expressions and JIT C++"
+title: "Lesson 30: Math expressions, bytebeat, and JIT C++"
 description: "Math expressions for the small cases, bytebeat for generated sound, and just-in-time compiled C++ when a formula has to run fast."
 parent: Lessons
 nav_order: 36
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: none
 ---
 
-# Lesson 30: Expressions and JIT C++
+# Lesson 30: Math expressions, bytebeat, and JIT C++
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,25 @@ The lesson also introduces compiled code inside a document, which sounds heavier
 
 ## Concepts
 
-**Math expression processes evaluate a formula that you write directly on the process.** The smallest of them, usually called a micromap, multiplies and offsets in one step, which is the most common conditioning operation in the course and appeared in Lesson 28, while the fuller expression objects accept arbitrary formulas with variables, functions, and conditionals.
+### Math expressions
 
-**Array generators and mappers are expression objects that produce or transform whole arrays.** An array generator returning `[cos(2*pi*i/n), sin(2*pi*i/n)]` lays out points on a circle, which is the speaker layout of Lesson 22 and the geometry of Lesson 27 in one line, while an array mapper applies a formula to every element.
+Math expression processes evaluate a formula that you write directly on the process. The smallest of them, usually called a micromap, multiplies and offsets in one step, which is the most common conditioning operation in the course and appeared in Lesson 28, while the fuller expression objects accept arbitrary formulas with variables, functions, and conditionals.
 
-**Bytebeat produces audio from a formula evaluated over a sample counter.** It is a small and strange corner of computer music, in which a handful of arithmetic operations on an integer produce rhythmic and harmonic material, and its practical value here is pedagogical, since it makes the relationship between arithmetic and sound immediate.
+### Array generators and mappers
 
-**A just-in-time compiled C++ process compiles its script when you press compile and then runs it natively.** It is the route when a computation must happen at a high rate, for every sample or every element of a large array, and the expression objects are not enough. Furthermore, it is the route to an existing algorithm you have in C++, which can run inside the document without becoming a plug-in.
+Array generators and mappers are expression objects that produce or transform whole arrays. An array generator returning `[cos(2*pi*i/n), sin(2*pi*i/n)]` lays out points on a circle, which is the speaker layout of Lesson 22 and the geometry of Lesson 27 in one line, while an array mapper applies a formula to every element.
 
-**All of these routes share one editor and one compile loop.** Each uses the script editor and its compile action, `Ctrl+Enter`, and refuses invalid code while the previous version keeps running, as Lesson 26's shaders did, so learning that loop once serves every scripting route in Module J.
+### Bytebeat
 
-**The cost of an expression depends on the rate at which it runs.** Once per tick it is free in any practical sense. In contrast, for every audio sample it is a different proposition, and for every pixel it belongs in a shader, which is the idea the section on rates below develops.
+Bytebeat produces audio from a formula evaluated over a sample counter. It is a small and strange corner of computer music, in which a handful of arithmetic operations on an integer produce rhythmic and harmonic material, and its practical value here is pedagogical, since it makes the relationship between arithmetic and sound immediate.
+
+### JIT compiled C++
+
+A just-in-time compiled C++ process compiles its script when you press compile and then runs it natively. It is the route when a computation must happen at a high rate, for every sample or every element of a large array, and the expression objects are not enough. Furthermore, it is the route to an existing algorithm you have in C++, which can run inside the document without becoming a plug-in.
+
+### Cost and rate
+
+The cost of an expression depends on the rate at which it runs. Once per tick it is free in any practical sense. In contrast, for every audio sample it is a different proposition, and for every pixel it belongs in a shader, which is the idea the section on rates below develops.
 
 ## Walkthrough: three computations
 
@@ -62,6 +70,10 @@ Moreover, the formula lives on the process itself, in a field you type into, whe
 7. **Make sound from arithmetic by adding a bytebeat process.** Listen to the default, then change one constant, which is the fastest available demonstration that sound is arithmetic.
 8. **Write a C++ process of your own, however small the computation.** Add a just-in-time C++ process and implement a soft clipper, a running average, or a threshold with hysteresis, then compile it and cable it in.
 9. **Break it by introducing a compile error**, and confirm that the running document is unaffected while the error appears in the editor's pane.
+
+   {: .note }
+   > **The routes that open an editor share one compile loop.** The C++ process, like the JavaScript of Lesson 29, uses the script editor and its compile action, `Ctrl+Enter`, and refuses invalid code while the previous version keeps running, as Lesson 26's shaders did, so learning that loop once serves every editor-based route in Module J.
+
 10. **Compare rates by putting the same computation in an expression object and in the C++ process**, both at control rate, and confirm that both are fine. Then consider what would change once per audio sample, which is the judgement the lesson is teaching.
 
 ## Choosing among five routes

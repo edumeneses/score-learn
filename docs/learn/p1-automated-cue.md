@@ -43,13 +43,21 @@ No item in this list needs a trigger, a condition, or a device beyond the `lesso
 
 ## Concepts you are assembling
 
-**Chaining joins two intervals at a shared instant**, so that they hand over without a gap and the state ending one begins the next. Moreover, chained intervals are how a score gets sections, and they are the reason you do not need one long interval containing the whole cue.
+### Chained intervals
 
-**A known starting state makes the cue repeatable**, because the first state in the document is not scene-setting; without it, the cue's effect depends on whatever the previous run left behind.
+Chaining joins two intervals at a shared instant, so that they hand over without a gap and the state ending one begins the next. Moreover, chained intervals are how a score gets sections, and they are the reason you do not need one long interval containing the whole cue.
 
-**Stacked processes share one interval**, which can hold several processes at once, each in its own slot, or several automations sharing one band. When automations are stacked, the frontmost is drawn as a red line and the others are greyed, and clicking the address bar at the top of the slot brings one forward for editing.
+### A known starting state
 
-**A defined ending mirrors the starting state**, and it is the reason your cue can be run twice in a row without a manual reset.
+A known starting state makes the cue repeatable, because the first state in the document is not scene-setting; without it, the cue's effect depends on whatever the previous run left behind.
+
+### Stacked processes
+
+Stacked processes share one interval, which can hold several processes at once, each in its own slot, or several automations sharing one band, so that one stretch of time can move several parameters together.
+
+### A defined ending
+
+A defined ending mirrors the starting state, and it is the reason your cue can be run twice in a row without a manual reset.
 
 ## Walkthrough: the reference solution
 
@@ -92,7 +100,7 @@ A caution about the ending is needed as well. Your closing state returns `lesson
 - **No starting state**, so that the cue works once, from a fresh launch, and then subtly differs.
 - **Linear ramps throughout**, which fail the fourth item of the brief and teach you little about curvature; bend at least two of them with `Shift+Drag`.
 - **Leaving a parameter high at the end**, which running the cue twice will reveal.
-- **Stacking automations and then losing one**, because when several share a band the frontmost is red and the rest are greyed, so use the slot's address bar to bring one forward, and right-click a slot background to remove one on purpose.
+- **Stacking automations and then losing one**, because when several share a band the frontmost is red and the rest are greyed, so click the address bar at the top of the slot to bring one forward for editing, and right-click a slot background to remove one on purpose.
 - **Leaving the default names in place**, so that the folded score is unreadable, which defeats the point of folding.
 
 ## Exercise

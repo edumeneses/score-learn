@@ -15,6 +15,8 @@ Forty-seven units in twelve modules, followed by a capstone. Lessons carry a per
 
 Work through the modules in order. A *Make it work* milestone at the end of a cluster uses only what the preceding lessons introduced, so if a milestone is unclear, the gap is in a lesson you can name.
 
+The same lessons also serve as a knowledge base. When you arrive with one question, such as how to receive MIDI or how to send video to another program, [Find by topic]({{ site.baseurl }}/topics) links it to the section that answers it, whereas this page lists the units in the order that teaches them.
+
 Units without a link are planned but not yet written. This table is generated from `_data/units.yml`, which is the single source of truth for the numbering and for the published addresses.
 
 {% assign phase_titles = "Phase 1: authoring interactive scores|Phase 2: media|Phase 3: scripting, deployment, and contribution" | split: "|" %}

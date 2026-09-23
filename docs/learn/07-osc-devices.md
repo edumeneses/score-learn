@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 07: Creating and debugging an OSC device"
+title: "Lesson 07: OSC devices: sending, receiving, and debugging"
 description: "Declare an OSC device by hand, build its address tree, and prove what is actually leaving score when a message seems not to arrive."
 parent: Lessons
 nav_order: 8
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
-# Lesson 07: Creating and debugging an OSC device
+# Lesson 07: OSC devices: sending, receiving, and debugging
 
 {% include lesson_meta.html %}
 
@@ -30,22 +30,28 @@ The debugging routine matters more than the declaration itself, because "it does
 
 ## Concepts
 
-**The dialog names two ports, and they point in opposite directions.** `Device host` and `Device listening port` are where *score* sends, meaning the address and port on which your receiver listens, whereas `score listening port` is where *score* receives. The two are independent, so a working setup usually has a different number for each, and sending to the port you are listening on is a common self-inflicted silence.
+### Sending and listening ports
 
-**Declaring an address asserts what you believe the receiver contains.** Adding an address to a plain OSC device asserts that the other end has a parameter of that name and type, and *score* does not verify that assertion; the address is valid as far as the document is concerned, and a receiver that lacks it will not answer.
+The dialog names two ports, and they point in opposite directions. `Device host` and `Device listening port` are where *score* sends, meaning the address and port on which your receiver listens, whereas `score listening port` is where *score* receives. The two are independent, so a working setup usually has a different number for each, and sending to the port you are listening on is a common self-inflicted silence.
 
-**The declared type changes the bytes on the wire.** Whether a parameter is a float, an integer, an impulse, a string, or a list determines how the value is encoded. Moreover, receivers that expect a float and get an integer often do nothing at all, silently, which makes this mismatch the most common cause of a message that arrives and is ignored.
+### Declared addresses
 
-**An impulse is a message that carries no value.** Use it for bangs and triggers, since the arrival is the information. Declaring a trigger as a float and sending 1 works with some receivers and fails with others. In contrast, declaring it as an impulse says what you mean.
+Declaring an address asserts what you believe the receiver contains. Adding an address to a plain OSC device asserts that the other end has a parameter of that name and type, and *score* does not verify that assertion; the address is valid as far as the document is concerned, and a receiver that lacks it will not answer.
 
-**The address tree is yours to shape.** No rule forces a flat list, so grouping under intermediate nodes, `/lights/wash/level` in place of `/washlevel`, costs little and keeps the explorer navigable as the tree grows, for the reasons Lesson 06 gave.
+### Types on the wire
+
+The declared type changes the bytes on the wire. Whether a parameter is a float, an integer, an impulse, a string, or a list determines how the value is encoded. Moreover, receivers that expect a float and get an integer often do nothing at all, silently, which makes this mismatch the most common cause of a message that arrives and is ignored.
+
+### Impulse messages
+
+An impulse is a message that carries no value. Use it for bangs and triggers, since the arrival is the information. Declaring a trigger as a float and sending 1 works with some receivers and fails with others. In contrast, declaring it as an impulse says what you mean.
 
 ## Walkthrough: declare a device and prove it works
 
 1. **Open the device explorer** with `Ctrl+Shift+D`, right-click in it, and choose the OSC protocol from the dialog that appears.
 2. **Name the device after its function**, as `lights`, `synth`, or `sensors`, following the naming argument of Lesson 06, since the name will prefix every address in the document.
 3. **Set the ports** by entering the address and port on which your receiver listens under `Device host` and `Device listening port`, and by choosing a `score listening port` that no other application on the machine is using; write both numbers down, because you will need them in the receiver. If the dialog refuses with a note about names or ports being in use, as in the figure, either the name collides with an existing device or one of the ports is already taken.
-4. **Add a parameter** by right-clicking the device and adding an address with a name, a type, and a range, and repeat until you have a small tree: at least one group with two parameters inside it, plus one impulse.
+4. **Add a parameter** by right-clicking the device and adding an address with a name, a type, and a range, and repeat until you have a small tree: at least one group with two parameters inside it, plus one impulse. No rule forces a flat list, so grouping under intermediate nodes, `/lights/wash/level` in place of `/washlevel`, costs little and keeps the explorer navigable as the tree grows, for the reasons Lesson 06 gave.
 5. **Test from the explorer before touching the timeline** by selecting a parameter and setting its value in the panel inspector at the bottom, which sends a message immediately. Your receiver should show the message as soon as you change the value. Additionally, doing this first isolates the connection from the score itself.
 6. **Watch what leaves** by opening the message log with `Ctrl+Shift+G` and the console with `Ctrl+Shift+C`, which show whether a message left *score* at all; that is the first of the three questions.
 7. **Watch what arrives** by making your receiver print every message it receives and not only the ones you expect, because an address arriving under a slightly different name is invisible if you listen only for the right one.

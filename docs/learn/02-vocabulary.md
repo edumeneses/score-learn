@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 02: Vocabulary of a score"
+title: "Lesson 02: Vocabulary: intervals, states, triggers, and processes"
 description: "Precise definitions of interval, state, event, trigger, process, slot, device, and address, checked against what the interface draws."
 parent: Lessons
 nav_order: 2
@@ -12,7 +12,7 @@ practice_time: "15 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
-# Lesson 02: Vocabulary of a score
+# Lesson 02: Vocabulary: intervals, states, triggers, and processes
 
 {% include lesson_meta.html %}
 
@@ -30,21 +30,37 @@ Every definition below is checkable, since you can open `lesson-00.score`, click
 
 ## Concepts
 
-**A score is the document, and each `.score` file holds one score.** It contains a single root **interval**, which contains every other object, plus the declarations of the devices the document expects; when people say "my score", they mean this file, and Lesson 05 covers what travels with it.
+### The score document
 
-**An interval is a stretch of time with a start, a duration, and contents.** The word replaces several you may be carrying, because an interval differs from a track, a clip, and a region in two ways: it can contain other intervals, and its duration may be a range rather than a number. In `lesson-00.score`, `Approach`, `Bright`, and `Dark` are intervals, and so is the outermost bar named `lesson-00` that holds them.
+A score is the document, and each `.score` file holds one score. It contains a single root **interval**, which contains every other object, plus the declarations of the devices the document expects; when people say "my score", they mean this file, and Lesson 05 covers what travels with it.
 
-**A state is what happens at a single instant**, which means a set of messages to send, each one an address paired with a value. In the interface a state is drawn as a small disc on a vertical line, and clicking one in `lesson-00.score` makes the inspector list its messages as a tree. A state with no messages is still meaningful, because it is where intervals attach.
+### The interval
 
-**An event is what a state sits on, and it is the object that can carry a condition.** Several events can share one instant, which is how a branch is written: each outgoing event carries a different condition, and the ones whose conditions hold are the ones that fire. Most of the time you interact with states and let events stay implicit. However, you need the distinction the moment you write a branch, in Lesson 16.
+An interval is a stretch of time with a start, a duration, and contents. The word replaces several you may be carrying, because an interval differs from a track, a clip, and a region in two ways: it can contain other intervals, and its duration may be a range rather than a number. In `lesson-00.score`, `Approach`, `Bright`, and `Dark` are intervals, and so is the outermost bar named `lesson-00` that holds them.
 
-**A trigger is a property of an instant that makes it *wait* instead of firing when the playhead arrives.** In other words, something must release it: a mouse click, a value from a device, or a condition becoming true. The interface draws it as a T-shaped marker above the state, and it draws the preceding interval's duration as a dashed line, because that duration is now open-ended; `lesson-00.score` has one trigger, labelled `waits for /lesson/go`.
+### The state
 
-**A process is any object that produces or transforms values inside an interval.** Automations, sound file players, MIDI (Musical Instrument Digital Interface) readers, shaders, scripts, and whole sub-scenarios are all processes. The definition has two consequences that matter now: a process always lives inside a stretch of time, and a scenario is itself a process, which is why intervals can nest without any special mechanism.
+A state is what happens at a single instant, which means a set of messages to send, each one an address paired with a value. In the interface a state is drawn as a small disc on a vertical line, and clicking one in `lesson-00.score` makes the inspector list its messages as a tree. A state with no messages is still meaningful, because it is where intervals attach.
 
-**A slot is the horizontal band an interval gives a process so that it can be drawn and edited.** One interval can hold several processes, so it can have several slots. Moreover, slots can be stacked so that several automations share one band. The distinction between a process and its slot matters when you resize things, because dragging a slot's edge changes how much room the drawing gets, whereas changing how long the process runs is a separate operation.
+### The event
 
-**A device is the outside world as *score* sees it, and an address names one parameter inside it.** A device is a piece of software or hardware, reachable over some protocol, exposing a tree of named parameters, while an address names one parameter in the form `device:/path/to/parameter`, for example `lesson:/level`. Addresses are how the score refers to the world without knowing what the world is, and Lesson 06 is entirely about that separation.
+An event is what a state sits on, and it is the object that can carry a condition. Several events can share one instant, which is how a branch is written: each outgoing event carries a different condition, and the ones whose conditions hold are the ones that fire. Most of the time you interact with states and let events stay implicit. However, you need the distinction the moment you write a branch, in Lesson 16.
+
+### The trigger
+
+A trigger is a property of an instant that makes it *wait* instead of firing when the playhead arrives. In other words, something must release it: a mouse click, a value from a device, or a condition becoming true. The interface draws it as a T-shaped marker above the state, and it draws the preceding interval's duration as a dashed line, because that duration is now open-ended; `lesson-00.score` has one trigger, labelled `waits for /lesson/go`.
+
+### The process
+
+A process is any object that produces or transforms values inside an interval. Automations, sound file players, MIDI (Musical Instrument Digital Interface) readers, shaders, scripts, and whole sub-scenarios are all processes. The definition has two consequences that matter now: a process always lives inside a stretch of time, and a scenario is itself a process, which is why intervals can nest without any special mechanism.
+
+### The slot
+
+A slot is the horizontal band an interval gives a process so that it can be drawn and edited. One interval can hold several processes, so it can have several slots. Moreover, slots can be stacked so that several automations share one band. The distinction between a process and its slot matters when you resize things, because dragging a slot's edge changes how much room the drawing gets, whereas changing how long the process runs is a separate operation.
+
+### Devices and addresses
+
+A device is the outside world as *score* sees it, and an address names one parameter inside it. A device is a piece of software or hardware, reachable over some protocol, exposing a tree of named parameters, while an address names one parameter in the form `device:/path/to/parameter`, for example `lesson:/level`. Addresses are how the score refers to the world without knowing what the world is, and Lesson 06 is entirely about that separation.
 
 ## The relations, in one paragraph
 

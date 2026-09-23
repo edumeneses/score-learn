@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 10: Automation curves in depth"
+title: "Lesson 10: Automation curves: shape, tweening, and splines"
 description: "Segments, curvature, tweening, the three other ways to create an automation, and the two-dimensional and colour variants."
 parent: Lessons
 nav_order: 12
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: 10-automation-curves/lesson-10.score
 ---
 
-# Lesson 10: Automation curves in depth
+# Lesson 10: Automation curves: shape, tweening, and splines
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,21 @@ Furthermore, this lesson addresses a workflow problem, because dragging a proces
 
 ## Concepts
 
-**A curve is a chain of segments meeting at breakpoints.** A breakpoint is a value at a time, whereas a segment is the shape between two of them; adding a breakpoint subdivides the curve, while bending a segment changes its character without adding structure.
+### Breakpoints and segments
 
-**Curvature, also called power, is a shape parameter carried by each segment.** It is adjusted with `Shift+Drag`, and a segment bent one way accelerates while one bent the other way decelerates. Two breakpoints and two bends express most of what a fade needs, whereas ten breakpoints approximating a curve is the beginner's alternative, and it is much harder to edit afterwards.
+A curve is a chain of segments meeting at breakpoints. A breakpoint is a value at a time, whereas a segment is the shape between two of them; adding a breakpoint subdivides the curve, while bending a segment changes its character without adding structure.
 
-**Tweening makes a curve start from the parameter's current value.** An automation normally starts at its written start value, which produces a jump if the parameter is currently elsewhere. However, **tween** mode, enabled in the inspector, makes the curve ramp from the parameter's *current* value instead, which is the fix for a cue-driven piece in which a section can be entered from more than one condition; it is the single most useful option on this page.
+### Segment curvature
 
-**The automation family has three variants.** A one-dimensional float automation is what you have used so far. The other two are the **2D spline**, which drives a pair of values along a drawn path and suits positions and trajectories, and the **gradient**, which is an automation over colour; they are the same idea with a different value type.
+Curvature, also called power, is a shape parameter carried by each segment. It is adjusted with `Shift+Drag`, and a segment bent one way accelerates while one bent the other way decelerates.
 
-**Ranges return here for a second reason.** Lesson 08 covered why the minimum and maximum are properties of the automation. In this lesson they matter for a different reason: changing the range after drawing does not redraw the curve, so a shape drawn against 0 to 1 keeps its shape when remapped to 0 to 255, which is usually what you want. Moreover, it means you can design shapes before you know the destination.
+### Tweening from the current value
+
+Tweening makes a curve start from the parameter's current value. An automation normally starts at its written start value, which produces a jump if the parameter is currently elsewhere. However, **tween** mode, enabled in the inspector, makes the curve ramp from the parameter's *current* value instead, which is the fix for a cue-driven piece in which a section can be entered from more than one condition; it is the single most useful option on this page.
+
+### The three automation variants
+
+The automation family has three variants. A one-dimensional float automation is what you have used so far. The other two are the **2D spline**, which drives a pair of values along a drawn path and suits positions and trajectories, and the **gradient**, which is an automation over colour; they are the same idea with a different value type.
 
 ## Four faster ways to create one
 
@@ -58,6 +64,10 @@ Route four deserves emphasis because it addresses the internals of your score, w
 1. **Open `lesson-10.score`**, which holds four intervals with four curves on the same address, numbered in the figure: linear, accelerating, decelerating, and a two-segment shape with a hold in the middle.
 2. **Play it and watch one value**, which shows the same start, the same end, and the same duration producing four quite different behaviours, while no other part of the document differs.
 3. **Bend a segment** by selecting one in the linear curve and using `Shift+Drag`, and note that the breakpoints do not move because you are changing the path between them.
+
+   {: .warning }
+   > **Changing the range after drawing does not redraw the curve.** Lesson 08 covered why the minimum and maximum are properties of the automation, and here they matter for a second reason: a shape drawn against 0 to 1 keeps its shape when remapped to 0 to 255, which is usually what you want. Moreover, it means you can design shapes before you know the destination.
+
 4. **Add a breakpoint and then remove it** by double-clicking inside the slot to add one, then deleting it and obtaining the same visual result with a bend instead. However, the bend is the better choice, because it leaves fewer objects to maintain and it is easier to revise when you change your mind.
 5. **Edit at full size** by double-clicking the process name for precision and pressing `Ctrl+Alt+↑` to leave; on a four-curve document this is the difference between drawing and guessing.
 6. **Turn on tween** by selecting the second automation and enabling tween in the inspector, then set the parameter to some other value from the device explorer before playing that section alone. The curve now starts from wherever the parameter happens to be. In contrast, before you enabled tween it started where the curve was drawn.
@@ -91,7 +101,7 @@ In other words, if you cannot describe a curve in one of these terms, you probab
 ## Common mistakes
 
 - **Accepting the linear default** leaves the shape undecided, since the default is where a curve begins and seldom where it should end.
-- **Drawing ten breakpoints instead of two and a bend** makes the curve harder to adjust, and it hides the intention.
+- **Drawing ten breakpoints instead of two and a bend** makes the curve harder to adjust, and it hides the intention, whereas two breakpoints and two bends express most of what a fade needs.
 - **Forgetting tween on a cue-driven section** shows as a visible or audible jump when the section is entered from an unexpected state.
 - **Assuming a range change redraws the curve** misreads a feature, because the curve keeps its shape so that you can design it once and remap it freely.
 - **Using a 1D automation for a position** means two curves that must stay in agreement, which is worse than one 2D spline.

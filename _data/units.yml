@@ -22,7 +22,7 @@
   module: A
   kind: lesson
   slug: 01-install
-  title: Install, first run, and finding your way to help
+  title: "Installing score, first run, and getting help"
   read: 12
   practice: 15
   written: true
@@ -30,7 +30,7 @@
   module: B
   kind: lesson
   slug: 02-vocabulary
-  title: Vocabulary of a score
+  title: "Vocabulary: intervals, states, triggers, and processes"
   read: 12
   practice: 15
   written: true
@@ -38,7 +38,7 @@
   module: B
   kind: lesson
   slug: 03-interface-and-transport
-  title: Interface layout and transport
+  title: "The interface: panels, zoom, and transport"
   read: 13
   practice: 20
   written: true
@@ -46,7 +46,7 @@
   module: B
   kind: lesson
   slug: 04-first-process
-  title: Your first process
+  title: Your first automation
   read: 13
   practice: 25
   written: true
@@ -54,7 +54,7 @@
   module: B
   kind: lesson
   slug: 05-saving-and-reopening
-  title: Saving, versioning, and reopening
+  title: "Saving a project, media paths, and reopening"
   read: 10
   practice: 15
   written: true
@@ -70,7 +70,7 @@
   module: C
   kind: lesson
   slug: 06-device-model
-  title: The device model
+  title: "Devices and addresses: the device model"
   read: 13
   practice: 15
   written: true
@@ -78,7 +78,7 @@
   module: C
   kind: lesson
   slug: 07-osc-devices
-  title: Creating and debugging an OSC device
+  title: "OSC devices: sending, receiving, and debugging"
   read: 14
   practice: 30
   written: true
@@ -86,7 +86,7 @@
   module: C
   kind: lesson
   slug: 08-units-ranges-types
-  title: Units, ranges, and types
+  title: "Ranges, types, and units"
   read: 13
   practice: 20
   written: true
@@ -110,7 +110,7 @@
   module: D
   kind: lesson
   slug: 10-automation-curves
-  title: Automation curves in depth
+  title: "Automation curves: shape, tweening, and splines"
   read: 12
   practice: 20
   written: true
@@ -118,7 +118,7 @@
   module: D
   kind: lesson
   slug: 11-modulation-sources
-  title: Modulation sources
+  title: "LFOs, step sequencers, and other modulation sources"
   read: 13
   practice: 25
   written: true
@@ -126,7 +126,7 @@
   module: D
   kind: lesson
   slug: 12-recording-live-input
-  title: Recording live input
+  title: Recording live input into automations
   read: 12
   practice: 20
   written: true
@@ -134,7 +134,7 @@
   module: E
   kind: lesson
   slug: 13-mapping-and-scaling
-  title: Mapping, scaling, and curves
+  title: "Mapping sensor data: scaling, smoothing, and filtering"
   read: 14
   practice: 30
   written: true
@@ -142,7 +142,7 @@
   module: E
   kind: lesson
   slug: 14-choosing-a-process
-  title: Choosing the right utility process
+  title: Finding the right process in the library
   read: 13
   practice: 15
   written: true
@@ -158,7 +158,7 @@
   module: F
   kind: lesson
   slug: 15-triggers
-  title: Interactive triggers
+  title: "Triggers: making the score wait for a cue"
   read: 14
   practice: 30
   written: true
@@ -174,7 +174,7 @@
   module: F
   kind: lesson
   slug: 17-loops-and-out-of-time
-  title: Loops and out of time
+  title: "Loops, repetition, and out-of-time material"
   read: 13
   practice: 25
   written: true
@@ -182,7 +182,7 @@
   module: F
   kind: lesson
   slug: 18-cues-and-transport
-  title: Cues, seek, and transport control
+  title: "Start and stop cues, seeking, and transport"
   read: 14
   practice: 30
   written: true
@@ -198,7 +198,7 @@
   module: G
   kind: lesson
   slug: 19-audio-setup
-  title: Audio setup and the routing model
+  title: Audio setup and routing
   read: 13
   practice: 20
   written: true
@@ -206,7 +206,7 @@
   module: G
   kind: lesson
   slug: 20-sound-files
-  title: Sound files and playback
+  title: "Playing sound files: loops, fades, and envelopes"
   read: 13
   practice: 25
   written: true
@@ -214,7 +214,7 @@
   module: G
   kind: lesson
   slug: 21-effects-and-plugins
-  title: Effects and plug-ins
+  title: "Audio effects, plug-ins, and live input"
   read: 14
   practice: 30
   written: true
@@ -222,7 +222,7 @@
   module: G
   kind: lesson
   slug: 22-spatial-audio-1
-  title: "Spatial audio, Part I"
+  title: "Spatial audio, Part I: speaker layouts and panning"
   read: 15
   practice: 30
   written: true
@@ -238,7 +238,7 @@
   module: H
   kind: lesson
   slug: 23-midi-in-practice
-  title: MIDI in practice
+  title: "MIDI: controllers, instruments, and MIDI files"
   read: 14
   practice: 30
   written: true
@@ -246,7 +246,7 @@
   module: H
   kind: lesson
   slug: 24-tempo-and-sync
-  title: "Tempo, metre, and synchronisation"
+  title: "Tempo, quantisation, and sync with other software"
   read: 14
   practice: 25
   written: true
@@ -254,7 +254,7 @@
   module: I
   kind: lesson
   slug: 25-video-pipeline
-  title: The video pipeline
+  title: "Video: files, cameras, and output windows"
   read: 14
   practice: 25
   written: true
@@ -262,7 +262,7 @@
   module: I
   kind: lesson
   slug: 26-shaders-and-mixing
-  title: Shaders and mixing
+  title: Shaders (ISF) and video mixing
   read: 14
   practice: 30
   written: true
@@ -270,7 +270,7 @@
   module: I
   kind: lesson
   slug: 27-3d-scenes
-  title: 3D scenes
+  title: "3D scenes: meshes, textures, and cameras"
   read: 15
   practice: 30
   written: true
@@ -294,7 +294,7 @@
   module: J
   kind: lesson
   slug: 29-javascript-processes
-  title: JavaScript processes
+  title: JavaScript processes and scripting the score
   read: 14
   practice: 30
   written: true
@@ -302,7 +302,7 @@
   module: J
   kind: lesson
   slug: 30-expressions-and-jit
-  title: Expressions and JIT C++
+  title: "Math expressions, bytebeat, and JIT C++"
   read: 14
   practice: 25
   written: true
@@ -310,7 +310,7 @@
   module: J
   kind: lesson
   slug: 31-faust
-  title: Faust inside score
+  title: Faust DSP inside score
   read: 13
   practice: 25
   written: true
@@ -326,7 +326,7 @@
   module: J
   kind: lesson
   slug: 33-custom-interfaces
-  title: Custom interfaces
+  title: "Control surfaces, QML, and remote control"
   read: 14
   practice: 30
   written: true
@@ -334,7 +334,7 @@
   module: K
   kind: lesson
   slug: 34-rehearsal-to-show
-  title: Rehearsal to show
+  title: "From rehearsal to show: riders, cue sheets, and failure plans"
   read: 12
   practice: 20
   written: true
@@ -342,7 +342,7 @@
   module: K
   kind: lesson
   slug: 35-headless-and-embedded
-  title: Headless and embedded
+  title: Headless playback and the Raspberry Pi
   read: 14
   practice: 40
   written: true
@@ -350,7 +350,7 @@
   module: K
   kind: lesson
   slug: 36-distributed-scores
-  title: Distributed scores
+  title: "Networked scores: controlling one instance from another"
   read: 15
   practice: 40
   written: true
@@ -358,7 +358,7 @@
   module: K
   kind: lesson
   slug: 37-recording-and-streaming
-  title: Recording and streaming the output
+  title: "Recording and streaming: Spout, Syphon, shmdata, and OBS"
   read: 12
   practice: 20
   written: true
@@ -366,7 +366,7 @@
   module: L
   kind: lesson
   slug: 38-reading-the-docs
-  title: "Reading the documentation, and reporting what is missing"
+  title: Using the documentation and reporting issues
   read: 10
   practice: 15
   written: true
@@ -374,7 +374,7 @@
   module: L
   kind: lesson
   slug: 39-writing-a-process
-  title: Writing your own process
+  title: Writing your own process in C++ with Avendish
   read: 15
   practice: 60
   written: true

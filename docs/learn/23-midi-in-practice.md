@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 23: MIDI in practice"
+title: "Lesson 23: MIDI: controllers, instruments, and MIDI files"
 description: "MIDI in and out devices, the piano roll and MIDI files, pattern and arpeggiator processes, and MIDI over a network."
 parent: Lessons
 nav_order: 28
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 23: MIDI in practice
+# Lesson 23: MIDI: controllers, instruments, and MIDI files
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,29 @@ However, the useful surprise is that MIDI in *score* is not a special subsystem.
 
 ## Concepts
 
-**MIDI arrives and leaves through two separate devices.** A **MIDI input** device brings a keyboard or controller into *score*. In contrast, a **MIDI output** device sends to an external instrument or sequencer, and since the two are separate declarations, a setup that both receives and sends needs both.
+### MIDI input and output devices
 
-**A process can address a channel or the whole device.** MIDI processes can write to a specific channel or to the device as a whole, and in practice you connect them by dropping either the device's node or one of its channel nodes onto the port you want to feed, which is the same drag-and-drop grammar as everywhere else.
+MIDI arrives and leaves through two separate devices. A **MIDI input** device brings a keyboard or controller into *score*. In contrast, a **MIDI output** device sends to an external instrument or sequencer, and since the two are separate declarations, a setup that both receives and sends needs both.
 
-**The piano roll is the central MIDI process.** It presents notes on a grid that you edit by hand. Moreover, it reads **MIDI files**, so that dropping a `.mid` file onto a scenario or an interval, from the library or the file manager, gives you its contents as an editable piano roll and not as an opaque player.
+### Channels and whole devices
 
-**Pattern and transformation processes treat MIDI as a stream.** A **patternist** process generates rhythmic patterns, while the **MIDI utilities** family transforms a stream on the way through, an arpeggiator among them. This is the decisive difference from a workstation, because MIDI here is a stream you can process and not only a sequence you can play.
+A process can address a channel or the whole device. MIDI processes can write to a specific channel or to the device as a whole, and in practice you connect them by dropping either the device's node or one of its channel nodes onto the port you want to feed, which is the same drag-and-drop grammar as everywhere else.
 
-**A script can transform MIDI when no built-in process does what you want.** A JavaScript or C++ script can transform MIDI directly, which Module J covers. Furthermore, this is a normal answer and not an exotic one, because MIDI transformations are usually a few lines long.
+### The piano roll and MIDI files
 
-**MIDI over a network requires an RTP MIDI daemon, because the transport is not built in.** On Linux, `rtpmidid` provides it; on macOS it is part of the operating system; on Windows, Tobias Erichsen's `rtpMIDI` does. The daemon presents remote ports as local ones, so that *score* then sees ordinary MIDI devices.
+The piano roll is the central MIDI process. It presents notes on a grid that you edit by hand. Moreover, it reads **MIDI files**, so that dropping a `.mid` file onto a scenario or an interval, from the library or the file manager, gives you its contents as an editable piano roll and not as an opaque player.
 
-**Integer ranges apply to every MIDI destination.** Note numbers, velocities, and controller values are integers in 0 to 127, so every automation aimed at one of them needs its range set accordingly, and Lesson 08's diagnosis is the one to run when a destination does not move.
+### Patterns and MIDI utilities
+
+Pattern and transformation processes treat MIDI as a stream. A **patternist** process generates rhythmic patterns, while the **MIDI utilities** family transforms a stream on the way through, an arpeggiator among them. This is the decisive difference from a workstation, because MIDI here is a stream you can process and not only a sequence you can play.
+
+### Scripted MIDI transformations
+
+A script can transform MIDI when no built-in process does what you want. A JavaScript or C++ script can transform MIDI directly, which Module J covers. Furthermore, this is a normal answer and not an exotic one, because MIDI transformations are usually a few lines long.
+
+### MIDI over a network
+
+MIDI over a network requires an RTP MIDI daemon, because the transport is not built in. On Linux, `rtpmidid` provides it; on macOS it is part of the operating system; on Windows, Tobias Erichsen's `rtpMIDI` does. The daemon presents remote ports as local ones, so that *score* then sees ordinary MIDI devices.
 
 ## Walkthrough: receive, transform, send
 
@@ -58,6 +68,10 @@ Both devices are declared before any object is drawn, which is the order this co
 1. **Declare a MIDI input device** and confirm in the device explorer that your keyboard's values arrive, before touching the timeline, as always; with no hardware attached you will still find `Midi Through Port-0` listed under software inputs, which is enough to build against.
 2. **Fire a trigger from a key** using Lesson 15's technique, dropping a note or controller address onto a trigger; you now have a MIDI-cued score, which is most of what much theatre work needs.
 3. **Map a controller to a gain** by addressing a knob to the gain sub-port of an audio outlet from Module G, with the range set to 0 to 127 on the source side, then move the knob and hear the level change.
+
+   {: .warning }
+   > **Integer ranges apply to every MIDI destination.** Note numbers, velocities, and controller values are integers in 0 to 127, so every automation aimed at one of them needs its range set accordingly, and Lesson 08's diagnosis is the one to run when a destination does not move.
+
 4. **Declare a MIDI output device** and connect it to something that makes sound.
 5. **Add a piano roll** in an interval, double-click the grid a few times to place notes, set its output to the MIDI output device in the inspector, and play; you are now sequencing an external instrument.
 6. **Drop a MIDI file** onto the scenario, where it arrives as a piano roll you can edit; play it, then change a few notes, since the file was a starting point and not a black box.

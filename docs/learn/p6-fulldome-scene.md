@@ -42,15 +42,25 @@ Build a document that:
 
 ## Concepts you are assembling
 
-**Dome projection systems expect a circular fisheye image, so fisheye is the output format from the first scene.** Producing one in a window on your desk is what makes the work portable, because you author into the same projection the dome will consume and no framing decision is reinterpreted later.
+### Fisheye output
 
-**Each scene is a sub-scenario in its own interval**, per Lesson 17 and the scene pattern, which makes it rehearsable with local play and legible when the document is folded.
+Dome projection systems expect a circular fisheye image, so fisheye is the output format from the first scene. Producing one in a window on your desk is what makes the work portable, because you author into the same projection the dome will consume and no framing decision is reinterpreted later.
 
-**Scenes advance on triggers, per Lesson 15, each with a maximum duration so that the set cannot stall.** This is the structure that lets a ten-minute piece follow a live player instead of a stopwatch. Simultaneously, the maximum durations guarantee that it advances even when no cue arrives.
+### Scenes as sub-scenarios
 
-**The two reactive relationships have different characters, one continuous and one percussive**, per Lesson 28, each with its own curve and its own smoothing.
+Each scene is a sub-scenario in its own interval, per Lesson 17 and the scene pattern, which makes it rehearsable with local play and legible when the document is folded.
 
-**A venue block is one place in the document, or one small group of parameters, holding every value the room decides.** When you arrive at the dome, you change those values and no others, which is the whole of the transfer the second goal asked for.
+### Scenes that advance on triggers
+
+Scenes advance on triggers, per Lesson 15, each with a maximum duration so that the set cannot stall. This is the structure that lets a ten-minute piece follow a live player instead of a stopwatch. Simultaneously, the maximum durations guarantee that it advances even when no cue arrives.
+
+### Two reactive characters
+
+The two reactive relationships have different characters, one continuous and one percussive, per Lesson 28, each with its own curve and its own smoothing.
+
+### The venue block
+
+A venue block is one place in the document, or one small group of parameters, holding every value the room decides. When you arrive at the dome, you change those values and no others, which is the whole of the transfer the second goal asked for.
 
 ## Walkthrough
 

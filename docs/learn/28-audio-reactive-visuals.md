@@ -30,19 +30,25 @@ Furthermore, the lesson collects a specific trap that has appeared twice already
 
 ## Concepts
 
-**The chain is three objects, and the middle one carries the difficulty.** An **envelope** turns audio into a number, a **conditioning** stage scales and smooths it, and a **destination** parameter on an image process consumes it; the conditioning stage is where the tuning described below takes place.
+### The three-object chain
 
-**The two measures have different characters.** An RMS (root mean square) measure follows perceived loudness and moves smoothly. In contrast, a peak measure follows transients and moves abruptly, so the first suits continuous properties, such as brightness, scale, or drift, and the second suits events that should hit, such as a flash, a jump, or a trigger. In *score* these are two separate processes and not two outputs of one, so the choice is which of them you add.
+The chain is three objects, and the middle one carries the difficulty. An **envelope** turns audio into a number, a **conditioning** stage scales and smooths it, and a **destination** parameter on an image process consumes it; the conditioning stage is where the tuning described below takes place.
 
-**Range is the first problem, because envelope output is small.** Image parameters usually expect a different range entirely, so without scaling the image does not move and the technique appears not to work; a small multiplying and offsetting object, or a mapping curve per Lesson 13, is the fix.
+### RMS and peak measures
 
-**Smoothing is the second problem, because raw envelope output jitters.** Applied directly to a visual parameter, the raw value produces movement that reads as noise instead of response, and smoothing calms it at the cost of latency. However, for visuals a surprising amount of latency is acceptable, since the eye forgives twenty milliseconds where the ear does not.
+The two measures have different characters. An RMS (root mean square) measure follows perceived loudness and moves smoothly. In contrast, a peak measure follows transients and moves abruptly, so the first suits continuous properties, such as brightness, scale, or drift, and the second suits events that should hit, such as a flash, a jump, or a trigger. In *score* these are two separate processes and not two outputs of one, so the choice is which of them you add.
 
-**A curve is the third problem and the most important one.** A linear relationship between loudness and a visual parameter rarely feels right, because both hearing and seeing are non-linear, so a mapping curve that is flat at the bottom, where quiet passages should produce no movement, and steep in the middle, where the interesting range should be expressive, is what separates a good result from a mechanical one.
+### Scaling the range
 
-**Propagation has to be switched back on.** Cabling audio into the envelope removes the dry path, so switch propagate back on in the source outlet's inspector, or you will have a responsive image and silence.
+Range is the first problem, because envelope output is small. Image parameters usually expect a different range entirely, so without scaling the image does not move and the technique appears not to work; a small multiplying and offsetting object, or a mapping curve per Lesson 13, is the fix.
 
-**Analysing the right source matters as much as the conditioning.** Analysing the master output means that every visual responds to every sound at once. Conversely, analysing one source, or one group, gives you a visual that responds to a specific element, which is usually the more musical choice.
+### Smoothing the jitter
+
+Smoothing is the second problem, because raw envelope output jitters. Applied directly to a visual parameter, the raw value produces movement that reads as noise instead of response, and smoothing calms it at the cost of latency. However, for visuals a surprising amount of latency is acceptable, since the eye forgives twenty milliseconds where the ear does not.
+
+### The response curve
+
+A curve is the third problem and the most important one. A linear relationship between loudness and a visual parameter rarely feels right, because both hearing and seeing are non-linear, so a mapping curve that is flat at the bottom, where quiet passages should produce no movement, and steep in the middle, where the interesting range should be expressive, is what separates a good result from a mechanical one.
 
 ## Walkthrough: from sound to image, tuned
 
@@ -55,6 +61,10 @@ The chain in the figure is the whole lesson in one frame. The sound file's outpu
 
 1. **Start with both halves working separately**, a sound file playing per Lesson 20 and a shader on screen through a window device per Lesson 25, and confirm each independently before connecting them.
 2. **Add an envelope** and cable the sound file's audio output into it, choosing `RMS` for continuous work and `Peak` for transients.
+
+   {: .warning }
+   > **Propagation has to be switched back on.** Cabling audio into the envelope removes the dry path, as Lesson 19 established, so switch propagate back on in the source outlet's inspector, which is the next step, or you will have a responsive image and silence.
+
 3. **Turn propagate back on** in the sound file's outlet inspector, so that you can still hear the material.
 4. **Observe the envelope** by adding a signal display on its first output and playing; you should see a reading that follows the loudness, and if it looks flat, the cause is scale and not failure.
 5. **Scale it** by inserting a small multiplying object and raising the value until the display uses its full height.
@@ -82,7 +92,7 @@ The general principle reaches beyond this lesson, because a mapping tuned to a s
 
 Loudness is the easiest feature to extract and the least interesting one, because it makes every visual respond to every sound at once, and three routes lead past it, in increasing order of effort: choosing the source, combining two measures, and analysing frequency content.
 
-**Choosing the source is the cheapest improvement**, as Concepts argued and step 12 put into practice.
+**Choosing the source is the cheapest improvement**, and analysing the right source matters as much as the conditioning, which step 12 put into practice. Analysing the master output means that every visual responds to every sound at once. Conversely, analysing one source, or one group, gives you a visual that responds to a specific element, which is usually the more musical choice.
 
 **Using two features with different characters gives an image both a mood and a pulse.** A continuous measure for slow properties and a peak measure for hits, per this lesson, produce an image whose mood and whose accents come from different aspects of the same sound.
 

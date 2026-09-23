@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 17: Loops and out of time"
+title: "Lesson 17: Loops, repetition, and out-of-time material"
 description: "Transitions that go back in time, controlled repetition counts, sub-scenarios that stop cleanly, and material that lives outside the timeline."
 parent: Lessons
 nav_order: 20
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: 17-loops-and-out-of-time/lesson-17.score
 ---
 
-# Lesson 17: Loops and out of time
+# Lesson 17: Loops, repetition, and out-of-time material
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,25 @@ This lesson is therefore where the timeline stops being a line at all, and the m
 
 ## Concepts
 
-**A transition is an instantaneous interval.** It has zero duration and connects one state to another, and because it takes no time it can connect backwards without paradox, since reaching its start sends execution to its end wherever that is on the timeline; a loop is a transition pointing back to an earlier instant.
+### Transitions
 
-**Transitions connect to instants and not to intervals.** The consequence, which is better learned here than in rehearsal, is that transitioning to an instant re-executes *every branch* connected to that instant, including parallel ones. Moreover, when several transitions target the same instant, the smallest loop restarts first and cuts short whatever else was running.
+A transition is an instantaneous interval. It has zero duration and connects one state to another, and because it takes no time it can connect backwards without paradox, since reaching its start sends execution to its end wherever that is on the timeline; a loop is a transition pointing back to an earlier instant.
 
-**A loop with no exit runs forever**, which is either what you want, for an installation, or a bug. It can be bounded in two ways: put the loop inside a **sub-scenario** and trigger the end of the interval containing that sub-scenario, which stops the loop and continues the score; or use a **maximum duration** on the loop's closing instant, so that the loop exits after a bounded time.
+### Transitions target instants
 
-**A repetition count is expressed through a maximum duration.** The idiomatic way to say "about four times" is to leave the closing trigger unsatisfied on its own and give the preceding interval a maximum duration, so that the loop runs for the loop duration plus that maximum, and the count is tuned by adjusting it. The count is arithmetic instead of a counter, which feels indirect at first. However, it composes better with the rest of the score than a counter would.
+Transitions connect to instants and not to intervals. Consequently, transitioning to an instant re-executes *every branch* connected to that instant, including parallel ones, because what the transition restarts is the point in time and not one path leaving it.
 
-**Out-of-time material is material not connected to the start of the score**, which therefore does not run when the score plays. Give its first instant a trigger with **start on play** enabled, and it becomes available to fire at any moment, from a click or from a device value, without having been on the main timeline. In other words, it is how a cue that fires "whenever" is built, and some people use it as a sandbox as well.
+### Repetition counts
 
-**Process loops are a different mechanism from structure loops.** An interval can loop a process internally, which is not the same as looping structure. In contrast to the structure loops this lesson is about, a sound file set to loop in its inspector is the other kind, and the two are often used together.
+A repetition count is expressed through a maximum duration. The idiomatic way to say "about four times" is to leave the closing trigger unsatisfied on its own and give the preceding interval a maximum duration, so that the loop runs for the loop duration plus that maximum, and the count is tuned by adjusting it. The count is arithmetic instead of a counter, which feels indirect at first. However, it composes better with the rest of the score than a counter would.
+
+### Out-of-time material
+
+Out-of-time material is material not connected to the start of the score, which therefore does not run when the score plays. Give its first instant a trigger with **start on play** enabled, and it becomes available to fire at any moment, from a click or from a device value, without having been on the main timeline. In other words, it is how a cue that fires "whenever" is built, and some people use it as a sandbox as well.
+
+### Process loops and structure loops
+
+Process loops are a different mechanism from structure loops. An interval can loop a process internally, which is not the same as looping structure. In contrast to the structure loops this lesson is about, a sound file set to loop in its inspector is the other kind, and the two are often used together.
 
 ## Walkthrough: three structures
 
@@ -52,6 +60,10 @@ Furthermore, the drawing itself describes the mechanism, because a transition lo
 
 1. **Build a two-interval phrase**, with an automation in each, so that you can hear or see where you are.
 2. **Add a transition back** by dragging a connection from the last state to the first instant, then play, and the phrase repeats indefinitely.
+
+   {: .warning }
+   > **A loop with no exit runs forever**, which is either what you want, for an installation, or a bug. Steps 3 and 4 bound it in the two structural ways: a **maximum duration** on the loop's closing instant, so that the loop exits after a bounded time, or a **sub-scenario** whose containing interval ends on a trigger, which stops the loop and continues the score.
+
 3. **Bound it with a maximum duration** by putting a trigger on the loop's closing instant, leaving its expression unsatisfied, and setting the preceding interval's maximum duration; on play, the loop repeats and then continues into whatever follows, and adjusting the maximum changes how many repetitions you get.
 4. **Now bound it structurally** by undoing the above, selecting the phrase, and using `Object > Encapsulate`, `Ctrl+Alt+E`, to put it inside a sub-scenario so that the loop is contained in one interval, while `Decapsulate`, `Ctrl+Alt+D`, is the inverse when you change your mind. Put a trigger on the *end of that interval*, play, and fire the trigger, so that the loop and every process in it stops and the score continues, which is the cleaner idiom when you want a definite exit.
 5. **Add a parallel layer** and see what a transition does to it, by putting a second interval on the loop's starting instant so that it runs alongside, then letting the loop restart; the layer restarts as well, because the transition targets the instant, and understanding this once prevents a class of confusing behaviour.
@@ -81,7 +93,7 @@ Seen that way, the structures of this lesson are one mechanism, since a loop is 
 
 - **A loop with no exit in a piece that has to end**, which is acceptable in an installation that runs all day, whereas in a concert it means the score cannot reach its final cue.
 - **Forgetting that a transition re-executes every branch on its target instant**, including parallel ones you did not intend to restart.
-- **Several transitions to one instant** without realising that the smallest loop wins and cuts the others short.
+- **Several transitions to one instant** without realising that the smallest loop restarts first and cuts short whatever else was running.
 - **No minimum duration on a toggle**, so that one press reads as two.
 - **Expecting out-of-time material to run on play**, when by design it does not, and start on play exists to make it fireable.
 - **Confusing a structure loop with a process loop**, when a looping sound file inside a non-looping interval is a different statement from a looping interval.

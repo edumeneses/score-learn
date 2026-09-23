@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 14: Choosing the right utility process"
+title: "Lesson 14: Finding the right process in the library"
 description: "A decision table for the process library: search by intent rather than by name, and know which family answers which question."
 parent: Lessons
 nav_order: 16
@@ -12,7 +12,7 @@ practice_time: "15 min"
 score_file: none
 ---
 
-# Lesson 14: Choosing the right utility process
+# Lesson 14: Finding the right process in the library
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,23 @@ This lesson therefore teaches a way of looking things up instead of a list to me
 
 ## Concepts
 
-**The library is grouped by domain, whereas this lesson sorts it by verb.** Top-level sections cover control, audio, visuals, monitoring, structure, and scripting, and within control the two sections you will use constantly are `Mappings` and `Data Processing`, from Lesson 13.
+### Library sections by domain
 
-**Two questions locate almost any process: what kind of value you hold, and what should happen to it.** Most searches resolve quickly once you ask what type of value you are holding, which may be a number, an array, a texture, an audio signal, or a MIDI (Musical Instrument Digital Interface) stream, and then whether you want to *generate*, *transform*, *route*, *combine*, or *observe* it, because the intersection of the two answers is nearly always one family.
+The library is grouped by domain, whereas this lesson sorts it by verb. Top-level sections cover control, audio, visuals, monitoring, structure, and scripting, and within control the two sections you will use constantly are `Mappings` and `Data Processing`, from Lesson 13.
 
-**The five verbs generate, transform, route, combine, and observe are the families.** They repay internalising because they cut across every value type, so that the same question applies to a number and to a texture:
+### Two questions that locate a process
+
+Two questions locate almost any process: what kind of value you hold, and what should happen to it. Most searches resolve quickly once you ask what type of value you are holding, which may be a number, an array, a texture, an audio signal, or a MIDI (Musical Instrument Digital Interface) stream, and then whether you want to *generate*, *transform*, *route*, *combine*, or *observe* it, because the intersection of the two answers is nearly always one family.
+
+### The five families
+
+The five verbs generate, transform, route, combine, and observe are the families. They repay internalising because they cut across every value type, so that the same question applies to a number and to a texture:
 
 - **Generate** produces a value from parameters alone, as an LFO (low-frequency oscillator), a step sequencer, a path generator, the array generators, noise, and shaders with no input all do.
 - **Transform** takes one value in and sends one out, changed, which covers the mapping curve, smooth, range filter, rate limiter, math expressions, audio effects, and image filters.
 - **Route** sends the same value elsewhere or selects among destinations, which is what matrix and spatialisation objects, switches, and object filters do.
 - **Combine** takes several values in and sends one out, as the array combiner, mixers, spatialisation matrices, and pattern combiners do.
 - **Observe** makes a value visible without altering it, which is the role of the signal display, the LED view, the monitoring processes, and the message log.
-
-**Observation is more than a debugging aid.** When a chain misbehaves, inserting an *observe* process at each stage answers faster than reasoning about it, because a signal display between two objects settles in seconds what an argument settles in minutes, and that is the most useful practice this lesson offers.
 
 ## The decision table
 
@@ -94,6 +98,8 @@ An unfamiliar process yields to four moves taken in order, and they work for any
 **Drop it in and watch it** with an observe process on its output, because ten seconds of playing tells you more than the page did.
 
 **Check the user library**, where many objects ship with presets, and a preset is a worked example of what the author expected the object to be used for.
+
+The third move scales from one object to a whole chain, since observation is more than a debugging aid. When a chain misbehaves, inserting an *observe* process at each stage answers faster than reasoning about it, because a signal display between two objects settles in seconds what an argument settles in minutes, and that is the most useful practice this lesson offers.
 
 ## Building your own vocabulary
 

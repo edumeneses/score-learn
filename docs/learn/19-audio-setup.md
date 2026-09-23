@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 19: Audio setup and the routing model"
+title: "Lesson 19: Audio setup and routing"
 description: "Backends, buffer size, and the one rule that explains all of score's audio routing: everything mixes into its parent unless you say otherwise."
 parent: Lessons
 nav_order: 23
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: none
 ---
 
-# Lesson 19: Audio setup and the routing model
+# Lesson 19: Audio setup and routing
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,29 @@ The setup half of the lesson matters for a duller reason, which is that most rep
 
 ## Concepts
 
-**The backend is the system's audio layer, which the application uses without owning the sound card.** It is chosen in the audio preferences, and on Linux, JACK or PipeWire give reliable low latency and let *score* coexist with other audio software, whereas ALSA works and is less flexible; on macOS and Windows the defaults are normally correct.
+### The audio backend
 
-**Buffer size trades latency against safety.** A smaller buffer means lower latency and more risk of dropouts, while a larger one is safer and less responsive. For authoring, comfort matters more than latency. In contrast, a percussive interactive piece needs latency more than comfort, so change the value on purpose and note it in your project documentation, because it is a real part of how the piece behaves.
+The backend is the system's audio layer, which the application uses without owning the sound card. It is chosen in the audio preferences, and on Linux, JACK or PipeWire give reliable low latency and let *score* coexist with other audio software, whereas ALSA works and is less flexible; on macOS and Windows the defaults are normally correct.
 
-**Channel count is not fixed at two.** *score* passes arbitrary channel counts through its ports, which is what makes speaker arrays and domes possible, and no part of the model assumes stereo, which changes how you think about a signal once you have internalised it.
+### Buffer size and latency
 
-**A single routing rule governs the default behaviour.** Every process mixes its audio output into its parent interval; every interval mixes into its parent scenario; and so on, recursively, up to the top of the score, whose output goes to the main output of the audio interface configured in the preferences. In other words, that recursion is the whole default behaviour, and it is why a sound file dropped anywhere in a score is audible without configuration.
+Buffer size trades latency against safety. A smaller buffer means lower latency and more risk of dropouts, while a larger one is safer and less responsive. For authoring, comfort matters more than latency. In contrast, a percussive interactive piece needs latency more than comfort, so the right value depends on the piece, which is why this lesson closes by asking you to write it down.
 
-**Connecting a cable removes propagation.** The moment you connect an audio outlet to another process's audio inlet, the source stops mixing into its parent, because you have stated explicitly where its output should go and its dry signal no longer reaches the parent. This is almost always what you want when you draw a cable. Nevertheless, it is the single most surprising behaviour in the model, so it has a toggle: select the port and switch **propagate** back on in the inspector if you want both the dry path and the routed one.
+### Channel count beyond stereo
 
-**Every audio outlet carries a gain sub-port.** Any output can therefore be faded without inserting an effect, because you right-click the gain port and create an automation, per Lesson 10's fourth route. This is how fades are written in *score*, and it is much less work than the alternatives.
+Channel count is not fixed at two. *score* passes arbitrary channel counts through its ports, which is what makes speaker arrays and domes possible, and no part of the model assumes stereo, which changes how you think about a signal once you have internalised it.
+
+### The recursive routing rule
+
+A single routing rule governs the default behaviour. Every process mixes its audio output into its parent interval; every interval mixes into its parent scenario; and so on, recursively, up to the top of the score, whose output goes to the main output of the audio interface configured in the preferences. In other words, that recursion is the whole default behaviour, and it is why a sound file dropped anywhere in a score is audible without configuration.
+
+### Cables and propagation
+
+Connecting a cable removes propagation. The moment you connect an audio outlet to another process's audio inlet, the source stops mixing into its parent, because you have stated explicitly where its output should go and its dry signal no longer reaches the parent. This is almost always what you want when you draw a cable. Nevertheless, it is the single most surprising behaviour in the model, so it has a toggle: select the port and switch **propagate** back on in the inspector if you want both the dry path and the routed one.
+
+### The gain sub-port
+
+Every audio outlet carries a gain sub-port. Any output can therefore be faded without inserting an effect, because you right-click the gain port and create an automation, per Lesson 10's fourth route. This is how fades are written in *score*, and it is much less work than the alternatives.
 
 ## Walkthrough: configure, then predict
 

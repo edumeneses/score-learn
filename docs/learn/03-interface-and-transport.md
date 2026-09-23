@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 03: Interface layout and transport"
+title: "Lesson 03: The interface: panels, zoom, and transport"
 description: "The three areas of the score window, the four explorer panels, zooming, navigation, and what the transport bar actually controls."
 parent: Lessons
 nav_order: 3
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
-# Lesson 03: Interface layout and transport
+# Lesson 03: The interface: panels, zoom, and transport
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,21 @@ In other words, this lesson is mostly about orientation and recovery, and althou
 
 ## Concepts
 
-**The window has three areas**, which are an explorer panel on the left, the scenario editor in the centre, and the object inspector on the right; almost every action in the course follows the same path, which is to find something on the left, put it in the middle, and adjust it on the right.
+### The three areas of the window
 
-**The left panel holds four explorers behind one frame.** The device explorer is its default face, although icons along its bottom switch it between the **device explorer** (the devices your project talks to), the **processes explorer** (the library of processes you can place), the **user library** (your own saved devices, presets, and process collections), and the **project folder** (the files belonging to the current document). Readers who do not notice the switch conclude that *score* has no process library, and then wonder how anyone adds an automation.
+The window has three areas, which are an explorer panel on the left, the scenario editor in the centre, and the object inspector on the right; almost every action in the course follows the same path, which is to find something on the left, put it in the middle, and adjust it on the right.
 
-**The inspector has two halves that answer different questions.** The top shows the selected object's structural context, which for a process is the interval holding it, and for a state is the instant it sits on and the intervals it links. In contrast, the bottom shows the object's own parameters, such as durations, addresses, and ranges, so when you cannot find a setting, you are usually reading the wrong half.
+### The four explorers
 
-**Zoom is two independent gestures**, since `Ctrl` with the mouse wheel zooms horizontally, in time, whereas `Shift` with the wheel zooms vertically, in space; confusing them accounts for a good share of "my score disappeared".
+The left panel holds four explorers behind one frame. The device explorer is its default face, although icons along its bottom switch it between the **device explorer** (the devices your project talks to), the **processes explorer** (the library of processes you can place), the **user library** (your own saved devices, presets, and process collections), and the **project folder** (the files belonging to the current document). Readers who do not notice the switch conclude that *score* has no process library, and then wonder how anyone adds an automation.
 
-**The transport does not behave like a tape deck.** The bar along the bottom shows position, play, and stop, plus a speed control and a master volume. However, because a score can wait at a trigger and can branch, the position readout tells you where the playhead is in the document, whereas a tape counter would tell you how far through a fixed duration you are.
+### The two halves of the inspector
+
+The inspector has two halves that answer different questions. The top shows the selected object's structural context, which for a process is the interval holding it, and for a state is the instant it sits on and the intervals it links. In contrast, the bottom shows the object's own parameters, such as durations, addresses, and ranges, so when you cannot find a setting, you are usually reading the wrong half.
+
+### The transport and its readout
+
+The transport does not behave like a tape deck. The bar along the bottom shows position, play, and stop, plus a speed control and a master volume. However, because a score can wait at a trigger and can branch, the position readout tells you where the playhead is in the document, whereas a tape counter would tell you how far through a fixed duration you are.
 
 ## Walkthrough: the window, region by region
 
@@ -77,7 +83,7 @@ Each of four panels answers a different question, and knowing them before you ne
 - **Not knowing that the left panel switches** makes the processes library seem missing, in which case `Ctrl+Shift+P` brings it back.
 - **Reading a wait as a hang** is easy, because a score stopped at a trigger looks identical to a score that has crashed, except that the progress bar of the preceding interval has stopped at the trigger and the playhead has not moved; Lesson 15 makes this readable.
 - **Collapsing a panel and losing its buttons** was flagged by the usability study specifically, since reduced panels can hide controls that are recoverable only through a small and not very visible arrow; if a button vanished, widen the panel before searching the menus.
-- **Zooming vertically when you meant horizontally** happens because the two gestures differ by one modifier, although they produce quite different confusion.
+- **Zooming vertically when you meant horizontally** happens because the two gestures differ by one modifier, since `Ctrl` with the wheel zooms in time whereas `Shift` zooms in height, and confusing them accounts for a good share of "my score disappeared".
 - **Editing in the wrong half of the inspector** leads to the conclusion that a setting does not exist, when it sits in the other half.
 - **Assuming the position readout is a progress bar** fails in a score with triggers and branches, because there is no single total duration to be a fraction of.
 

@@ -54,13 +54,17 @@ Whichever you choose, give the input two defects on purpose, a range that is not
 
 ## Concepts you are assembling
 
-**The four-stage pipeline from Lesson 13 runs condition, relate, send, and observe in that order**, and the bench keeps the stages separate so that each can be checked alone.
+### The four-stage pipeline
 
-**The three branches are three intentions for one gesture, whereas three copies of a mapping would be one intention repeated.** Immediate means minimal smoothing and a curve that responds at once; smoothed means generous filtering and a curve that ignores small movements; stepped means that the continuous input becomes discrete, which is what a step or quantising object is for, and which feels categorically different to whoever is moving the sensor.
+The four-stage pipeline from Lesson 13 runs condition, relate, send, and observe in that order, and the bench keeps the stages separate so that each can be checked alone.
 
-**A pipeline that outlives its interval uses the trigger that is never satisfied, from Lesson 11**, so that the bench responds whenever the score is playing.
+### Three intentions for one gesture
 
-**Observation at every stage, using signal displays, turns "the light is not moving" into a question with a location.**
+The three branches are three intentions for one gesture, whereas three copies of a mapping would be one intention repeated. Immediate means minimal smoothing and a curve that responds at once; smoothed means generous filtering and a curve that ignores small movements; stepped means that the continuous input becomes discrete, which is what a step or quantising object is for, and which feels categorically different to whoever is moving the sensor.
+
+### Observation at every stage
+
+Observation at every stage, using signal displays, turns "the light is not moving" into a question with a location.
 
 ## Walkthrough
 
@@ -110,7 +114,7 @@ The timing matters as well, because the bench is what makes Module F testable. E
 - **Smoothing the immediate branch "a little"** turns it into a second smoothed branch, so the comparison the bench exists for is gone.
 - **Testing on a clean input** tells you how the pipeline behaves on data it will not meet, whereas the defects are what the bench exists for.
 - **Leaving out the observations** saves two minutes now and costs far more the first time a branch goes quiet.
-- **Forgetting the trigger that keeps the pipeline alive** lets the bench stop responding after a few seconds, so that it appears broken.
+- **Forgetting the trigger that keeps the pipeline alive** lets the bench stop responding after a few seconds, so that it appears broken; a pipeline that outlives its interval needs the trigger that is never satisfied, from Lesson 11, so that the bench responds whenever the score is playing.
 - **Leaving the map in your head** works until the sensor moves or three months pass, and by then the reasons behind each range are gone.
 
 ## Exercise

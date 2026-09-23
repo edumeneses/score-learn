@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 25: The video pipeline"
+title: "Lesson 25: Video: files, cameras, and output windows"
 description: "How score's render graph works, getting a video file and a camera on screen, and why video ports are not control ports."
 parent: Lessons
 nav_order: 30
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: none
 ---
 
-# Lesson 25: The video pipeline
+# Lesson 25: Video: files, cameras, and output windows
 
 {% include lesson_meta.html %}
 
@@ -26,23 +26,29 @@ score_file: none
 
 Video in *score* is a GPU render graph built from the processes you place, executed on its own thread, with each process writing into a render target; it is not a player bolted onto the side of an audio sequencer. That architecture is why video, control, and audio can share one timeline without the video work being a special case, and it is why the techniques you have used all course apply unchanged to a shader's parameters.
 
-However, the mental model differs from audio in one respect that causes early confusion. Audio propagates up the hierarchy by default, as Lesson 19 established, whereas video does not: an image goes where you cable it, and it appears on screen only when something is cabled to an output, so every connection in the video graph has to be made explicitly.
+However, the mental model differs from audio in one respect that causes early confusion. Audio propagates up the hierarchy by default, as Lesson 19 established, whereas video does not: an image goes only where you send it, and it appears on screen only when a final outlet is addressed to an output, so every connection in the video graph has to be made explicitly.
 
 ## Concepts
 
-**The render graph runs on its own thread and combines processes according to your cables.** Video processes form a graph that *score* builds and executes separately from the rest of the engine, with each process rendering into a target whose results are combined as the cables dictate. Furthermore, the abstraction underneath is Qt's rendering hardware interface, which lets the same graph run on OpenGL ES, Vulkan, Metal, or Direct3D 11 depending on the platform.
+### The render graph
 
-**Shaders are written in ISF (Interactive Shader Format).** Image processes use this open specification for shaders with declared parameters, which matters for two reasons: ISF shaders exist in quantity outside *score*, and a shader's declared parameters become ports, so they are automatable like any other parameter in the course, as Lesson 26 shows by writing one.
+The render graph runs on its own thread and combines processes according to your cables. Video processes form a graph that *score* builds and executes separately from the rest of the engine, with each process rendering into a target whose results are combined as the cables dictate. Furthermore, the abstraction underneath is Qt's rendering hardware interface, which lets the same graph run on OpenGL ES, Vulkan, Metal, or Direct3D 11 depending on the platform.
 
-**An output is a device, declared like any other.** To get an image on screen you need a **window** device, declared in the device explorer, which is the destination you cable your final image into; other outputs exist for sharing images with other applications, namely Spout on Windows, Syphon on macOS, NDI (Network Device Interface) over a network, and shmdata on Linux.
+### Shaders in ISF
 
-**A camera is a device as well.** Declaring a camera device makes its image a source in the graph, identical in kind to a video file.
+Shaders are written in ISF (Interactive Shader Format). Image processes use this open specification for shaders with declared parameters, which matters for two reasons: ISF shaders exist in quantity outside *score*, and a shader's declared parameters become ports, so they are automatable like any other parameter in the course, as Lesson 26 shows by writing one.
 
-**Video ports carry textures and connect only to other video ports.** This sounds obvious and produces a specific confusion when a reader wants an image to react to a number. In contrast to the image input, which accepts only another image, the number belongs on a *parameter* of the image process.
+### Output devices
 
-**Fades are made with alpha, since video outlets have no gain.** Audio has a gain sub-port on every outlet, whereas video has no equivalent, so to fade an image you insert a filter that sets its opacity, the user library's alpha-setting shader being the standard one, and automate that filter's parameter.
+An output is a device, declared like any other. To get an image on screen you need a **window** device, declared in the device explorer, which is the destination you address your final image to; other outputs exist for sharing images with other applications, namely Spout on Windows, Syphon on macOS, NDI (Network Device Interface) over a network, and shmdata on Linux.
 
-**Mixing is itself a process.** The user library provides an eight-channel video mixer, found in the process library under visuals, ISF shader, utility, with an opacity and a blend mode per input; a four-point mapping object is available alongside it for simple projection alignment.
+### Cameras as sources
+
+A camera is a device as well. Declaring a camera device makes its image a source in the graph, identical in kind to a video file.
+
+### The video mixer
+
+Mixing is itself a process. The user library provides an eight-channel video mixer, found in the process library under visuals, ISF shader, utility, with an opacity and a blend mode per input; a four-point mapping object is available alongside it for simple projection alignment.
 
 ## Walkthrough: an image on screen, then two
 
@@ -66,10 +72,18 @@ The figure is `lesson-25.score`, which ships with this lesson and holds the two 
 2. **Drop a video file** into an interval, in the same way that you dropped a sound file in Lesson 20; the process appears, although no image reaches the screen yet.
 3. **Send its output to the window device** by selecting the video process and setting the address on its outlet, which the inspector offers as a list of the declared windows, then play. The image appears; however, unlike audio, no output occurred until you named a destination.
 4. **Switch to the nodal view**, because, as with audio effects, this is where video work belongs.
-5. **Add the alpha filter** from the user library between the video and the window, and cable it in.
+5. **Add the alpha filter** from the user library between the video and the window, cabling the video into it and moving the `Window:/` address from the video's outlet to the filter's.
+
+   {: .warning }
+   > **Fades are made with alpha, since video outlets have no gain.** Audio has a gain sub-port on every outlet, whereas video has no equivalent, so to fade an image you insert a filter that sets its opacity, the user library's alpha-setting shader being the standard one, and automate that filter's parameter.
+
 6. **Automate the opacity** by right-clicking the filter's opacity port, creating an automation, and drawing a fade in and out; when you play, you have a video fade built from the general mechanism.
+
+   {: .warning }
+   > **Video ports carry textures and connect only to other video ports.** This sounds obvious and produces a specific confusion when a reader wants an image to react to a number. In contrast to the image input, which accepts only another image, the number belongs on a *parameter* of the image process, as the opacity port is here.
+
 7. **Add a second source**, either another file or a camera device.
-8. **Add the video mixer**, cable both sources into it and the mixer into the window, then set an opacity and a blend mode per input and watch the combination change.
+8. **Add the video mixer**, cable both sources into it and address the mixer's outlet to `Window:/`, then set an opacity and a blend mode per input and watch the combination change.
 9. **Automate a blend** by automating one input's opacity so that the two sources cross over during the piece.
 10. **Check the frame rate** while both sources and the mixer run, watching for stutter and noting what your machine does under that load, since this number is a real constraint on what you can plan.
 11. **Try a share output** if you have another application that accepts NDI, Spout, or Syphon: send your image there in place of the window, and confirm that it arrives.
@@ -105,7 +119,7 @@ A piece often uses two destinations at once, a monitoring window plus the real o
 ## Common mistakes
 
 - **Declaring no window device**, so that the graph runs and no image reaches the screen; this is the most common first failure.
-- **Expecting video to propagate like audio**, whereas no image appears until it is cabled to an output.
+- **Expecting video to propagate like audio**, whereas no image appears until an outlet is addressed to an output.
 - **Cabling a number into an image input**, since numbers belong on parameters.
 - **Looking for a gain on a video outlet**, when the fade has to be made with an alpha filter.
 - **Authoring at 4K on a laptop**, and thereby planning a piece that the venue machine cannot run either.

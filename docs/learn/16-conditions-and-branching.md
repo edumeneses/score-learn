@@ -30,17 +30,25 @@ Moreover, branching is where a *score* document stops being expressible as a lin
 
 ## Concepts
 
-**A condition belongs to an event and not to a state.** Lesson 02 insisted on this distinction, and here is where it pays, because messages live on states while conditions live on events; an instant can carry several events, each with its own condition, and that is the mechanism of a branch.
+### Conditions belong to events
 
-**Splitting an instant is what turns parallel branches into alternatives.** By default, two intervals leaving the same instant share one event, which means they run together, so each branch needs its **own event** and each event its own condition before they can exclude one another. The `Object` menu holds the commands you need for this: `Add Condition`, shortcut `C`, and `Remove Condition`, `Shift+C`, together with `Merge events` and `Synchronize`, `Shift+M`, which control whether things share an instant at all. This is the step people miss, and the symptom is unmistakable, because both branches run.
+A condition belongs to an event and not to a state. Lesson 02 insisted on this distinction, and here is where it pays, because messages live on states while conditions live on events; an instant can carry several events, each with its own condition, and that is the mechanism of a branch.
 
-**Parallel and exclusive branches are both useful, and the distinction is structural.** Intervals on the *same* event run in parallel every time. In contrast, intervals on *separate* events at the same instant, each with a condition, are alternatives; a score often wants both at once, with a branch that chooses alongside a layer that always runs.
+### Splitting an instant
 
-**A condition is an expression over the values in the device tree.** It is built from comparisons and combinations, such as `sensors:/level > 0.5` or a conjunction of several such tests, and it is evaluated when the instant is reached, using the values at that moment; no earlier value is retained unless you retained it yourself, which the section on where the state lives develops.
+Splitting an instant is what turns parallel branches into alternatives. By default, two intervals leaving the same instant share one event, which means they run together, so each branch needs its **own event** and each event its own condition before they can exclude one another.
 
-**Deleting a condition** is done by selecting it and pressing `Delete` or `Backspace`. Knowing this early matters, because an experimental condition left in place is a branch that silently fails to run.
+### Parallel and exclusive branches
 
-**Offset behaviour decides how a condition is read during a transport jump.** When you jump the playhead into the middle of a score, conditions must be evaluated although the world is not necessarily in the right state, so each condition has an **offset behaviour** setting that treats it as true, treats it as false, or evaluates it against the live value in the device tree. The setting exists for a real rehearsal problem, which [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) solves with it: you should be able to rehearse the branch where the performer stands downstage without asking them to go and stand there.
+Parallel and exclusive branches are both useful, and the distinction is structural. Intervals on the *same* event run in parallel every time. In contrast, intervals on *separate* events at the same instant, each with a condition, are alternatives; a score often wants both at once, with a branch that chooses alongside a layer that always runs.
+
+### Condition expressions
+
+A condition is an expression over the values in the device tree. It is built from comparisons and combinations, such as `sensors:/level > 0.5` or a conjunction of several such tests, and it is evaluated when the instant is reached, using the values at that moment; no earlier value is retained unless you retained it yourself, which the section on where the state lives develops.
+
+### Offset behaviour
+
+Offset behaviour decides how a condition is read during a transport jump. When you jump the playhead into the middle of a score, conditions must be evaluated although the world is not necessarily in the right state, so each condition has an **offset behaviour** setting that treats it as true, treats it as false, or evaluates it against the live value in the device tree. The setting exists for a real rehearsal problem, which [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) solves with it: you should be able to rehearse the branch where the performer stands downstage without asking them to go and stand there.
 
 ## Walkthrough: two branches and a layer
 
@@ -52,10 +60,14 @@ Moreover, branching is where a *score* document stops being expressible as a lin
 4. **Now build your own**, with two chained intervals, and at the second instant drag out a second outgoing interval so that two leave the same point.
 5. **Play it and watch both run**, because they share one event; this is the parallel case, and seeing it once makes the symptom recognisable before you fix it.
 6. **Split the condition** using the scenario's split function on that instant, so that the two branches sit on separate events.
+
+   {: .note }
+   > **The commands for this step live in the `Object` menu.** `Add Condition`, shortcut `C`, and `Remove Condition`, `Shift+C`, sit there together with `Merge events` and `Synchronize`, `Shift+M`, which control whether things share an instant at all.
+
 7. **Give each event a condition**, the two opposing each other and covering the boundary between them without a gap.
 8. **Add a third interval on the original event** with no condition, so that it runs in every case; you now have a score that chooses between two paths while a common layer continues underneath, which is the shape of most real interactive work.
 9. **Set the offset behaviour** on one condition to *true* and on the other to *false*, then jump the playhead past the branch with the transport tools of Lesson 18, and observe which branch you land in, which is the outcome you chose in the settings.
-10. **Delete a condition** and play again, so that you see how a conditionless branch behaves and recognise it when it happens by accident.
+10. **Delete a condition**, by selecting it and pressing `Delete` or `Backspace`, and play again, so that you see how a conditionless branch behaves and recognise it when it happens by accident.
 
 ## Coverage: the discipline that makes branches reliable
 
@@ -83,7 +95,7 @@ What you cannot do is expect a condition to know what a previous condition decid
 
 ## Common mistakes
 
-- **Forgetting to split the instant**, so that both branches run every time.
+- **Forgetting to split the instant**, so that both branches run every time; it is the step people miss, and the symptom is unmistakable.
 - **A gap at the boundary**, so that the score occasionally stops progressing.
 - **An overlap between conditions**, so that two branches occasionally run together.
 - **A condition looked for on a state instead of an event**, when the field is on the event.

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 29: JavaScript processes"
+title: "Lesson 29: JavaScript processes and scripting the score"
 description: "Write a process in JavaScript: declared ports, the tick function, state between ticks, and the scripting API that edits the score itself."
 parent: Lessons
 nav_order: 35
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 29: JavaScript processes
+# Lesson 29: JavaScript processes and scripting the score
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,25 @@ However, that third use is the one people do not expect, and it is the reason th
 
 ## Concepts
 
-**A process declares its ports, and the script is a process like any other.** A script process begins by declaring inlets and outlets, which then appear on it like any other process's ports, automatable, cable-able, and addressable, so the script fits the model.
+### Declared ports
 
-**The tick function runs once per execution tick.** It receives a token describing where in time it is and the current state, so that reading an inlet, computing, and writing an outlet is the whole shape of a control script.
+A process declares its ports, and the script is a process like any other. A script process begins by declaring inlets and outlets, which then appear on it like any other process's ports, automatable, cable-able, and addressable, so the script fits the model.
 
-**State between ticks is what separates a script from any combination of utilities.** A script can keep variables across ticks, so that it can count, remember, and wait for a pattern of inputs, which no chain of utility processes can do. Furthermore, that state is the answer to the question Lesson 16 left open about where a condition's history can live.
+### The tick function
 
-**The console is a read-evaluate-print panel with the same API (application programming interface).** `Ctrl+Shift+C` opens it, and it is the right place to test a line before putting it in a script. Moreover, it doubles as a calculator.
+The tick function runs once per execution tick. It receives a token describing where in time it is and the current state, so that reading an inlet, computing, and writing an outlet is the whole shape of a control script.
 
-**The scripting API edits the score itself.** A global `Score` object exposes the document, so that you can find an object by its name, create intervals and processes, set addresses and curve points, undo, redo, and start and stop playback, while a `Util` object adds helpers such as reading a file. Because these are commands, they participate in undo, and wrapping a batch between a macro start and end makes the whole generated structure undoable in one step, which you will want the first time a script generates sixteen intervals you did not intend.
+### State between ticks
 
-**Scripts can live in the library and register in the menu.** A `.js` file in the user library can be double-clicked to run in the global context, and a JavaScript module in the system library can register actions in the application's `Scripts` menu, with keyboard shortcuts, by exporting an `initialize` function and an `actions` array; that is how a personal tool becomes part of your interface.
+State between ticks is what separates a script from any combination of utilities. A script can keep variables across ticks, so that it can count, remember, and wait for a pattern of inputs, which no chain of utility processes can do. Furthermore, that state is the answer to the question Lesson 16 left open about where a condition's history can live.
+
+### The console
+
+The console is a read-evaluate-print panel with the same API (application programming interface). `Ctrl+Shift+C` opens it, and it is the right place to test a line before putting it in a script. Moreover, it doubles as a calculator, which is how the walkthrough first uses it.
+
+### The scripting API
+
+The scripting API edits the score itself. A global `Score` object exposes the document, so that you can find an object by its name, create intervals and processes, set addresses and curve points, undo, redo, and start and stop playback, while a `Util` object adds helpers such as reading a file. Because these are commands, they participate in undo, and wrapping a batch between a macro start and end makes the whole generated structure undoable in one step, which you will want the first time a script generates sixteen intervals you did not intend.
 
 ## Walkthrough: three uses, smallest first
 
@@ -62,6 +70,9 @@ The script in the figure is `average`, one of the JavaScript examples that ships
 9. **Generate structure** by writing, in the console, a short loop that creates several intervals after a selected state, each with a process, wrapped in a macro; run it, look at what appeared, and undo it in one step.
 10. **Randomise a process** by writing a function that walks a process's inlets, reads each one's type and range, and sets a random value within it; this is the canonical example.
 11. **Install it as an action** by putting a module in the system library that registers your randomiser in the `Scripts` menu with a shortcut, and use it from the menu.
+
+    {: .note }
+    > **Scripts can live in the library and register in the menu.** A `.js` file in the user library can be double-clicked to run in the global context, and a JavaScript module in the system library can register actions in the application's `Scripts` menu, with keyboard shortcuts, by exporting an `initialize` function and an `actions` array; that is how a personal tool becomes part of your interface.
 
 ## When to script, and when not to
 

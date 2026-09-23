@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 37: Recording and streaming the output"
+title: "Lesson 37: Recording and streaming: Spout, Syphon, shmdata, and OBS"
 description: "Get audio and video out of score into a recording or a livestream, per platform, and know what each route costs."
 parent: Lessons
 nav_order: 43
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: none
 ---
 
-# Lesson 37: Recording and streaming the output
+# Lesson 37: Recording and streaming: Spout, Syphon, shmdata, and OBS
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,17 @@ Streaming has become part of the practice for the same reason, and the mechanism
 
 ## Concepts
 
-**Video leaves *score* through a share protocol.** Instead of pointing a screen recorder at a window, you send the video output directly to the capture application, through **Spout** on Windows, **Syphon** on macOS, or **shmdata** on Linux. This is a clean handoff at full resolution and frame rate, and it is the route the reference documentation recommends for each platform.
+### Share protocols
 
-**On Windows, Spout carries the video.** Add a Spout output in *score*, set it as the output of your video chain, and then add a Spout input source in OBS through the community plug-in. Additionally, the audio needs an output path that supports loopback, since a driver without loopback delivers no audio at all, and OBS captures it as an audio output source.
+Video leaves *score* through a share protocol. Instead of pointing a screen recorder at a window, you send the video output directly to the capture application, through **Spout** on Windows, **Syphon** on macOS, or **shmdata** on Linux. This is a clean handoff at full resolution and frame rate, and it is the route the reference documentation recommends for each platform.
 
-**On macOS, Syphon plays the same role.** Add a Syphon output and consume it in OBS; a Syphon virtual webcam makes the stream visible to applications that do not speak Syphon directly.
+### Direct network streams
 
-**On Linux, shmdata feeds a virtual camera.** The recommended route sends shmdata into GStreamer and out to a virtual camera device, which then behaves like a webcam for OBS, browsers, or any other application. In contrast, audio is simpler, because with JACK or PipeWire, OBS takes *score*'s output directly as a client input.
+The same output can go straight to a network stream. On Linux the shmdata output can be piped through GStreamer into a network stream, which skips the capture application entirely. This is the lightest route for an unattended stream and the least convenient for one where you want to add titles and switch sources.
 
-**The same output can go straight to a network stream.** On Linux the shmdata output can be piped through GStreamer into a network stream, which skips the capture application entirely. This is the lightest route for an unattended stream and the least convenient for one where you want to add titles and switch sources.
+### Recording values versus recording the piece
 
-**Recording control values is a different job from recording the piece.** The CSV recorder from Lesson 12 logs numbers, which is what you want for analysis, for a paper, or for handing data to a collaborator. However, it produces data about the piece, whereas documentation records the piece itself.
-
-**Capture costs performance**, because encoding video is real work on the same machine that is rendering it. A piece that runs comfortably will not necessarily run comfortably while being captured, and the dependable solution is often a second machine, as a later section argues.
+Recording control values is a different job from recording the piece. The CSV recorder from Lesson 12 logs numbers, which is what you want for analysis, for a paper, or for handing data to a collaborator. However, it produces data about the piece, whereas documentation records the piece itself.
 
 ## Walkthrough: a local recording, then a stream
 
@@ -51,10 +49,26 @@ Streaming has become part of the practice for the same reason, and the mechanism
 
 1. **Get the piece running as it should be seen**, because capture is the last step, and capturing a piece you are still editing wastes the take.
 2. **Add the share output for your platform** and set it as the output of your video chain, alongside your monitoring window so that you keep a local view of the piece.
+
+   {: .note }
+   > **On Windows, Spout carries the video.** Add a Spout output in *score*, set it as the output of your video chain, and then add a Spout input source in OBS through the community plug-in.
+   >
+   > **On macOS, Syphon plays the same role.** Add a Syphon output and consume it in OBS; a Syphon virtual webcam makes the stream visible to applications that do not speak Syphon directly.
+   >
+   > **On Linux, shmdata feeds a virtual camera.** The recommended route sends shmdata into GStreamer and out to a virtual camera device. Consequently, that device behaves like a webcam for OBS, browsers, or any other application.
+
 3. **Consume it in OBS** and confirm that you see the image at full size, without scaling artefacts.
 4. **Route the audio by your platform's method** and confirm that the levels arrive. Check for the double-capture mistake, in which audio arrives twice, once through the intended path and once through a desktop capture, and sounds subtly wrong instead of obviously wrong.
+
+   {: .warning }
+   > **On Windows, the audio needs an output path that supports loopback**, since a driver without loopback delivers no audio at all, whereas with loopback OBS captures the output as an audio output source. In contrast, audio on Linux is simpler, because with JACK or PipeWire, OBS takes *score*'s output directly as a client input.
+
 5. **Record two minutes and watch it back**, looking for dropped frames, listening for glitches, and checking the synchronisation between what you hear and what you see.
 6. **Measure the cost** by comparing the frame rate with and without capture running. If it fell, decide between lowering the capture resolution, lowering the piece's resolution, or moving the capture to a second machine.
+
+   {: .warning }
+   > **Capture costs performance**, because encoding video is real work on the same machine that is rendering it. A piece that runs comfortably will not necessarily run comfortably while being captured, and the dependable solution is often a second machine, as a later section argues.
+
 7. **Do a full take** with no editing and no adjustment during the run, because a capture is performed in the same sense that the piece is, and an interrupted take documents a different piece.
 8. **Stream it** by configuring a destination in OBS and going live to a private or unlisted target as a test, and confirm that the stream is watchable instead of assuming it.
 9. **Try the direct route** if you are on Linux and the stream is unattended, sending shmdata into GStreamer and on to a network stream with no capture application at all, and compare the processor cost with the OBS route.

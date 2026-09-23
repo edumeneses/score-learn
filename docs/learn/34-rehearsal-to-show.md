@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 34: Rehearsal to show"
+title: "Lesson 34: From rehearsal to show: riders, cue sheets, and failure plans"
 description: "Score hygiene, a dependency list, a technical rider, and a failure plan: turning a document that works into a piece that can be produced."
 parent: Lessons
 nav_order: 40
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: none
 ---
 
-# Lesson 34: Rehearsal to show
+# Lesson 34: From rehearsal to show: riders, cue sheets, and failure plans
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,29 @@ The framing to adopt is that your document is one deliverable and the paperwork 
 
 ## Concepts
 
-**A legible score has names on every interval and state, colours used consistently, and a structure that reads when folded with `Ctrl+Alt+F`.** This is not tidiness for its own sake, because a folded, named score is the document you will read at eight in the morning when something is wrong. In contrast, an unnamed one answers no question at that hour.
+### A legible score
 
-**The dependency list names what the document needs that it does not contain.** That means *score*'s version, plug-ins with their formats, addons from the package manager, Pure Data and its externals, fonts, and any external application, each with a version and each with where it came from.
+A legible score has names on every interval and state, colours used consistently, and a structure that reads when folded with `Ctrl+Alt+F`. This is not tidiness for its own sake, because a folded, named score is the document you will read at eight in the morning when something is wrong. In contrast, an unnamed one answers no question at that hour.
 
-**The technical rider states what the piece needs from the venue.** It covers audio channels and what each carries, video outputs and resolutions, network requirements, lighting universes, and physical layout, and it is written for a technician who has not met you and will not read prose.
+### The dependency list
 
-**The cue sheet says what happens, in order, with the timings that matter and the interactions that are not automatic.** It is the document a stage manager works from, and writing it usually reveals a decision you had not made.
+The dependency list names what the document needs that it does not contain. That means *score*'s version, plug-ins with their formats, addons from the package manager, Pure Data and its externals, fonts, and any external application, each with a version and each with where it came from.
 
-**The failure plan says, for each part that can fail, what the piece does and what the operator should do.** A sensor unplugged, a projector that does not wake, a network that is missing, and a machine that reboots mid-show each need a line, because deciding this in advance is the difference between a pause and a cancellation.
+### The technical rider
 
-**The reduced version is a tested, smaller configuration for a venue that has less than the rider asks for.** Milestone P6 introduced it, and it applies to every piece with a media requirement.
+The technical rider states what the piece needs from the venue. It covers audio channels and what each carries, video outputs and resolutions, network requirements, lighting universes, and physical layout, and it is written for a technician who has not met you and will not read prose.
+
+### The cue sheet
+
+The cue sheet says what happens, in order, with the timings that matter and the interactions that are not automatic. It is the document a stage manager works from, and writing it usually reveals a decision you had not made.
+
+### The failure plan
+
+The failure plan says, for each part that can fail, what the piece does and what the operator should do. A sensor unplugged, a projector that does not wake, a network that is missing, and a machine that reboots mid-show each need a line, because deciding this in advance is the difference between a pause and a cancellation.
+
+### The reduced version
+
+The reduced version is a tested, smaller configuration for a venue that has less than the rider asks for. Milestone P6 introduced it, and it applies to every piece with a media requirement.
 
 ## Walkthrough: five documents in ninety minutes
 

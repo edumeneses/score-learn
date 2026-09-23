@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 18: Cues, seek, and transport control"
+title: "Lesson 18: Start and stop cues, seeking, and transport"
 description: "The four transport buttons, start and stop cues, playing from a point and what score computes to get there, and the unsynchronize control."
 parent: Lessons
 nav_order: 21
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 18: Cues, seek, and transport control
+# Lesson 18: Start and stop cues, seeking, and transport
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,33 @@ Furthermore, this lesson settles the control that the usability study conducted 
 
 ## Concepts
 
-**The transport offers four buttons, which the `Play` menu names with their shortcuts.** Local play, global play, stop, and reinitialise correspond to `space`, `Shift+Space`, `↵`, and `Ctrl+↵`, and the distinction between the first two is the one to learn: **local play** plays the object you are looking at, which is how you rehearse a scene without the rest of the score, whereas **global play** plays the score from the top. Reinitialise stops the document and returns it to its starting condition, so that the next play begins from a known state. The same menu carries `Play (Network)` and `Stop (Network)`, which [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) uses.
+### Local play and global play
 
-**Start and stop cues occupy the first and last states of the score.** A cue dropped on the **first** state, in timeline view, is sent whenever the score starts and whenever it is reinitialised, while a cue on the **last** state is sent whenever the score is stopped. These two states are therefore special, and they are the correct place for the parameters that must reach a known condition and for those that must be switched off. This mechanism closes the gap that Milestone P1 identified, because interrupted playback now has a defined ending: stopping sends the last state.
+The transport offers four buttons, which are local play, global play, stop, and reinitialise, and the distinction between the first two is the one to learn: **local play** plays the object you are looking at, which is how you rehearse a scene without the rest of the score, whereas **global play** plays the score from the top. Reinitialise stops the document and returns it to its starting condition, so that the next play begins from a known state.
 
-**Play from here moves the playhead to a chosen point and starts there.** Right-click in a scenario and choose *play from here*, or use the play tool, to enter the score at an arbitrary position. In other words, this operation is seeking, and in an interactive score it needs a policy for the states and triggers it jumps over, which the next two concepts supply.
+### Start and stop cues
 
-**Value compilation keeps a seek consistent with the material it skipped.** When you seek into the middle of a score that is not playing, *score* computes every state from the beginning up to that point and sends the resulting values, keeping the last value for any address that is set more than once. Without it, jumping past the state that started an external player would leave that player silent, and the feature would be useless. A pair of preferences controls it, one for the first seek and one for subsequent seeks while the score is already running.
+Start and stop cues occupy the first and last states of the score. A cue dropped on the **first** state, in timeline view, is sent whenever the score starts and whenever it is reinitialised, while a cue on the **last** state is sent whenever the score is stopped. These two states are therefore special, and they are the correct place for the parameters that must reach a known condition and for those that must be switched off. This mechanism closes the gap that Milestone P1 identified, because interrupted playback now has a defined ending: stopping sends the last state.
 
-**Interactive points before the target are fired by the seek.** The policy holds that the visual duration of an interval, even a fully interactive one, means the duration you expect it to last, so seeking fires the interactive points before your target and positions the intervals accordingly, which can surprise an operator who did not press them. Nevertheless, this is the only policy under which a seek lands in a predictable place, and knowing that it is the policy turns the surprise into an expectation.
+### Seeking with play from here
 
-**A start marker fixes where every play begins during rehearsal.** Right-click in the musical metrics area at the top of the score to set one, after which play always starts from that point; this is how you rehearse the same passage repeatedly without seeking each time.
+Play from here moves the playhead to a chosen point and starts there, so that you enter the score at an arbitrary position. In other words, this operation is seeking, and in an interactive score it needs a policy for the states and triggers it jumps over, which the next two concepts supply.
 
-**External transport, where a piece needs it, comes from JACK.** *score* can synchronise with JACK transport, as client or master, from the global settings; other protocols are planned, but today this is the one that ships.
+### Value compilation
+
+Value compilation keeps a seek consistent with the material it skipped. When you seek into the middle of a score that is not playing, *score* computes every state from the beginning up to that point and sends the resulting values, keeping the last value for any address that is set more than once. Without it, jumping past the state that started an external player would leave that player silent, and the feature would be useless. A pair of preferences controls it, one for the first seek and one for subsequent seeks while the score is already running.
+
+### Interactive points during a seek
+
+Interactive points before the target are fired by the seek. The policy holds that the visual duration of an interval, even a fully interactive one, means the duration you expect it to last, so seeking fires the interactive points before your target and positions the intervals accordingly, which can surprise an operator who did not press them. Nevertheless, this is the only policy under which a seek lands in a predictable place, and knowing that it is the policy turns the surprise into an expectation.
+
+### Start markers
+
+A start marker fixes where every play begins during rehearsal, since once one is set, play always starts from that point; this is how you rehearse the same passage repeatedly without seeking each time.
+
+### External transport with JACK
+
+External transport, where a piece needs it, comes from JACK. *score* can synchronise with JACK transport, as client or master, from the global settings; other protocols are planned, but today this is the one that ships.
 
 ## Unsynchronize, plainly
 
@@ -60,9 +74,13 @@ However, the control confuses people because it is an icon whose effect is invis
 2. **Add a start cue** by dropping the parameters that must be in a known condition onto the very first state, then play, reinitialise, and confirm that the values are sent both times.
 3. **Add a stop cue** by dropping the parameters that must be off onto the very last state, then play, stop halfway, and confirm that they are sent; your score can no longer leave a light on.
 4. **Rehearse a section with local play** by entering the section and playing it locally, so that you hear that section without sitting through the whole document.
-5. **Seek into the middle** by right-clicking at a point in the second section and choosing play from here, and watch what arrives: values compiled from the beginning, so that the external state is consistent even though you skipped the intervals that would have set it.
+
+   {: .note }
+   > **The `Play` menu names the four transport buttons with their shortcuts.** Local play, global play, stop, and reinitialise correspond to `space`, `Shift+Space`, `↵`, and `Ctrl+↵`. The same menu carries `Play (Network)` and `Stop (Network)`, which [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) uses.
+
+5. **Seek into the middle** by right-clicking at a point in the second section and choosing play from here, or by using the play tool, and watch what arrives: values compiled from the beginning, so that the external state is consistent even though you skipped the intervals that would have set it.
 6. **Seek past a condition** and note which branch you land in, then set that condition's offset behaviour, per Lesson 16, and seek again; you have now made a branch rehearsable without staging its precondition.
-7. **Set a start marker** in the metrics area at the top and press play repeatedly, which returns you to the same passage each time without a seek.
+7. **Set a start marker** by right-clicking in the musical metrics area at the top of the score, and press play repeatedly, which returns you to the same passage each time without a seek.
 8. **Play a single state** with the play tool or the right-click menu, so that one cue fires on its own and you can test it without running the material around it.
 9. **Unsynchronize on purpose** by giving two intervals a shared ending instant, making one of them wait on a trigger, and observing that both wait; then unsynchronize them, observe that one proceeds, and write down which behaviour you wanted.
 10. **Write the operator's page** in three lines, stating what to press to start, what happens on stop, and what to do if a cue is missed; if you cannot write it, the document is not operable yet.

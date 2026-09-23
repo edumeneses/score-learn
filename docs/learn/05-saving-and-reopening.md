@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 05: Saving, versioning, and reopening"
+title: "Lesson 05: Saving a project, media paths, and reopening"
 description: "What a .score file contains, what it only points at, and how to package a project so it opens on another machine."
 parent: Lessons
 nav_order: 5
@@ -12,7 +12,7 @@ practice_time: "15 min"
 score_file: 04-first-process/lesson-04.score
 ---
 
-# Lesson 05: Saving, versioning, and reopening
+# Lesson 05: Saving a project, media paths, and reopening
 
 {% include lesson_meta.html %}
 
@@ -30,21 +30,27 @@ A second reason concerns the file format, since a `.score` file is JSON (JavaScr
 
 ## Concepts
 
-**The file contains the whole temporal structure**, which means every process and its settings, every state's messages, and the declarations of the devices the document expects, including their protocol settings; opening `lesson-04.score` in a text editor lets you find `lesson:/level` as plain text.
+### What the file contains
 
-**The file only points at media and code that it does not embed**, such as sound files, video files, images, 3D models, shader and script files, and plug-ins, for which the document stores a path. However, if the path breaks, the structure still opens while the content is missing, which is a much better failure than not opening at all, and still a failure.
+The file contains the whole temporal structure, which means every process and its settings, every state's messages, and the declarations of the devices the document expects, including their protocol settings; opening `lesson-04.score` in a text editor lets you find `lesson:/level` as plain text.
 
-**A relative path survives a move, whereas an absolute path does not.** A path relative to the document survives being moved as a set, while an absolute path survives only on the machine that wrote it; keeping media beside the score, in the project folder, removes the problem.
+### Referenced media and code
 
-**The project folder is the left panel's fourth face**, which shows the files belonging to the current document. Furthermore, it is the natural home for the media a score references, and the reason the panel exists at all.
+The file only points at media and code that it does not embed, such as sound files, video files, images, 3D models, shader and script files, and plug-ins, for which the document stores a path. However, if the path breaks, the structure still opens while the content is missing, which is a much better failure than not opening at all, and still a failure.
 
-**Devices are expectations rather than equipment**, so reopening a document on a machine with no synthesiser attached still opens the score, because the device declaration is present while the connection is not live. This is why a score can be authored on a laptop and run on a rig, and it is the practical payoff of the separation [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html) explains.
+### Relative and absolute paths
+
+A relative path survives a move, whereas an absolute path does not. A path relative to the document survives being moved as a set, while an absolute path survives only on the machine that wrote it; keeping media beside the score, in the project folder, removes the problem.
+
+### Devices as expectations
+
+Devices are expectations rather than equipment, so reopening a document on a machine with no synthesiser attached still opens the score, because the device declaration is present while the connection is not live. This is why a score can be authored on a laptop and run on a rig, and it is the practical payoff of the separation [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html) explains.
 
 ## Walkthrough: package a project properly
 
 ![The project folder panel, listing the documents that sit beside the score]({{ site.img }}/05/05-01-project-folder.png)
 
-1. **Make a project directory**, one per piece, for example `~/score/fade-study/`, and put the `.score` file in it; the project folder panel, `Ctrl+Shift+L`, then lists what is in it, as in the figure.
+1. **Make a project directory**, one per piece, for example `~/score/fade-study/`, and put the `.score` file in it; the project folder panel, `Ctrl+Shift+L`, then lists what is in it, as in the figure. Furthermore, that panel, the left panel's fourth face, is the natural home for the media a score references, and the reason it exists at all.
 2. **Put media beside the score** by copying rather than linking every sound file, image, and script the document uses into that directory, or a `media/` subdirectory of it.
 3. **Re-point the document at the copies** by reselecting each media file from inside the project directory, so that the stored paths are the ones you control.
 4. **Save, close, and reopen** the document, and confirm that no element is missing; this step is the only way to know that what you think is stored is stored.

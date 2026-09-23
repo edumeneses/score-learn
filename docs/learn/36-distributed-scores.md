@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 36: Distributed scores"
+title: "Lesson 36: Networked scores: controlling one instance from another"
 description: "Control one score from another machine, share a performance across several computers, and choose what actually needs synchronising."
 parent: Lessons
 nav_order: 42
@@ -12,7 +12,7 @@ practice_time: "40 min"
 score_file: none
 ---
 
-# Lesson 36: Distributed scores
+# Lesson 36: Networked scores: controlling one instance from another
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,25 @@ However, the important lesson concerns restraint. Most multi-machine pieces do n
 
 ## Concepts
 
-**The local device exposes *score* itself as a device**, which means one instance can be addressed in the same way as a synthesiser or a light. When you declare an OSC or OSCQuery device on machine A that points at machine B's local device, A can drive B with the same automations, states, and mappings you have used throughout the course, so that a distributed piece requires no new concept.
+### The local device
 
-**OSCQuery lets the controlled instance be discovered.** Because the local device can describe itself, a controlling instance can import the whole tree instead of declaring it by hand, which is the argument from Lesson 06 for descriptive protocols paying off at the moment an address space becomes large.
+The local device exposes *score* itself as a device, which means one instance can be addressed in the same way as a synthesiser or a light. When you declare an OSC or OSCQuery device on machine A that points at machine B's local device, A can drive B with the same automations, states, and mappings you have used throughout the course, so that a distributed piece requires no new concept.
 
-**The WebSocket protocol from Lesson 33 is the other route** into a running instance, since it carries transport, triggers, interval speed and gain, values to addresses, and listening. In contrast to the local device, it is the right choice when the controller is not *score* but a browser, a tablet, or a program written for the purpose.
+### Discovery with OSCQuery
 
-**Four kinds of information can be shared, in increasing order of difficulty.** Cues are discrete messages by which one machine tells another to fire a trigger; values are continuous parameters sent between machines; transport covers start, stop, and position; content is audio or video streamed between machines through the share protocols of Lesson 25. Each step up that list costs more bandwidth and tolerates less latency, which is why the later section on synchronisation follows the same order.
+OSCQuery lets the controlled instance be discovered. Because the local device can describe itself, a controlling instance can import the whole tree instead of declaring it by hand, which is the argument from Lesson 06 for descriptive protocols paying off at the moment an address space becomes large.
 
-**The network is part of the piece**, because latency, jitter, and packet loss are properties of your production, and a wired connection behaves predictably where a wireless one does not. For any work that is performed, use a cable. However, where a cable is impossible, design so that a late message is survivable.
+### The WebSocket route
 
-**A machine outside your network can still be reached.** For remote installations, a virtual private network such as ZeroTier puts machines on one logical network regardless of where they are physically, which is how a piece in another city gets maintained without travel. The *ossia* community has published this workflow.
+The WebSocket protocol from Lesson 33 is the other route into a running instance, since it carries transport, triggers, interval speed and gain, values to addresses, and listening. In contrast to the local device, it is the right choice when the controller is not *score* but a browser, a tablet, or a program written for the purpose.
+
+### Four kinds of shared information
+
+Four kinds of information can be shared, in increasing order of difficulty. Cues are discrete messages by which one machine tells another to fire a trigger; values are continuous parameters sent between machines; transport covers start, stop, and position; content is audio or video streamed between machines through the share protocols of Lesson 25. Each step up that list costs more bandwidth and tolerates less latency, which is why the later section on synchronisation follows the same order.
+
+### The network as part of the piece
+
+The network is part of the piece, because latency, jitter, and packet loss are properties of your production, and a wired connection behaves predictably where a wireless one does not. For any work that is performed, use a cable. However, where a cable is impossible, design so that a late message is survivable.
 
 ## Walkthrough: two instances, one piece
 
@@ -58,6 +66,10 @@ However, the important lesson concerns restraint. Most multi-machine pieces do n
 9. **Make the failure behaviour a decision** by giving the controlled instance a defined response to missing control: it continues autonomously, falls to a safe state, or holds. Implement that response with a timeout, using the maximum-duration idiom from Lesson 15.
 10. **Repeat the measurements over wireless** and compare them with the wired figures, since this comparison decides whether your production can use a wireless link at all.
 11. **Add remote access** through a virtual private network if the piece will live somewhere you are not, and confirm that you can reach both machines from outside the venue.
+
+    {: .note }
+    > **A machine outside your network can still be reached.** For remote installations, a virtual private network such as ZeroTier puts machines on one logical network regardless of where they are physically, which is how a piece in another city gets maintained without travel. The *ossia* community has published this workflow.
+
 12. **Document the topology** so that a collaborator can draw it: which machine does what, which addresses cross the network, what the failure behaviour is, and what the piece needs from the venue's network.
 
 ## What to synchronise, and what to leave alone

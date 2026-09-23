@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 39: Writing your own process"
+title: "Lesson 39: Writing your own process in C++ with Avendish"
 description: "Build score from source or use its SDK, write a process with Avendish where inputs are struct members, and publish it as an addon."
 parent: Lessons
 nav_order: 45
@@ -12,7 +12,7 @@ practice_time: "60 min"
 score_file: none
 ---
 
-# Lesson 39: Writing your own process
+# Lesson 39: Writing your own process in C++ with Avendish
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,21 @@ However, the barrier to writing one is much lower than it was, because the **Ave
 
 ## Concepts
 
-**Of the two APIs available, Avendish is the one to choose.** *score* has its own internal plug-in API, which is capable and verbose, and it has **Avendish**, which is declarative and much smaller. For a process, Avendish is the recommended route, whereas the internal API serves those extending the application itself instead of adding an object to it.
+### Avendish and the internal API
 
-**Inputs and outputs are struct members**, so you declare a structure, give it members for its ports, and write the processing function; the port names and ranges you declare become the ports you have been using all course, which is why your object behaves like a built-in one from the first build.
+Of the two APIs available, Avendish is the one to choose. *score* has its own internal plug-in API, which is capable and verbose, and it has **Avendish**, which is declarative and much smaller. For a process, Avendish is the recommended route, whereas the internal API serves those extending the application itself instead of adding an object to it.
 
-**The API has no dependencies by design**, because an Avendish object needs no headers of its own. In other words, the objects stay portable to other hosts and easy to reason about.
+### Ports as struct members
 
-**Several kinds of object are possible**, since the API covers control processes, generators, and others as well as audio effects. Choose the kind that matches what you are making before writing code, because the kind determines the shape of the structure.
+Inputs and outputs are struct members, so you declare a structure, give it members for its ports, and write the processing function; the port names and ranges you declare become the ports you have been using all course, which is why your object behaves like a built-in one from the first build.
 
-**There are two ways to build**, and **building *score* from source** gives you the whole application while taking the longest. In contrast, downloading the **SDK** (software development kit) and building only your plug-in against it is much faster and is what the template expects, so for a first process take the SDK route.
+### An API without dependencies
 
-**A template provides the whole skeleton**, because the project publishes a GitHub template for a dynamic *score* plug-in, so that you create a repository from it, install CMake and Ninja, point the build at the SDK, and have a compiling addon before you have written any of your own logic. Starting from a compiling skeleton instead of a blank file is the single most useful piece of advice in this lesson.
+The API has no dependencies by design, because an Avendish object needs no headers of its own. In other words, the objects stay portable to other hosts and easy to reason about.
 
-**Publishing goes through the package manager**, through which a built addon can be installed; that is how the Faust libraries and shader collections you used in Modules G and I arrived, and it is the path from "I wrote something" to "other people use it".
+### Kinds of object
+
+Several kinds of object are possible, since the API covers control processes, generators, and others as well as audio effects. Choose the kind that matches what you are making before writing code, because the kind determines the shape of the structure.
 
 ## Walkthrough: from template to library entry
 
@@ -51,15 +53,19 @@ However, the barrier to writing one is much lower than it was, because the **Ave
 
 1. **Read the Avendish documentation first**, because an hour there saves a day of guessing; the model is small and unusual enough that intuition from other plug-in formats misleads.
 2. **Decide what kind of object you are making**, and check whether a Faust script or a JavaScript process would do; if either would, do that instead and stop here.
-3. **Create a repository from the template** instead of starting a project by hand.
+3. **Create a repository from the template** instead of starting a project by hand, because the project publishes a GitHub template for a dynamic *score* plug-in, which gives you a compiling addon before you have written any of your own logic. Starting from a compiling skeleton, and not from a blank file, is the single most useful piece of advice in this lesson.
 4. **Install the toolchain**, which means CMake and Ninja on every platform, plus Xcode on macOS.
 5. **Get the SDK** through the application's settings, and note whether you took the release or the continuous build, because that choice determines the path you configure.
+
+   {: .note }
+   > **There are two ways to build**, and **building *score* from source** gives you the whole application while taking the longest. In contrast, downloading the **SDK** (software development kit) and building only your plug-in against it is much faster and is what the template expects, so for a first process take the SDK route.
+
 6. **Configure and build the untouched template** without writing anything of your own yet, and confirm that the skeleton compiles and that the resulting object appears in *score*'s library. This step is where a first attempt usually fails, and finding out with no code of your own is much cheaper.
 7. **Change one thing** by renaming the object and adding one input member, then rebuild and confirm that the new port appears.
 8. **Implement your actual processing** in the smallest form that does something, then rebuild, drop it in a score, and cable it up.
 9. **Automate one of its ports** from the timeline, at which point your object is indistinguishable from a built-in process from the score's point of view, which is the moment the work pays off.
 10. **Test it where it will run**, which means that if the piece will be deployed to the embedded target of Lesson 35, you build for that architecture too, and find out now instead of at the installation.
-11. **Package it as an addon**, and install it through the package manager on a second machine to confirm that the distribution path works.
+11. **Package it as an addon**, and install it through the package manager on a second machine to confirm that the distribution path works. The package manager is how the Faust libraries and shader collections you used in Modules G and I arrived, and it is the path from "I wrote something" to "other people use it".
 12. **Document it** on one page that states what it does, its ports and their ranges, and one example score, because without that page it is a private tool instead of a contribution.
 
 ## Before you write C++

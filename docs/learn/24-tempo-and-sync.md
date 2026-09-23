@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 24: Tempo, metre, and synchronisation"
+title: "Lesson 24: Tempo, quantisation, and sync with other software"
 description: "Give an interval its own tempo and time signature, quantise triggers to musical positions, and build a polyrhythm from nested intervals."
 parent: Lessons
 nav_order: 29
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: none
 ---
 
-# Lesson 24: Tempo, metre, and synchronisation
+# Lesson 24: Tempo, quantisation, and sync with other software
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,33 @@ However, the rule is less a curiosity than the mechanism behind polyrhythm, cros
 
 ## Concepts
 
-**Musical metrics belong to intervals, which either declare their own or inherit them.** An interval either has its own tempo and signature, or it takes them from its nearest ancestor that does, recursively up to the root; you mark an interval as having its own metrics in its inspector while the interval is open in full view. That single rule produces every other behaviour in this lesson.
+### Inherited musical metrics
 
-**An interval's musical time is defined by three controls, each of which answers a different question.** A **time signature** delimits bars, which is the unit quantisation counts in; a **tempo curve** gives an interval a speed, which can itself change over time; and a **quantisation setting** says at which musical division child elements are allowed to start.
+Musical metrics belong to intervals, which either declare their own or inherit them. An interval either has its own tempo and signature, or it takes them from its nearest ancestor that does, recursively up to the root; you mark an interval as having its own metrics in its inspector while the interval is open in full view. That single rule produces every other behaviour in this lesson.
 
-**Quantisation governs when child elements are permitted to begin.** Set an interval's quantisation to one bar, and a child element triggered mid-bar starts at the beginning of the next bar instead of immediately, so that the entry lands on the grid however imprecisely it was fired. Every quantisable place offers the musical divisions plus two special values, **parent** and **free**: the first defers to the ancestor's setting, whereas the second disables quantisation so that starts are immediate.
+### Time signature, tempo, and quantisation
 
-**Processes that understand musical time follow it without any connection.** Audio plug-ins, LFOs, and arpeggiators read tempo and metric information from their parent interval, so you do not connect a clock to them, and this inherited clock is why Lesson 11 could promise that an LFO stays locked to the piece.
+An interval's musical time is defined by three controls, each of which answers a different question. A **time signature** delimits bars, which is the unit quantisation counts in; a **tempo curve** gives an interval a speed, which can itself change over time; and a **quantisation setting** says at which musical division child elements are allowed to start.
 
-**Polyrhythm is a matter of nesting.** A root in four-four containing one child interval in three-four and another in seven-eight is already a polyrhythmic score, and it needs no special construction, because each interval declares its own metrics and the propagation rule does the rest.
+### Quantising child elements
 
-**Interactive triggers can be quantised as well.** A trigger fired mid-bar can be made to take effect on the next musical division, which in performance is the difference between an interaction that lands and one that sounds like a mistake; consequently a performer does not have to be metronomically precise for the entry to be.
+Quantisation governs when child elements are permitted to begin. Set an interval's quantisation to one bar, and a child element triggered mid-bar starts at the beginning of the next bar instead of immediately, so that the entry lands on the grid however imprecisely it was fired. Every quantisable place offers the musical divisions plus two special values, **parent** and **free**: the first defers to the ancestor's setting, whereas the second disables quantisation so that starts are immediate.
 
-**External synchronisation covers JACK transport and MIDI clock, with broader protocols planned.** *score* speaks JACK transport, as client or master, configured in the global settings, while MIDI clock, per Lesson 23, gives a shared tempo with other machines. However, broader synchronisation, including SMPTE and Ableton Link, is planned but not yet present, which matters if a production depends on it.
+### Processes that follow the tempo
+
+Processes that understand musical time follow it without any connection. Audio plug-ins, LFOs, and arpeggiators read tempo and metric information from their parent interval, so you do not connect a clock to them, and this inherited clock is why Lesson 11 could promise that an LFO stays locked to the piece.
+
+### Polyrhythm by nesting
+
+Polyrhythm is a matter of nesting. A root in four-four containing one child interval in three-four and another in seven-eight is already a polyrhythmic score, and it needs no special construction, because each interval declares its own metrics and the propagation rule does the rest.
+
+### Quantised triggers
+
+Interactive triggers can be quantised as well. A trigger fired mid-bar can be made to take effect on the next musical division, which in performance is the difference between an interaction that lands and one that sounds like a mistake; consequently a performer does not have to be metronomically precise for the entry to be.
+
+### JACK transport and MIDI clock
+
+External synchronisation covers JACK transport and MIDI clock. *score* speaks JACK transport, as client or master, configured in the global settings, while MIDI clock, per Lesson 23, gives a shared tempo with other machines. However, neither protocol decides which machine leads, which is the question that *Who is the master?*, below, asks you to settle before building.
 
 ## Walkthrough: two metres and a quantised cue
 
@@ -92,7 +106,7 @@ Decide this before building, and write the decision in the technical page. Furth
 - **Using free quantisation in a musical piece**, and then blaming the performer for imprecise entries that the parent's quantisation would have placed on the beat.
 - **Connecting a clock to an LFO**, although it reads its parent's metrics and there is no clock to connect.
 - **Assuming that polyrhythm needs a special object**, when it needs two intervals with their own metrics inside one parent.
-- **Depending on a synchronisation protocol that is planned but not yet present**, so check the current release before promising it to a production.
+- **Depending on a synchronisation protocol that is planned but not yet present**, since broader synchronisation, including SMPTE and Ableton Link, is announced without being in this release; check the current release before promising it to a production.
 
 ## Exercise
 

@@ -1,11 +1,25 @@
 {% comment %}
 Lesson metadata strip. Renders the pinned score version, the reading budget, and
-the practice budget from a lesson's front matter. Included at the top of every
-page under docs/learn/. Keeping this in an include means the badge markup is
-edited once for all 47 units.
+the practice budget from a lesson's front matter, then one link per topic in
+_data/topics.yml that cites this unit. Included at the top of every page under
+docs/learn/. Keeping this in an include means the badge markup is edited once
+for all 47 units, and the topic links never drift from the topics page.
 {% endcomment %}
 <p class="lesson-meta">
   <span class="label label-green">ossia score {{ page.score_version | default: site.score_version }}</span>
   {% if page.reading_time %}<span class="label label-blue">read {{ page.reading_time }}</span>{% endif %}
   {% if page.practice_time %}<span class="label label-purple">practice {{ page.practice_time }}</span>{% endif %}
 </p>
+{%- capture topic_links -%}
+{%- for topic in site.data.topics -%}
+{%- for q in topic.questions -%}
+{%- if q.unit == page.unit or q.see contains page.unit -%}
+<a href="{{ site.baseurl }}/topics#{{ topic.id }}">{{ topic.title }}</a>
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- if topic_links != "" %}
+<p class="lesson-topics">Topics: {{ topic_links }}</p>
+{%- endif %}

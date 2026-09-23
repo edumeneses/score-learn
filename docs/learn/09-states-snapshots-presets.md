@@ -30,17 +30,25 @@ The productive part of the workflow is capture, because you do not type values i
 
 ## Concepts
 
-**A state holds a set of messages and sends them at one instant.** Each message is an address and a value, and any address from any device may appear in one state. In the interface, a state is a disc on a vertical line, and selecting it makes the inspector list its messages as a tree.
+### States and their messages
 
-**Dragging parameters from the device explorer onto the timeline takes a snapshot.** The drag creates a state containing the selected parameters with their current values, and selecting a node selects every parameter beneath it. `Shift+click` extends a selection, `Ctrl+click` adds to it, and `Esc` clears it, which matters because a stale selection makes the next drag capture the wrong thing.
+A state holds a set of messages and sends them at one instant. Each message is an address and a value, and any address from any device may appear in one state. In the interface, a state is a disc on a vertical line, and selecting it makes the inspector list its messages as a tree.
 
-**The two refresh commands differ in what they change.** With a state selected, the inspector offers two camera icons. **Snapshot**, `Ctrl+L`, takes whatever is currently selected in the device explorer and copies it into the cue, so it can add addresses. In contrast, **Refresh**, `Ctrl+R`, takes the addresses already in the cue and updates their stored values to the live ones, changing values without changing which parameters are stored. Reaching for the wrong one either floods a cue with parameters you did not want or quietly fails to add the one you did.
+### Snapshots by dragging
 
-**Dropping parameters onto an existing state adds them to it.** An address already present is replaced by the dropped value, so the same gesture that creates a cue also extends one.
+Dragging parameters from the device explorer onto the timeline takes a snapshot. The drag creates a state containing the selected parameters with their current values, and selecting a node selects every parameter beneath it.
 
-**Auto-sequence turns two captured looks into a timed transition.** The option is off by default and lives in `Settings` under the user interface tab. With it on, chaining a new state from an existing one, using the blue `+` beside the state, captures the new values *and* writes automations for every parameter that changed between the two. In contrast, without it the same gesture still reuses the previous selection but writes no automations.
+### Snapshot and refresh
 
-**Scenario presets save a fragment of a score for reuse.** Select part of a score and drag it into the user library with `Alt` held, and *score* writes a `.scenario` file that you can drag back into any document. The reference documentation is explicit about an asymmetry here: *scenario* presets exist, whereas per-process presets do not yet.
+The two refresh commands differ in what they change. With a state selected, the inspector offers two camera icons. **Snapshot**, `Ctrl+L`, takes whatever is currently selected in the device explorer and copies it into the cue, so it can add addresses. In contrast, **Refresh**, `Ctrl+R`, takes the addresses already in the cue and updates their stored values to the live ones, changing values without changing which parameters are stored.
+
+### Auto-sequence transitions
+
+Auto-sequence turns two captured looks into a timed transition. With it on, chaining a new state from an existing one, using the blue `+` beside the state, captures the new values *and* writes automations for every parameter that changed between the two. In contrast, without it the same gesture still reuses the previous selection but writes no automations.
+
+### Scenario presets
+
+Scenario presets save a fragment of a score for reuse. Select part of a score and drag it into the user library with `Alt` held, and *score* writes a `.scenario` file that you can drag back into any document. The reference documentation is explicit about an asymmetry here: *scenario* presets exist, whereas per-process presets do not yet.
 
 ## Walkthrough: three cues, captured not typed
 
@@ -48,12 +56,12 @@ The productive part of the workflow is capture, because you do not type values i
 
 1. **Look at the reference** by opening `lesson-09.score`, which holds three states, two intervals, and no processes at all. This is what a cue list looks like in *score*, because the intervals only carry time and the whole of the action happens at the instants.
 2. **Set your equipment to its opening look** by using the device explorer's inspector to write values directly until the state of the world is what you want at the start.
-3. **Select the parameters that matter** in the explorer and drag them onto the timeline at position zero, so that a disc appears. Select it and read its messages, which are your captured values.
+3. **Select the parameters that matter** in the explorer, where `Shift+click` extends a selection, `Ctrl+click` adds to it, and `Esc` clears it, and drag them onto the timeline at position zero, so that a disc appears. Select it and read its messages, which are your captured values.
 4. **Change the world** by setting new values in the explorer, enough that several parameters differ.
 5. **Chain a second cue** by selecting the first state and dragging from the blue `+` beside it to a later point on the timeline. Because the selection is remembered, the same parameters are captured with their new values.
-6. **Turn on auto-sequence and do it again**, by enabling it in `Settings`, user interface tab, and chaining a third cue the same way. This time *score* also writes automations between cue two and cue three for every parameter that changed, so look at the slots it created: stacked automations, with the frontmost drawn in red and the rest greyed.
+6. **Turn on auto-sequence and do it again**, by enabling it in `Settings`, under the user interface tab where it is off by default, and chaining a third cue the same way. This time *score* also writes automations between cue two and cue three for every parameter that changed, so look at the slots it created: stacked automations, with the frontmost drawn in red and the rest greyed.
 7. **Edit what it wrote** by clicking the address bar at the top of a stacked slot to bring one automation forward, adjusting its curve, and removing any you did not want by right-clicking a slot background and choosing remove. Generated material saves the drawing and leaves the judgement to you, since auto-sequence ramps every parameter that changed.
-8. **Fix a value without rebuilding** by changing one parameter in the explorer, selecting the cue that should hold the new value, and pressing `Ctrl+R`, which updates only the stored values. Then select an extra parameter in the explorer, select the same cue, and press `Ctrl+L` to add it.
+8. **Fix a value without rebuilding** by changing one parameter in the explorer, selecting the cue that should hold the new value, and pressing `Ctrl+R`, which updates only the stored values. Then select an extra parameter in the explorer, select the same cue, and press `Ctrl+L` to add it. Dropping parameters from the explorer onto an existing state adds them in the same way, and an address already present is replaced by the dropped value, so the gesture that creates a cue also extends one.
 9. **Play it** with `space`, so that each cue fires as the playhead reaches it. Stop with `↵`, and note that stopping does not undo what a cue sent: the world stays where the last cue left it, which is why [Milestone P1]({{ site.baseurl }}/learn/p1-automated-cue.html) insisted on a defined ending.
 10. **Save the pattern** by selecting your three cues and the intervals between them, holding `Alt`, and dragging into the user library. Start a new document and drag the fragment back in.
 
@@ -80,7 +88,7 @@ Capturing narrowly has one consequence that deserves stating, because a cue only
 ## Common mistakes
 
 - **Typing values instead of capturing them** is slower, and it divorces the cue from what you saw and heard.
-- **Confusing `Ctrl+L` with `Ctrl+R`** mixes up two operations, since snapshot adds from the current selection while refresh updates what is already stored.
+- **Confusing `Ctrl+L` with `Ctrl+R`** mixes up two operations, since snapshot adds from the current selection while refresh updates what is already stored, so the wrong one either floods a cue with parameters you did not want or quietly fails to add the one you did.
 - **A stale explorer selection** captures the wrong thing, because selecting a parent node captures every parameter beneath it, which is occasionally what you want; `Esc` clears the selection.
 - **Trusting auto-sequence blindly** leaves ramps where jumps belong, since it writes an automation for every parameter that changed; delete the ones that should have jumped.
 - **Losing an automation in a stack** happens because the frontmost is red and the others greyed, so use the slot's address bar to choose.

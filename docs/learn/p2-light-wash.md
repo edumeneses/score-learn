@@ -41,13 +41,21 @@ Build a document that:
 
 ## Concepts you are assembling
 
-**An Art-Net device created without fixture definitions exposes the raw DMX channels, plus a whole-device message.** That rawness is an advantage while learning, because you see what a channel is with no fixture definition interpreting it for you, so the range and meaning of each channel are yours to establish and write down.
+### Raw Art-Net channels
 
-**A channel map records, for every channel, its universe, its number, what it controls, its range, and what is unsafe.** It is written down outside *score*, per Lesson 06, because the document holds the declaration whereas the reasoning behind each value has no place in the device tree, and the reasoning is what a collaborator, or a later version of you, will need.
+An Art-Net device created without fixture definitions exposes the raw DMX channels, plus a whole-device message. That rawness is an advantage while learning, because you see what a channel is with no fixture definition interpreting it for you, so the range and meaning of each channel are yours to establish and write down.
 
-**Driving many destinations from one control is the central problem of this milestone.** There are three defensible ways to do it, and choosing one on purpose is the exercise: a separate automation per channel, all reading the same shape; a single automation into a mapping that fans out; or a single address written with a pattern so that one curve reaches several channels at once.
+### The channel map
 
-**Pattern matching lets *score* send one value to many addresses at once.** An address such as `dmx:/fixture/*/intensity` reaches every fixture's intensity. Additionally, patterns support alternatives, `{foo,boo}`, numeric ranges, `foo.{5..23}`, character classes, `foo[1-5]`, and a recursive form, `device://intensity`. For a wash, where every fixture does the same thing, a pattern is the shortest correct answer, although the section on fan-out below explains what it cannot express.
+A channel map records, for every channel, its universe, its number, what it controls, its range, and what is unsafe. It is written down outside *score*, per Lesson 06, because the document holds the declaration whereas the reasoning behind each value has no place in the device tree, and the reasoning is what a collaborator, or a later version of you, will need.
+
+### Fan-out from one control
+
+Driving many destinations from one control is the central problem of this milestone. There are three defensible ways to do it, and choosing one on purpose is the exercise: a separate automation per channel, all reading the same shape; a single automation into a mapping that fans out; or a single address written with a pattern so that one curve reaches several channels at once.
+
+### Address pattern matching
+
+Pattern matching lets *score* send one value to many addresses at once. An address such as `dmx:/fixture/*/intensity` reaches every fixture's intensity. Additionally, patterns support alternatives, `{foo,boo}`, numeric ranges, `foo.{5..23}`, character classes, `foo[1-5]`, and a recursive form, `device://intensity`. For a wash, where every fixture does the same thing, a pattern is the shortest correct answer, although the section on fan-out below explains what it cannot express.
 
 ## Walkthrough: the reference solution
 

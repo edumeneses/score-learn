@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 06: The device model"
+title: "Lesson 06: Devices and addresses: the device model"
 description: "Why score separates devices from the timeline, what an address space is, and how the supported protocols differ in what they can tell you."
 parent: Lessons
 nav_order: 7
@@ -12,7 +12,7 @@ practice_time: "15 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
-# Lesson 06: The device model
+# Lesson 06: Devices and addresses: the device model
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,25 @@ The model repays the effort because of what it buys. A score written against `le
 
 ## Concepts
 
-**A device is a named connection to something outside the document.** It carries a name, a protocol, and protocol settings such as host and port; `lesson` in `lesson-00.score`, for instance, is an OSC (Open Sound Control) device pointed at localhost. The name is yours to choose, and every address in the document begins with it.
+### Devices as named connections
 
-**An address space is a tree of parameters with a path to each.** A device exposes its parameters hierarchically, and an address is a path through that tree, either short like `lesson:/level` or deeper like `synth:/voice/2/filter/cutoff`. The device explorer draws that tree, and Lesson 07 covers building one by hand when the device cannot describe itself.
+A device is a named connection to something outside the document. It carries a name, a protocol, and protocol settings such as host and port; `lesson` in `lesson-00.score`, for instance, is an OSC (Open Sound Control) device pointed at localhost. The name is yours to choose, and every address in the document begins with it.
 
-**A parameter carries several attributes in addition to its value.** It has a type, a range, sometimes a unit, and an access mode that says whether it can be read, written, or both. Those attributes are what let *score* convert, clamp, and check. Moreover, a device that declares them is considerably easier to work with than one that does not, which is why Lesson 08 is entirely about them.
+### Address spaces and paths
 
-**Devices are declared in the document, whereas connections are made at run time.** The declaration is saved in the `.score` file, so opening a document with no equipment attached still works because the tree is there even though the connection is not live. This property is what makes offline authoring possible, and the walkthrough below asks you to hold the two halves of it apart.
+An address space is a tree of parameters with a path to each. A device exposes its parameters hierarchically, and an address is a path through that tree, either short like `lesson:/level` or deeper like `synth:/voice/2/filter/cutoff`. The device explorer draws that tree, and Lesson 07 covers building one by hand when the device cannot describe itself.
 
-**Protocols differ in what they can tell you about the other end.** This distinction concerns description and has little to do with speed, and it is the one that matters when choosing a protocol:
+### Parameter attributes
+
+A parameter carries several attributes in addition to its value. It has a type, a range, sometimes a unit, and an access mode that says whether it can be read, written, or both. Those attributes are what let *score* convert, clamp, and check. Moreover, a device that declares them is considerably easier to work with than one that does not, which is why Lesson 08 is entirely about them.
+
+### Declaration and connection
+
+Devices are declared in the document, whereas connections are made at run time. The declaration is saved in the `.score` file, so opening a document with no equipment attached still works because the tree is there even though the connection is not live. This property is what makes offline authoring possible, and the walkthrough below asks you to hold the two halves of it apart.
+
+### Descriptive, blind, and fixed-shape protocols
+
+Protocols differ in what they can tell you about the other end. This distinction concerns description and has little to do with speed, and it is the one that matters when choosing a protocol:
 
 - **Descriptive protocols** can be asked what they contain, so the tree arrives complete. **OSCQuery** is the important one, because connecting to a compliant application lets *score* populate the whole tree automatically, with types, ranges, and units; **Minuit** is the older ossia protocol in the same family.
 - **Blind protocols** send and receive messages but cannot describe what they contain. Plain **OSC** is the archetype, since you must declare by hand what you believe is on the other side and no part of the software checks that declaration; **MIDI** (Musical Instrument Digital Interface) is similarly fixed in shape, with channels and controller numbers and no discoverable tree.

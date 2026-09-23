@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 15: Interactive triggers"
+title: "Lesson 15: Triggers: making the score wait for a cue"
 description: "Make an instant wait: flexible durations, trigger expressions, remote control from a device parameter, and how waiting looks during playback."
 parent: Lessons
 nav_order: 18
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: 15-triggers/lesson-15.score
 ---
 
-# Lesson 15: Interactive triggers
+# Lesson 15: Triggers: making the score wait for a cue
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,25 @@ Moreover, the usability study found that this is the concept newcomers most ofte
 
 ## Concepts
 
-**A trigger is a property of an instant.** It is a flag on a time synchronisation point and not an object of its own, which is why Lesson 02 found it in the file as `Active` on a `TimeSyncModel`; select a state and press `T`, or use the inspector, and the instant now waits.
+### What a trigger is
 
-**Waiting has a visual signature made of two changes.** A T-shaped marker appears above the state, and the preceding interval's duration is drawn as a **dashed line**, because that duration is no longer determined and the interval will run until the trigger fires; learning to read the dash is how you tell an interactive score from a linear one at a glance.
+A trigger is a property of an instant. It is a flag on a time synchronisation point and not an object of its own, which is why Lesson 02 found it in the file as `Active` on a `TimeSyncModel`, and setting that flag is all it takes for the instant to wait.
 
-**The trigger expression decides what fires it.** By default a trigger is set so that it does not become true on its own, which means it waits for you, either as a click on the marker or as an external command. However, given an expression over a device parameter, it fires when that expression becomes true; the default operator for a value arriving is a *pulse*, which any value at that address satisfies, and which is what you want for a button.
+### The visual signature of waiting
 
-**An interval has a minimum, a nominal, and a maximum duration.** The nominal duration is what the interval is drawn as, its minimum is the earliest a trigger may release it, and its maximum is the point at which it gives up waiting and proceeds anyway. These three numbers are the whole vocabulary of flexible time, because a minimum protects against a double tap while a maximum guarantees that the show goes on.
+Waiting has a visual signature made of two changes. A T-shaped marker appears above the state, and the preceding interval's duration is drawn as a **dashed line**, because that duration is no longer determined and the interval will run until the trigger fires; learning to read the dash is how you tell an interactive score from a linear one at a glance.
 
-**The trigger inspector offers two further options, start on play and re-triggering.** Start on play makes a trigger available from the moment the score starts, which is what lets a part of the score sit outside the main flow and still be fireable, whereas the re-trigger option decides what a second firing does: restart the following material from the beginning, or, if unchecked, stop it and require another event to begin again.
+### Trigger expressions
+
+The trigger expression decides what fires it. By default a trigger is set so that it does not become true on its own, which means it waits for you, either as a click on the marker or as an external command. However, given an expression over a device parameter, it fires when that expression becomes true; the default operator for a value arriving is a *pulse*, which any value at that address satisfies, and which is what you want for a button.
+
+### Minimum, nominal, and maximum durations
+
+An interval has a minimum, a nominal, and a maximum duration. The nominal duration is what the interval is drawn as, its minimum is the earliest a trigger may release it, and its maximum is the point at which it gives up waiting and proceeds anyway. These three numbers are the whole vocabulary of flexible time, because a minimum protects against a double tap while a maximum guarantees that the show goes on.
+
+### Start on play and re-triggering
+
+The trigger inspector offers two further options, start on play and re-triggering. Start on play makes a trigger available from the moment the score starts, which is what lets a part of the score sit outside the main flow and still be fireable, whereas the re-trigger option decides what a second firing does: restart the following material from the beginning, or, if unchecked, stop it and require another event to begin again.
 
 ## Walkthrough: build a score that waits
 
@@ -47,7 +57,7 @@ Moreover, the usability study found that this is the concept newcomers most ofte
 1. **Open `lesson-15.score`** and read its structure, which is one interval with an automation, ending at an instant that waits, followed by a second interval; the dashed duration before the trigger is the signature from the Concepts section.
 2. **Play it and watch the transport.** The first automation runs, the playhead reaches the trigger and stops there, and the progress bar on the first interval stops advancing, which is what waiting looks like when the score is behaving correctly.
 3. **Release it by hand** by clicking the T marker, at which point the second interval begins; stop, and do it again while releasing at a different moment, so that you see the same piece play with a different timing.
-4. **Now build your own** in a new document, with two chained intervals carrying an automation each, and select the state between them and press `T`.
+4. **Now build your own** in a new document, with two chained intervals carrying an automation each, and select the state between them and press `T`, or set the trigger in the inspector.
 5. **Set a minimum duration** of two seconds on the first interval, in the inspector, then play and try to release the trigger immediately; it will not fire before the minimum, which is the protection against accidental double firing.
 6. **Set a maximum duration** of eight seconds, then play and wait without touching the score, because at eight seconds it proceeds by itself; you have written a passage that is interactive *and* guaranteed to end, which is the combination a show needs.
 7. **Fire it from a device** by dragging a parameter from the device explorer onto the trigger marker, or onto the address field in the trigger inspector, so that a value at that address releases the trigger; a button on a controller works, and so does the third branch of your P3 bench.

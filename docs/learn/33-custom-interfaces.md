@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 33: Custom interfaces"
+title: "Lesson 33: Control surfaces, QML, and remote control"
 description: "Build an operator's panel: control surfaces, a QML interface over the scripting API, and the WebSocket remote protocol."
 parent: Lessons
 nav_order: 39
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 33: Custom interfaces
+# Lesson 33: Control surfaces, QML, and remote control
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,25 @@ The person running a piece is often not the person who built it. A gallery invig
 
 ## Concepts
 
-**The first route is a control surface, which is a process that gathers controls into a panel.** You add it, place the controls that matter on it, and you have an operator's view inside *score* itself, with no code, which for most pieces is the whole answer.
+### Control surfaces
 
-**The second route is a QML interface that replaces *score*'s own control interface.** QML is Qt's declarative interface language, which is GPU (graphics processing unit) accelerated and designed for interfaces of this kind, and an interface written in it talks to the score through the same scripting API (application programming interface) as Lesson 29, plus a small set of types under a user-interface namespace. The important type is a port source, which reads and writes a score control located by name or label. However, reading a value gives you the current *execution* value, so the score has to be playing for a reading to be meaningful.
+The first route is a control surface, which is a process that gathers controls into a panel. You add it, place the controls that matter on it, and you have an operator's view inside *score* itself, with no code, which for most pieces is the whole answer.
 
-**The third route is the WebSocket protocol, which *score* exposes for remote control with JSON (JavaScript Object Notation) messages.** It covers transport, triggers, interval speed and gain, sending values to any address, and enabling listening so that value changes are pushed back to the client. An existing graphical remote is built on it, and the protocol is documented so that you can write your own client.
+### QML interfaces
 
-**The protocol differs from the other two routes in that it runs on another device.** A tablet at the mixing position, a phone in a pocket, or a laptop in the booth can control the piece without *score* installed. Moreover, the same property means that a piece can be controlled by something that is not an interface at all, such as a script or another application.
+The second route is a QML interface that replaces *score*'s own control interface. QML is Qt's declarative interface language, which is GPU (graphics processing unit) accelerated and designed for interfaces of this kind, and an interface written in it talks to the score through the same scripting API (application programming interface) as Lesson 29, plus a small set of types under a user-interface namespace. The important type is a port source, which reads and writes a score control located by name or label. However, reading a value gives you the current *execution* value, so the score has to be playing for a reading to be meaningful.
 
-**Triggers are first-class in the protocol.** The score tells a client when a trigger becomes active and when it finishes, and the client can fire it, which is the shape of a cue light and a cue button, and therefore what a stage manager wants from a remote.
+### The WebSocket protocol
 
-**The local device offers a further way in, over OSC (Open Sound Control), which Lesson 36 covers.** Controlling *score* through its own local device over OSC and OSCQuery is often simpler than the WebSocket protocol when the client already speaks OSC.
+The third route is the WebSocket protocol, which *score* exposes for remote control with JSON (JavaScript Object Notation) messages. It covers transport, triggers, interval speed and gain, sending values to any address, and enabling listening so that value changes are pushed back to the client. An existing graphical remote is built on it, and the protocol is documented so that you can write your own client.
+
+### Remote control from another device
+
+The protocol differs from the other two routes in that it runs on another device. A tablet at the mixing position, a phone in a pocket, or a laptop in the booth can control the piece without *score* installed. Moreover, the same property means that a piece can be controlled by something that is not an interface at all, such as a script or another application.
+
+### Triggers in the protocol
+
+Triggers are first-class in the protocol. The score tells a client when a trigger becomes active and when it finishes, and the client can fire it, which is the shape of a cue light and a cue button, and therefore what a stage manager wants from a remote.
 
 ## Walkthrough: three routes, cheapest first
 
@@ -51,6 +59,10 @@ The person running a piece is often not the person who built it. A gallery invig
 2. **Add a control surface and put those controls on it and no others.** Play the score and operate it from the surface alone, without touching the timeline.
 3. **Test the list by running the piece twice from the surface.** Whatever you had to leave the surface to do is either missing from it or should not be the operator's job.
 4. **Turn to the WebSocket route by enabling the remote interface and connecting a client.** If you have no client to hand, a browser console can open a WebSocket and send JSON.
+
+   {: .note }
+   > **The local device offers a further way in, over OSC (Open Sound Control), which Lesson 36 covers.** Controlling *score* through its own local device over OSC and OSCQuery is often simpler than the WebSocket protocol when the client already speaks OSC.
+
 5. **Send a transport message and watch the score start**, which is the smallest possible proof that the protocol works.
 6. **Fire a trigger remotely by listening for the message that announces it becoming active**, then sending the message that fires it, at which point you have built the core of a cue system.
 7. **Send a value to an address in the protocol's typed form**, and confirm that it arrives in the device explorer.

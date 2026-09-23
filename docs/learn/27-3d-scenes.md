@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 27: 3D scenes"
+title: "Lesson 27: 3D scenes: meshes, textures, and cameras"
 description: "Geometry, models, and compute shaders: build a scene from primitives and a loaded model, and drive it from the timeline."
 parent: Lessons
 nav_order: 32
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 27: 3D scenes
+# Lesson 27: 3D scenes: meshes, textures, and cameras
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,29 @@ Furthermore, this is where generated geometry becomes interesting, because array
 
 ## Concepts
 
-**A scene needs four things before it renders, and a black window is almost always one of them missing.** A scene renders only when it has geometry to draw, a material to draw it with, a camera to draw it from, and an output to draw into, so checking those four in that order is the fastest diagnosis available when the window stays black.
+### The four requirements of a scene
 
-**Primitives cover a great deal of work, and loaded models cover the rest.** Mesh processes provide primitives such as cubes, planes, and spheres, which are enough for many pieces, whereas modelled content arrives through a model loader that reads glTF, the standard interchange format that most modelling tools export.
+A scene needs four things before it renders, and a black window is almost always one of them missing. A scene renders only when it has geometry to draw, a material to draw it with, a camera to draw it from, and an output to draw into, so checking those four in that order is the fastest diagnosis available when the window stays black.
 
-**Geometry is data, and the conversion runs in both directions.** Arrays can be converted to meshes and to textures, and attributes can be extracted from geometry back into arrays, which makes this the door between the array tools of Module E and the render graph: generate positions with an expression, convert them to geometry, and you have a computed scene.
+### Primitives and loaded models
 
-**Compute shaders run a program over data on the GPU (graphics processing unit).** For work that belongs on the GPU but is not a picture, a compute shader operates over data instead of over pixels. Moreover, particle systems and large simulations are the usual reason to reach for one.
+Primitives cover a great deal of work, and loaded models cover the rest. Mesh processes provide primitives such as cubes, planes, and spheres, which are enough for many pieces, whereas modelled content arrives through a model loader that reads glTF, the standard interchange format that most modelling tools export.
 
-**Textures can come from any source in the graph.** A material's texture can be a video file, a camera, a shader from Lesson 26, or a script's output, and because these are all textures in the same graph, the same cable serves each of them. In other words, feeding a live camera onto a rotating model is a single connection and not a special feature.
+### Geometry as data
 
-**The camera is a set of ports, and dome work changes the projection.** A camera has a position and an orientation, both of which are ports and therefore automatable. However, for dome work the projection matters more than the geometry, because a fisheye output is what a dome expects, and [Milestone P6]({{ site.baseurl }}/learn/p6-fulldome-scene.html) covers it.
+Geometry is data, and the conversion runs in both directions. Arrays can be converted to meshes and to textures, and attributes can be extracted from geometry back into arrays, which makes this the door between the array tools of Module E and the render graph: generate positions with an expression, convert them to geometry, and you have a computed scene.
+
+### Compute shaders
+
+Compute shaders run a program over data on the GPU (graphics processing unit). For work that belongs on the GPU but is not a picture, a compute shader operates over data instead of over pixels. Moreover, particle systems and large simulations are the usual reason to reach for one.
+
+### Texture sources
+
+Textures can come from any source in the graph. A material's texture can be a video file, a camera, a shader from Lesson 26, or a script's output, and because these are all textures in the same graph, the same cable serves each of them. In other words, feeding a live camera onto a rotating model is a single connection and not a special feature.
+
+### The camera and its projection
+
+The camera is a set of ports, and dome work changes the projection. A camera has a position and an orientation, both of which are ports and therefore automatable. However, for dome work the projection matters more than the geometry, because a fisheye output is what a dome expects, and [Milestone P6]({{ site.baseurl }}/learn/p6-fulldome-scene.html) covers it.
 
 ## Walkthrough: three kinds of geometry
 

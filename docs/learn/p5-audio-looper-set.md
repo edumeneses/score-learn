@@ -44,15 +44,25 @@ No item in this brief requires hardware beyond your computer, so map the toggles
 
 ## Concepts you are assembling
 
-**A layer is a sound file set to loop inside an interval whose end waits on a trigger**, per Lesson 17, and it runs from the moment it is fired until it is stopped.
+### Looping layers
 
-**A toggle is two triggers, one at each end of the looping interval, both firing on the same key.** A minimum duration keeps one press from being read as two. In other words, the whole arrangement is the switch pattern from Module F applied to audio.
+A layer is a sound file set to loop inside an interval whose end waits on a trigger, per Lesson 17, and it runs from the moment it is fired until it is stopped.
 
-**Out-of-time layers are not connected to the start of the score, and each has start-on-play enabled.** Consequently all of them are available from the moment the set begins and none of them runs until it is fired, which is what makes the set playable in any order instead of in a sequence decided while authoring.
+### Toggling a layer from a key
 
-**Mix control comes through the gain sub-port that every audio outlet carries.** Address one from a controller, or automate it, and the result is a fader without any inserted effect.
+A toggle is two triggers, one at each end of the looping interval, both firing on the same key. A minimum duration keeps one press from being read as two. In other words, the whole arrangement is the switch pattern from Module F applied to audio.
 
-**A defined ending is a stop cue on the last state**, per Lesson 18, together with an explicit choice about what stopping does to layers that are still running.
+### Out-of-time layers
+
+Out-of-time layers are not connected to the start of the score, and each has start-on-play enabled. Consequently all of them are available from the moment the set begins and none of them runs until it is fired, which is what makes the set playable in any order instead of in a sequence decided while authoring.
+
+### Mix control through gain sub-ports
+
+Mix control comes through the gain sub-port that every audio outlet carries. Address one from a controller, or automate it, and the result is a fader without any inserted effect.
+
+### A defined ending
+
+A defined ending is a stop cue on the last state, per Lesson 18, together with an explicit choice about what stopping does to layers that are still running.
 
 ## Walkthrough
 

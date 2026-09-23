@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 12: Recording live input"
+title: "Lesson 12: Recording live input into automations"
 description: "Turn a performed gesture into an automation, clean it up, and know when a recording should stay a recording."
 parent: Lessons
 nav_order: 14
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: none
 ---
 
-# Lesson 12: Recording live input
+# Lesson 12: Recording live input into automations
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,17 @@ Furthermore, recording has a second use, which is less obvious and which the sec
 
 ## Concepts
 
-**Recording writes ordinary automations.** The result is not a special object; it is an automation with breakpoints, which you edit in the same way as a drawn one, and that equivalence is what makes the technique a starting point for composition instead of a dead end.
+### Recorded automations
 
-**Selection decides what is recorded.** As with the snapshots of Lesson 09, the addresses selected in the device explorer are the addresses that get recorded, so the stale-selection trap described there applies here unchanged, and a parent node left selected records its whole subtree.
+Recording writes ordinary automations. The result is not a special object; it is an automation with breakpoints, which you edit in the same way as a drawn one, and that equivalence is what makes the technique a starting point for composition instead of a dead end.
 
-**Recording starts when the first message arrives.** By default *score* waits for a value before it begins writing, so that an idle controller does not produce a leading flat line. However, this behaviour is a preference and can be changed, which means you should know which setting yours uses before you record a gesture that you cannot perform twice.
+### Recording density
 
-**A recording is dense by nature.** A performed gesture arrives as hundreds of values, and the resulting curve carries a breakpoint for a great many of them, which makes it faithful. However, the same density makes it unwieldy, since it is hard to edit and, at the extreme, expensive to execute, so reducing it is a normal stage of the workflow, and the walkthrough below treats it as one.
+A recording is dense by nature. A performed gesture arrives as hundreds of values, and the resulting curve carries a breakpoint for a great many of them, which makes it faithful. However, the same density makes it unwieldy, since it is hard to edit and, at the extreme, expensive to execute, so reducing it is a normal stage of the workflow, and the walkthrough below treats it as one.
 
-**Recording and logging answer different questions.** An automation is for reuse inside the score, whereas the numbers themselves, for analysis or for another tool, come from the **CSV recorder** (comma-separated values), which writes values to a file instead of into the timeline. Deciding which of the two you need before you start avoids recording a curve when you wanted a table, or the reverse.
+### Recording and logging
+
+Recording and logging answer different questions. An automation is for reuse inside the score, whereas the numbers themselves, for analysis or for another tool, come from the **CSV recorder** (comma-separated values), which writes values to a file instead of into the timeline. Deciding which of the two you need before you start avoids recording a curve when you wanted a table, or the reverse.
 
 ## Walkthrough: perform, record, clean
 
@@ -46,8 +48,16 @@ Furthermore, recording has a second use, which is less obvious and which the sec
 
 1. **Confirm that input is arriving before you record.** Look in the device explorer for the values you expect to move, because recording an address that does not receive produces an empty automation and a confusing five minutes spent blaming the feature.
 2. **Select the addresses to record** in the device explorer, where one address is enough for a first attempt although the mechanism handles several at once.
+
+   {: .warning }
+   > **Selection decides what is recorded.** As with the snapshots of Lesson 09, the addresses selected in the device explorer are the addresses that get recorded, so the stale-selection trap described there applies here unchanged, and a parent node left selected records its whole subtree.
+
 3. **Right-click in the score** at the point where the recording should begin and choose *record automations from here*, which sits in the Record submenu the figure shows.
-4. **Press play, then perform the gesture** at the speed you want it in the piece, remembering that writing begins with the first value that arrives, which is the preference from the Concepts section.
+4. **Press play, then perform the gesture** at the speed you want it in the piece.
+
+   {: .warning }
+   > **Recording starts when the first message arrives.** By default *score* waits for a value before it begins writing, so that an idle controller does not produce a leading flat line. However, this behaviour is a preference and can be changed, which means you should know which setting yours uses before you record a gesture that you cannot perform twice.
+
 5. **Stop and inspect the result**, which is one automation per recorded address, sitting in a new interval, with a breakpoint for nearly every value that was received.
 6. **Play it back and compare it with what you performed.** The gesture should reproduce, and this is the moment at which recording either convinces you or reveals that your input was noisier than you thought.
 7. **Reduce it by deleting breakpoints that carry no information**, since a long straight run needs two points where the recording placed sixty; what remains should look like your gesture in ten to twenty points instead of several hundred.

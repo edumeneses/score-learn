@@ -56,6 +56,8 @@ figures/NN.json                crop and badge spec per figure
 figures/raw/                   raw captures, kept so badges can be moved cheaply
 _data/units.yml                unit numbers, slugs, titles, budgets, written flags
 _data/modules.yml              module titles and phases
+_data/topics.yml               knowledge-base questions, each linked to a heading
+docs/topics.md                 the Find by topic page, generated from topics.yml
 scripts/                       the toolchain, below
 ```
 
@@ -76,8 +78,8 @@ Python work uses the Assistant venv: `source /home/edu/Assistant/venv/bin/activa
 
 **`check_lessons.py` enforces**: required front matter, the word budget, permalink
 stability, the pinned version, that `score_file` exists, that a `checks/` note exists,
-that the page matches its unit in `units.yml`, and that every internal `/learn/` link
-resolves to a known slug.
+that the page matches its unit in `units.yml`, that every internal `/learn/` link
+resolves to a known slug, and that every link in `_data/topics.yml` resolves to a heading.
 
 ## Figures: how they are made
 
@@ -290,6 +292,34 @@ missing the voice, so drafts must also carry the positive habits, which
 Each lesson follows one shape: before/need/build blockquote, Why this matters, Concepts,
 a numbered Walkthrough with the figure, one extra section, Common mistakes, Exercise,
 Going further.
+
+**Concepts holds concepts only**, each under its own `### Short noun phrase` heading so
+that it can be linked and found by search (`search.heading_level` is 3). A concept says
+what something is, how parts relate, or a rule of how score behaves, introduced there
+for the first time. Everything else goes where it is used: a gotcha or a requirement is a
+`{: .warning }` blockquote beside the step where it bites (indented three spaces under a
+numbered step, which keeps the list's numbering); a procedure, a shortcut, or a menu
+location is a walkthrough step or a `{: .note }`; advice goes in the extra section; a
+rule restated from an earlier lesson is a warning at the point of use. Headings are not
+counted in the word budget, by either checker.
+
+## The course as a knowledge base
+
+The lessons are read in order *and* consulted one question at a time. `_data/topics.yml`
+groups the questions readers bring ("How do I receive MIDI from a controller?") by topic
+and links each to the heading that answers it; `docs/topics.md` renders it at `/topics`,
+and `_includes/lesson_meta.html` shows each page's topics under its title.
+`check_lessons.py` fails if a topic names a unit that does not exist, links an anchor that
+is not a heading on that page, or leaves a written unit unreachable. **When you rename a
+heading, fix its anchor in `topics.yml`; when you write a lesson, add its questions.**
+Anchors are kramdown's GFM ids, which keep hyphens (`plug-ins` stays `plug-ins`).
+In Liquid, look a unit up with `where_exp: "x", "x.num == q.unit"`: Jekyll's plain
+`where: "num"` silently matches nothing for `00` to `09`, which rendered those links as
+`/learn/.html` with no error.
+
+Titles are topic-first so that a reader scanning the navigation finds the subject
+("MIDI: controllers, instruments, and MIDI files"); titles and module names may change
+freely, whereas slugs may not.
 
 ## Commits
 

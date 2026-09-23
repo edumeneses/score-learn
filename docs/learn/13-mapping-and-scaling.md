@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 13: Mapping, scaling, and curves"
+title: "Lesson 13: Mapping sensor data: scaling, smoothing, and filtering"
 description: "Build a pipeline from a sensor to an output: mapping curves, range filters, calibration, smoothing, and rate limiting, in the right order."
 parent: Lessons
 nav_order: 15
@@ -12,7 +12,7 @@ practice_time: "30 min"
 score_file: none
 ---
 
-# Lesson 13: Mapping, scaling, and curves
+# Lesson 13: Mapping sensor data: scaling, smoothing, and filtering
 
 {% include lesson_meta.html %}
 
@@ -30,21 +30,33 @@ However, treating this work as arithmetic is the mistake to avoid, because scali
 
 ## Concepts
 
-**The pipeline has four stages, which are input, condition, relate, and output.** Problems become much easier when you keep the stages separate, so that you **condition** the raw value first, then **relate** it to what you want, and then send it; mixing conditioning and relating in one object is how a mapping becomes impossible to adjust, because a change to either then disturbs the other.
+### The four-stage pipeline
 
-**The mapping curve is the central object.** It is a drawn curve relating an input value to an output value. In contrast to an automation, its horizontal axis is the input and not time; a mapping curve is where "sensitive at the bottom, saturating at the top" gets expressed, and it is edited in the same way as an automation.
+The pipeline has four stages, which are input, condition, relate, and output. Problems become much easier when you keep the stages separate, so that you **condition** the raw value first, then **relate** it to what you want, and then send it; mixing conditioning and relating in one object is how a mapping becomes impossible to adjust, because a change to either then disturbs the other.
 
-**A range filter passes, clamps, or rejects values outside a window.** This is how you keep a wild sensor from driving something dangerous, and how you ignore a region of an input you do not care about.
+### The mapping curve
 
-**A calibrator learns the actual range of an input by watching it.** It is essential with physical sensors, whose real-world range differs from the range on the datasheet and changes again when someone moves the installation.
+The mapping curve is the central object. It is a drawn curve relating an input value to an output value. In contrast to an automation, its horizontal axis is the input and not time; a mapping curve is where "sensitive at the bottom, saturating at the top" gets expressed, and it is edited in the same way as an automation.
 
-**Smoothing filters jitter at the cost of latency.** The trade-off is the point, because more smoothing means a calmer output and a later one; a light can be smoothed generously, whereas a percussive trigger should barely be smoothed at all. In the library this is `Exp Smoothing`, under `Control > Mappings`, and a `Smoother` in the analysis family serves as well.
+### Range filters
 
-**A rate limiter caps how often values pass.** Where smoothing changes values, rate limiting changes their frequency, which is what you need when a sensor floods the network or when a receiver cannot keep up.
+A range filter passes, clamps, or rejects values outside a window. This is how you keep a wild sensor from driving something dangerous, and how you ignore a region of an input you do not care about.
 
-**Math expressions serve relationships that are easier to write than to draw.** The **Micromap** object multiplies and offsets a value in one small step, which is the single most common conditioning operation. Moreover, the fuller expression objects evaluate arbitrary formulas, for relationships that need more than a multiply and an offset.
+### Calibrators
 
-**The library keeps these under `Control > Mappings` and `Control > Data Processing`.** Learning those two category names now saves you searching by guessed object names, which is the difficulty [Lesson 14]({{ site.baseurl }}/learn/14-choosing-a-process.html) takes up.
+A calibrator learns the actual range of an input by watching it. It is essential with physical sensors, whose real-world range differs from the range on the datasheet and changes again when someone moves the installation.
+
+### Smoothing and latency
+
+Smoothing filters jitter at the cost of latency. The trade-off is the point, because more smoothing means a calmer output and a later one; a light can be smoothed generously, whereas a percussive trigger should barely be smoothed at all.
+
+### Rate limiters
+
+A rate limiter caps how often values pass. Where smoothing changes values, rate limiting changes their frequency, which is what you need when a sensor floods the network or when a receiver cannot keep up.
+
+### Math expressions and Micromap
+
+Math expressions serve relationships that are easier to write than to draw. The **Micromap** object multiplies and offsets a value in one small step, which is the single most common conditioning operation. Moreover, the fuller expression objects evaluate arbitrary formulas, for relationships that need more than a multiply and an offset.
 
 ## Order matters
 
@@ -63,6 +75,9 @@ Write the order down in your channel map, because a pipeline whose order was cho
 ![The conditioning pipeline as a patch: calibrator, range filter, mapping curve, and smoothing in a chain]({{ site.img }}/13/13-01-pipeline.png)
 
 The figure shows the pipeline in order, with a calibrator carrying its range and its averaging window, a range filter with a minimum, a maximum, and an invert, a mapping curve, and an exponential smoothing object with its alpha. Every stage is visible and adjustable on its own, which is the argument for building the chain this way instead of inside one script.
+
+{: .note }
+> **The library keeps these objects under `Control > Mappings` and `Control > Data Processing`.** Smoothing is `Exp Smoothing`, under `Control > Mappings`, and a `Smoother` in the analysis family serves as well. Learning those two category names now saves you searching by guessed object names, which is the difficulty [Lesson 14]({{ site.baseurl }}/learn/14-choosing-a-process.html) takes up.
 
 1. **Confirm the input is arriving** in the device explorer before building the chain, as always.
 2. **Make an interval to hold the pipeline**, remembering that a mapping only runs while its interval runs; give the interval's end a trigger that is never satisfied, so that the pipeline runs for the whole score, which is the idiom from Lesson 11.

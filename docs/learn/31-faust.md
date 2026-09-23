@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 31: Faust inside score"
+title: "Lesson 31: Faust DSP inside score"
 description: "Write and compile a Faust audio processor in the score editor, expose its controls as ports, and use its libraries for spatialisation."
 parent: Lessons
 nav_order: 37
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: none
 ---
 
-# Lesson 31: Faust inside score
+# Lesson 31: Faust DSP inside score
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,21 @@ Furthermore, Faust is fast, because it compiles to code optimised for the proces
 
 ## Concepts
 
-**A Faust process is a script stored in your document.** You add the process, open its editor with the window button, write or paste code, and press compile, after which the compiled result runs in the audio engine and the code is saved in the `.score` file.
+### A script in the document
 
-**Controls declared in the code become ports on the process.** A slider or parameter declared in Faust appears as a port, and it is therefore automatable, mappable, and drivable from a sensor like every other port in the course, which is the same header-to-ports idea as the ISF (Interactive Shader Format) shaders of Lesson 26.
+A Faust process is a script stored in your document. You add the process, open its editor with the window button, write or paste code, and press compile, after which the compiled result runs in the audio engine and the code is saved in the `.score` file.
 
-**The compile loop is the one every scripting route shares.** `Ctrl+Enter` or the compile button applies the code; invalid code is refused, so that a mistake cannot produce a burst of noise; and errors appear in the pane below the editor.
+### Declared controls become ports
 
-**Polyphony comes from writing a mono processor.** As Lesson 21 established, a processor with one input and one output, `process = _ : _;` in Faust terms, is replicated to match the channel count arriving, so that eight channels in give eight processed channels out, and a list sent to one of its controls sets that control per channel. This mechanism is what makes multichannel work practical, and it is one of the reasons Faust is the recommended route for audio in this course.
+Controls declared in the code become ports on the process. A slider or parameter declared in Faust appears as a port, and it is therefore automatable, mappable, and drivable from a sensor like every other port in the course, which is the same header-to-ports idea as the ISF (Interactive Shader Format) shaders of Lesson 26.
 
-**The standard library covers most of what a piece needs.** Faust ships with filters, oscillators, reverbs, dynamics, and spatialisation, and two entries matter for this course: `sp.spat`, a circular spatialiser by Laurent Pottier which Lesson 22 mentioned, and the wider library of components that you can combine in a few lines.
+### Polyphony from a mono processor
 
-**Installable libraries extend it through the package manager.** The package manager provides further collections, including abclib by Alain Bonardi and Paul Goutmann, which adds ambisonics up to high orders, decoders for various layouts, and geometric tools; installing a package is usually the right choice whenever it already contains the algorithm you were about to write.
+Polyphony comes from writing a mono processor. As Lesson 21 established, a processor with one input and one output, `process = _ : _;` in Faust terms, is replicated to match the channel count arriving, so that eight channels in give eight processed channels out, and a list sent to one of its controls sets that control per channel. This mechanism is what makes multichannel work practical, and it is one of the reasons Faust is the recommended route for audio in this course.
+
+### The Faust standard library
+
+The standard library covers most of what a piece needs. Faust ships with filters, oscillators, reverbs, dynamics, and spatialisation, and two entries matter for this course: `sp.spat`, a circular spatialiser by Laurent Pottier which Lesson 22 mentioned, and the wider library of components that you can combine in a few lines.
 
 ## Walkthrough: from a one-liner to a spatialiser
 
@@ -57,6 +61,10 @@ The figure holds six lines of Faust, and every claim in this lesson is visible i
 4. **Automate that port from the timeline**, so that you are automating a parameter of a processor you wrote, which is the moment the two halves of this course meet.
 5. **Add a filter from the standard library, with its cutoff as a declared control**, and automate that control too.
 6. **Break the code and confirm that the running audio is unaffected** while the error appears in the pane.
+
+   {: .note }
+   > **The compile loop is the one every scripting route shares.** `Ctrl+Enter` or the compile button applies the code; invalid code is refused, so that a mistake cannot produce a burst of noise; and errors appear in the pane below the editor.
+
 7. **Test polyphony by feeding the pass-through processor a multichannel source**, and confirm that the channel count is preserved. Then send a list to the gain control and hear each channel take its own value.
 8. **Load the spatialiser by bringing in the `sp.spat` preset from the user library**, cable a mono source into it, and connect its outputs. Its speaker count is a number in the code, so changing 8 to 4 and compiling gives the process four outputs.
 9. **Compare it with Lesson 22's approach**, where the DBAP (distance-based amplitude panning) and matrix construction is object-based and adapts to any layout, whereas `sp.spat` assumes a ring and is a few lines. Neither is better, because they answer different questions.
@@ -83,7 +91,7 @@ Faust's library situation should be understood before you write a line of code, 
 
 **The standard library** covers filters, oscillators, delays, reverbs, dynamics, and the circular spatialiser, so that a processor which combines standard components is a few lines and not an implementation.
 
-**Installable collections** through the package manager add the specialised material, which means ambisonics of high order, decoders for specific layouts, and geometric and spatial transformation tools; for spatial work beyond amplitude panning, look here before writing.
+**Installable collections** through the package manager add the specialised material, among them abclib by Alain Bonardi and Paul Goutmann, which provides ambisonics up to high orders, decoders for various layouts, and geometric tools. For spatial work beyond amplitude panning, look here before writing, because installing a package is usually the right choice whenever it already contains the algorithm you were about to write.
 
 **Your own code** is for what is specific to your piece, such as a distortion with a particular character, a gate with unusual timing, or a processor whose behaviour is part of the composition.
 

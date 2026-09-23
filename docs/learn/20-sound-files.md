@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 20: Sound files and playback"
+title: "Lesson 20: Playing sound files: loops, fades, and envelopes"
 description: "Drop a file, loop it, fade it, analyse it, and keep its path portable: the sound file process and the media rules around it."
 parent: Lessons
 nav_order: 24
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: none
 ---
 
-# Lesson 20: Sound files and playback
+# Lesson 20: Playing sound files: loops, fades, and envelopes
 
 {% include lesson_meta.html %}
 
@@ -30,19 +30,29 @@ Paths deserve particular attention because Lesson 05 established that media is r
 
 ## Concepts
 
-**A sound file can be dropped into the score from anywhere.** It can come from the user library or from the operating system's file manager, and the target decides what happens: dropping onto a scenario creates an interval containing the file, whereas dropping onto an existing interval adds the file there.
+### Dropping a sound file
 
-**The interval's duration and the file's length are different quantities.** The interval is a stretch of time on the score, whereas the file has a length of its own, so making the interval shorter does not shorten the file; it stops playing the file early. However, the waveform drawn inside the interval suggests that the two are one thing, which is why the distinction is obvious once stated and still a frequent early confusion.
+A sound file can be dropped into the score from anywhere. It can come from the user library or from the operating system's file manager, and the target decides what happens: dropping onto a scenario creates an interval containing the file, whereas dropping onto an existing interval adds the file there.
 
-**Looping is a property of the sound file process.** It is set in the file's inspector, and it makes the file repeat for as long as its interval runs. This is the *process* loop of Lesson 17 and not a structural loop, and the two combine, so that a looping file inside a looping interval is a legitimate and occasionally confusing construction in which each level repeats on its own terms.
+### Interval duration and file length
 
-**Fades are gain automations.** Per Lesson 19, every audio outlet carries a gain sub-port, so you right-click it and create an automation; there is no separate fade object, and none is needed, because the automation already gives you the curve, the duration, and the means to edit both.
+The interval's duration and the file's length are different quantities. The interval is a stretch of time on the score, whereas the file has a length of its own, so making the interval shorter does not shorten the file; it stops playing the file early. However, the waveform drawn inside the interval suggests that the two are one thing, which is why the distinction is obvious once stated and still a frequent early confusion.
 
-**The envelope process turns an audio signal into a control value.** Its first output is an RMS (root mean square) measure and its second a peak measure, and combined with a **signal display** it puts a visible reading of the sound on the timeline, which is how you see what you are hearing.
+### Looping a sound file
 
-**Routing audio into analysis removes it from the mix.** Because connecting a cable removes propagation, sending audio into an envelope means that it stops reaching your ears, and you switch **propagate** on in the source outlet's inspector to keep both the sound and the reading. This is the single most common surprise in audio-reactive work. Moreover, Lesson 28 depends on your knowing it, so find the toggle now.
+Looping is a property of the sound file process. It is set in the file's inspector, and it makes the file repeat for as long as its interval runs. This is the *process* loop of Lesson 17 and not a structural loop, and the two combine, so that a looping file inside a looping interval is a legitimate and occasionally confusing construction in which each level repeats on its own terms.
 
-**Portable paths are resolved against the project folder.** A relative path is looked up in the project folder, which means the directory containing the `.score` file, and two special prefixes make the intent explicit: `<PROJECT>:/` resolves inside the project directory and `<LIBRARY>:/` inside the user library. Using them is how a document states where its media is supposed to come from. In contrast, a bare absolute path only records where the media happened to be on the authoring machine.
+### Fades as gain automations
+
+Fades are gain automations. Per Lesson 19, every audio outlet carries a gain sub-port, so you right-click it and create an automation; there is no separate fade object, and none is needed, because the automation already gives you the curve, the duration, and the means to edit both.
+
+### The envelope process
+
+The envelope process turns an audio signal into a control value. Its first output is an RMS (root mean square) measure and its second a peak measure, and combined with a **signal display** it puts a visible reading of the sound on the timeline, which is how you see what you are hearing.
+
+### Portable media paths
+
+Portable paths are resolved against the project folder. A relative path is looked up in the project folder, which means the directory containing the `.score` file, and two special prefixes make the intent explicit: `<PROJECT>:/` resolves inside the project directory and `<LIBRARY>:/` inside the user library. Using them is how a document states where its media is supposed to come from. In contrast, a bare absolute path only records where the media happened to be on the authoring machine.
 
 ## Walkthrough: from a file to a readable document
 
@@ -59,6 +69,10 @@ The figure shows `lesson-20.score`, which ships with this lesson and holds two e
 7. **Group them** by putting both into a sub-scenario and routing that scenario's output through a single effect, which is the grouping technique from the previous lesson.
 8. **Analyse the sound** by adding an envelope process and a signal display, routing the sound into the envelope and the envelope's first output into the display, then play and watch the reading move with the sound.
 9. **Notice the silence**, because the sound has disappeared from your monitors now that the cable removed propagation, and turn propagate on in the source outlet's inspector to get both.
+
+   {: .warning }
+   > **Routing audio into analysis removes it from the mix.** Lesson 19's rule applies to an envelope as to any other destination, so a cable into analysis silences the source until you switch **propagate** back on. Moreover, Lesson 28 depends on your knowing where the toggle is, because this is the most common surprise in audio-reactive work.
+
 10. **Scale the reading** if the display barely moves, by inserting a small mapping process between the envelope and the display to multiply it into a useful range, as Lesson 13 taught.
 11. **Make it portable** by re-pointing each file to a path inside the project directory, saving, moving the whole directory elsewhere, and reopening; no file should be missing.
 

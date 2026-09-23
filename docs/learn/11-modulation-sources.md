@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 11: Modulation sources"
+title: "Lesson 11: LFOs, step sequencers, and other modulation sources"
 description: "LFOs, step sequencers, interpolators, and path generators: movement that is described rather than drawn, and the nodal view where it gets patched."
 parent: Lessons
 nav_order: 13
@@ -12,7 +12,7 @@ practice_time: "25 min"
 score_file: none
 ---
 
-# Lesson 11: Modulation sources
+# Lesson 11: LFOs, step sequencers, and other modulation sources
 
 {% include lesson_meta.html %}
 
@@ -30,17 +30,29 @@ Furthermore, this lesson introduces the **nodal view**, which is the other half 
 
 ## Concepts
 
-**A generator produces values continuously from parameters, whereas an automation is a value over its interval.** A generator has a rate, a depth, and a waveform, so changing the rate changes the whole behaviour with no drawing to redo.
+### Generators and automations
 
-**The LFO (low-frequency oscillator) is the generator you will use most.** It has a waveform, a frequency, an amplitude, and an offset, and its parameters are ports, which means each of them can itself be automated or driven by something else; that is the idea this whole module is built on.
+A generator produces values continuously from parameters, whereas an automation is a value over its interval. A generator has a rate, a depth, and a waveform, so changing the rate changes the whole behaviour with no drawing to redo.
 
-**The step sequencer steps through a list of values at a rate.** An LFO produces a continuous waveform that passes through every intermediate value. In contrast, a step sequencer is discrete, which suits movement that should change in defined amounts, such as a lighting chase, a pattern of positions, or a sequence of states.
+### The LFO
 
-**Interpolators and path generators handle values on demand and trajectories.** An **interpolator** moves between values on demand and not on a clock, whereas a **path generator** produces a trajectory, following a drawn line or a circular or spiral figure, and it exists because positions are the most common thing you want moving continuously. Module G uses it for spatialisation and Module I for placing images.
+The LFO (low-frequency oscillator) is the generator you will use most. It has a waveform, a frequency, an amplitude, and an offset, and its parameters are ports, which means each of them can itself be automated or driven by something else; that is the idea this whole module is built on.
 
-**Every input and output is a port, and compatible ports connect with a cable.** A generator's output is a port and a destination's input is a port, so any port can be connected to any compatible port. The consequence, which takes a moment to accept, is that the interesting part of your work often has no timeline in it at all.
+### The step sequencer
 
-**Tempo awareness comes automatically to processes that can use musical metrics.** LFOs are among them, so if an interval carries its own tempo and signature, a generator inside it follows them, which is how a pulse stays locked to a piece and does not drift against it. [Lesson 24]({{ site.baseurl }}/learn/24-tempo-and-sync.html) is the full treatment.
+The step sequencer steps through a list of values at a rate. An LFO produces a continuous waveform that passes through every intermediate value. In contrast, a step sequencer is discrete, which suits movement that should change in defined amounts, such as a lighting chase, a pattern of positions, or a sequence of states.
+
+### Interpolators and path generators
+
+Interpolators and path generators handle values on demand and trajectories. An **interpolator** moves between values on demand and not on a clock, whereas a **path generator** produces a trajectory, following a drawn line or a circular or spiral figure, and it exists because positions are the most common thing you want moving continuously. Module G uses it for spatialisation and Module I for placing images.
+
+### Ports and cables
+
+Every input and output is a port, and compatible ports connect with a cable. A generator's output is a port and a destination's input is a port, so any port can be connected to any compatible port. The consequence, which takes a moment to accept, is that the interesting part of your work often has no timeline in it at all.
+
+### Tempo-locked generators
+
+Tempo awareness comes automatically to processes that can use musical metrics. LFOs are among them, so if an interval carries its own tempo and signature, a generator inside it follows them, which is how a pulse stays locked to a piece and does not drift against it. [Lesson 24]({{ site.baseurl }}/learn/24-tempo-and-sync.html) is the full treatment.
 
 ## The nodal view, and why it exists
 

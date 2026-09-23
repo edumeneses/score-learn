@@ -1,0 +1,611 @@
+# The course as a knowledge base. Each topic groups the questions readers bring
+# most often and links each one to the section that answers it. docs/topics.md
+# renders this file, and each lesson's topic links under its title come from it.
+#
+# unit:   the unit number from units.yml that answers the question
+# anchor: optional heading id on that page (kramdown GFM ids: lowercase, drop
+#         punctuation, spaces to hyphens); omit it to link the whole page
+# see:    optional inline list of further units, e.g. see: ["15", "P5"]
+#
+# scripts/check_lessons.py fails if a unit does not exist, if an anchor is not a
+# heading on that page, or if a written unit is reachable from no topic. Keep
+# the format flat: the checker reads it without PyYAML.
+
+- id: getting-started
+  title: Getting started
+  intro: What the software is, how to install it, and the handful of words every other page assumes.
+  questions:
+    - q: What is ossia score, and is it the right tool for my project?
+      unit: "00"
+      anchor: intermedia-sequencing
+    - q: Is score a timeline or a node graph?
+      unit: "00"
+      anchor: timeline-and-dataflow-together
+    - q: Is score free, and which platforms does it run on?
+      unit: "00"
+      anchor: where-score-sits
+    - q: How do I install score on Linux, macOS, or Windows?
+      unit: "01"
+      anchor: installing
+    - q: Score will not start or makes no sound. What now?
+      unit: "01"
+      anchor: if-it-will-not-start-or-will-not-make-a-sound
+    - q: What are intervals, states, events, and triggers?
+      unit: "02"
+      anchor: the-interval
+    - q: What does an address like device:/parameter mean?
+      unit: "02"
+      anchor: devices-and-addresses
+
+- id: interface
+  title: The interface
+  intro: Finding panels, navigating the timeline, and reading the inspector.
+  questions:
+    - q: Where is the process library?
+      unit: "03"
+      anchor: the-four-explorers
+    - q: How do I zoom and move around the timeline?
+      unit: "03"
+      anchor: moving-around-without-getting-lost
+    - q: I cannot find a setting in the inspector. Where is it?
+      unit: "03"
+      anchor: the-two-halves-of-the-inspector
+    - q: Where are the console and the message log?
+      unit: "03"
+      anchor: the-panels-you-need-when-something-misbehaves
+    - q: How do I find the right process for a job?
+      unit: "14"
+      anchor: two-questions-that-locate-a-process
+    - q: Which process should I use for a given task?
+      unit: "14"
+      anchor: the-decision-table
+    - q: How do I understand a process I have never used?
+      unit: "14"
+      anchor: reading-a-process-you-have-never-used
+
+- id: files
+  title: Saving, files, and media paths
+  intro: What a document contains, why media goes missing, and how to move a project to another machine.
+  questions:
+    - q: Why is my media missing after I moved the project?
+      unit: "05"
+      anchor: relative-and-absolute-paths
+    - q: How do I package a project to move it to another machine?
+      unit: "05"
+      anchor: walkthrough-package-a-project-properly
+      see: ["20"]
+    - q: Can I open a file saved by a newer version of score?
+      unit: "05"
+      anchor: what-versioning-means-here
+    - q: How do I find what a document depends on?
+      unit: "05"
+      anchor: reading-a-document-as-text
+      see: ["34"]
+    - q: How do I reuse part of a score in another document?
+      unit: "09"
+      anchor: scenario-presets
+
+- id: automation
+  title: Automation and modulation
+  intro: Curves that change a value over time, generators that change it continuously, and recorded gestures.
+  questions:
+    - q: How do I automate a parameter?
+      unit: "04"
+      anchor: walkthrough-from-empty-document-to-running-curve
+    - q: My automation runs but nothing happens. Why?
+      unit: "04"
+      anchor: minimum-and-maximum
+      see: ["08"]
+    - q: How do I make a curve ease in or out?
+      unit: "10"
+      anchor: segment-curvature
+    - q: How do I stop an automation jumping when a section starts?
+      unit: "10"
+      anchor: tweening-from-the-current-value
+    - q: How do I automate a position or a colour?
+      unit: "10"
+      anchor: the-three-automation-variants
+    - q: How do I use an LFO or a step sequencer?
+      unit: "11"
+      anchor: the-lfo
+    - q: How do I drive several parameters from one LFO?
+      unit: "11"
+      anchor: walkthrough-one-generator-three-destinations
+    - q: How do I record a controller gesture into an automation?
+      unit: "12"
+      anchor: walkthrough-perform-record-clean
+
+- id: osc
+  title: OSC and devices
+  intro: How score reaches other software and hardware, and how to prove a connection works.
+  questions:
+    - q: What is a device in score, and which protocols are there?
+      unit: "06"
+      anchor: the-protocols-available
+    - q: What is the difference between OSC and OSCQuery?
+      unit: "06"
+      anchor: descriptive-blind-and-fixed-shape-protocols
+    - q: How do I send OSC to another program?
+      unit: "07"
+      anchor: walkthrough-declare-a-device-and-prove-it-works
+    - q: Which port does score send on, and which does it listen on?
+      unit: "07"
+      anchor: sending-and-listening-ports
+    - q: Why does my OSC message not arrive?
+      unit: "07"
+      anchor: the-thirty-second-diagnosis
+    - q: How do I send a bang or a trigger over OSC?
+      unit: "07"
+      anchor: impulse-messages
+    - q: How do I send to one member of an array or convert units?
+      unit: "08"
+      anchor: address-suffixes
+
+- id: midi
+  title: MIDI
+  intro: Receiving from controllers, sending to instruments, MIDI files, and MIDI between machines.
+  questions:
+    - q: How do I receive MIDI from a keyboard or controller?
+      unit: "23"
+      anchor: midi-input-and-output-devices
+    - q: How do I send MIDI to a synthesiser?
+      unit: "23"
+      anchor: midi-input-and-output-devices
+    - q: How do I play or edit a MIDI file?
+      unit: "23"
+      anchor: the-piano-roll-and-midi-files
+    - q: How do I fire a cue from a MIDI key?
+      unit: "23"
+      anchor: walkthrough-receive-transform-send
+      see: ["15"]
+    - q: Why does my MIDI destination not move?
+      unit: "08"
+      anchor: where-ranges-bite-hardest
+      see: ["23"]
+    - q: How do I use MIDI over a network?
+      unit: "23"
+      anchor: midi-over-a-network
+    - q: How do I sync to MIDI clock?
+      unit: "24"
+      anchor: jack-transport-and-midi-clock
+
+- id: lighting
+  title: Lighting over Art-Net and DMX
+  intro: Driving fixtures from the score without a lighting desk, and keeping fades smooth.
+  questions:
+    - q: How do I control DMX lights over Art-Net?
+      unit: P2
+      anchor: walkthrough-the-reference-solution
+    - q: How do I drive many fixtures from one fader?
+      unit: P2
+      anchor: choosing-where-the-fan-out-happens
+    - q: How do I send one value to many addresses with wildcards?
+      unit: P2
+      anchor: address-pattern-matching
+    - q: Why does my light flicker when it should fade?
+      unit: P2
+      anchor: why-lighting-punishes-sloppy-ranges
+      see: ["08"]
+
+- id: sensors
+  title: Sensors and mapping
+  intro: Turning a noisy input into a value worth sending, and testing it without the sensor.
+  questions:
+    - q: How do I scale a sensor's values to the range I need?
+      unit: "13"
+      anchor: the-mapping-curve
+    - q: How do I stop a jittery sensor from twitching the output?
+      unit: "13"
+      anchor: smoothing-and-latency
+    - q: How do I learn a sensor's real range?
+      unit: "13"
+      anchor: calibrators
+    - q: In what order should I calibrate, filter, map, and smooth?
+      unit: "13"
+      anchor: order-matters
+    - q: My sensor floods the network. How do I thin its messages?
+      unit: "13"
+      anchor: rate-limiters
+    - q: How do I test mappings without a sensor?
+      unit: P3
+      anchor: emulating-an-input
+    - q: How do I find which stage of a chain stopped working?
+      unit: P3
+      anchor: observation-at-every-stage
+    - q: How do I log sensor values to a CSV file?
+      unit: "12"
+      anchor: recording-and-logging
+
+- id: interaction
+  title: Triggers, conditions, and loops
+  intro: Making the score wait, choose, and repeat, so that it responds to a performer or a visitor.
+  questions:
+    - q: How do I make the score wait for a cue?
+      unit: "15"
+      anchor: what-a-trigger-is
+    - q: How do I fire a trigger from a controller or sensor value?
+      unit: "15"
+      anchor: trigger-expressions
+    - q: How do I make sure an interactive passage always ends?
+      unit: "15"
+      anchor: minimum-nominal-and-maximum-durations
+    - q: How do I make the score choose between two paths?
+      unit: "16"
+      anchor: splitting-an-instant
+    - q: Why do both of my branches run?
+      unit: "16"
+      anchor: splitting-an-instant
+    - q: How do I write a condition on a sensor value?
+      unit: "16"
+      anchor: condition-expressions
+    - q: How do I loop part of a score?
+      unit: "17"
+      anchor: transitions
+    - q: How do I make a loop repeat about four times, or stop when something happens?
+      unit: "17"
+      anchor: repetition-counts
+    - q: How do I make a cue I can fire at any time?
+      unit: "17"
+      anchor: out-of-time-material
+      see: ["P5"]
+    - q: How do I build an installation that idles, reacts, and returns to idle?
+      unit: P4
+      anchor: walkthrough
+
+- id: show-control
+  title: Cues and show control
+  intro: Building cue lists, rehearsing sections, and making a piece another person can run.
+  questions:
+    - q: How do I take a snapshot of the current values as a cue?
+      unit: "09"
+      anchor: snapshots-by-dragging
+    - q: How do I build a cue list?
+      unit: "09"
+      anchor: walkthrough-three-cues-captured-not-typed
+    - q: How do I build a timed cue in sections?
+      unit: P1
+      anchor: walkthrough-the-reference-solution
+    - q: Why does my cue behave differently the second time?
+      unit: P1
+      anchor: a-known-starting-state
+    - q: How do I rehearse one section without playing the whole score?
+      unit: "18"
+      anchor: local-play-and-global-play
+    - q: How do I switch everything off when the score stops?
+      unit: "18"
+      anchor: start-and-stop-cues
+    - q: How do I start playback from the middle?
+      unit: "18"
+      anchor: seeking-with-play-from-here
+    - q: How do I make a simple operator panel?
+      unit: "33"
+      anchor: control-surfaces
+    - q: How do I make a piece a non-technical invigilator can run?
+      unit: P4
+      anchor: start-and-stop-cues
+
+- id: audio
+  title: Audio playback and routing
+  intro: Where sound goes by default, how to send it somewhere else, and how to play, process, and fade it.
+  questions:
+    - q: Why does score make no sound?
+      unit: "19"
+      anchor: walkthrough-configure-then-predict
+    - q: Where does my audio go by default?
+      unit: "19"
+      anchor: the-recursive-routing-rule
+    - q: Why did my dry signal disappear when I connected an effect?
+      unit: "19"
+      anchor: cables-and-propagation
+    - q: How do I set the buffer size and latency?
+      unit: "19"
+      anchor: buffer-size-and-latency
+    - q: How do I loop a sound file or fade it in and out?
+      unit: "20"
+      anchor: looping-a-sound-file
+    - q: How do I chain audio effects and use VST plug-ins?
+      unit: "21"
+      anchor: effect-chains
+    - q: How do I process a live microphone input?
+      unit: "21"
+      anchor: walkthrough-a-chain-an-automation-an-input
+    - q: How do I build a live looper?
+      unit: P5
+      anchor: walkthrough
+    - q: How do I send audio into OBS or another application?
+      unit: "37"
+      anchor: walkthrough-a-local-recording-then-a-stream
+
+- id: spatial-audio
+  title: Spatial and multichannel audio
+  intro: Speaker layouts, moving sources, panning algorithms, and monitoring a rig you do not have.
+  questions:
+    - q: Can score output more than two channels?
+      unit: "19"
+      anchor: channel-count-beyond-stereo
+    - q: How do I move a sound around speakers?
+      unit: "22"
+      anchor: walkthrough-a-sound-that-circles-four-speakers
+    - q: How do I describe my speaker layout?
+      unit: "22"
+      anchor: speaker-layouts
+    - q: Which panning algorithm should I use?
+      unit: "22"
+      anchor: dbap-and-gbap-panning
+    - q: Can score do ambisonics or drive SpatGRIS?
+      unit: "22"
+      anchor: faust-libraries-plug-ins-and-spatgris
+      see: ["31"]
+    - q: How do I monitor multichannel audio on headphones?
+      unit: "22"
+      anchor: fold-down-and-binaural-monitoring
+    - q: How do I process many channels with one effect?
+      unit: "21"
+      anchor: polyphony
+
+- id: sync
+  title: Tempo and synchronisation
+  intro: Musical time inside a score, and keeping score in step with other software and machines.
+  questions:
+    - q: How do I set a tempo and a time signature?
+      unit: "24"
+      anchor: inherited-musical-metrics
+    - q: How do I quantise a trigger to the bar?
+      unit: "24"
+      anchor: quantised-triggers
+    - q: How do I make a polyrhythm?
+      unit: "24"
+      anchor: polyrhythm-by-nesting
+    - q: How do I sync an LFO to the tempo?
+      unit: "11"
+      anchor: tempo-locked-generators
+    - q: How do I sync score with JACK transport?
+      unit: "18"
+      anchor: external-transport-with-jack
+      see: ["24"]
+    - q: Does score support Ableton Link or SMPTE?
+      unit: "24"
+      anchor: common-mistakes
+    - q: Which machine should hold the tempo?
+      unit: "24"
+      anchor: who-is-the-master
+
+- id: video
+  title: Video and projection
+  intro: Playing video, getting an image onto a screen or projector, and sending it to other software.
+  questions:
+    - q: How do I get video onto a screen or projector?
+      unit: "25"
+      anchor: output-devices
+    - q: How do I play a video file?
+      unit: "25"
+      anchor: walkthrough-an-image-on-screen-then-two
+    - q: How do I mix two video sources?
+      unit: "25"
+      anchor: the-video-mixer
+    - q: How do I use a camera as a source?
+      unit: "25"
+      anchor: cameras-as-sources
+    - q: How do I send video to another application or machine, with Spout, Syphon, NDI, or shmdata?
+      unit: "25"
+      anchor: where-the-image-goes
+      see: ["37"]
+    - q: Why is my video stuttering?
+      unit: "25"
+      anchor: performance-and-what-actually-costs
+    - q: How do I make content for a dome or planetarium?
+      unit: P6
+      anchor: fisheye-output
+
+- id: graphics
+  title: Shaders and 3D
+  intro: Writing and editing shaders, compositing, and building 3D scenes.
+  questions:
+    - q: How do I write or edit a shader?
+      unit: "26"
+      anchor: the-isf-header
+    - q: Where can I find shaders?
+      unit: "26"
+      anchor: where-to-get-shaders-and-how-to-read-one
+    - q: Can I live-code while the score plays?
+      unit: "26"
+      anchor: editing-while-it-runs
+    - q: How do I drive LEDs from an image?
+      unit: "26"
+      anchor: pixel-utilities
+    - q: Why is my 3D window black?
+      unit: "27"
+      anchor: reading-a-black-window
+    - q: How do I load a 3D model?
+      unit: "27"
+      anchor: primitives-and-loaded-models
+    - q: How do I put video or a camera image on a 3D object?
+      unit: "27"
+      anchor: texture-sources
+
+- id: audio-reactive
+  title: Audio-reactive visuals
+  intro: Measuring sound and turning the measurement into movement that feels right.
+  questions:
+    - q: How do I make visuals react to sound?
+      unit: "28"
+      anchor: the-three-object-chain
+    - q: How do I measure the level of a sound?
+      unit: "20"
+      anchor: the-envelope-process
+    - q: Should I use RMS or peak?
+      unit: "28"
+      anchor: rms-and-peak-measures
+    - q: Why does my audio-reactive visual barely move?
+      unit: "28"
+      anchor: scaling-the-range
+    - q: How do I stop the visuals jittering?
+      unit: "28"
+      anchor: smoothing-the-jitter
+    - q: How do I make it work with different music?
+      unit: "28"
+      anchor: making-it-survive-different-material
+    - q: How do I build a fulldome scene that reacts to live audio?
+      unit: P6
+      anchor: two-reactive-characters
+
+- id: scripting
+  title: Scripting and code
+  intro: JavaScript, formulas, Faust, Pure Data, and C++ inside a score, and how to choose among them.
+  questions:
+    - q: Which scripting route should I use?
+      unit: "30"
+      anchor: choosing-among-five-routes
+    - q: How do I write a JavaScript process?
+      unit: "29"
+      anchor: declared-ports
+    - q: How do I generate many intervals with a script?
+      unit: "29"
+      anchor: the-scripting-api
+    - q: How do I write a formula to scale a value?
+      unit: "30"
+      anchor: math-expressions
+    - q: How do I run C++ code inside a score?
+      unit: "30"
+      anchor: jit-compiled-c
+    - q: How do I write a Faust effect in score?
+      unit: "31"
+      anchor: walkthrough-from-a-one-liner-to-a-spatialiser
+    - q: How do I use a Pure Data patch in score?
+      unit: "32"
+      anchor: hosted-patches-as-processes
+    - q: Why do my patch's inlets not show up as ports?
+      unit: "32"
+      anchor: annotated-receives-as-ports
+    - q: How do I write my own process in C++?
+      unit: "39"
+      anchor: walkthrough-from-template-to-library-entry
+
+- id: remote-control
+  title: Remote control and custom interfaces
+  intro: Controlling a running score from a panel, a phone, or another program.
+  questions:
+    - q: How do I control score from a phone or tablet?
+      unit: "33"
+      anchor: remote-control-from-another-device
+    - q: How do I fire cues remotely?
+      unit: "33"
+      anchor: triggers-in-the-protocol
+    - q: What can the WebSocket remote control?
+      unit: "33"
+      anchor: the-websocket-protocol
+    - q: How do I build a custom interface in QML?
+      unit: "33"
+      anchor: qml-interfaces
+    - q: How do I control one score from another, or from any OSC software?
+      unit: "36"
+      anchor: the-local-device
+
+- id: networking
+  title: Networked and distributed setups
+  intro: Several machines, several instances, and the network as part of the piece.
+  questions:
+    - q: How do I import another instance's address tree?
+      unit: "36"
+      anchor: discovery-with-oscquery
+    - q: What should I synchronise between machines?
+      unit: "36"
+      anchor: what-to-synchronise-and-what-to-leave-alone
+    - q: What happens if the network fails mid-show?
+      unit: "36"
+      anchor: failure-is-the-design
+    - q: Should I use wireless for a performance?
+      unit: "36"
+      anchor: the-network-as-part-of-the-piece
+    - q: How do I reach an installation in another city?
+      unit: "36"
+      anchor: walkthrough-two-instances-one-piece
+
+- id: deployment
+  title: Installations, headless playback, and the Raspberry Pi
+  intro: Running a piece unattended, without a screen, and on small hardware.
+  questions:
+    - q: How do I run a score on a Raspberry Pi?
+      unit: "35"
+      anchor: arm-builds-and-the-raspberry-pi
+    - q: How do I run score without a screen or an interface?
+      unit: "35"
+      anchor: headless-operation
+    - q: How do I make score start automatically at boot?
+      unit: "35"
+      anchor: walkthrough-from-laptop-to-appliance
+    - q: How do I make my piece lighter for small hardware?
+      unit: "35"
+      anchor: what-to-remove-before-deploying
+    - q: How do I stop an installation freezing when a visitor walks away?
+      unit: P4
+      anchor: common-mistakes
+    - q: How do I test an installation for long-running failures?
+      unit: P4
+      anchor: the-eight-hour-test
+
+- id: recording
+  title: Recording and streaming the output
+  intro: Capturing or streaming what the piece produces, and documenting a work.
+  questions:
+    - q: How do I send score's video to OBS?
+      unit: "37"
+      anchor: share-protocols
+    - q: How do I livestream a piece?
+      unit: "37"
+      anchor: walkthrough-a-local-recording-then-a-stream
+    - q: How do I stream without OBS on Linux?
+      unit: "37"
+      anchor: direct-network-streams
+    - q: How do I record a piece on a second machine?
+      unit: "37"
+      anchor: two-machines-when-you-can
+    - q: How do I document an immersive piece well?
+      unit: "37"
+      anchor: making-a-capture-that-represents-the-work
+
+- id: production
+  title: Preparing a show
+  intro: The documents a piece needs to travel, and what a finished, producible work looks like.
+  questions:
+    - q: How do I write a technical rider?
+      unit: "34"
+      anchor: the-technical-rider
+    - q: What goes in a cue sheet?
+      unit: "34"
+      anchor: the-cue-sheet
+    - q: How do I plan for failures during a show?
+      unit: "34"
+      anchor: the-failure-plan
+    - q: How do I prepare a piece for a venue I have not seen?
+      unit: P6
+      anchor: the-venue-block
+    - q: What makes a complete, producible piece?
+      unit: "40"
+      anchor: the-brief
+    - q: Are there finished works to compare mine with?
+      unit: "40"
+      anchor: three-reference-solutions
+
+- id: help
+  title: Getting help and contributing
+  intro: Where answers live, how to ask, and how to give back to the project.
+  questions:
+    - q: Where do I find help on a specific process?
+      unit: "38"
+      anchor: walkthrough-from-confusion-to-contribution
+    - q: Which part of the manual answers my question?
+      unit: "38"
+      anchor: the-four-parts-of-the-manual
+    - q: Where are example scores?
+      unit: "38"
+      anchor: examples-as-documentation
+    - q: How do I report a bug?
+      unit: "38"
+      anchor: what-makes-a-report-worth-acting-on
+    - q: How do I share an addon I wrote?
+      unit: "39"
+      anchor: walkthrough-from-template-to-library-entry
+    - q: How can I contribute to score?
+      unit: "39"
+      anchor: contributing-not-only-building

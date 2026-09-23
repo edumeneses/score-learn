@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 08: Units, ranges, and types"
+title: "Lesson 08: Ranges, types, and units"
 description: "Why a working automation can produce no visible effect, and the address suffixes that select an array member, a component, or a unit."
 parent: Lessons
 nav_order: 9
@@ -12,7 +12,7 @@ practice_time: "20 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
-# Lesson 08: Units, ranges, and types
+# Lesson 08: Ranges, types, and units
 
 {% include lesson_meta.html %}
 
@@ -30,15 +30,25 @@ Furthermore, this is where *score* offers something better than arithmetic in yo
 
 ## Concepts
 
-**Type says what kind of value a parameter holds.** The kinds are float, integer, boolean, impulse, string, a vector such as `vec2f` and `vec3f`, or a list. Type is decided when a parameter is declared, and it determines what goes on the wire, as Lesson 07 showed.
+### Parameter types
 
-**Range, also called the domain, is the minimum and maximum a parameter accepts.** Two separate ranges are in play whenever you write an automation, and confusing them is the classic error. The **parameter's** range is declared on the device, whereas the **process's** minimum and maximum, shown in its slot header, map the curve's 0-to-1 space onto real values; the figure below shows the second kind, `Min: 0  Max: 1`, written next to the destination address.
+Type says what kind of value a parameter holds. The kinds are float, integer, boolean, impulse, string, a vector such as `vec2f` and `vec3f`, or a list. Type is decided when a parameter is declared, and it determines what goes on the wire, as Lesson 07 showed.
 
-**Clip mode decides what happens to a value outside the range.** The value can pass through, be clamped to the bounds, or be rejected, and a parameter that silently clamps looks like an automation that stops moving halfway.
+### Parameter and process ranges
 
-**A unit gives a value a declared physical meaning.** Degrees against radians, RGB against HSV, and metres against feet are the typical pairs, and when both ends declare units, *score* converts between them. Moreover, the conversion is more than cosmetic, because it is the difference between writing a rotation in the unit you think in and writing it in the unit the device happens to want.
+Range, also called the domain, is the minimum and maximum a parameter accepts. Two separate ranges are in play whenever you write an automation, and confusing them is the classic error. The **parameter's** range is declared on the device, whereas the **process's** minimum and maximum, shown in its slot header, map the curve's 0-to-1 space onto real values; the figure below shows the second kind, `Min: 0  Max: 1`, written next to the destination address.
 
-**Address suffixes narrow what an address writes to.** An address can carry a suffix in brackets that selects part of the parameter, as the table shows:
+### Clip mode
+
+Clip mode decides what happens to a value outside the range. The value can pass through, be clamped to the bounds, or be rejected, and a parameter that silently clamps looks like an automation that stops moving halfway.
+
+### Units and conversion
+
+A unit gives a value a declared physical meaning. Degrees against radians, RGB against HSV, and metres against feet are the typical pairs, and when both ends declare units, *score* converts between them. Moreover, the conversion is more than cosmetic, because it is the difference between writing a rotation in the unit you think in and writing it in the unit the device happens to want.
+
+### Address suffixes
+
+Address suffixes narrow what an address writes to. An address can carry a suffix in brackets that selects part of the parameter, as the table shows:
 
 | Syntax | Writes to |
 |---|---|
@@ -47,8 +57,6 @@ Furthermore, this is where *score* offers something better than arithmetic in yo
 | `dev:/matrix@[1][0]` | a member of a nested array |
 | `dev:/colour@[color.rgb.r]` | the red component only |
 | `dev:/tilt@[angle.radian]` | the whole parameter, expressed in radians |
-
-The first row of the table deserves a second reading, because with no suffix an automation sent to an array parameter affects all of its members, which is occasionally what you want and frequently a surprise.
 
 ## Walkthrough: read the two ranges, then use a suffix
 
@@ -91,7 +99,7 @@ A last point concerns discovery, because the whole of this lesson is easier when
 
 - **Confusing the two ranges** is the classic error, since the slot header shows the process's range while the explorer shows the parameter's.
 - **Leaving 0 to 1 everywhere** works only when the destination is also normalised, because that range is the default and not a considered choice.
-- **Sending to an array without a suffix** moves every member at once, which is rarely the intention.
+- **Sending to an array without a suffix** moves every member at once, as the first row of the suffix table shows, which is occasionally what you want and frequently a surprise.
 - **Counting array members from one** misses the target, since `@[0]` is the first.
 - **Assuming a unit conversion happened** fails when the parameter declares no unit, because a parameter declared as a bare float has no unit to convert from, and the suffix will not invent one.
 - **Declaring a trigger as a float** invites the mismatch that Lesson 07 described, so use an impulse, whose arrival is the message.

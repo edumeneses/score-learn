@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lesson 01: Install, first run, and finding your way to help"
+title: "Lesson 01: Installing score, first run, and getting help"
 description: "Install ossia score on Linux, macOS, or Windows, confirm it runs, and learn the four places the software answers questions."
 parent: Lessons
 nav_order: 1
@@ -12,7 +12,7 @@ practice_time: "15 min"
 score_file: none
 ---
 
-# Lesson 01: Install, first run, and finding your way to help
+# Lesson 01: Installing *score*, first run, and getting help
 
 {% include lesson_meta.html %}
 
@@ -30,11 +30,17 @@ The second half of this lesson is about help, and it comes this early because th
 
 ## Concepts
 
-**The software publishes tagged releases and development builds.** The tagged release is what a download page gives you and what this course targets. In contrast, development builds carry features that are not documented yet, which makes them useful later and distracting now.
+### Releases and development builds
 
-**A portable build and an installed build serve different needs.** On Linux the AppImage is a single executable file that installs and registers no component, so several versions can sit side by side, as a pinned course requires. Conversely, Flatpak and distribution packages integrate better with the desktop and update with the system, while on macOS and Windows the usual installers apply.
+The software publishes tagged releases and development builds. The tagged release is what a download page gives you and what this course targets. In contrast, development builds carry features that are not documented yet, which makes them useful later and distracting now.
 
-**The audio backend sits between *score* and the sound card.** The software talks to whatever audio system your machine runs, which on Linux means JACK or PipeWire for reliable low latency, and ALSA otherwise. Getting this right matters from Lesson 19 onward, although a machine that produces no sound in Module G usually has a backend problem rather than a score problem.
+### Portable and installed builds
+
+A portable build and an installed build serve different needs. On Linux the AppImage is a single executable file that installs and registers no component, so several versions can sit side by side, as a pinned course requires. Conversely, Flatpak and distribution packages integrate better with the desktop and update with the system, while on macOS and Windows the usual installers apply.
+
+### The audio backend
+
+The audio backend sits between *score* and the sound card. The software talks to whatever audio system your machine runs, which on Linux means JACK or PipeWire for reliable low latency, and ALSA otherwise. Getting this right matters from Lesson 19 onward, although a machine that produces no sound in Module G usually has a backend problem rather than a score problem.
 
 ## Installing
 
