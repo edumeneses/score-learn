@@ -47,15 +47,26 @@ def human(size: int) -> str:
 
 def units() -> dict[str, tuple[str, str]]:
     """slug -> (unit number, title), read from the single source of truth."""
-    out, num, title = {}, None, None
+    # Each entry is collected whole and stored when the next begins, because
+    # `slug` precedes `title` in units.yml: storing at the slug line paired every
+    # unit with the previous unit's title.
+    out: dict[str, tuple[str, str]] = {}
+    entry: dict[str, str] = {}
+
+    def flush() -> None:
+        if "slug" in entry:
+            out[entry["slug"]] = (entry.get("num", "?"), entry.get("title", entry["slug"]))
+
     for line in UNITS.read_text(encoding="utf8").splitlines():
         line = line.strip()
         if m := re.match(r'-?\s*num:\s*"?([^"\s]+)"?', line):
-            num = m.group(1)
+            flush()
+            entry = {"num": m.group(1)}
         elif m := re.match(r'title:\s*"?(.+?)"?$', line):
-            title = m.group(1)
+            entry["title"] = m.group(1)
         elif m := re.match(r"slug:\s*(\S+)", line):
-            out[m.group(1)] = (num or "?", title or m.group(1))
+            entry["slug"] = m.group(1)
+    flush()
     return out
 
 
@@ -89,7 +100,7 @@ def main() -> int:
         "layout: default\n"
         "title: Downloads\n"
         "description: \"Every example document the course ships, individually or as one archive.\"\n"
-        "nav_order: 2\n"
+        "nav_order: 3\n"
         "permalink: /downloads\n"
         "---\n\n"
         "# Downloads\n\n"
