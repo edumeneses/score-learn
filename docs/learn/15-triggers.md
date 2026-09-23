@@ -52,7 +52,7 @@ The trigger inspector offers two further options, start on play and re-triggerin
 
 ## Walkthrough: build a score that waits
 
-![An interval whose duration is drawn dashed, ending at an instant carrying a trigger marker]({{ site.img }}/15/15-01-trigger.png)
+[![An interval whose duration is drawn dashed, ending at an instant carrying a trigger marker]({{ site.img }}/15/15-01-trigger.png)]({{ site.scores }}/15-triggers/lesson-15.score){: download="" title="Download lesson-15.score, the document in this figure" }
 
 1. **Open `lesson-15.score`** and read its structure, which is one interval with an automation, ending at an instant that waits, followed by a second interval; the dashed duration before the trigger is the signature from the Concepts section.
 2. **Play it and watch the transport.** The first automation runs, the playhead reaches the trigger and stops there, and the progress bar on the first interval stops advancing, which is what waiting looks like when the score is behaving correctly.
@@ -105,3 +105,5 @@ Write a forty-second passage with three sections and two triggers, in which the 
 - [The scenario reference]({{ site.docs_baseurl }}/processes/scenario.html) for triggers, durations, and their inspector options.
 - [Out-of-time triggering]({{ site.docs_baseurl }}/common-practices/3-out-of-time.html), which [Lesson 17]({{ site.baseurl }}/learn/17-loops-and-out-of-time.html) covers.
 - [Switches]({{ site.docs_baseurl }}/common-practices/2-switches.html) for trigger expressions used as toggles.
+
+{% include lesson_files.html %}

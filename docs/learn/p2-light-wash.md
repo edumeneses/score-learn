@@ -59,7 +59,7 @@ Pattern matching lets *score* send one value to many addresses at once. An addre
 
 ## Walkthrough: the reference solution
 
-![One interval holding four automations, one per channel group, with captured states at both ends]({{ site.img }}/p2/p2-01-light-wash.png)
+[![One interval holding four automations, one per channel group, with captured states at both ends]({{ site.img }}/p2/p2-01-light-wash.png)]({{ site.scores }}/p2-light-wash/p2-solution.score){: download="" title="Download p2-solution.score, the document in this figure" }
 
 `p2-solution.score` ships with this milestone, and it uses an OSC (Open Sound Control) device in place of Art-Net so that it runs for readers with no receiver installed; the structure is identical, and the exercise below asks you to rebuild it against Art-Net.
 
@@ -124,3 +124,5 @@ Or **make it operable** by adding a second interval that returns every channel t
 - [LED design]({{ site.docs_baseurl }}/common-practices/13-led-design.html), which takes this much further with array tools and shader-driven pixels.
 - [Pattern matching]({{ site.docs_baseurl }}/in-depth/pattern-matching.html) for the full address syntax.
 - [Data processing]({{ site.docs_baseurl }}/common-practices/12-data-processing.html), the bridge into Module E.
+
+{% include lesson_files.html %}

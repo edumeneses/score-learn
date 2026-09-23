@@ -134,3 +134,5 @@ Build the pipeline above from one real input to two outputs, then tune it agains
 - [Mapping curve]({{ site.docs_baseurl }}/processes/mapping.html), [range filter]({{ site.docs_baseurl }}/processes/range-filter.html), [calibrator]({{ site.docs_baseurl }}/processes/calibrator.html), [smooth]({{ site.docs_baseurl }}/processes/smooth.html), [rate limiter]({{ site.docs_baseurl }}/processes/rate-limiter.html).
 - [Math expressions]({{ site.docs_baseurl }}/processes/exprtk.html) for formula-based relationships.
 - [The mapper device]({{ site.docs_baseurl }}/devices/mapper-device.html) for conversions that live outside the timeline.
+
+{% include lesson_files.html %}

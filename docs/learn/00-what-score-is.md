@@ -63,9 +63,9 @@ The software is free and open-source, and it runs on Linux, both desktop and emb
 
 ## Walkthrough: read a score before touching one
 
-The figure below shows a small finished score, `lesson-00.score`, which ships with this lesson. Find each numbered element in turn, because you are learning to read the notation before you write it; you cannot open the file yet, since *score* is installed in the next lesson.
+The figure below shows a small finished score, `lesson-00.score`, which ships with this lesson. Find each numbered element in turn, because you are learning to read the notation before you write it; you cannot open the file yet, since *score* is installed in the next lesson. However, you can already keep it, because every figure in this course that shows a shipped document is also a download link for that document, and each lesson lists its documents again at the foot of its page.
 
-![An annotated ossia score document showing a timeline with nested intervals, automations, a trigger, and two conditional branches]({{ site.img }}/00/00-01-annotated-score.png)
+[![An annotated ossia score document showing a timeline with nested intervals, automations, a trigger, and two conditional branches]({{ site.img }}/00/00-01-annotated-score.png)]({{ site.scores }}/00-what-score-is/lesson-00.score){: download="" title="Download lesson-00.score, the document in this figure" }
 
 1. **The timeline runs left to right**, and the ruler at the top reads in minutes and seconds, so that every other element in the figure hangs off that axis.
 2. **Intervals nest inside intervals**, which is how a score gets sections. The interval named `Approach` holds a second scenario, `Scenario.10`, which holds an interval of its own, `Shutter`, and this hierarchy is the reason the interface has no flat track list.
@@ -77,7 +77,7 @@ The figure below shows a small finished score, `lesson-00.score`, which ships wi
 
 Now look at the same document the other way, since the second figure shows the same file drawn as a graph; the file itself did not change between the two figures, although the drawing looks unrelated to the timeline, and only the view differs.
 
-![The same document drawn as a node graph, the root scenario containing its intervals as nested nodes]({{ site.img }}/00/00-02-nodal-view.png)
+[![The same document drawn as a node graph, the root scenario containing its intervals as nested nodes]({{ site.img }}/00/00-02-nodal-view.png)]({{ site.scores }}/00-what-score-is/lesson-00-nodal.score){: download="" title="Download lesson-00-nodal.score, the document in this figure" }
 
 1. **The root scenario appears as one node** containing the same intervals you just read as a timeline. This is the second of the two paradigms named above, and the button that switches between them sits at the bottom left of the window; [Lesson 11]({{ site.baseurl }}/learn/11-modulation-sources.html) introduces that switch, and it is where the graph view starts to earn its place.
 
@@ -101,3 +101,5 @@ Write one paragraph, in plain language and with no reference to software, descri
 - [Interface overview]({{ site.docs_baseurl }}/quick-start/interface-overview.html) is the reference tour of the window, which Lesson 03 walks through in detail.
 - [Execution]({{ site.docs_baseurl }}/in-depth/execution.html) describes the scheduling model, for readers who want it before Phase 3 reaches it.
 - The [examples library]({{ site.docs_baseurl }}/examples/) is reachable from the *score* start screen, and browsing it before Lesson 01 prepares you for that lesson's exercise.
+
+{% include lesson_files.html %}

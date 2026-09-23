@@ -52,7 +52,7 @@ Process loops are a different mechanism from structure loops. An interval can lo
 
 ## Walkthrough: three structures
 
-![A two-interval phrase with a dash-dot transition running back from its end to the instant before it, and below, an interval joined to nothing, carrying a trigger armed on play]({{ site.img }}/17/17-01-loop-and-out-of-time.png)
+[![A two-interval phrase with a dash-dot transition running back from its end to the instant before it, and below, an interval joined to nothing, carrying a trigger armed on play]({{ site.img }}/17/17-01-loop-and-out-of-time.png)]({{ site.scores }}/17-loops-and-out-of-time/lesson-17.score){: download="" title="Download lesson-17.score, the document in this figure" }
 
 Both structures are in `lesson-17.score`, which ships with this lesson. The dash-dot line with the arrowhead is the transition, which leaves the instant at the end of `Phrase` and arrives at the instant before it, so that `Phrase` repeats and the score does not reach an end. Below it, `On demand` is joined to no instant the score starts from, which is the whole of what "out of time" means, while the yellow marker on its first instant is a trigger with start on play enabled, and that trigger is the only way the material will run.
 
@@ -110,3 +110,5 @@ Build a document with three parts: a phrase that repeats about four times and th
 - [Switches]({{ site.docs_baseurl }}/common-practices/2-switches.html) for toggles and parallel switching.
 - [Out-of-time triggering]({{ site.docs_baseurl }}/common-practices/3-out-of-time.html) for material outside the timeline.
 - [Live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html), which uses never-ending intervals to make a score behave like a patch.
+
+{% include lesson_files.html %}

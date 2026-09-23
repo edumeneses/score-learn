@@ -111,3 +111,5 @@ There is no next lesson, so the reasonable next steps are to make a second piece
 - [The examples]({{ site.docs_baseurl }}/examples/examples.html) and [common practices]({{ site.docs_baseurl }}/common-practices/common-practices.html) read differently now that you have finished a piece.
 - [The user library](https://github.com/ossia/score-user-library) is where your presets and fragments can go.
 - [The project](https://github.com/ossia/score) hosts the issues, the discussions, and the code.
+
+{% include lesson_files.html %}

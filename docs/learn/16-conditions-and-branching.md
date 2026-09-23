@@ -52,7 +52,7 @@ Offset behaviour decides how a condition is read during a transport jump. When y
 
 ## Walkthrough: two branches and a layer
 
-![Two conditional branches leaving one instant, with a third interval running in parallel]({{ site.img }}/16/16-01-branching.png)
+[![Two conditional branches leaving one instant, with a third interval running in parallel]({{ site.img }}/16/16-01-branching.png)]({{ site.scores }}/16-conditions-and-branching/lesson-16.score){: download="" title="Download lesson-16.score, the document in this figure" }
 
 1. **Open `lesson-16.score`**, which contains one instant with two outgoing intervals carrying opposing conditions on the same address, so that one of them runs and only one.
 2. **Set the input low and play**, so that one branch runs; stop, set the input high, and play again, so that the other runs, which shows the same document producing two behaviours decided at the instant.
@@ -115,3 +115,5 @@ Write a score that responds to one input with three alternatives, one common lay
 - [Switches]({{ site.docs_baseurl }}/common-practices/2-switches.html), which builds toggles and reordering from conditional branches.
 - [Seek and transport]({{ site.docs_baseurl }}/common-practices/9-seek-and-transport.html) for offset behaviour in context.
 - [Scenes]({{ site.docs_baseurl }}/common-practices/6-scenes.html), the structural pattern [Milestone P4]({{ site.baseurl }}/learn/p4-interactive-installation.html) uses.
+
+{% include lesson_files.html %}

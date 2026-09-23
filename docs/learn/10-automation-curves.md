@@ -59,7 +59,7 @@ Route four deserves emphasis because it addresses the internals of your score, w
 
 ## Walkthrough: shape as a choice
 
-![Four intervals, each holding one automation with a different curve shape]({{ site.img }}/10/10-01-curve-shapes.png)
+[![Four intervals, each holding one automation with a different curve shape]({{ site.img }}/10/10-01-curve-shapes.png)]({{ site.scores }}/10-automation-curves/lesson-10.score){: download="" title="Download lesson-10.score, the document in this figure" }
 
 1. **Open `lesson-10.score`**, which holds four intervals with four curves on the same address, numbered in the figure: linear, accelerating, decelerating, and a two-segment shape with a hold in the middle.
 2. **Play it and watch one value**, which shows the same start, the same end, and the same duration producing four quite different behaviours, while no other part of the document differs.
@@ -119,3 +119,5 @@ Take one twenty-second interval and one parameter, and write five versions of th
 - [The automation process]({{ site.docs_baseurl }}/processes/automation_float.html) documents every inspector option.
 - [2D spline]({{ site.docs_baseurl }}/processes/2Dspline.html) and [gradient]({{ site.docs_baseurl }}/processes/gradient.html) are the other two variants.
 - [Interpolate states]({{ site.docs_baseurl }}/processes/scenario.html) is described in the scenario reference.
+
+{% include lesson_files.html %}

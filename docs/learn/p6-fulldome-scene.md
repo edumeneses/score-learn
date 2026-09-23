@@ -131,3 +131,5 @@ Or **make it operable by someone else** by reducing the performance interface to
 - [Video techniques]({{ site.docs_baseurl }}/common-practices/5-video.html) and [video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing.html).
 - [Scenes]({{ site.docs_baseurl }}/common-practices/6-scenes.html) for the structural pattern.
 - [Spatial audio]({{ site.docs_baseurl }}/common-practices/14-spatial-audio.html) if you take the spatial extension.
+
+{% include lesson_files.html %}

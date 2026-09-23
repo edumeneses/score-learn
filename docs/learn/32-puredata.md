@@ -9,7 +9,7 @@ permalink: /learn/32-puredata.html
 score_version: "3.8.2"
 reading_time: "13 min"
 practice_time: "25 min"
-score_file: none
+score_file: 32-puredata/lesson-32.score
 ---
 
 # Lesson 32: Pure Data patches inside score
@@ -50,7 +50,7 @@ Audio and control both cross the boundary. A patch can process audio inside a *s
 
 ## Walkthrough: host, drive, and read back
 
-![A hosted Pure Data patch as a process, with an audio inlet, an audio outlet, and a gain control derived from the patch]({{ site.img }}/32/32-01-hosted-patch.png)
+[![A hosted Pure Data patch as a process, with an audio inlet, an audio outlet, and a gain control derived from the patch]({{ site.img }}/32/32-01-hosted-patch.png)]({{ site.scores }}/32-puredata/lesson-32.score){: download="" title="Download lesson-32.score, the document in this figure" }
 
 1. **Prepare a small patch first, and not your most complex one**, so that every step of this walkthrough is verifiable: one control in, one control out, and audio through. The shipped `lesson-32.pd` is that patch, and its whole content is these six objects:
 
@@ -128,3 +128,5 @@ Take a patch you already use that contains some form of sequencing, and refactor
 - [The Pure Data integration example]({{ site.docs_baseurl }}/examples/audio/pd-integration.html), which is the document to open before building your own.
 - [Media management]({{ site.docs_baseurl }}/in-depth/media.html) for path resolution, which applies to patch files as much as to media.
 - [Audio routing]({{ site.docs_baseurl }}/in-depth/audio-routing.html) for the propagation behaviour when a patch sits in an audio chain.
+
+{% include lesson_files.html %}

@@ -9,7 +9,7 @@ permalink: /learn/19-audio-setup.html
 score_version: "3.8.2"
 reading_time: "13 min"
 practice_time: "20 min"
-score_file: none
+score_file: 20-sound-files/lesson-20.score
 ---
 
 # Lesson 19: Audio setup and routing
@@ -56,7 +56,7 @@ Every audio outlet carries a gain sub-port. Any output can therefore be faded wi
 
 ## Walkthrough: configure, then predict
 
-![The Audio page of score's settings, showing the driver, buffer size, output device, and reported channel count, beside the inspector of a sound file's audio outlet with its propagate toggle]({{ site.img }}/19/19-01-audio-preferences.png)
+[![The Audio page of score's settings, showing the driver, buffer size, output device, and reported channel count, beside the inspector of a sound file's audio outlet with its propagate toggle]({{ site.img }}/19/19-01-audio-preferences.png)]({{ site.scores }}/20-sound-files/lesson-20.score){: download="" title="Download lesson-20.score, the document in this figure" }
 
 Both halves of the lesson appear in that one image. On the left is the `Audio` page, with a backend chosen, a buffer size, an output device, and the channel count the driver reports underneath, which here is 64 in and 64 out and is what an unfixed channel count looks like in practice. On the right is the inspector for a sound file, whose `Outputs` section carries the `Propagate` toggle that step 8 turns back on.
 
@@ -114,3 +114,5 @@ Build a document with four sound files, two routed straight to the top and two g
 - [Audio techniques]({{ site.docs_baseurl }}/common-practices/4-audio.html), which this lesson and the next two follow.
 - [The audio device]({{ site.docs_baseurl }}/devices/audio-device.html) for live inputs, used in Lesson 21.
 - [Preferences]({{ site.docs_baseurl }}/reference-manual/references/preferences.html) for the backend and buffer settings.
+
+{% include lesson_files.html %}

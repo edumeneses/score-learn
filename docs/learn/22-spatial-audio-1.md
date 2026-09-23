@@ -123,3 +123,5 @@ Build the four-speaker circling scene, then change it three ways without touchin
 - [DBAP]({{ site.docs_baseurl }}/processes/dbap.html), [GBAP]({{ site.docs_baseurl }}/processes/gbap.html), and [matrix spatialisation]({{ site.docs_baseurl }}/processes/spatialization-matrix.html).
 - [Path generator]({{ site.docs_baseurl }}/processes/path-generator.html) and [2D spline]({{ site.docs_baseurl }}/processes/2Dspline.html) for trajectories.
 - [Faust]({{ site.docs_baseurl }}/processes/faust.html) and the package manager, for `sp.spat` and abclib.
+
+{% include lesson_files.html %}

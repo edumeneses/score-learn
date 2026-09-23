@@ -60,6 +60,7 @@ def body(text: str) -> str:
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     text = re.sub(r"\{%.*?%\}", "", text, flags=re.S)
     text = re.sub(r"\{\{.*?\}\}", "", text, flags=re.S)
+    text = re.sub(r"\{:[^}]*\}", "", text)
     text = re.sub(r"```.*?```", "", text, flags=re.S)
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)
     text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)

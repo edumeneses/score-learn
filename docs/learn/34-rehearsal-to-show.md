@@ -9,7 +9,7 @@ permalink: /learn/34-rehearsal-to-show.html
 score_version: "3.8.2"
 reading_time: "12 min"
 practice_time: "20 min"
-score_file: none
+score_file: p1-automated-cue/p1-solution.score
 ---
 
 # Lesson 34: From rehearsal to show: riders, cue sheets, and failure plans
@@ -56,7 +56,7 @@ The reduced version is a tested, smaller configuration for a venue that has less
 
 ## Walkthrough: five documents in ninety minutes
 
-![The milestone cue folded: three named sections, with their processes reduced to badges]({{ site.img }}/34/34-01-folded.png)
+[![The milestone cue folded: three named sections, with their processes reduced to badges]({{ site.img }}/34/34-01-folded.png)]({{ site.scores }}/p1-automated-cue/p1-solution.score){: download="" title="Download p1-solution.score, the document in this figure" }
 
 The figure shows Milestone P1's cue with every interval folded, which is what step 1 asks you to produce: three named sections, no slot contents, and a structure readable in one glance. Compared with the same document unfolded in [Milestone P1]({{ site.baseurl }}/learn/p1-automated-cue.html), the folded view is the one you want when the house opens in an hour and a section is misbehaving.
 
@@ -119,3 +119,5 @@ Produce the five documents for one milestone piece, which are the dependency lis
 - [Scenes]({{ site.docs_baseurl }}/common-practices/6-scenes.html) for the structure that makes a cue sheet writable.
 - [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html), the source of the addon dependencies the list must record.
 - [Headless and embedded]({{ site.baseurl }}/learn/35-headless-and-embedded.html) next, for pieces that run on a machine with no operator at all.
+
+{% include lesson_files.html %}

@@ -70,7 +70,7 @@ A **score** contains one root **interval**, and an interval contains **processes
 
 Open `lesson-00.score` and work down the list, clicking the object at each step and reading the right-hand panel before moving on.
 
-![One instant of a score, zoomed: a state on its event, and the trigger marker above it]({{ site.img }}/02/02-01-instant.png)
+[![One instant of a score, zoomed: a state on its event, and the trigger marker above it]({{ site.img }}/02/02-01-instant.png)]({{ site.scores }}/00-what-score-is/lesson-00.score){: download="" title="Download lesson-00.score, the document in this figure" }
 
 The figure zooms on one instant of `lesson-00.score`, with the two objects that are easiest to confuse marked: the **state**, which step 5 below covers, and the **trigger** on the instant it sits at, which step 7 covers.
 
@@ -118,3 +118,5 @@ Take the paragraph you wrote for the Lesson 00 exercise and rewrite it using onl
 - [Glossary]({{ site.docs_baseurl }}/reference-manual/references/glossary.html) holds the project's own definitions, which you should compare with the ones above.
 - [What is *score*]({{ site.docs_baseurl }}/quick-start/what-is-score.html) covers the same ground at a higher altitude.
 - [Execution]({{ site.docs_baseurl }}/in-depth/execution.html) describes how these objects behave once the playhead is running.
+
+{% include lesson_files.html %}

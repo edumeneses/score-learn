@@ -117,3 +117,5 @@ Write the device map for a project you want to make, listing for each device the
 - [The devices reference]({{ site.docs_baseurl }}/devices.html) gives one page per protocol with its settings.
 - [Protocols]({{ site.docs_baseurl }}/reference-manual/references/protocols.html) is the reference manual's full list of supported protocols.
 - [Monitoring activity]({{ site.docs_baseurl }}/faq/monitor-activity.html) describes the panels that Lesson 07 uses for debugging.
+
+{% include lesson_files.html %}

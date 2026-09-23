@@ -68,7 +68,7 @@ Observation at every stage, using signal displays, turns "the light is not movin
 
 ## Walkthrough
 
-![An LFO standing in for a sensor, conditioned once by a range filter, then branching three ways: straight to a signal display, through a smoothing filter, and through a multi-choice step, each branch ending in its own observation]({{ site.img }}/p3/p3-01-mapping-bench.png)
+[![An LFO standing in for a sensor, conditioned once by a range filter, then branching three ways: straight to a signal display, through a smoothing filter, and through a multi-choice step, each branch ending in its own observation]({{ site.img }}/p3/p3-01-mapping-bench.png)]({{ site.scores }}/p3-mapping-bench/p3-bench.score){: download="" title="Download p3-bench.score, the document in this figure" }
 
 `p3-bench.score` ships with this milestone as the skeleton of the answer, with one input conditioned once, three branches, and an observation on each, whereas the calibration, the rate limiting, and the written map are yours to add.
 
@@ -133,3 +133,5 @@ Or **make it fail gracefully** by defining what each destination should do when 
 - [The joystick device]({{ site.docs_baseurl }}/devices/joystick-device.html), the cheapest real input.
 - [Signal display]({{ site.docs_baseurl }}/processes/signal-display.html), the observation process used throughout.
 - [Presets]({{ site.docs_baseurl }}/presets.html) for saving the bench as a fragment.
+
+{% include lesson_files.html %}

@@ -114,3 +114,5 @@ File one report, either a documentation gap with the two sentences you would hav
 - [The glossary]({{ site.docs_baseurl }}/reference-manual/references/glossary.html), including its unfinished entries, shows where a first contribution could land.
 - [The examples]({{ site.docs_baseurl }}/examples/examples.html) remain underused, although they answer many questions that no page does.
 - The project on [GitHub](https://github.com/ossia/score) holds the tracker, and [score-docs](https://github.com/ossia/score-docs) is where to go if you would rather write the page than request it.
+
+{% include lesson_files.html %}

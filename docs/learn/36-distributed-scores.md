@@ -123,3 +123,5 @@ Build a two-machine piece in which machine A holds the structure and fires three
 - [Controlling *score* with OSCQuery]({{ site.docs_baseurl }}/faq/controlling-score-with-oscquery.html) and [the local device]({{ site.docs_baseurl }}/devices/local-device.html) cover the walkthrough's route.
 - The paper *Networked Performances with Ossia Score*, by Celerier and Baltazar, describes where the project's distributed work is heading.
 - [Livestreaming]({{ site.docs_baseurl }}/common-practices/10-livestreaming.html) and [Lesson 37]({{ site.baseurl }}/learn/37-recording-and-streaming.html) cover moving content across a network, whereas this lesson moved control.
+
+{% include lesson_files.html %}

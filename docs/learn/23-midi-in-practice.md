@@ -70,7 +70,7 @@ Both devices are declared before any object is drawn, which is the order this co
 3. **Map a controller to a gain** by addressing a knob to the gain sub-port of an audio outlet from Module G, with the range set to 0 to 127 on the source side, then move the knob and hear the level change.
 
    {: .warning }
-   > **Integer ranges apply to every MIDI destination.** Note numbers, velocities, and controller values are integers in 0 to 127, so every automation aimed at one of them needs its range set accordingly, and Lesson 08's diagnosis is the one to run when a destination does not move.
+   > **Every MIDI destination takes integers**, since note numbers, velocities, and controller values all run from 0 to 127. Every automation aimed at one of them therefore needs its range set accordingly, and Lesson 08's diagnosis is the one to run when a destination does not move.
 
 4. **Declare a MIDI output device** and connect it to something that makes sound.
 5. **Add a piano roll** in an interval, double-click the grid a few times to place notes, set its output to the MIDI output device in the inspector, and play; you are now sequencing an external instrument.
@@ -126,3 +126,5 @@ Build a document in which a key on your controller fires a trigger that starts a
 - [The piano roll]({{ site.docs_baseurl }}/processes/piano-roll.html) and [MIDI utilities]({{ site.docs_baseurl }}/processes/midi-utilities.html).
 - [Patternist]({{ site.docs_baseurl }}/processes/patternist.html) for generated patterns.
 - [MIDI input]({{ site.docs_baseurl }}/devices/midiin-device.html) and [MIDI output]({{ site.docs_baseurl }}/devices/midiout-device.html) device references.
+
+{% include lesson_files.html %}

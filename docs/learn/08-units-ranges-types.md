@@ -60,7 +60,7 @@ Address suffixes narrow what an address writes to. An address can carry a suffix
 
 ## Walkthrough: read the two ranges, then use a suffix
 
-![A slot header showing an automation's destination address next to its minimum and maximum]({{ site.img }}/08/08-01-address-and-range.png)
+[![A slot header showing an automation's destination address next to its minimum and maximum]({{ site.img }}/08/08-01-address-and-range.png)]({{ site.scores }}/00-what-score-is/lesson-00.score){: download="" title="Download lesson-00.score, the document in this figure" }
 
 1. **Find the process range** in `lesson-00.score` by looking at any slot header, which reads `Automation (float).3 -> lesson:/colour  Min: 0  Max: 1`; those two numbers belong to the automation.
 2. **Find the parameter range** in the device explorer by selecting `colour` and reading its attributes in the panel inspector, where the range belongs to the device.
@@ -117,3 +117,5 @@ On your own device, declare four parameters: a normalised float, an integer with
 - [The libossia unit list](https://ossia.io/ossia-docs/#units) gives the full set of supported units.
 - [Mapping utilities]({{ site.docs_baseurl }}/processes/mapping-utilities.html) previews the processes that [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html) builds on.
 - [Data processing]({{ site.docs_baseurl }}/common-practices/12-data-processing.html) covers shaping values at scale, once a project has many of them.
+
+{% include lesson_files.html %}

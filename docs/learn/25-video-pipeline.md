@@ -9,7 +9,7 @@ permalink: /learn/25-video-pipeline.html
 score_version: "3.8.2"
 reading_time: "14 min"
 practice_time: "25 min"
-score_file: none
+score_file: 25-video-pipeline/lesson-25.score
 ---
 
 # Lesson 25: Video: files, cameras, and output windows
@@ -52,7 +52,7 @@ Mixing is itself a process. The user library provides an eight-channel video mix
 
 ## Walkthrough: an image on screen, then two
 
-![Two video sources in a score, their thumbnails visible, with the Window device declared in the explorer]({{ site.img }}/25/25-01-video-sources.png)
+[![Two video sources in a score, their thumbnails visible, with the Window device declared in the explorer]({{ site.img }}/25/25-01-video-sources.png)]({{ site.scores }}/25-video-pipeline/lesson-25.score){: download="" title="Download lesson-25.score, the document in this figure" }
 
 The figure is `lesson-25.score`, which ships with this lesson and holds the two generated clips, one H.264 and one MJPEG, each addressed to the `Window` device. What makes the image appear is an **address** of `Window:/` on each video outlet, which is the same mechanism a state uses to reach a device parameter, so no cable is involved. The output window itself opened off-screen when this was captured, so the figure shows the document and not the rendered result.
 
@@ -138,3 +138,5 @@ Build a document with two video sources mixed through the video mixer into a win
 - [Working with video]({{ site.docs_baseurl }}/quick-start/working-with-video.html) and [video techniques]({{ site.docs_baseurl }}/common-practices/5-video.html).
 - [Video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing.html) for the mixer and the mapping object.
 - [The window device]({{ site.docs_baseurl }}/devices/window-device.html) and [camera device]({{ site.docs_baseurl }}/devices/camera-device.html).
+
+{% include lesson_files.html %}

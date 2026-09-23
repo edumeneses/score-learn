@@ -61,7 +61,7 @@ A defined ending mirrors the starting state, and it is the reason your cue can b
 
 ## Walkthrough: the reference solution
 
-![Three chained intervals named Rise, Hold, and Fall, with four automations and states carrying messages at the start and end]({{ site.img }}/p1/p1-01-cue-structure.png)
+[![Three chained intervals named Rise, Hold, and Fall, with four automations and states carrying messages at the start and end]({{ site.img }}/p1/p1-01-cue-structure.png)]({{ site.scores }}/p1-automated-cue/p1-solution.score){: download="" title="Download p1-solution.score, the document in this figure" }
 
 `p1-solution.score` ships with this milestone, so build yours first and read this afterwards to compare.
 
@@ -118,3 +118,5 @@ Or **make it operable**, by adding a fourth parameter that stays constant throug
 - [States and automations in practice]({{ site.docs_baseurl }}/quick-start/states-and-automations-in-practice.html), especially its section on stacked automations, which the walkthrough relied on.
 - [Common practices]({{ site.docs_baseurl }}/common-practices/common-practices.html) is organised as recipes and deserves a skim now that you have built something.
 - [Automations in depth]({{ site.docs_baseurl }}/in-depth/automations.html) prepares the ground before [Lesson 10]({{ site.baseurl }}/learn/10-automation-curves.html).
+
+{% include lesson_files.html %}

@@ -26,7 +26,9 @@ build rather than reaching a reader:
      allowed while a reference to a lesson that will never exist is not;
   9. _data/topics.yml, which drives the knowledge-base page, names only units
      that exist, every anchor it links to is a heading on that unit's page, and
-     every written unit is reachable from at least one topic.
+     every written unit is reachable from at least one topic;
+ 10. every `{{ site.scores }}/...` link, which is how a figure downloads the
+     document it shows, names a file that exists under library/learn/.
 
 Exit code is non-zero if any check fails.
 """
@@ -68,6 +70,7 @@ LIQUID_TAG = re.compile(r"\{%.*?%\}", re.S)
 LIQUID_VAR = re.compile(r"\{\{.*?\}\}")
 MD_LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")
 LESSON_LINK = re.compile(r"/learn/([a-z0-9][a-z0-9-]*)\.html")
+SCORES_LINK = re.compile(r"\{\{ site\.scores \}\}/([^)\s]+)")
 
 
 def load_units() -> dict[str, dict[str, str]]:
@@ -114,6 +117,7 @@ def body_words(text: str) -> int:
     body = HTML_COMMENT.sub("", body)
     body = LIQUID_TAG.sub("", body)
     body = LIQUID_VAR.sub("", body)
+    body = re.sub(r"\{:[^}]*\}", "", body)   # kramdown attribute lists, e.g. a link's title
     body = MD_LINK.sub(r"\1", body)          # keep link text, drop targets
     body = re.sub(r"```.*?```", "", body, flags=re.S)
     body = re.sub(r"^#{1,6}\s.*$", "", body, flags=re.M)
@@ -312,6 +316,10 @@ def main() -> int:
                     f"{rel}: links to /learn/{slug}.html, which is not a unit "
                     f"in _data/units.yml"
                 )
+
+        for target in set(SCORES_LINK.findall(text)):
+            if not (LIBRARY / target).exists():
+                failures.append(f"{rel}: links to {target!r}, missing under library/learn/")
 
         print(f"{rel}: {words} words")
 

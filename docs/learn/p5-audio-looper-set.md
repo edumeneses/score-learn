@@ -130,3 +130,5 @@ Or **make it spatial** by sending one layer through the four-speaker scene from 
 - [Live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html), for editing the set while it plays, which is legitimate and useful in rehearsal.
 - [The audio looper process]({{ site.docs_baseurl }}/processes/audio_looper.html), which repays comparison with the structure you built by hand.
 - [Seek and transport]({{ site.docs_baseurl }}/common-practices/9-seek-and-transport.html) for start markers and local play.
+
+{% include lesson_files.html %}

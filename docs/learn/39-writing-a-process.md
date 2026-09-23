@@ -120,3 +120,5 @@ Build the untouched template until the object appears in *score*'s library, then
 - [Plug-ins with Avendish]({{ site.docs_baseurl }}/development/plugins/plugins-with-avendish.html) and the [Avendish documentation](https://celtera.github.io/avendish) cover the recommended route in detail.
 - [Building from source]({{ site.docs_baseurl }}/development/build-from-source.html) applies if you need the whole application.
 - [The architecture]({{ site.docs_baseurl }}/development/architecture.html), and [score-addon-tutorial](https://github.com/ossia/score-addon-tutorial), show the older API by example.
+
+{% include lesson_files.html %}

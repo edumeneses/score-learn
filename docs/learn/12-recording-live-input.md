@@ -116,3 +116,5 @@ Record the same twelve-second gesture three ways: raw, filtered through a smooth
 - [The CSV recorder]({{ site.docs_baseurl }}/processes/csv-recorder.html) for logging values to a file that another tool can read.
 - [Smooth]({{ site.docs_baseurl }}/processes/smooth.html) and [rate limiter]({{ site.docs_baseurl }}/processes/rate-limiter.html), the two processes to reach for when an input is noisy.
 - [Data processing]({{ site.docs_baseurl }}/common-practices/12-data-processing.html), the reference recipe which [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html) takes up and extends.
+
+{% include lesson_files.html %}

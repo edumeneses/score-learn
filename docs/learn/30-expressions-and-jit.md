@@ -128,3 +128,5 @@ Implement the same relationship three ways, as a drawn mapping curve, as a writt
 - [Bytebeat]({{ site.docs_baseurl }}/processes/bytebeat.html).
 - [C++ JIT]({{ site.docs_baseurl }}/processes/cpp_jit.html).
 - [Live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html) for the shared editor and compile behaviour every scripting route uses.
+
+{% include lesson_files.html %}

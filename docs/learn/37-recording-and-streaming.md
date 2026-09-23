@@ -118,3 +118,5 @@ Capture one of your milestone pieces twice, once locally at the highest quality 
 - [Spout]({{ site.docs_baseurl }}/devices/spout-device.html), [Syphon]({{ site.docs_baseurl }}/devices/syphon-device.html), and [shmdata]({{ site.docs_baseurl }}/devices/shmdata-device.html) have their own device reference pages.
 - [The CSV recorder]({{ site.docs_baseurl }}/processes/csv-recorder.html) covers logging values, whereas this lesson covered capturing media.
 - [NDI]({{ site.docs_baseurl }}/devices/ndi-device.html) describes sending video to another machine so that it can be captured there.
+
+{% include lesson_files.html %}

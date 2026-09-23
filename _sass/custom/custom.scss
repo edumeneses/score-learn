@@ -115,3 +115,19 @@ video {
         text-decoration: none;
     }
 }
+
+// A figure that is a link downloads the document it shows (Lesson 00 says so).
+// The frame on hover is the only cue, so it has to be visible.
+.main-content a:has(> img) {
+    display: inline-block;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: border-color 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+        border-color: $ossia-light-blue;
+    }
+
+    img { display: block; }
+}

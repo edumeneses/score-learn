@@ -126,3 +126,5 @@ Install *score* {{ page.score_version }}, open one bundled example, and play it,
 - [Troubleshooting]({{ site.docs_baseurl }}/troubleshooting.html) covers a build that will not start or will not make sound.
 - [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html) installs addons and the user library, and Lesson 34 uses it.
 - [Preferences]({{ site.docs_baseurl }}/reference-manual/references/preferences.html) lists every option; change none yet, although `auto-sequence` is off by default and Lesson 09 turns it on for a reason.
+
+{% include lesson_files.html %}

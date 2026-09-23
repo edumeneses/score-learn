@@ -60,7 +60,7 @@ Start and stop cues from Lesson 18 make the whole piece operable by someone who 
 
 ## Walkthrough
 
-![An idle phrase, a trigger labelled "a visitor arrives", two branches of different lengths leaving the same instant, and a dash-dot return transition from each branch back to the beginning]({{ site.img }}/p4/p4-01-installation-structure.png)
+[![An idle phrase, a trigger labelled "a visitor arrives", two branches of different lengths leaving the same instant, and a dash-dot return transition from each branch back to the beginning]({{ site.img }}/p4/p4-01-installation-structure.png)]({{ site.scores }}/p4-interactive-installation/p4-solution.score){: download="" title="Download p4-solution.score, the document in this figure" }
 
 The reference solution, `p4-solution.score`, ships with this milestone, and the whole brief is legible in its shape: `Idle` runs, the instant at its end waits for the visitor, and two branches leave that instant under conditions partitioned over the input range. Both ends carry a dash-dot transition back to the score's first instant, which is what makes the return automatic and the repetition indefinite.
 
@@ -132,3 +132,5 @@ Or **make it degrade gracefully** by defining and implementing what the piece do
 - [Start and stop cues]({{ site.docs_baseurl }}/common-practices/7-start-stop-cues.html) for the safety behaviour.
 - [Headless and embedded]({{ site.baseurl }}/learn/35-headless-and-embedded.html), later in the course, for running this on a machine with no screen.
 - [Rehearsal to show]({{ site.baseurl }}/learn/34-rehearsal-to-show.html) for the documentation this milestone starts.
+
+{% include lesson_files.html %}

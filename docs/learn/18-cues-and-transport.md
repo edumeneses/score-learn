@@ -120,3 +120,5 @@ Take a score with three sections, one condition, and one interactive trigger, an
 - [Start and stop cues]({{ site.docs_baseurl }}/common-practices/7-start-stop-cues.html) for the special first and last states.
 - [Cues]({{ site.docs_baseurl }}/cues.html) for firing cues manually and from outside.
 - [Scenes]({{ site.docs_baseurl }}/common-practices/6-scenes.html) for the full-view workflow that makes local play useful.
+
+{% include lesson_files.html %}

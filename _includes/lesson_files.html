@@ -1,0 +1,31 @@
+{% comment %}
+The documents for this lesson, at the foot of every page under docs/learn/.
+Lists the files that ship in library/learn/<this slug>/, read from
+_data/downloads.yml (written by scripts/make_downloads.py), plus, when
+`score_file` names a document from an earlier unit, every file in that unit's
+folder, since the document's media travel with it. Output is Markdown,
+so this include must sit on a line of its own in the page.
+{% endcomment %}
+{%- assign slug = page.name | remove: ".md" -%}
+{%- assign own = site.data.downloads | where_exp: "d", "d.slug == slug" | first -%}
+{%- assign sf_dir = page.score_file | split: "/" | first -%}
+{%- assign borrowed = nil -%}
+{%- if page.score_file and page.score_file != "none" and sf_dir != slug -%}
+  {%- assign sf_unit = site.data.units | where_exp: "u", "u.slug == sf_dir" | first -%}
+  {%- assign sf_group = site.data.downloads | where_exp: "d", "d.slug == sf_dir" | first -%}
+  {%- assign borrowed = sf_group.files -%}
+{%- endif %}
+
+## Documents for this lesson
+
+{% if own or borrowed -%}
+{% for f in own.files -%}
+- [{{ f.name }}]({{ site.scores }}/{{ f.path }}){: download="" } <small>({{ f.kind }}, {{ f.size }})</small>
+{% endfor -%}
+{% for f in borrowed -%}
+- [{{ f.name }}]({{ site.scores }}/{{ f.path }}){: download="" } <small>({{ f.kind }}, {{ f.size }}), from [{% if sf_unit.kind == "milestone" %}Milestone {{ sf_unit.num }}{% else %}Lesson {{ sf_unit.num }}{% endif %}]({{ site.baseurl }}/learn/{{ sf_unit.slug }}.html)</small>
+{% endfor -%}
+Keep a lesson's files in one folder, since a document finds its media by a path relative to itself. Every document the course ships is also on the [Downloads]({{ site.baseurl }}/downloads) page, individually or as one archive.
+{%- else -%}
+No example document ships with this lesson yet. Every document the course does ship is on the [Downloads]({{ site.baseurl }}/downloads) page.
+{%- endif %}

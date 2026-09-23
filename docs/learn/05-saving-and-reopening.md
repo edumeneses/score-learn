@@ -112,3 +112,5 @@ Package your Lesson 04 document as a self-contained project directory including 
 - [Presets]({{ site.docs_baseurl }}/presets.html) covers scenario fragments in the user library, which [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html) uses again.
 - [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html) installs the addons a document may depend on.
 - [Rehearsal to show]({{ site.baseurl }}/learn/34-rehearsal-to-show.html), later in the course, holds the full pre-performance checklist this lesson starts.
+
+{% include lesson_files.html %}

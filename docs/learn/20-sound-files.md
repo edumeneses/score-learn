@@ -9,7 +9,7 @@ permalink: /learn/20-sound-files.html
 score_version: "3.8.2"
 reading_time: "13 min"
 practice_time: "25 min"
-score_file: none
+score_file: 20-sound-files/lesson-20.score
 ---
 
 # Lesson 20: Playing sound files: loops, fades, and envelopes
@@ -56,7 +56,7 @@ Portable paths are resolved against the project folder. A relative path is looke
 
 ## Walkthrough: from a file to a readable document
 
-![Two intervals, each holding a sound file: the first plays once, the second loops to fill its interval]({{ site.img }}/20/20-01-sound-files.png)
+[![Two intervals, each holding a sound file: the first plays once, the second loops to fill its interval]({{ site.img }}/20/20-01-sound-files.png)]({{ site.scores }}/20-sound-files/lesson-20.score){: download="" title="Download lesson-20.score, the document in this figure" }
 
 The figure shows `lesson-20.score`, which ships with this lesson and holds two excerpts from the Citizen DJ packages, one played once and one set to loop. Both excerpts are freely usable, and both are referenced with a project-relative path, so that the document travels; the details are in `checks/20-sound-files.md`.
 
@@ -84,7 +84,7 @@ The length of the files and the number of them raise different practical problem
 
 **Many short files raise a problem of legibility, whereas performance is rarely the issue.** Forty short files are readable only if the intervals are named after their content, since a folded score with default names gives no clue to what it plays; grouping related files into sub-scenarios helps further, and gives you one place to apply an effect. Additionally, keeping the files in a subdirectory of the project, and not beside the score file, gives the project directory a structure that a stranger can navigate.
 
-Both cases share a rule. In other words, the structure of your media on disk should resemble the structure of your score, because every later change costs twice when the two diverge.
+Both cases share one rule, which is that the structure of your media on disk should resemble the structure of your score, because every later change costs twice when the two diverge.
 
 ## Formats, and what to convert to
 
@@ -120,3 +120,5 @@ Build a two-minute document from at least four sound files: one that plays once,
 - [The sound file process]({{ site.docs_baseurl }}/processes/soundfile.html) for every playback option.
 - [Media management]({{ site.docs_baseurl }}/in-depth/media.html) for the `<PROJECT>:` and `<LIBRARY>:` prefixes.
 - [Audio utilities]({{ site.docs_baseurl }}/processes/audio-utilities.html) for the envelope and its relatives.
+
+{% include lesson_files.html %}

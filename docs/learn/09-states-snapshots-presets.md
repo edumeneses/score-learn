@@ -52,7 +52,7 @@ Scenario presets save a fragment of a score for reuse. Select part of a score an
 
 ## Walkthrough: three cues, captured not typed
 
-![Two intervals chained between three states, each state carrying its own messages, drawn as a plain cue list with no processes]({{ site.img }}/09/09-01-cue-list.png)
+[![Two intervals chained between three states, each state carrying its own messages, drawn as a plain cue list with no processes]({{ site.img }}/09/09-01-cue-list.png)]({{ site.scores }}/09-states-snapshots-presets/lesson-09.score){: download="" title="Download lesson-09.score, the document in this figure" }
 
 1. **Look at the reference** by opening `lesson-09.score`, which holds three states, two intervals, and no processes at all. This is what a cue list looks like in *score*, because the intervals only carry time and the whole of the action happens at the instants.
 2. **Set your equipment to its opening look** by using the device explorer's inspector to write values directly until the state of the world is what you want at the start.
@@ -106,3 +106,5 @@ Build a four-cue sequence for your own device, captured entirely from live value
 - [Cues in depth]({{ site.docs_baseurl }}/cues.html) covers floating cues and external control.
 - [Presets]({{ site.docs_baseurl }}/presets.html) documents the scenario fragment mechanism.
 - [Start and stop cues]({{ site.docs_baseurl }}/common-practices/7-start-stop-cues.html) is a recipe that [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) returns to.
+
+{% include lesson_files.html %}

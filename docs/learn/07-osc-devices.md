@@ -105,3 +105,5 @@ Then break it three ways, one at a time, and record what each failure looks like
 - [The OSC device]({{ site.docs_baseurl }}/devices/osc-device.html) is the reference page, and [OSCQuery]({{ site.docs_baseurl }}/devices/oscquery-device.html) does all of this automatically when the other end supports it.
 - [Monitoring activity]({{ site.docs_baseurl }}/faq/monitor-activity.html) documents the message log and console panels used above.
 - [Controlling *score* with OSCQuery]({{ site.docs_baseurl }}/faq/controlling-score-with-oscquery.html) is the page that [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) builds on.
+
+{% include lesson_files.html %}

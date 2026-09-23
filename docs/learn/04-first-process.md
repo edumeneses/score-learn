@@ -44,7 +44,7 @@ The minimum and maximum map the curve onto real values. A curve runs between 0 a
 
 ## Walkthrough: from empty document to running curve
 
-![One interval named Fade in, holding a single automation whose slot header reads its destination address and its range]({{ site.img }}/04/04-01-first-automation.png)
+[![One interval named Fade in, holding a single automation whose slot header reads its destination address and its range]({{ site.img }}/04/04-01-first-automation.png)]({{ site.scores }}/04-first-process/lesson-04.score){: download="" title="Download lesson-04.score, the document in this figure" }
 
 1. **Start a new document**, which needs a device to aim at: for now, either open `lesson-04.score` to borrow its `lesson` device, or read ahead to [Lesson 07]({{ site.baseurl }}/learn/07-osc-devices.html) and declare one, since the rest of this lesson works either way.
 2. **Make an interval** by clicking and dragging in the empty scenario editor, which gives you an interval with a state at each end; give it about eight seconds, because precision comes later, from the inspector.
@@ -102,3 +102,5 @@ Build a ten-second interval containing two automations that drive two different 
 - [The automation process]({{ site.docs_baseurl }}/processes/automation_float.html) lists every option this lesson skipped, including tween mode.
 - [States and automations in practice]({{ site.docs_baseurl }}/quick-start/states-and-automations-in-practice.html) is the page that [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html) takes up in full.
 - [Automations in depth]({{ site.docs_baseurl }}/in-depth/automations.html) is the page that [Lesson 10]({{ site.baseurl }}/learn/10-automation-curves.html) builds on.
+
+{% include lesson_files.html %}

@@ -123,3 +123,5 @@ Build a chain from one sound source to two visual parameters, with different mea
 - [Audio utilities]({{ site.docs_baseurl }}/processes/audio-utilities.html) for the envelope, and [signal display]({{ site.docs_baseurl }}/processes/signal-display.html) for observing it.
 - [Audio-reactive example]({{ site.docs_baseurl }}/examples/video/audioreactive.html), which is worth opening and taking apart.
 - [Mapping]({{ site.docs_baseurl }}/processes/mapping.html) and [calibrator]({{ site.docs_baseurl }}/processes/calibrator.html) for the conditioning stage.
+
+{% include lesson_files.html %}

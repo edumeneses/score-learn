@@ -48,7 +48,7 @@ The transport does not behave like a tape deck. The bar along the bottom shows p
 
 ## Walkthrough: the window, region by region
 
-![The score window with its three areas, the explorer panel switch, the time ruler, and the transport bar marked]({{ site.img }}/03/03-01-window-regions.png)
+[![The score window with its three areas, the explorer panel switch, the time ruler, and the transport bar marked]({{ site.img }}/03/03-01-window-regions.png)]({{ site.scores }}/00-what-score-is/lesson-00.score){: download="" title="Download lesson-00.score, the document in this figure" }
 
 1. **The explorer panel** carries the title `DEVICE EXPLORER`, and with `lesson-00.score` open it lists one device, `lesson`. Expand it and click `level`, and an inspector appears at the bottom of the panel showing that parameter's attributes, including its current value if the device echoes values back.
 2. **The panel switch** is the row of icons at the bottom left, which changes which explorer is shown, although the four shortcuts are faster to learn: `Ctrl+Shift+D` device explorer, `Ctrl+Shift+P` processes library, `Ctrl+Shift+B` system library, `Ctrl+Shift+L` project library. Additionally, two panels matter when something misbehaves, since `Ctrl+Shift+C` opens the console and `Ctrl+Shift+G` the message log.
@@ -99,3 +99,5 @@ With `lesson-00.score` open and without using the mouse for navigation, do the f
 - [Shortcuts]({{ site.docs_baseurl }}/reference-manual/references/shortcuts.html) is the full list, which is short enough to read once in full.
 - [Preferences]({{ site.docs_baseurl }}/reference-manual/references/preferences.html) includes a global interface zoom, which is the right fix if the whole window is too small on a high-density display.
 - [Panels]({{ site.docs_baseurl }}/reference-manual/panels/) describes what each panel does in detail.
+
+{% include lesson_files.html %}

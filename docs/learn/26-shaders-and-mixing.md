@@ -119,3 +119,5 @@ Take a shader from the library, add one new declared input to its header, use it
 - [Live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html) for the editor, the compile shortcut, and the device caveat.
 - [Video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing.html) for the mixer and blend modes.
 - [Pixel utilities]({{ site.docs_baseurl }}/processes/pixel-utilities.html) and [LED design]({{ site.docs_baseurl }}/common-practices/13-led-design.html) for the image-to-data path.
+
+{% include lesson_files.html %}
