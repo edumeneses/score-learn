@@ -22,3 +22,5 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 ## Claims that depend on external sources
 
 - The suffix syntax and the unit-conversion mechanism come from the reference unit-system page. The list of supported units lives in the libossia documentation and is versioned separately.
+
+- 2026-09-24: `08-01` re-cropped from `raw-00-01c.png`, the capture of the corrected `lesson-00.score`. Its old badge 2 pointed at empty header space; the figure now carries one badge, 1, on `Min: 0  Max: 1`, which is walkthrough step 1. Step 2 happens in the device explorer, outside the crop.

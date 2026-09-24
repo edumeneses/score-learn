@@ -25,3 +25,5 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 - The controls-and-shortcuts 2/5 rating, the lost-panels report, and the accidental-view-entry report all come from the SAT UI/UX study report.
 
 - 2026-09-16: `Cmd+↑` was normalised to `Ctrl+…`, matching the other 57 shortcuts in the course and Qt's control modifier on Linux. Upstream writes Cmd. Confirmed in the pinned build on 2026-09-17: the View menu lists Go to parent as Ctrl+Up, and a Ctrl+Drag on an interval's end handle scales the automation while a plain drag preserves its length.
+
+- 2026-09-24: `03-01` re-rendered from `raw-00-01c.png`, the capture of the corrected `lesson-00.score`, so the figure matches the document it downloads. Badge coordinates unchanged except 3, moved into empty editor space below the nested scenario.

@@ -9,7 +9,7 @@
     - name: lesson-00.score
       path: 00-what-score-is/lesson-00.score
       kind: score document
-      size: 43.7 kB
+      size: 43.8 kB
 - slug: 04-first-process
   files:
     - name: lesson-04.score

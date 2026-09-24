@@ -235,3 +235,12 @@ environment facts from that attempt are in CLAUDE.md under capturing: the live X
 display is `:0`, python-xlib needs `XAUTHORITY` pointed at mutter's auth file, and
 *score* must be launched with `QT_QPA_PLATFORM=xcb` or it opens as a Wayland client
 that no X tool can see.
+
+## Lesson 00 correction, 2026-09-24
+
+`lesson-00.score` was corrected (elastic `Approach` so the trigger waits, 5 s `Bright`,
+taller nested slot). `00-01`, `02-01`, `03-01`, and `08-01` were re-rendered from the new
+raw `raw-00-01c.png`, which needed no input. **`00-02` still shows the old document** and
+needs re-shooting by the 2026-09-17 procedure in `figures/00-02.json`: synthetic clicks were
+swallowed for the whole session, so it could not be done. The same session could not start
+playback, so the trigger's wait and Lesson 02's "dashed line" claim are also unverified.

@@ -264,11 +264,18 @@ def interval(iid: int, name: str, start_state: int, end_state: int,
              start_date: int, duration: int, processes: list[dict],
              *, height: float = 0.4, rigid: bool = True,
              max_duration: int | None = None, nodal: bool = False,
-             label: str = "", fit: bool = False, max_inf: bool = False) -> dict:
-    """One stretch of time, holding processes in its racks."""
+             label: str = "", fit: bool = False, max_inf: bool = False,
+             slot_heights: list[float] | None = None) -> dict:
+    """One stretch of time, holding processes in its racks.
+
+    `slot_heights` sets each slot's height in pixels, 140 by default. A slot
+    holding a nested scenario needs more, or score clips the inner intervals
+    and the figure loses them.
+    """
+    heights = slot_heights or [140.0] * len(processes)
     slots = [
-        {"Processes": [p["id"]], "Process": p["id"], "Height": 140.0, "Nodal": nodal}
-        for p in processes
+        {"Processes": [p["id"]], "Process": p["id"], "Height": h, "Nodal": nodal}
+        for p, h in zip(processes, heights)
     ]
     return {
         "ObjectName": "Scenario::IntervalModel",
@@ -489,7 +496,7 @@ def lesson_00() -> dict:
 
     Layout in time:
 
-        0s ........ 6s ................. 13s
+        0s ........ 6s ........... 11s
         [ Approach ]--(trigger)--[ Bright ]        condition: level > 0.5
                               \\-[ Dark   ]        condition: level <= 0.5
 
@@ -540,7 +547,15 @@ def lesson_00() -> dict:
         0,
         6 * SEC,
         [automation(2, f"{DEVICE}:/level", 6 * SEC, 0.0, 1.0, "Automation (float).2", 1.6), inner],
-        height=0.16,
+        height=0.216,
+        # A trigger waits only within the interval before it, between that
+        # interval's minimum and maximum. This one was rigid, min = max = 6 s,
+        # so the trigger fired by itself at 6 s and never waited; Edu found it
+        # in score. Elastic with no maximum, it waits for the click.
+        rigid=False,
+        max_inf=True,
+        # 321 px so the nested scenario shows Shutter whole (Edu's layout).
+        slot_heights=[140.0, 321.0],
     )
     bright = interval(
         2,
@@ -548,9 +563,12 @@ def lesson_00() -> dict:
         3,
         5,
         6 * SEC,
-        7 * SEC,
-        [automation(3, f"{DEVICE}:/colour", 7 * SEC, 0.8, 0.2, "Automation (float).3")],
-        height=0.10,
+        # 5 s, as in Edu's corrected document: with score's panels at their
+        # current widths the editor shows about 12 s, and a 7 s Bright ran
+        # off the right edge of the figure.
+        5 * SEC,
+        [automation(3, f"{DEVICE}:/colour", 5 * SEC, 0.8, 0.2, "Automation (float).3")],
+        height=0.126,
     )
     dark = interval(
         3,
@@ -560,7 +578,7 @@ def lesson_00() -> dict:
         6 * SEC,
         5 * SEC,
         [automation(4, f"{DEVICE}:/colour", 5 * SEC, 0.2, 0.05, "Automation (float).4")],
-        height=0.46,
+        height=0.533,
     )
 
     scenario = {
@@ -586,7 +604,7 @@ def lesson_00() -> dict:
             # the trigger: three events share this instant, one arriving and two
             # leaving under conditions
             timesync(1, 6 * SEC, [1, 2, 3], active=True, label="waits for /lesson/go"),
-            timesync(2, 13 * SEC, [4]),
+            timesync(2, 11 * SEC, [4]),
             timesync(3, 11 * SEC, [5]),
         ],
         "Events": [
@@ -594,16 +612,16 @@ def lesson_00() -> dict:
             event(1, 1, [2], 6 * SEC),
             event(2, 1, [3], 6 * SEC, condition=f" {{ {DEVICE}:/level > 0.5 }} "),
             event(3, 1, [4], 6 * SEC, condition=f" {{ {DEVICE}:/level <= 0.5 }} "),
-            event(4, 2, [5], 13 * SEC),
+            event(4, 2, [5], 11 * SEC),
             event(5, 3, [6], 11 * SEC),
         ],
         "States": [
-            state(1, 0, 0.16, nxt=1, messages=message("level", 0.0)),
-            state(2, 1, 0.16, prev=1),
-            state(3, 2, 0.10, nxt=2, messages=message("colour", 0.8)),
-            state(4, 3, 0.46, nxt=3, messages=message("colour", 0.2)),
-            state(5, 4, 0.10, prev=2),
-            state(6, 5, 0.46, prev=3),
+            state(1, 0, 0.216, nxt=1, messages=message("level", 0.0)),
+            state(2, 1, 0.216, prev=1),
+            state(3, 2, 0.126, nxt=2, messages=message("colour", 0.8)),
+            state(4, 3, 0.533, nxt=3, messages=message("colour", 0.2)),
+            state(5, 4, 0.126, prev=2),
+            state(6, 5, 0.533, prev=3),
         ],
         "Constraints": [approach, bright, dark],
         "Comments": [],
@@ -615,49 +633,25 @@ def lesson_00() -> dict:
         0,
         1,
         0,
+        # 14 s although the content ends at 11 s: score fits a document to about
+        # 86% of the root's duration, so this is what keeps 0 to 11 s in view.
         14 * SEC,
         [scenario],
         height=0.5,
         rigid=False,
         max_duration=15 * SEC,
+        # endless, since the trigger can wait longer than the document lasts;
+        # see document() for why the closing instant must be active as well
+        max_inf=True,
     )
     # the root interval of a document is bounded by the base scenario's states
     root["StartState"] = 0
     root["EndState"] = 1
 
-    return {
-        "Document": {
-            "ObjectName": "Scenario::ScenarioDocumentModel",
-            "id": 1,
-            "BaseScenario": {
-                "ObjectName": "Scenario::BaseScenario",
-                "id": 0,
-                "Constraint": root,
-                "StartTimeNode": timesync(0, 0, [0], start=True),
-                "EndTimeNode": timesync(1, 14 * SEC, [1]),
-                "StartEvent": event(0, 0, [0], 0),
-                "EndEvent": event(1, 1, [1], 14 * SEC),
-                "StartState": state(0, 0, 0.5, nxt=0),
-                "EndState": state(1, 1, 0.5, prev=0),
-            },
-            "Speed": 1.0,
-            "Cables": [],
-            "BusIntervals": [],
-        },
-        "Plugins": [
-            {
-                "uuid": PLUGIN_MIDI_UUID,
-                "Refresh": False,
-                "Reconnect": False,
-                "MidiRatio": 1.0,
-            },
-            _devices(extra_devices),
-            {"uuid": PLUGIN_DATA_UUID, "Data": ""},
-        ],
-        "Version": 4,
-        "Commit": "",
-        "Tag": "3.8.2",
-    }
+    # This used to build the document inline, and drifted: it referenced an
+    # `extra_devices` that no longer existed, so `mkscore.py 00` failed and the
+    # shipped file predated every later fix to the builder.
+    return document(root, endless=True)
 
 
 def to_nodal(doc: dict) -> dict:

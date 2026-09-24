@@ -195,7 +195,7 @@
          "Label": "",
          "Touched": true
         },
-        "Date": 9172800000,
+        "Date": 7761600000,
         "Events": [
          4
         ],
@@ -314,7 +314,7 @@
          5
         ],
         "Condition": "",
-        "Date": 9172800000,
+        "Date": 7761600000,
         "Offset": 0
        },
        {
@@ -350,7 +350,7 @@
         "Event": 0,
         "PreviousConstraint": null,
         "NextConstraint": 1,
-        "HeightPercentage": 0.16,
+        "HeightPercentage": 0.216,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -412,7 +412,7 @@
         "Event": 1,
         "PreviousConstraint": 1,
         "NextConstraint": null,
-        "HeightPercentage": 0.16,
+        "HeightPercentage": 0.216,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -443,7 +443,7 @@
         "Event": 2,
         "PreviousConstraint": null,
         "NextConstraint": 2,
-        "HeightPercentage": 0.1,
+        "HeightPercentage": 0.126,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -505,7 +505,7 @@
         "Event": 3,
         "PreviousConstraint": null,
         "NextConstraint": 3,
-        "HeightPercentage": 0.46,
+        "HeightPercentage": 0.533,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -567,7 +567,7 @@
         "Event": 4,
         "PreviousConstraint": 2,
         "NextConstraint": null,
-        "HeightPercentage": 0.1,
+        "HeightPercentage": 0.126,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -598,7 +598,7 @@
         "Event": 5,
         "PreviousConstraint": 3,
         "NextConstraint": null,
-        "HeightPercentage": 0.46,
+        "HeightPercentage": 0.533,
         "Messages": {
          "Name": "",
          "Accessors": [],
@@ -1182,7 +1182,7 @@
            10
           ],
           "Process": 10,
-          "Height": 140.0,
+          "Height": 321.0,
           "Nodal": false
          }
         ],
@@ -1201,14 +1201,14 @@
         "MaxDuration": 4233600000,
         "GuiDuration": 4318272000,
         "Speed": 1.0,
-        "Rigidity": true,
+        "Rigidity": false,
         "MinNull": false,
-        "MaxInf": false,
+        "MaxInf": true,
         "Signatures": [],
         "StartState": 1,
         "EndState": 2,
         "StartDate": 0,
-        "HeightPercentage": 0.16,
+        "HeightPercentage": 0.216,
         "NodalSlotHeight": 140.0,
         "QuantizationRate": -1.0,
         "Zoom": -1.0,
@@ -1288,10 +1288,10 @@
            "Label": "",
            "Touched": true
           },
-          "Duration": 4939200000,
+          "Duration": 3528000000,
           "Height": 300.0,
           "StartOffset": 0,
-          "LoopDuration": 4939200000,
+          "LoopDuration": 3528000000,
           "Pos": [
            40.0,
            40.0
@@ -1377,10 +1377,10 @@
           "Nodal": false
          }
         ],
-        "DefaultDuration": 4939200000,
-        "MinDuration": 4939200000,
-        "MaxDuration": 4939200000,
-        "GuiDuration": 5037984000,
+        "DefaultDuration": 3528000000,
+        "MinDuration": 3528000000,
+        "MaxDuration": 3528000000,
+        "GuiDuration": 3598560000,
         "Speed": 1.0,
         "Rigidity": true,
         "MinNull": false,
@@ -1389,7 +1389,7 @@
         "StartState": 3,
         "EndState": 5,
         "StartDate": 4233600000,
-        "HeightPercentage": 0.1,
+        "HeightPercentage": 0.126,
         "NodalSlotHeight": 140.0,
         "QuantizationRate": -1.0,
         "Zoom": -1.0,
@@ -1570,7 +1570,7 @@
         "StartState": 4,
         "EndState": 6,
         "StartDate": 4233600000,
-        "HeightPercentage": 0.46,
+        "HeightPercentage": 0.533,
         "NodalSlotHeight": 140.0,
         "QuantizationRate": -1.0,
         "Zoom": -1.0,
@@ -1606,7 +1606,7 @@
     "Speed": 1.0,
     "Rigidity": false,
     "MinNull": false,
-    "MaxInf": false,
+    "MaxInf": true,
     "Signatures": [],
     "StartState": 0,
     "EndState": 1,
@@ -1657,7 +1657,7 @@
     "MusicalSync": -1.0,
     "AutoTrigger": false,
     "Start": false,
-    "Active": false,
+    "Active": true,
     "Expression": " { true == false } "
    },
    "StartEvent": {

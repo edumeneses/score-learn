@@ -23,3 +23,5 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
 
 - Definitions are reconciled with the project glossary; that page is incomplete (several headings have no body), so divergence is possible.
 - The 'elements I do not touch' and trigger-unfamiliarity findings come from the SAT UI/UX study report.
+
+- 2026-09-24: `02-01` re-cropped from `raw-00-01c.png`, the capture of the corrected `lesson-00.score` (elastic `Approach`, so the trigger now waits). **To verify:** the Trigger definition says the interface "draws the preceding interval's duration as a dashed line". In the corrected document `Approach` (min 6 s, max infinite) ends in a `(` bracket at the trigger and shows no dashes, whereas the root in the old capture (14 s, max 15 s) drew `( - - - )`. Dashes may only appear between a finite minimum and maximum, or only while playing. Check against the interface with playback running before changing the prose.
