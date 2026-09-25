@@ -21,6 +21,8 @@ these helpers, run in order, each starting when the previous one ends:
     shot("figures/raw/x.png")   capture score's window, recording provenance
     shot("out.png", "--popups") extra capture.py shot options
     log("text")                 write to the run's log
+    lower("Window")             put a Window device's output beneath score, since
+                                it opens over the main window and captures black
     runDir                      a scratch directory for this run
 
 For example:
@@ -79,6 +81,11 @@ Item {
         if (code != 0) root.fail("capture failed: " + path);
         else next();
       });
+    };
+  }
+  function lower(name) {
+    return function (next) {
+      Util.shell(__CAPTURE__ + " lower '" + name + "'", function (code) { next(); });
     };
   }
   function fail(msg) {

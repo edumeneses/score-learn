@@ -990,6 +990,30 @@ def launch(args: argparse.Namespace) -> int:
     return 0
 
 
+def lower(args: argparse.Namespace) -> int:
+    """Put every top-level window with this exact name beneath score's main window.
+
+    The Window device's output is a top-level window named after the device,
+    `Window` by default, which opens over the main window at the origin and,
+    being a GPU surface, captures as black. Lowering it, rather than moving it,
+    matters: moving or resizing that window from outside stopped it opening
+    again until score restarted.
+    """
+    d = dpy()
+    root = d.screen().root
+    n = 0
+    for child in root.query_tree().children:
+        try:
+            if child.get_wm_name() == args.name:
+                child.configure(stack_mode=X.Below)
+                n += 1
+        except Exception:
+            continue
+    d.sync()
+    print(f"lowered {n} window(s) named {args.name!r}")
+    return 0 if n else 1
+
+
 def windows(args: argparse.Namespace) -> int:
     d = dpy()
     for win_id, name, geo in window_list(d):
@@ -1114,6 +1138,10 @@ def main() -> int:
     p.add_argument("--pick", type=int, default=0, help="row to click; 0 only lists")
     p.add_argument("--settle", type=float, default=1.5)
     p.set_defaults(func=menu)
+
+    p = sub.add_parser("lower", help="put a named window beneath score, e.g. Window")
+    p.add_argument("name")
+    p.set_defaults(func=lower)
 
     p = sub.add_parser("windows", help="list viewable windows")
     p.set_defaults(func=windows)
