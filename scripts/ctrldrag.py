@@ -7,6 +7,8 @@ from Xlib import X
 from Xlib.ext import xtest
 x0,y0,x1,y1 = map(int, sys.argv[1:5])
 d = capture.dpy()
+opts = capture.verify_options()
+before = capture.signature(d, opts.match)
 code = capture.keycode(d, "Control_L")
 xtest.fake_input(d, X.KeyPress, code); d.sync(); time.sleep(0.1)
 capture.move(d, x0, y0); d.sync(); time.sleep(0.2)
@@ -16,3 +18,4 @@ for i in range(1, 26):
 time.sleep(0.2); xtest.fake_input(d, X.ButtonRelease, 1); d.sync(); time.sleep(0.1)
 xtest.fake_input(d, X.KeyRelease, code); d.sync()
 print(f"ctrl-dragged {x0},{y0} -> {x1},{y1}")
+capture.check_change(d, opts, before, "the ctrl-drag")

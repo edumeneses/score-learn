@@ -1,24 +1,24 @@
 {
-  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point. Re-shot 2026-09-17: nodal mode via the FIRST view-mode button (raw 768,2112), zoom in with the nodal slot's + icon (768,73), then the scenario node's bottom-right handle dragged until every nested interval was legible, and the node dragged to the top of the editor by its title.",
-  "source": "raw/raw-00-02.png",
+  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point. Re-shot 2026-09-25 on the capture server (capture.py server start; DISPLAY=:7), where input arrives without a portal: nodal mode via the FIRST view-mode button (raw 768,2112, one click is enough there), the nodal slot's + icon (754,76) six times then - (754,110) four times, the node dragged to the top by its title, then its bottom-right handle dragged down to y=2020 and right to x=3120. The nested slot is 321 px since the 2026-09-24 correction, so the node must be tall relative to its content or Shutter is clipped at its bottom edge. Shot on lesson-00.score, which the figure links; lesson-00-nodal.score shows no slot for the root and is not usable for this.",
+  "source": "raw/raw-00-02b.png",
   "out": "docs/learn/assets/00/00-02-nodal-view.png",
   "crop": [
-    1500,
-    90,
-    3040,
-    1720
+    1640,
+    120,
+    3150,
+    2040
   ],
   "font_size": 30,
   "badges": [
     {
       "n": 1,
       "at": [
-        2420,
-        170
+        2350,
+        178
       ],
       "to": [
-        1930,
-        182
+        1932,
+        178
       ]
     }
   ]

@@ -85,15 +85,35 @@ resolves to a known slug, and that every link in `_data/topics.yml` resolves to 
 ## Figures: how they are made
 
 Figures are produced by script so they can be re-shot when the pinned version changes.
+
+**Shoot on the capture server, not on the desktop.** `capture.py server start` runs an
+Xvfb display (`:7`, 3840x2160) with no compositor, window manager, lock screen, portal,
+or other windows, where synthetic input arrives every time. `launch` runs score there
+with the pinned settings in `figures/score-config/` (Dummy audio, so the transport
+runs), copied into a fresh private `XDG_CONFIG_HOME`; `stop` ends that launch and nothing
+else. Xvfb is unpacked in `~/.local/opt/xvfb` (`apt-get download xvfb`, `dpkg -x`), since
+there is no sudo here; `sudo apt install xvfb` would put it on the PATH, where `server`
+looks first.
+
+**Every raw records the document it shows.** `shot` reads the document path from score's
+window title and writes it, with its SHA-256 and a role, to `figures/provenance.json`.
+`check_lessons.py` then fails when a document a figure *shows* has changed since the
+capture, or when a figure's download link names a document other than the one it was
+shot on, and warns when the document was only a background or a base for unsaved
+additions. When a change is invisible in the picture, record that with
+`provenance.py accept raw/raw-NN-01.png --note "..."` rather than re-shooting.
+
 The reliable pattern, in order of preference:
 
 **1. Generate the document, then capture it.** No interaction at all.
 
 ```bash
+python3 scripts/capture.py server start && export DISPLAY=:7
 python3 scripts/mkscore.py 20
-DISPLAY=:1 python3 scripts/capture.py --match "score 3.8.2" launch \
+python3 scripts/capture.py --match "score 3.8.2" launch \
     --qt-scale 2 --fullscreen --open "$PWD/library/learn/20-sound-files/lesson-20.score"
-DISPLAY=:1 python3 scripts/capture.py --match "score 3.8.2" shot figures/raw/raw-20-01.png
+python3 scripts/capture.py --match "score 3.8.2" shot figures/raw/raw-20-01.png
+python3 scripts/capture.py stop
 python3 scripts/annotate.py figures/20.json
 ```
 
@@ -121,13 +141,32 @@ result — that adds the process *and connects it*. This produced figures 11-01 
 
 ## Hard-won facts about capturing. Do not rediscover these.
 
-- **The session is Wayland now, and three things follow.** The live Xwayland display is
-  `:0` (`:1` answers but has no clients); python-xlib needs
-  `XAUTHORITY=/run/user/$(id -u)/.mutter-Xwaylandauth.*` or it gets `Authorization
-  required`; and *score* must be launched with `QT_QPA_PLATFORM=xcb`, or Qt picks the
-  Wayland backend and the window never appears to any X tool while the process runs
-  happily. Launch and capture work under a locked session; every XTEST click is
-  swallowed until someone unlocks it, and the only symptom is byte-identical captures.
+- **The desktop drops synthetic input, which is why the capture server exists.** The
+  desktop's Xwayland (`:0`) runs with `-enable-ei-portal`, so XTEST events go through
+  libei and the desktop's remote-input portal, which needs a person's consent; without it
+  every event is dropped inside the X server, silently. A bare test window on `:0` gets no
+  events at all, while `XQueryPointer` still reports the pointer moved. An Xwayland started
+  by hand drops them too, and a headless `gnome-shell` is worse: it has the same portal
+  and starts the whole desktop's autostart, including a second RustDesk server. The
+  earlier re-shoots presumably ran under a consent that has since lapsed.
+- **If you must use the desktop**: the display is `:0` (`:1` answers but has no clients);
+  python-xlib needs `XAUTHORITY=/run/user/$(id -u)/.mutter-Xwaylandauth.*`; and score
+  needs `QT_QPA_PLATFORM=xcb`, or Qt picks the Wayland backend and the window never
+  appears to any X tool. `launch` sets that variable itself now.
+- **Every input command checks that it changed something.** `click`, `drag`, `key`,
+  `type`, `menu`, `wheel.py`, `ctrldrag.py`, and `typeinto.py` compare score's pixels,
+  popups included, before and after; they warn when nothing changed and fail with
+  `--expect-change`. On the capture server there is no focus click, so the first click
+  already acts.
+- **On the capture server there is no window manager.** Dialogs and editors are
+  top-level windows of score's own class rather than framed windows, which the cover
+  guard now allows; and `--fullscreen` becomes a plain resize to the screen. Whether the
+  `Window` device's GPU output can be captured there has not been tried.
+- **The inspector's bottom line is hover help**, not a tip: it names whatever widget is
+  under the pointer ("Play the currently displayed interval"), so it changes between
+  captures unless the pointer is parked.
+- **A modified document's title starts with `* `**: `* score 3.8.2 - /path.score`.
+  Zooming, moving, or resizing a node in the nodal view counts as a modification.
 - **Root-window capture returns black** under this compositor. Capture the window's own
   drawable, which `capture.py` does. Root capture works only when score is *not*
   fullscreen.
@@ -179,10 +218,12 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   `win.configure(x=, y=, width=, height=)` on the client window named `score`; mutter honours it.
 - **The start screen only appears when score is launched with no document argument**, and
   no menu reopens it.
-- **`pkill -f <pattern>` kills this shell** when the pattern matches the command line.
-  Use `pgrep -f 'ossia[-]score' | xargs -r kill`. Note that the running process is the
-  AppImage's mount, `/tmp/.mount_ossia*/usr/bin/ossia-score`, so a pattern matching
-  `ossia.score` misses it.
+- **Never stop score by name.** Other Claude sessions on this machine build and debug
+  score from `/media/Storage/score`, often under gdb, and `pgrep -f 'ossia[-]score' |
+  xargs kill`, the recipe that used to be here, killed their runs and a ninja link step
+  on 2026-09-24 and 25. Use `capture.py stop`, which signals only the process group
+  `launch` started. `pkill -f <pattern>` also kills this shell when the pattern matches
+  its own command line.
 - **The process library's filter lags.** Keystrokes queue behind the tree rebuild and
   arrive seconds later, so a search that looks like it dropped characters usually did not.
   Wait before retyping, or you get `javascriptavascript`.
@@ -242,6 +283,15 @@ result — that adds the process *and connects it*. This produced figures 11-01 
   the root's duration runs out. Score writes both into every new document; `mkscore.py`
   did not, which is why generated loops ended and hand-drawn ones did not. Use
   `document(..., endless=True)`.
+- **A trigger waits only between the preceding interval's minimum and maximum.** A rigid
+  interval (min = max) fires the trigger by itself at that date: `lesson-00.score` did so
+  until 2026-09-24, and `p4-solution.score`'s `Idle` still does (see
+  `checks/p4-interactive-installation.md`). Give the interval `rigid=False` and a larger
+  maximum, or `max_inf=True`.
+- **The PipeWire driver with `Auto-connect ports` off never runs.** Score's PipeWire node
+  is never linked to a sink, PipeWire keeps it suspended, the log says `Audio engine seems
+  stuck?`, and the transport clock stays at zero after Play. The capture settings use the
+  Dummy driver for that reason.
 - **Out-of-time material has no marker.** It is a chain nothing connects to the start
   instant. Its trigger needs `Active`, `AutoTrigger` and `Start` all true; `AutoTrigger` is
   the interface's *start on play*.

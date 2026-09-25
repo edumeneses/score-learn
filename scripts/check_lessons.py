@@ -28,7 +28,12 @@ build rather than reaching a reader:
      that exist, every anchor it links to is a heading on that unit's page, and
      every written unit is reachable from at least one topic;
  10. every `{{ site.scores }}/...` link, which is how a figure downloads the
-     document it shows, names a file that exists under library/learn/.
+     document it shows, names a file that exists under library/learn/;
+ 11. every figure spec's raw capture has an entry in figures/provenance.json,
+     the document it records has not changed since the capture (a failure when
+     the figure shows that document as saved, a warning when the document was
+     only a base for unsaved additions or a background to a menu), and a
+     figure that links a document for download links the one it was shot on.
 
 Exit code is non-zero if any check fails.
 """
@@ -39,12 +44,15 @@ import re
 import sys
 from pathlib import Path
 
+import provenance
+
 ROOT = Path(__file__).resolve().parent.parent
 LESSONS = ROOT / "docs" / "learn"
 LIBRARY = ROOT / "library" / "learn"
 CHECKS = ROOT / "checks"
 UNITS = ROOT / "_data" / "units.yml"
 TOPICS = ROOT / "_data" / "topics.yml"
+FIGURES = ROOT / "figures"
 
 MIN_WORDS = 1400
 MAX_WORDS = 1900
@@ -223,6 +231,69 @@ def check_topics(units: dict[str, dict[str, str]], pages: list[Path]) -> list[st
     return failures
 
 
+def check_figures(pages: list[Path]) -> tuple[list[str], list[str]]:
+    """Figures against the documents they show; see figures/provenance.json.
+
+    A figure is a picture of a document, so it goes stale when the document
+    changes and nothing about the PNG says so. This compares each capture's
+    recorded document hash with the file on disk, and each figure's download
+    link with the document the capture recorded.
+    """
+    import json
+
+    failures: list[str] = []
+    warnings: list[str] = []
+    prov = provenance.load()
+    texts = {page: page.read_text(encoding="utf8") for page in pages}
+
+    for spec_path in sorted(FIGURES.glob("*.json")):
+        if spec_path.name == "provenance.json":
+            continue
+        spec = json.loads(spec_path.read_text())
+        rel = spec_path.relative_to(ROOT)
+        raw, out = spec.get("source"), spec.get("out", "")
+        entry = prov.get(raw)
+        if entry is None:
+            failures.append(
+                f"{rel}: {raw} has no entry in figures/provenance.json; "
+                "`capture.py shot` writes one, `provenance.py set` adds one by hand"
+            )
+            continue
+
+        state = provenance.state(entry)
+        doc = entry.get("document")
+        if state == "missing":
+            failures.append(f"{rel}: {raw} was shot on {doc}, which no longer exists")
+        elif state == "changed":
+            msg = (
+                f"{rel}: {doc} changed since {raw} was captured "
+                f"({entry['role']}); re-shoot it, or if the change is not visible, "
+                f"`provenance.py accept {raw} --note ...`"
+            )
+            (failures if entry["role"] == "shown" else warnings).append(msg)
+
+        img = out.removeprefix("docs/learn/assets/")
+        link = re.compile(
+            r"\{\{ site\.img \}\}/" + re.escape(img)
+            + r"\)\]\(\{\{ site\.scores \}\}/([^)\s]+)\)"
+        )
+        for page, text in texts.items():
+            for target in link.findall(text):
+                target_doc = f"library/learn/{target}"
+                if entry["role"] != "shown":
+                    failures.append(
+                        f"{page.relative_to(ROOT)}: figure {img} links {target}, "
+                        f"but {raw} shows it with {entry['role']} changes; a download "
+                        "would not match the picture"
+                    )
+                elif target_doc != doc:
+                    failures.append(
+                        f"{page.relative_to(ROOT)}: figure {img} links {target}, "
+                        f"but {raw} was shot on {doc}"
+                    )
+    return failures, warnings
+
+
 def main() -> int:
     failures: list[str] = []
     units = load_units()
@@ -324,6 +395,13 @@ def main() -> int:
         print(f"{rel}: {words} words")
 
     failures.extend(check_topics(units, pages))
+    figure_failures, warnings = check_figures(pages)
+    failures.extend(figure_failures)
+
+    if warnings:
+        print("\nWARNINGS")
+        for line in warnings:
+            print(f"  {line}")
 
     if failures:
         print("\nFAILED")

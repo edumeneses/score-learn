@@ -22,6 +22,7 @@ is safe here precisely because focus is not reset.
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import time
 
@@ -124,6 +125,13 @@ def main() -> int:
 
     d = display.Display()
     table = keymap(d)
+    # a second connection for the before-and-after comparison, so that the
+    # keymap is read on a connection with nothing queued (see keymap())
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import capture
+    opts = capture.verify_options()
+    watch = display.Display()
+    before = capture.signature(watch, opts.match)
     shift = code_for(table, "Shift_L")
     altgr = code_for(table, "ISO_Level3_Shift")
     ctrl = code_for(table, "Control_L")
@@ -164,6 +172,7 @@ def main() -> int:
         print(f"UNTYPED, no key carries them: {''.join(sorted(set(missing)))!r}")
         return 1
     print(f"typed {len(text)} chars at {args.x},{args.y}")
+    capture.check_change(watch, opts, before, "typing")
     return 0
 
 

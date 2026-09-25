@@ -9,6 +9,8 @@ from Xlib.ext import xtest
 x, y, steps = int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3])
 ctrl = "--ctrl" in sys.argv
 d = capture.dpy()
+opts = capture.verify_options()
+before = capture.signature(d, opts.match)
 capture.move(d, x, y); d.sync(); time.sleep(0.2)
 button = 5 if steps > 0 else 4
 if ctrl:
@@ -18,3 +20,4 @@ for _ in range(abs(steps)):
 if ctrl:
     xtest.fake_input(d, X.KeyRelease, code); d.sync()
 print(f"wheel {'down' if steps>0 else 'up'} x{abs(steps)} at {x},{y} ctrl={ctrl}")
+capture.check_change(d, opts, before, "the wheel")

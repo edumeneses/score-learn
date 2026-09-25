@@ -77,7 +77,7 @@ The figure below shows a small finished score, `lesson-00.score`, which ships wi
 
 Now look at the same document the other way, since the second figure shows the same file drawn as a graph; the file itself did not change between the two figures, although the drawing looks unrelated to the timeline, and only the view differs.
 
-[![The same document drawn as a node graph, the root scenario containing its intervals as nested nodes]({{ site.img }}/00/00-02-nodal-view.png)]({{ site.scores }}/00-what-score-is/lesson-00-nodal.score){: download="" title="Download lesson-00-nodal.score, the document in this figure" }
+[![The same document drawn as a node graph, the root scenario containing its intervals as nested nodes]({{ site.img }}/00/00-02-nodal-view.png)]({{ site.scores }}/00-what-score-is/lesson-00.score){: download="" title="Download lesson-00.score, the document in this figure" }
 
 1. **The root scenario appears as one node** containing the same intervals you just read as a timeline. This is the second of the two paradigms named above, and the button that switches between them sits at the bottom left of the window; [Lesson 11]({{ site.baseurl }}/learn/11-modulation-sources.html) introduces that switch, and it is where the graph view starts to earn its place.
 

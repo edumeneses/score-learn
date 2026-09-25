@@ -1,0 +1,221 @@
+{
+  "raw/raw-00-01c.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "5817f69179c030f098714b16c19f34196e1061b2d719b98aeee225cd9a8df758",
+    "role": "shown",
+    "captured": "2026-09-24"
+  },
+  "raw/raw-00-02b.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "5817f69179c030f098714b16c19f34196e1061b2d719b98aeee225cd9a8df758",
+    "role": "shown",
+    "captured": "2026-09-25",
+    "note": "the node was zoomed, moved, and resized in the nodal view, which score counts as a modification; the figure still shows the saved document's content, as the folded 34-01 does, so it links the document"
+  },
+  "raw/raw-01-01.png": {
+    "document": null,
+    "sha256": null,
+    "role": "shown",
+    "captured": "2026-08-11",
+    "note": "the start screen; no document"
+  },
+  "raw/raw-04-01.png": {
+    "document": "library/learn/04-first-process/lesson-04.score",
+    "sha256": "e04c3f6c51d4d69a98c014e63e5530d76eb18874821089a37a830fb7b5d6b596",
+    "role": "shown",
+    "captured": "2026-08-10"
+  },
+  "raw/raw-05-01.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "4cf76bf7130e9095e779e0dd89e0f3ceaff3f2b085ffe2ae3c5ab4a3ea1a203d",
+    "role": "background",
+    "captured": "2026-08-11",
+    "note": "the project folder panel"
+  },
+  "raw/raw-06-01.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "4cf76bf7130e9095e779e0dd89e0f3ceaff3f2b085ffe2ae3c5ab4a3ea1a203d",
+    "role": "background",
+    "captured": "2026-08-11",
+    "note": "the device explorer's context menu"
+  },
+  "raw/raw-07-01.png": {
+    "document": "library/learn/04-first-process/lesson-04.score",
+    "sha256": "e04c3f6c51d4d69a98c014e63e5530d76eb18874821089a37a830fb7b5d6b596",
+    "role": "background",
+    "captured": "2026-08-11",
+    "note": "the add-device dialog"
+  },
+  "raw/raw-09-01.png": {
+    "document": "library/learn/09-states-snapshots-presets/lesson-09.score",
+    "sha256": "04a6fae6044b7c83ae93033299c0f2032d4d74ac95904fc6e3e5ab34c3df8b23",
+    "role": "shown",
+    "captured": "2026-08-10",
+    "note": "2026-09-25: accepted, the only change since capture (5ed7f13) adds a haze parameter to the device, and the figure crops the timeline, where no device parameter is drawn"
+  },
+  "raw/raw-10-01.png": {
+    "document": "library/learn/10-automation-curves/lesson-10.score",
+    "sha256": "6d399e8700f0eb17dc8bd4a76c52be3c53ba5af681727751db0be470eae5213e",
+    "role": "shown",
+    "captured": "2026-08-10"
+  },
+  "raw/raw-11-01.png": {
+    "document": "library/learn/04-first-process/lesson-04.score",
+    "sha256": "e04c3f6c51d4d69a98c014e63e5530d76eb18874821089a37a830fb7b5d6b596",
+    "role": "base",
+    "captured": "2026-08-11",
+    "note": "an LFO patch added, never saved"
+  },
+  "raw/raw-12-01.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "4cf76bf7130e9095e779e0dd89e0f3ceaff3f2b085ffe2ae3c5ab4a3ea1a203d",
+    "role": "background",
+    "captured": "2026-08-11",
+    "note": "the Record submenu; also cropped by 18-01 for the transport"
+  },
+  "raw/raw-13-01.png": {
+    "document": "library/learn/04-first-process/lesson-04.score",
+    "sha256": "e04c3f6c51d4d69a98c014e63e5530d76eb18874821089a37a830fb7b5d6b596",
+    "role": "base",
+    "captured": "2026-09-17",
+    "note": "the conditioning pipeline added, never saved"
+  },
+  "raw/raw-14-01.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "4cf76bf7130e9095e779e0dd89e0f3ceaff3f2b085ffe2ae3c5ab4a3ea1a203d",
+    "role": "background",
+    "captured": "2026-08-11",
+    "note": "the process library's search"
+  },
+  "raw/raw-15-01.png": {
+    "document": "library/learn/15-triggers/lesson-15.score",
+    "sha256": "4e60c9abdb9f5dae4419b1acda8280d1f928c5f9b1e253d84d9fbadedb872e2d",
+    "role": "shown",
+    "captured": "2026-08-10"
+  },
+  "raw/raw-16-01.png": {
+    "document": "library/learn/16-conditions-and-branching/lesson-16.score",
+    "sha256": "4e5d51aff3c43cb4c8208f0ee1ed6a3f7fd627b24ee48c6f972af49ff7561d91",
+    "role": "shown",
+    "captured": "2026-08-10"
+  },
+  "raw/raw-17-01.png": {
+    "document": "library/learn/17-loops-and-out-of-time/lesson-17.score",
+    "sha256": "408a1984143196507972dc2abce6ff4151ec2697042a1e033a321cf1dc7ac1de",
+    "role": "shown",
+    "captured": "2026-08-18"
+  },
+  "raw/raw-19-01.png": {
+    "document": "library/learn/20-sound-files/lesson-20.score",
+    "sha256": "51504bb857a6e9e720066dc7f3bccfa0b623b39f46465d4df217ff27b444f3d2",
+    "role": "shown",
+    "captured": "2026-08-11",
+    "note": "the Audio settings page open over the unmodified document"
+  },
+  "raw/raw-20-01.png": {
+    "document": "library/learn/20-sound-files/lesson-20.score",
+    "sha256": "51504bb857a6e9e720066dc7f3bccfa0b623b39f46465d4df217ff27b444f3d2",
+    "role": "shown",
+    "captured": "2026-08-11"
+  },
+  "raw/raw-21-01.png": {
+    "document": "library/learn/20-sound-files/lesson-20.score",
+    "sha256": "51504bb857a6e9e720066dc7f3bccfa0b623b39f46465d4df217ff27b444f3d2",
+    "role": "base",
+    "captured": "2026-08-11",
+    "note": "an effect chain with a plug-in added, never saved"
+  },
+  "raw/raw-23-01.png": {
+    "document": "library/learn/09-states-snapshots-presets/lesson-09.score",
+    "sha256": "04a6fae6044b7c83ae93033299c0f2032d4d74ac95904fc6e3e5ab34c3df8b23",
+    "role": "base",
+    "captured": "2026-08-12",
+    "note": "a piano roll and a MIDI device added, never saved"
+  },
+  "raw/raw-24-01.png": {
+    "document": "library/learn/00-what-score-is/lesson-00.score",
+    "sha256": "4cf76bf7130e9095e779e0dd89e0f3ceaff3f2b085ffe2ae3c5ab4a3ea1a203d",
+    "role": "background",
+    "captured": "2026-08-11",
+    "note": "the interval inspector, shot with Show musical metrics on"
+  },
+  "raw/raw-25-01.png": {
+    "document": "library/learn/25-video-pipeline/lesson-25.score",
+    "sha256": "6eae70a0056f4923acd018ffddb3e1ceb503aec1a2b1e5fe3eb29ccd6d460561",
+    "role": "shown",
+    "captured": "2026-08-11"
+  },
+  "raw/raw-26-01.png": {
+    "document": "library/learn/25-video-pipeline/lesson-25.score",
+    "sha256": "6eae70a0056f4923acd018ffddb3e1ceb503aec1a2b1e5fe3eb29ccd6d460561",
+    "role": "base",
+    "captured": "2026-08-11",
+    "note": "a shader and its editor added, never saved"
+  },
+  "raw/raw-28-01.png": {
+    "document": "library/learn/20-sound-files/lesson-20.score",
+    "sha256": "51504bb857a6e9e720066dc7f3bccfa0b623b39f46465d4df217ff27b444f3d2",
+    "role": "base",
+    "captured": "2026-08-12",
+    "note": "an audio-reactive chain added, never saved"
+  },
+  "raw/raw-29-01.png": {
+    "document": "library/learn/04-first-process/lesson-04.score",
+    "sha256": "e04c3f6c51d4d69a98c014e63e5530d76eb18874821089a37a830fb7b5d6b596",
+    "role": "base",
+    "captured": "2026-08-11",
+    "note": "a JavaScript process and its editor added, never saved"
+  },
+  "raw/raw-30-01.png": {
+    "document": "library/learn/04-first-process/lesson-04.score",
+    "sha256": "e04c3f6c51d4d69a98c014e63e5530d76eb18874821089a37a830fb7b5d6b596",
+    "role": "base",
+    "captured": "2026-08-11",
+    "note": "an expression object added, never saved"
+  },
+  "raw/raw-31-01.png": {
+    "document": "library/learn/20-sound-files/lesson-20.score",
+    "sha256": "51504bb857a6e9e720066dc7f3bccfa0b623b39f46465d4df217ff27b444f3d2",
+    "role": "base",
+    "captured": "2026-09-17",
+    "note": "a Faust process and its editor added, never saved"
+  },
+  "raw/raw-32-01.png": {
+    "document": "library/learn/32-puredata/lesson-32.score",
+    "sha256": "60bde5555ebb30ec6234bcace067b3bb02541149698914596b4db4feeb4259ec",
+    "role": "shown",
+    "captured": "2026-08-11",
+    "note": "its root interval is named lesson-04, which the breadcrumb shows"
+  },
+  "raw/raw-34-01.png": {
+    "document": "library/learn/p1-automated-cue/p1-solution.score",
+    "sha256": "826b04225bdd2dc8c440aa7a229a63896faea131144bcfe8bda0829a2fceff6c",
+    "role": "shown",
+    "captured": "2026-08-11",
+    "note": "folded with View > Fold intervals, a view state not saved in the document"
+  },
+  "raw/raw-p1-01.png": {
+    "document": "library/learn/p1-automated-cue/p1-solution.score",
+    "sha256": "826b04225bdd2dc8c440aa7a229a63896faea131144bcfe8bda0829a2fceff6c",
+    "role": "shown",
+    "captured": "2026-08-10"
+  },
+  "raw/raw-p2-01.png": {
+    "document": "library/learn/p2-light-wash/p2-solution.score",
+    "sha256": "1f9af65b89f96480480e3c30ba67a6cebb6ad7e24fa7cfa2d4a11c127891afe7",
+    "role": "shown",
+    "captured": "2026-08-10"
+  },
+  "raw/raw-p3-01.png": {
+    "document": "library/learn/p3-mapping-bench/p3-bench.score",
+    "sha256": "3e0ae7e97a60865119af5b3c25a93d97be2fc68fcad89beff68e68585514da71",
+    "role": "shown",
+    "captured": "2026-08-18"
+  },
+  "raw/raw-p4-01.png": {
+    "document": "library/learn/p4-interactive-installation/p4-solution.score",
+    "sha256": "b6b8535e04a13cd10b92d91ae1a766b8bee742f718ece4914d4c9ead741f11c5",
+    "role": "shown",
+    "captured": "2026-08-18"
+  }
+}

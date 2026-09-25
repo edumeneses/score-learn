@@ -9,6 +9,23 @@ root privileges, and it uses the XTEST extension for synthetic input.
 
 Requires: python-xlib, Pillow. Needs a running X server (DISPLAY).
 
+Figures are shot on the capture server, an Xvfb display of their own, because
+the desktop's Xwayland drops synthetic input unless a remote-input portal has
+been granted (see `server`):
+
+    python3 scripts/capture.py server start          # prints export DISPLAY=:7
+    export DISPLAY=:7
+    python3 scripts/capture.py launch --qt-scale 2 --fullscreen --open "$PWD/doc.score"
+    python3 scripts/capture.py --expect-change click 768 2112
+    python3 scripts/capture.py shot figures/raw/raw-NN-01.png   # records provenance
+    python3 scripts/capture.py stop                  # this launch only, never by name
+
+`launch` runs score with the pinned settings in figures/score-config/, copied
+into a fresh private XDG_CONFIG_HOME, and records the process group it starts
+so that `stop` signals that group and nothing else. Every input command
+compares score's pixels before and after, warns when nothing changed, and
+fails with --expect-change.
+
 Examples
 --------
     # start score, wait for its window, size it to the figure format
@@ -29,10 +46,15 @@ Examples
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
 import os
 import shlex
+import shutil
+import signal
 import subprocess
 import sys
+import tempfile
 import time
 
 from PIL import Image
@@ -43,6 +65,12 @@ APPIMAGE = os.path.expanduser(
     "~/Applications/ossia.score-3.8.2-linux-x86_64.AppImage"
 )
 WINDOW_MATCH = "score"
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PINNED_CONFIG = os.path.join(REPO, "figures", "score-config", "score.conf")
+# the capture server: a plain X server with nothing else on it
+SERVER_DISPLAY = ":7"
+SERVER_SIZE = "3840x2160x24"
+XVFB_FALLBACK = os.path.expanduser("~/.local/opt/xvfb/root/usr/bin/Xvfb")
 
 KEYSYMS = {
     "ctrl": "Control_L",
@@ -364,10 +392,111 @@ def shot(args: argparse.Namespace) -> int:
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     image.save(args.out)
     print(f"wrote {args.out} ({image.width}x{image.height})")
+    if not args.full and not args.no_record:
+        record_provenance(args.out, name, args.role, "shown")
     return 0
 
 
+# ---------------------------------------------------------------- provenance
+
+
+def document_from_title(name: str) -> tuple[str | None, bool]:
+    """The document path and its modified flag, read from score's window title.
+
+    score titles its main window `score 3.8.2 - /path/to/doc.score`, so the
+    title is the one place a capture can learn which document it shows without
+    being told. A modified document is titled `* score 3.8.2 - ...`, with the
+    asterisk in front; moving or resizing a node counts as a modification.
+    """
+    modified = name.lstrip().startswith("*")
+    _, sep, rest = name.partition(" - ")
+    if not sep:
+        return None, modified
+    path = rest.strip()
+    return (path or None), modified
+
+
+def record_provenance(out: str, window_name: str, role: str | None,
+                      default_role: str) -> None:
+    """Note which document a raw capture shows, for check_lessons.py.
+
+    Only captures saved under figures/raw/ are recorded, since those are what
+    figure specs crop; scratch captures are left alone.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    raw_dir = os.path.join(os.path.dirname(here), "figures", "raw")
+    if not os.path.abspath(out).startswith(raw_dir + os.sep):
+        return
+    sys.path.insert(0, here)
+    import provenance
+
+    doc, modified = document_from_title(window_name)
+    if role is None:
+        role = "base" if modified else default_role
+    entry = provenance.record(os.path.abspath(out), doc, role)
+    print(f"provenance: {entry['document']} ({entry['role']})")
+    if doc and not doc.startswith(str(provenance.ROOT)):
+        print("warning: the document is outside the repository, so the check "
+              "can only confirm it has not changed on this machine")
+
+
 # ---------------------------------------------------------------- input
+
+
+def signature(d: display.Display, match: str) -> str:
+    """A hash of what score shows: its window and every popup over it.
+
+    Popups count because opening a menu changes nothing in the main window.
+    """
+    found = find_window(d, match)
+    if not found:
+        return ""
+    win, _name, geo = found
+    h = hashlib.sha1()
+    try:
+        h.update(win.get_image(0, 0, geo[2], geo[3], X.ZPixmap, 0xFFFFFFFF).data)
+    except Exception:
+        return ""
+    for child, px, py, pw, ph in popups(d, win.id):
+        h.update(f"{px},{py},{pw},{ph}".encode())
+        try:
+            h.update(child.get_image(0, 0, pw, ph, X.ZPixmap, 0xFFFFFFFF).data)
+        except Exception:
+            pass
+    return h.hexdigest()
+
+
+def verify_options(match: str = WINDOW_MATCH) -> argparse.Namespace:
+    """check_change's options for the small scripts that import this module."""
+    return argparse.Namespace(
+        match=match, no_verify=False, verify_wait=1.5,
+        expect_change=os.environ.get("CAPTURE_EXPECT_CHANGE") == "1",
+    )
+
+
+def check_change(d: display.Display, args: argparse.Namespace, before: str,
+                 what: str) -> None:
+    """Complain when an input left score's pixels exactly as they were.
+
+    Input that never arrives is otherwise silent: on 2026-09-24 every click of
+    a session was swallowed, captures came back byte-identical, and nothing
+    said so until the pictures were compared by eye. A click that only focuses
+    the window legitimately changes nothing, so this warns by default and fails
+    only with --expect-change (or CAPTURE_EXPECT_CHANGE=1).
+    """
+    if args.no_verify or not before:
+        return
+    deadline = time.time() + args.verify_wait
+    while time.time() < deadline:
+        if signature(d, args.match) != before:
+            return
+        time.sleep(0.15)
+    msg = (f"no visible change after {what}: the input may have been swallowed "
+           "(a locked or blanked session), the target may be disabled, or the "
+           "click only focused the window")
+    if args.expect_change:
+        raise SystemExit(f"error: {msg}")
+    print(f"warning: {msg}", file=sys.stderr)
 
 
 def _normal_windows(d: display.Display) -> list:
@@ -405,8 +534,14 @@ def covered_at(d: display.Display, win_id: int, x: int, y: int):
     ids = [w[0] for w in stack]
     if win_id not in ids:
         return None
+    own = stack[ids.index(win_id)][1]
     above = stack[ids.index(win_id) + 1:]
     for _id, cls, wx, wy, ww, wh in above:
+        # score's own dialogs and editors are what the input is meant for.
+        # Under a window manager they sit in frames and never get here; with
+        # none, as on the capture server, they carry score's own class.
+        if own and cls == own:
+            continue
         if wx <= x < wx + ww and wy <= y < wy + wh:
             return cls or "an unnamed window"
     return None
@@ -450,6 +585,7 @@ def move(d: display.Display, x: int, y: int) -> None:
 def click(args: argparse.Namespace) -> int:
     d = dpy()
     require_clear(d, args.match, args.x, args.y)
+    before = signature(d, args.match)
     move(d, args.x, args.y)
     time.sleep(0.15)
     for _ in range(args.count):
@@ -460,12 +596,14 @@ def click(args: argparse.Namespace) -> int:
         d.sync()
         time.sleep(0.12)
     print(f"clicked {args.x},{args.y} button={args.button} x{args.count}")
+    check_change(d, args, before, f"the click at {args.x},{args.y}")
     return 0
 
 
 def drag(args: argparse.Namespace) -> int:
     d = dpy()
     require_clear(d, args.match, args.x1, args.y1)
+    before = signature(d, args.match)
     move(d, args.x1, args.y1)
     time.sleep(0.2)
     xtest.fake_input(d, X.ButtonPress, args.button)
@@ -482,6 +620,7 @@ def drag(args: argparse.Namespace) -> int:
     xtest.fake_input(d, X.ButtonRelease, args.button)
     d.sync()
     print(f"dragged {args.x1},{args.y1} -> {args.x2},{args.y2}")
+    check_change(d, args, before, "the drag")
     return 0
 
 
@@ -497,6 +636,7 @@ def keycode(d: display.Display, name: str) -> int:
 def key(args: argparse.Namespace) -> int:
     d = dpy()
     require_focus(d, args.match)
+    before = signature(d, args.match)
     parts = args.combo.split("+")
     mods, base = parts[:-1], parts[-1]
     codes = [keycode(d, m) for m in mods]
@@ -510,12 +650,14 @@ def key(args: argparse.Namespace) -> int:
         xtest.fake_input(d, X.KeyRelease, code)
     d.sync()
     print(f"key {args.combo}")
+    check_change(d, args, before, f"the key {args.combo}")
     return 0
 
 
 def type_text(args: argparse.Namespace) -> int:
     d = dpy()
     require_focus(d, args.match)
+    before = signature(d, args.match)
     from Xlib import XK
 
     for char in args.text:
@@ -533,6 +675,7 @@ def type_text(args: argparse.Namespace) -> int:
         d.sync()
         time.sleep(0.02)
     print(f"typed {len(args.text)} chars")
+    check_change(d, args, before, "typing")
     return 0
 
 
@@ -582,6 +725,8 @@ def waitshot(args: argparse.Namespace) -> int:
                 os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
                 image.save(args.out)
                 print(f"wrote {args.out} ({image.width}x{image.height})")
+                if not args.no_record:
+                    record_provenance(args.out, _name, args.role, "background")
                 return 0
         time.sleep(1.0)
     print("timed out with no dialog")
@@ -650,6 +795,7 @@ def menu(args: argparse.Namespace) -> int:
             return 1
         cx = px + min(60, pw // 3)
         cy = py + groups[args.pick - 1]
+        before = signature(d, args.match)
         move(d, cx, cy)
         time.sleep(0.25)
         xtest.fake_input(d, X.ButtonPress, 1)
@@ -658,6 +804,113 @@ def menu(args: argparse.Namespace) -> int:
         xtest.fake_input(d, X.ButtonRelease, 1)
         d.sync()
         print(f"clicked row {args.pick} at {cx},{cy}")
+        check_change(d, args, before, f"menu row {args.pick}")
+    return 0
+
+
+def _state_path() -> str:
+    """Where launch records what it started, per display."""
+    run = os.environ.get("XDG_RUNTIME_DIR") or tempfile.gettempdir()
+    tag = os.environ.get("DISPLAY", "none").replace(":", "").replace("/", "_")
+    return os.path.join(run, f"score-capture-{tag}.json")
+
+
+def _write_state(state: dict) -> None:
+    with open(_state_path(), "w") as f:
+        json.dump(state, f)
+
+
+def has_window_manager(d: display.Display) -> bool:
+    """True when an EWMH window manager runs; the capture server has none."""
+    root = d.screen().root
+    prop = root.get_full_property(d.intern_atom("_NET_SUPPORTING_WM_CHECK"), X.AnyPropertyType)
+    return bool(prop and prop.value)
+
+
+def stop(args: argparse.Namespace) -> int:
+    """Stop the score this harness launched on this display, and nothing else.
+
+    Killing by name used to be the recipe here, and it also killed another
+    session's score builds and the gdb running them, since `pgrep -f` matches
+    any command line that mentions the binary. launch records the process group
+    it starts; this signals that group only.
+    """
+    path = _state_path()
+    if not os.path.exists(path):
+        print(f"nothing recorded in {path}; nothing stopped")
+        return 1
+    with open(path) as f:
+        state = json.load(f)
+    pgid = state["pgid"]
+    try:
+        os.killpg(pgid, signal.SIGTERM)
+        for _ in range(30):
+            time.sleep(0.2)
+            os.killpg(pgid, 0)
+        os.killpg(pgid, signal.SIGKILL)
+        print(f"process group {pgid} did not stop on SIGTERM; killed")
+    except ProcessLookupError:
+        print(f"stopped process group {pgid}")
+    if state.get("config_dir"):
+        shutil.rmtree(state["config_dir"], ignore_errors=True)
+    os.remove(path)
+    return 0
+
+
+def server(args: argparse.Namespace) -> int:
+    """Start, stop, or report the capture server, an Xvfb display of its own.
+
+    The desktop's Xwayland hands synthetic input to libei, the emulated-input
+    library, through the desktop's remote-input portal, which needs a person to
+    consent; without that consent every XTEST event is dropped inside the X
+    server, silently, which is what swallowed a whole session's clicks on
+    2026-09-24. Xvfb has no portal, no compositor, no window manager, no lock
+    screen, and no other windows, so input and capture both behave, and the
+    figure format is simply the screen size.
+    """
+    disp = args.display
+    run = os.environ.get("XDG_RUNTIME_DIR") or tempfile.gettempdir()
+    pidfile = os.path.join(run, f"score-capture-xvfb{disp.replace(':', '')}.pid")
+    alive = False
+    if os.path.exists(pidfile):
+        pid = int(open(pidfile).read())
+        try:
+            os.kill(pid, 0)
+            alive = True
+        except ProcessLookupError:
+            os.remove(pidfile)
+    if args.action == "status":
+        print(f"capture server {disp}: {'running' if alive else 'stopped'}")
+        return 0 if alive else 1
+    if args.action == "stop":
+        if not alive:
+            print(f"capture server {disp} is not running")
+            return 1
+        os.kill(pid, signal.SIGTERM)
+        os.remove(pidfile)
+        print(f"stopped capture server {disp}")
+        return 0
+    if alive:
+        print(f"capture server {disp} already running\nexport DISPLAY={disp}")
+        return 0
+    xvfb = shutil.which("Xvfb") or (XVFB_FALLBACK if os.path.exists(XVFB_FALLBACK) else None)
+    if not xvfb:
+        print("no Xvfb: `sudo apt install xvfb`, or unpack `apt-get download xvfb` "
+              f"with dpkg -x so that {XVFB_FALLBACK} exists")
+        return 1
+    proc = subprocess.Popen(
+        [xvfb, disp, "-screen", "0", args.size, "-nolisten", "tcp",
+         "+extension", "GLX", "-noreset"],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True,
+    )
+    with open(pidfile, "w") as f:
+        f.write(str(proc.pid))
+    sock = f"/tmp/.X11-unix/X{disp.lstrip(':')}"
+    for _ in range(50):
+        if os.path.exists(sock):
+            break
+        time.sleep(0.1)
+    print(f"started capture server {disp} ({args.size}) with {xvfb}\nexport DISPLAY={disp}")
     return 0
 
 
@@ -675,19 +928,35 @@ def launch(args: argparse.Namespace) -> int:
         # exactly like a document which failed to load for some interesting reason.
         cmd = [args.appimage] + (shlex.split(args.open) if args.open else [])
         env = dict(os.environ)
+        # without this Qt may pick its Wayland backend, and the window then
+        # never appears to any X tool while the process runs happily
+        env["QT_QPA_PLATFORM"] = "xcb"
         if args.qt_scale:
             # Figures are specified at 2x device pixels. On a display with no
             # HiDPI scaling, forcing Qt's scale factor is what produces them:
             # a 3840x2160 window at scale 2 is a 1920x1080 logical layout.
             env["QT_SCALE_FACTOR"] = str(args.qt_scale)
-        subprocess.Popen(
+        config_dir = None
+        if not args.user_config:
+            # A fresh copy of the pinned settings for every launch, so that
+            # nothing a session changes reaches the next one, and the user's
+            # own ~/.config/ossia is neither read nor written.
+            config_dir = tempfile.mkdtemp(prefix="score-capture-config-")
+            os.makedirs(os.path.join(config_dir, "ossia"))
+            shutil.copy(args.config, os.path.join(config_dir, "ossia", "score.conf"))
+            env["XDG_CONFIG_HOME"] = config_dir
+        log = open(args.log, "w") if args.log else subprocess.DEVNULL
+        proc = subprocess.Popen(
             cmd,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+            stdout=log,
+            stderr=subprocess.STDOUT if args.log else subprocess.DEVNULL,
             start_new_session=True,
             env=env,
         )
-        print(f"launched {os.path.basename(args.appimage)}")
+        _write_state({"pgid": proc.pid, "config_dir": config_dir,
+                      "document": args.open})
+        print(f"launched {os.path.basename(args.appimage)} as process group "
+              f"{proc.pid}" + ("" if config_dir else " with the user's settings"))
 
     deadline = time.time() + args.timeout
     found = None
@@ -702,7 +971,14 @@ def launch(args: argparse.Namespace) -> int:
 
     win, name, geo = found
     activate(d, win)
-    if args.fullscreen:
+    if args.fullscreen and not has_window_manager(d):
+        # Nothing to ask for fullscreen, and nothing that would draw a frame
+        # either: the screen's own size is the figure format.
+        screen = d.screen()
+        set_geometry(d, win, f"{screen.width_in_pixels}x{screen.height_in_pixels}+0+0")
+        found = find_window(d, args.match)
+        geo = found[2]
+    elif args.fullscreen:
         set_fullscreen(d, win)
         found = find_window(d, args.match)
         geo = found[2]
@@ -725,6 +1001,15 @@ def windows(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--match", default=WINDOW_MATCH, help="window name substring")
+    parser.add_argument(
+        "--expect-change", action="store_true",
+        default=os.environ.get("CAPTURE_EXPECT_CHANGE") == "1",
+        help="fail, rather than warn, when an input leaves score's pixels unchanged",
+    )
+    parser.add_argument("--no-verify", action="store_true",
+                        help="skip the before-and-after comparison of each input")
+    parser.add_argument("--verify-wait", type=float, default=1.5,
+                        help="seconds to wait for an input to change the picture")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("launch", help="start score and size its window")
@@ -746,7 +1031,21 @@ def main() -> int:
         help="QT_SCALE_FACTOR for the child; use 2 with a 3840x2160 window "
         "to get 2x figures of a 1920x1080 layout",
     )
+    p.add_argument("--config", default=PINNED_CONFIG,
+                   help="settings file copied into a fresh private XDG_CONFIG_HOME")
+    p.add_argument("--user-config", action="store_true",
+                   help="use the user's own ~/.config/ossia instead of the pinned file")
+    p.add_argument("--log", default=None, help="write score's output here")
     p.set_defaults(func=launch)
+
+    p = sub.add_parser("stop", help="stop the score that launch started on this display")
+    p.set_defaults(func=stop)
+
+    p = sub.add_parser("server", help="start or stop the capture server (Xvfb)")
+    p.add_argument("action", choices=("start", "stop", "status"))
+    p.add_argument("--display", default=SERVER_DISPLAY)
+    p.add_argument("--size", default=SERVER_SIZE)
+    p.set_defaults(func=server)
 
     p = sub.add_parser("shot", help="capture the window or a region of it")
     p.add_argument("out")
@@ -766,6 +1065,11 @@ def main() -> int:
         help="activate the window before capturing; unnecessary with "
         "window-level capture and it disturbs whatever the user is doing",
     )
+    p.add_argument("--role", choices=("shown", "base", "background"), default=None,
+                   help="how the figure uses the document, for figures/provenance.json; "
+                        "default base when the title marks it modified, else shown")
+    p.add_argument("--no-record", action="store_true",
+                   help="do not write figures/provenance.json")
     p.set_defaults(func=shot)
 
     p = sub.add_parser("click")
@@ -798,6 +1102,9 @@ def main() -> int:
                    help="only accept a dialog whose title contains this, which is "
                         "how the start screen stops being mistaken for a dialog")
     p.add_argument("--settle", type=float, default=1.2)
+    p.add_argument("--role", choices=("shown", "base", "background"), default=None,
+                   help="default background, since the subject is the dialog")
+    p.add_argument("--no-record", action="store_true")
     p.set_defaults(func=waitshot)
 
     p = sub.add_parser("menu", help="open a menu and click one of its rows")
@@ -812,6 +1119,8 @@ def main() -> int:
     p.set_defaults(func=windows)
 
     args = parser.parse_args()
+    if args.cmd == "server":
+        return args.func(args)
     if not os.environ.get("DISPLAY"):
         print("DISPLAY is unset; this harness needs a running X server")
         return 1
