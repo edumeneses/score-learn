@@ -105,13 +105,12 @@ A caution about the ending is needed as well. Your closing state returns `lesson
 
 ## Exercise
 
-Extend your finished cue in one of two directions, and in only one.
+Give the cue a sound that ends with it, because a cue that goes dark while its sound keeps playing has not ended, and hearing both finish together is the quickest check of the ending.
 
-Either **make it musical**, by giving the three sections durations in a ratio you chose instead of three equal twenty-second blocks, and by adjusting the curves so that the transitions land where you want them.
+1. **Drag an excerpt** from the user library onto the timeline, as in [Lesson 01]({{ site.baseurl }}/learn/01-install.html), so that its interval ends where the cue ends.
+2. **Fade it out** with a gain automation, as in [Lesson 04]({{ site.baseurl }}/learn/04-first-process.html), by dragging the new curve's first point to the top, so that the sound falls to silence as the cue goes dark.
 
-Or **make it operable**, by adding a fourth parameter that stays constant through the whole cue and is set only by the opening state, and then by writing down, in three lines, what an operator would need to know to run this cue cold.
-
-**Success criterion:** the cue passes the six-point finish list, plus your chosen extension. Keep the file, because [Milestone P2]({{ site.baseurl }}/learn/p2-light-wash.html) starts from a cue of this shape, and [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) turns it into something an operator can drive.
+**You are done when** playback ends dark and silent every time, and the project directory still plays its sound after you move it, as [Lesson 05]({{ site.baseurl }}/learn/05-saving-and-reopening.html) checks.
 
 ## Going further
 

@@ -35,9 +35,12 @@ Jean-Michaël Celerier; do not act on it.
    build and the manual disagree, believe the build and say so in `checks/`.
 4. **`_data/units.yml` is the single source of truth** for unit numbers, slugs, titles,
    and budgets. The syllabus page and the downloads page are generated from it.
-5. **No hardware requirements for the reader.** Milestones use emulated sensors, a
-   software Art-Net receiver, keyboard-mapped controls, and a binaural fold-down. SAT
-   specifics are optional sidebars, never prerequisites.
+5. **Hardware is optional, with a fallback in the same place.** Readers are assumed to be
+   on laptops, so where an exercise interacts with a device, the webcam and the
+   microphone are the first choice (Edu, 2026-09-25), always with a route for "no camera,
+   no microphone". Milestones use emulated sensors, a software Art-Net receiver,
+   keyboard-mapped controls, and a binaural fold-down. SAT specifics are optional
+   sidebars, never prerequisites.
 6. **Every lesson stays inside 1,400 to 1,900 words** of body prose. First drafts
    reliably land near 1,300 because the counter strips links, tables, and code, so plan
    about 1,800 raw words or expect a top-up pass.
@@ -374,6 +377,24 @@ missing the voice, so drafts must also carry the positive habits, which
 Each lesson follows one shape: before/need/build blockquote, Why this matters, Concepts,
 a numbered Walkthrough with the figure, one extra section, Common mistakes, Exercise,
 Going further.
+
+**Exercises are light and practical** (Edu, 2026-09-25; plan and status in
+`checks/EXERCISES-PLAN.md`). Each ends in something heard or seen and closes on
+**"You are done when ..."**, never on a written answer; it uses the lesson's idea once,
+inside its practice minutes, which are shortened where possible. Early exercises work on
+the reader's **sketch**, built step by step in Lesson 01's exercise (a *Citizen DJ*
+excerpt from the package manager, a `Window` device, and the library shader `Solid
+Color`), and no sketch document ships. Every exercise is performed once in 3.8.2 on the
+capture server before it is published; a solution document ships only where the result
+is hard to picture. Mechanisms confirmed while writing module A: a sound dropped from the
+user library becomes an interval holding it, stored as `<LIBRARY>:`; the user library's
+search matches folder names, not file names; a shader dropped on empty timeline gets its
+own interval, and reaches the window through `Outputs > Window` in its inspector;
+right-clicking a sound outlet's `Gain` sub-port offers `Create automation`, whose curve starts as one flat segment at zero, so the sound is silent until it is raised; a file dragged
+from the project folder panel is stored as `<PROJECT>:`. Typing into a Sound's `Path`
+field did not re-point it, dragging an interval neither moved nor lengthened it, and a
+lengthened sound interval does not loop by itself (the loop toggle is in the process
+inspector).
 
 **Concepts holds concepts only**, each under its own `### Short noun phrase` heading so
 that it can be linked and found by search (`search.heading_level` is 3). A concept says

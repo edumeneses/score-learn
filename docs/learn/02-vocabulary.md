@@ -8,7 +8,7 @@ unit: "02"
 permalink: /learn/02-vocabulary.html
 score_version: "3.8.2"
 reading_time: "12 min"
-practice_time: "15 min"
+practice_time: "10 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 00-what-score-is/lesson-00.score
 
 > **Before this lesson** finish [Lesson 01]({{ site.baseurl }}/learn/01-install.html), because you need *score* installed to open the file.
 >
-> **You will need** `lesson-00.score`, the document you read in Lesson 00, which you should open now.
+> **You will need** `lesson-00.score`, the document you read in Lesson 00, which you should open now, and your sketch from Lesson 01 for the exercise.
 >
 > **You will build** a vocabulary you can use for the rest of the course without ambiguity, and the reflex of confirming a term in the inspector.
 
@@ -109,9 +109,14 @@ The table contains two details that repay a pause before moving on. A trigger is
 
 ## Exercise
 
-Take the paragraph you wrote for the Lesson 00 exercise and rewrite it using only the eight words defined here. Where your description needs something these words cannot express, write that down as a question, because inventing a term hides the gap that the question would expose.
+Name the parts of your own sketch from [Lesson 01]({{ site.baseurl }}/learn/01-install.html) by clicking them, and change one, because a word you have confirmed on a document you made is one you will not need to look up again.
 
-**Success criterion:** every element of your project maps to one of score, interval, state, event, trigger, process, slot, or device. Keep your list of unanswerable questions, since [Lesson 15]({{ site.baseurl }}/learn/15-triggers.html) and [Lesson 16]({{ site.baseurl }}/learn/16-conditions-and-branching.html) resolve most of them, and a question still open at the end of Module F should be reported as described in [Lesson 38]({{ site.baseurl }}/learn/38-reading-the-docs.html).
+1. **Click the sound's interval by its name**, and the inspector calls it an interval and gives its duration, which is the length of the excerpt you chose.
+2. **Click the shader's title**, and the inspector describes a process with a single input, `Color`; pick a blue there and play, so that the window turns blue.
+3. **Click the small disc at the left end of either interval**, which the inspector describes as a state, the place where messages go in [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html).
+4. **Expand `Window` in the `Device explorer`**, the device your shader writes to, although only the shader's output setting points at it.
+
+**You are done when** the window plays blue and you have seen the inspector name an interval, a process, a state, and a device in a document of your own.
 
 ## Going further
 

@@ -8,7 +8,7 @@ unit: "05"
 permalink: /learn/05-saving-and-reopening.html
 score_version: "3.8.2"
 reading_time: "10 min"
-practice_time: "15 min"
+practice_time: "10 min"
 score_file: 04-first-process/lesson-04.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 04-first-process/lesson-04.score
 
 > **Before this lesson** finish [Lesson 04]({{ site.baseurl }}/learn/04-first-process.html), so that you have a document of your own to save.
 >
-> **You will need** the interval and automations you built, plus a text editor.
+> **You will need** the interval and automations you built, your sketch from Lesson 01, and a text editor.
 >
 > **You will build** a project layout that survives being moved to another machine, and the reflex of reading your own score as text when the interface will not tell you something.
 
@@ -40,7 +40,7 @@ The file only points at media and code that it does not embed, such as sound fil
 
 ### Relative and absolute paths
 
-A relative path survives a move, whereas an absolute path does not. A path relative to the document survives being moved as a set, while an absolute path survives only on the machine that wrote it; keeping media beside the score, in the project folder, removes the problem.
+A relative path survives a move, whereas an absolute path does not. A path relative to the document, which the file writes as `<PROJECT>:`, survives being moved as a set, while an absolute path survives only on the machine that wrote it. A third form, `<LIBRARY>:`, is relative to the user library, so a packaged sound follows the package instead of the document; keeping media beside the score removes both problems.
 
 ### Devices as expectations
 
@@ -101,9 +101,15 @@ Sending a colleague a `.score` file alone is the most common way to waste an aft
 
 ## Exercise
 
-Package your Lesson 04 document as a self-contained project directory including at least one media file, even a placeholder sound. Move the directory to a different location and confirm it opens with no element missing, then save a two-interval fragment of it into the user library with `Alt+Drag`, start a new empty document, and drag the fragment back in.
+Make your sketch self-contained, because a document that plays only on the machine that made it is not yet a project.
 
-**Success criterion:** the moved project opens with no missing media, and the fragment reappears in a fresh document with its structure intact. If a path broke, note whether it was absolute or relative, because that distinction is what the whole lesson turns on.
+1. **Read the sound's path** by opening `sketch.score` in a text editor and searching for `.wav`. The path begins with `<LIBRARY>:`, so the sketch plays on any machine with the same package installed and loses its sound everywhere else.
+2. **Copy the excerpt into the sketch's folder** from `~/Documents/ossia/score/packages/citizen-dj-free-music/excerpts/`.
+3. **Drag the copy from the project folder panel**, `Ctrl+Shift+L`, onto the timeline, then select the old sound's interval and delete it; redo the fade of Lesson 04 if you want it, since it belonged to the old sound.
+4. **Save and read the file again**, where the path now begins with `<PROJECT>:`, relative to the document.
+5. **Move or rename the folder**, reopen the sketch from its new place, and play.
+
+**You are done when** the moved sketch plays its sound, and the file names it with `<PROJECT>:`.
 
 ## Going further
 

@@ -8,7 +8,7 @@ unit: "03"
 permalink: /learn/03-interface-and-transport.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "20 min"
+practice_time: "10 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 00-what-score-is/lesson-00.score
 
 > **Before this lesson** finish [Lesson 02]({{ site.baseurl }}/learn/02-vocabulary.html), because this lesson names places, whereas that one named things.
 >
-> **You will need** `lesson-00.score` open, since the walkthrough refers to it throughout.
+> **You will need** `lesson-00.score` open, since the walkthrough refers to it throughout, and your sketch from Lesson 01 for the exercise.
 >
 > **You will build** the ability to reach any part of the interface on purpose, and to get back when you end up somewhere unexpected.
 
@@ -89,9 +89,15 @@ Each of four panels answers a different question, and knowing them before you ne
 
 ## Exercise
 
-With `lesson-00.score` open and without using the mouse for navigation, do the following: reach the processes library, return to the device explorer, select the `Dark` interval using only arrow keys, fold and unfold its processes, and play the score until it waits at the trigger. Then get lost on purpose by double-clicking the name above an automation slot to enter its full-size view, and find your way back to the top of the document.
+Drive the transport on your sketch from [Lesson 01]({{ site.baseurl }}/learn/01-install.html), because moving through a piece while you listen is most of what the transport is for.
 
-**Success criterion:** you can state which key returned you to the parent scenario, and you can describe what the score looked like while it was waiting at the trigger, in terms of the elements Lesson 02 named. If you could not tell waiting from stopped, write that down, because Lesson 15 is where that distinction gets resolved.
+1. **Play with `space`, then stop**, and watch the playhead cross both intervals.
+2. **Start in the middle** by right-clicking the timeline halfway through the excerpt and choosing `Play from here`.
+3. **Slow the sound down** by selecting its interval and pressing `× 0.5` under `Speed` in the inspector, then play and listen to what changes; `× 1` restores it.
+4. **Zoom on the waveform** with `Ctrl` and the wheel, then zoom out until both intervals fit again.
+5. **Get lost on purpose** by double-clicking the name of the shader's interval, and return to the top with `Ctrl+Alt+↑` or the breadcrumb under the ruler.
+
+**You are done when** you have heard the excerpt start from its middle and at half speed, and you are back at the top of your document.
 
 ## Going further
 

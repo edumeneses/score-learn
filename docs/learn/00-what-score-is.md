@@ -91,15 +91,24 @@ Now look at the same document the other way, since the second figure shows the s
 
 ## Exercise
 
-Write one paragraph, in plain language and with no reference to software, describing a work you intend to make. Then annotate your own paragraph by marking every element as a score, an interval, a state, a process, or a device.
+Choose the first thing you want *score* to do for you, and find in the table the lesson that gets you there; [Lesson 01]({{ site.baseurl }}/learn/01-install.html) then builds a small sketch, a sound and a colour, from which each route starts.
 
-**Success criterion:** every noun in your description receives a single mark, or you can name which nouns refused to be marked. Keep that list, bring it to [Lesson 02]({{ site.baseurl }}/learn/02-vocabulary.html), and check it again after [Lesson 15]({{ site.baseurl }}/learn/15-triggers.html); a noun still unmarked at that point indicates a gap in the documentation, which [Lesson 38]({{ site.baseurl }}/learn/38-reading-the-docs.html) shows how to file.
+| To | Go to |
+|---|---|
+| play, loop, and shape sound files | [Lesson 20]({{ site.baseurl }}/learn/20-sound-files.html) |
+| see your webcam in a window | [Lesson 25]({{ site.baseurl }}/learn/25-video-pipeline.html) |
+| make an image react to sound | [Lesson 28]({{ site.baseurl }}/learn/28-audio-reactive-visuals.html) |
+| control stage lights | [Milestone P2]({{ site.baseurl }}/learn/p2-light-wash.html) |
+| wait for a visitor or a performer | [Lesson 15]({{ site.baseurl }}/learn/15-triggers.html) |
+| exchange messages with another application | [Lesson 07]({{ site.baseurl }}/learn/07-osc-devices.html) |
+
+**You are done when** you know your first destination. Meanwhile, keep `lesson-00.score`, the figures' document, because Lesson 02 opens it.
 
 ## Going further
 
 - [What is *score*]({{ site.docs_baseurl }}/quick-start/what-is-score.html) is the project's own one-page positioning statement.
 - [Interface overview]({{ site.docs_baseurl }}/quick-start/interface-overview.html) is the reference tour of the window, which Lesson 03 walks through in detail.
 - [Execution]({{ site.docs_baseurl }}/in-depth/execution.html) describes the scheduling model, for readers who want it before Phase 3 reaches it.
-- The [examples library]({{ site.docs_baseurl }}/examples/) is reachable from the *score* start screen, and browsing it before Lesson 01 prepares you for that lesson's exercise.
+- The [examples library]({{ site.docs_baseurl }}/examples/) is reachable from the *score* start screen, which Lesson 01 opens.
 
 {% include lesson_files.html %}

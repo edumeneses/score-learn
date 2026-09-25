@@ -8,7 +8,7 @@ unit: "04"
 permalink: /learn/04-first-process.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "25 min"
+practice_time: "15 min"
 score_file: 04-first-process/lesson-04.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 04-first-process/lesson-04.score
 
 > **Before this lesson** finish [Lesson 03]({{ site.baseurl }}/learn/03-interface-and-transport.html), so that the panels and shortcuts below are familiar.
 >
-> **You will need** a new empty document, since `lesson-04.score` ships with this lesson as the finished result and is for comparison after you have built your own.
+> **You will need** a new empty document, since `lesson-04.score` ships with this lesson as the finished result and is for comparison after you have built your own, and your sketch from Lesson 01 for the exercise.
 >
 > **You will build** one interval holding one automation that drives one parameter from 0 to 1 over eight seconds.
 
@@ -92,9 +92,14 @@ A further control deserves a mention now and a lesson later: an automation can b
 
 ## Exercise
 
-Build a ten-second interval containing two automations that drive two different parameters of the same device: one rising with a slow start, one falling in a straight line. Then, without changing either curve, make the interval fifteen seconds long and decide, before you drag, whether you want the curves to stretch or to keep their shape; do it both ways and keep the version you prefer.
+Fade the excerpt of your sketch in, because a fade is the first automation most pieces need, and this one drives a control inside *score* where the walkthrough drove a device.
 
-**Success criterion:** you can say which gesture stretched the curves and which preserved them, and both automations show a `->` destination in their slot headers. If either parameter did not move when you played the score, check the range before any other setting.
+1. **Click the small dot at the bottom left of the sound's slot**, its audio outlet, and two sub-ports appear, `Gain` and `Pan`.
+2. **Right-click `Gain` and choose `Create automation`**, which adds a slot under the waveform whose header names the gain of your file.
+3. **Drag the curve's last point to the top of that slot**, and play. The new curve lies flat along the bottom, which means a gain of zero and therefore silence, so raising its end is what turns it into a fade from silence to full.
+4. **Bend the segment** by selecting it and dragging with `Shift` held, as in step 7, and play again to hear a fade that starts slowly.
+
+**You are done when** you hear the excerpt rise from silence, and the bent curve sounds different from the straight one.
 
 ## Going further
 

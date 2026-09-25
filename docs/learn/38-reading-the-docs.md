@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 37]({{ site.baseurl }}/learn/37-recording-and-streaming.html), because this lesson works from the list you have been keeping since Lesson 02.
 >
-> **You will need** the list of unanswered questions that this course has asked you to keep.
+> **You will need** one or two questions you could not answer while working through the course, which most readers collect without trying.
 >
 > **You will build** one good issue report, together with a routine for turning your own confusion into a contribution the project can use.
 
@@ -47,7 +47,7 @@ An issue is either a bug report or a documentation gap. Both belong on the proje
 {: .note }
 > A figure for this lesson is pending: it needs contextual help open beside a selected object, which requires interaction. See `checks/38-reading-the-docs.md`.
 
-1. **Take out your list**, because every lesson since Lesson 02 has asked you to note what you could not answer. If your list is empty, you have not been keeping it, and the next-best source is the last task that took you longer than it should have.
+1. **Collect your open questions**, the things you could not answer while following the course; if none comes to mind, the next-best source is the last task that took you longer than it should have.
 2. **Classify each item** as a gap in the documentation, an actual bug, an unimplemented feature, or something you had not yet read, since these receive different treatment and mislabelling one wastes a maintainer's time.
 3. **Try `F1` on the relevant object** for each remaining item, because contextual help is the fastest route to an answer: selecting an object and pressing `F1` opens that object's reference page, and most questions are about a specific object. Some will be answered immediately, which tells you that the gap was in your reading rather than in the manual.
 4. **Search the four parts separately**, because if you were looking in the reference for a workflow, the answer is in common practices instead. Conversely, if you were looking in common practices for a parameter, look in the reference.

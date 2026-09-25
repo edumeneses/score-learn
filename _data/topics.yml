@@ -30,6 +30,15 @@
     - q: Score will not start or makes no sound. What now?
       unit: "01"
       anchor: if-it-will-not-start-or-will-not-make-a-sound
+    - q: How do I make a first sound and a first image in score?
+      unit: "01"
+      anchor: exercise
+    - q: How do I fade a sound in or out?
+      unit: "04"
+      anchor: exercise
+    - q: Where does score look for a sound file, and what do the PROJECT and LIBRARY path prefixes mean?
+      unit: "05"
+      anchor: relative-and-absolute-paths
     - q: What are intervals, states, events, and triggers?
       unit: "02"
       anchor: the-interval

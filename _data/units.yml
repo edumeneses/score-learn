@@ -32,7 +32,7 @@
   slug: 02-vocabulary
   title: "Vocabulary: intervals, states, triggers, and processes"
   read: 12
-  practice: 15
+  practice: 10
   written: true
 - num: "03"
   module: B
@@ -40,7 +40,7 @@
   slug: 03-interface-and-transport
   title: "The interface: panels, zoom, and transport"
   read: 13
-  practice: 20
+  practice: 10
   written: true
 - num: "04"
   module: B
@@ -48,7 +48,7 @@
   slug: 04-first-process
   title: Your first automation
   read: 13
-  practice: 25
+  practice: 15
   written: true
 - num: "05"
   module: B
@@ -56,7 +56,7 @@
   slug: 05-saving-and-reopening
   title: "Saving a project, media paths, and reopening"
   read: 10
-  practice: 15
+  practice: 10
   written: true
 - num: P1
   module: B
