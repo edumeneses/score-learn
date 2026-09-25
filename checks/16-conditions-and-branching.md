@@ -31,3 +31,5 @@ and Synchronize (Shift+M). An earlier draft named a 'split condition' function; 
 mechanism is real but those are the names the interface uses.
 
 - 2026-09-16 crop audit: Figure `16-01`: crop now starts above the `Approach` header instead of cutting through its curve. Re-rendered from the same raw.
+
+- 2026-09-25: **`lesson-16.score`'s conditions were ignored until today**, so both `High` and `Low` ran whatever the input, contradicting step 1. They were written `{ lesson:/level >= 0.5 }`; score reads an address in a condition only between percent signs, `{ %lesson:/level% >= 0.5 }`, which is the form in upstream's shipped examples and the one `mkscore.py`'s `cond()` now writes. Verified in lesson 00, whose branches have the same shape: with the old form both ran and no condition bracket was drawn; with the new one only the true branch ran, its bracket drawn green and the other's red. The inspector shows a condition as three fields (address, relation, value) with no percent signs, so the lesson's `sensors:/level > 0.5` matches what a reader sees. `16-01` re-shot: the brackets now appear, badge 7 points at one, badge 4 moved to the shared instant.

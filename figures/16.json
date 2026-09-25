@@ -1,5 +1,5 @@
 {
-  "_comment": "Lesson 16: two conditional branches and a layer that always runs. Badges match walkthrough steps 4 (two intervals leaving one instant), 7 (each branch's condition), and 8 (the common layer).",
+  "_comment": "Lesson 16: two conditional branches and a layer that always runs. Badges match walkthrough steps 4 (two intervals leaving one instant), 7 (each branch's condition), and 8 (the common layer). Re-shot 2026-09-25 on the capture server after the conditions gained score's %address% form; score now draws a bracket for each branch's condition, which badge 7 points at, so badge 4 moved to the shared instant above the branches.",
   "source": "raw/raw-16-01.png",
   "out": "docs/learn/assets/16/16-01-branching.png",
   "crop": [
@@ -13,23 +13,23 @@
     {
       "n": 4,
       "at": [
-        1450,
-        960
+        2000,
+        620
       ],
       "to": [
-        1733,
-        1000
+        1752,
+        620
       ]
     },
     {
       "n": 7,
       "at": [
-        2500,
-        1060
+        1450,
+        963
       ],
       "to": [
-        1900,
-        1112
+        1716,
+        963
       ]
     },
     {

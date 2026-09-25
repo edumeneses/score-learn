@@ -1,6 +1,6 @@
 {
-  "_comment": "Lesson 00 figures. Badge numbers match the walkthrough steps of docs/learn/00-what-score-is.md. Coordinates are pixels in the raw capture (3840x2160, ossia score 3.8.2 fullscreen at QT_SCALE_FACTOR=2). Re-shot 2026-09-24 as raw-00-01c.png after the builder fix (elastic Approach, 5 s Bright, 321 px nested slot): 0 to 11 s now fits at score's own zoom, so no Ctrl+wheel. Figures 02-01, 03-01 and 08-01 crop the same raw. raw-00-01.png and raw-00-01b.png show the document before the fix and are kept only for history.",
-  "source": "raw/raw-00-01c.png",
+  "_comment": "Lesson 00 figures. Badge numbers match the walkthrough steps of docs/learn/00-what-score-is.md. Coordinates are pixels in the raw capture (3840x2160, ossia score 3.8.2 fullscreen at QT_SCALE_FACTOR=2). Re-shot 2026-09-25 as raw-00-01d.png on the capture server, after the conditions were given score's %address% form, which makes score draw a condition bracket on each branch (badge 6 points at Bright's); before that, raw-00-01c.png of 2026-09-24 after the builder fix (elastic Approach, 5 s Bright, 321 px nested slot): 0 to 11 s now fits at score's own zoom, so no Ctrl+wheel. Figures 02-01, 03-01 and 08-01 crop the same raw. raw-00-01.png and raw-00-01b.png show the document before the fix and are kept only for history.",
+  "source": "raw/raw-00-01d.png",
   "out": "docs/learn/assets/00/00-01-annotated-score.png",
   "crop": [
     720,
@@ -72,8 +72,8 @@
         960
       ],
       "to": [
-        1966,
-        960
+        1940,
+        780
       ]
     },
     {

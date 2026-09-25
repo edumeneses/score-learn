@@ -31,3 +31,4 @@ Anything marked pending needs synthetic input, which requires an unlocked sessio
   of `Approach` would be drawn. Settle it on a document where nothing covers the waiting
   interval's continuation, for instance `lesson-15.score`, whose `Approach` waits between
   5 and 8 s.
+- 2026-09-25, later: **settled, and the claim holds.** `p4-solution.score`'s `Idle` now waits between 4 s and 60 s, and score draws that range as a dashed continuation of the interval, both at rest and while the trigger waits; nothing covers it there. In `lesson-00.score` the same continuation runs behind `Bright`'s slot, which is why it could not be seen.

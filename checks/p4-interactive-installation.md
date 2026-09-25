@@ -65,3 +65,16 @@ running, although their conditions partition `lesson:/level`; why both condition
 was not established. The fix is `lesson_00`'s: make `Idle` elastic. How long it may wait
 is a design decision, because step 6 asks for a maximum on every waiting instant, so it is
 Edu's to choose. Then re-shoot `p4-01`, whose `Idle` will gain a flexible end.
+
+## 2026-09-25, later: fixed, at Edu's choice of a 60 s maximum
+
+`Idle` is now elastic, 4 s to 60 s. Verified on the capture server with
+`scripts/drive/p4-idle-waits.js`: with no input, at 7 s `Idle` is over, its range is drawn
+dashed, the trigger waits, and neither branch has started; past 60 s the maximum released
+the trigger by itself. **The both-branches observation had a second cause**, found the same
+afternoon: the conditions were written `{ lesson:/level > 0.5 }`, a form score ignores, so
+every branch ran whatever the input. `mkscore.py` now writes score's own form,
+`{ %lesson:/level% > 0.5 }` (see `cond()`), and a release by click with `level` at 0 then
+started `Quiet` only. `p4-01` was re-shot: `Idle` shows its flexible end, and each branch
+now carries a condition bracket, so the page's claim that "the drawing shows the trigger
+and the conditions as visibly separate things" is true of the figure for the first time.

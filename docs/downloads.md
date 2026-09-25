@@ -20,7 +20,7 @@ Keep each unit's folder together: the documents reference their media by a proje
 
 | Unit | Title | Files |
 |---|---|---|
-| [00]({{ site.baseurl }}/learn/00-what-score-is.html) | What score is, and what it is not | [lesson-00-nodal.score]({{ site.baseurl }}/library/learn/00-what-score-is/lesson-00-nodal.score) <small>(score document, 43.7 kB)</small> · [lesson-00.score]({{ site.baseurl }}/library/learn/00-what-score-is/lesson-00.score) <small>(score document, 43.8 kB)</small> |
+| [00]({{ site.baseurl }}/learn/00-what-score-is.html) | What score is, and what it is not | [lesson-00-nodal.score]({{ site.baseurl }}/library/learn/00-what-score-is/lesson-00-nodal.score) <small>(score document, 43.8 kB)</small> · [lesson-00.score]({{ site.baseurl }}/library/learn/00-what-score-is/lesson-00.score) <small>(score document, 43.8 kB)</small> |
 | [04]({{ site.baseurl }}/learn/04-first-process.html) | Your first automation | [lesson-04.score]({{ site.baseurl }}/library/learn/04-first-process/lesson-04.score) <small>(score document, 16.3 kB)</small> |
 | [09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html) | States, snapshots, and presets | [lesson-09.score]({{ site.baseurl }}/library/learn/09-states-snapshots-presets/lesson-09.score) <small>(score document, 19.5 kB)</small> |
 | [10]({{ site.baseurl }}/learn/10-automation-curves.html) | Automation curves: shape, tweening, and splines | [lesson-10.score]({{ site.baseurl }}/library/learn/10-automation-curves/lesson-10.score) <small>(score document, 35.2 kB)</small> |

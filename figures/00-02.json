@@ -1,9 +1,9 @@
 {
-  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point. Re-shot 2026-09-25 on the capture server (capture.py server start; DISPLAY=:7), where input arrives without a portal: nodal mode via the FIRST view-mode button (raw 768,2112, one click is enough there), the nodal slot's + icon (754,76) six times then - (754,110) four times, the node dragged to the top by its title, then its bottom-right handle dragged down to y=2020 and right to x=3120. The nested slot is 321 px since the 2026-09-24 correction, so the node must be tall relative to its content or Shutter is clipped at its bottom edge. Shot on lesson-00.score, which the figure links; lesson-00-nodal.score shows no slot for the root and is not usable for this.",
-  "source": "raw/raw-00-02b.png",
+  "_comment": "Lesson 00 figure 2: the same document as a node graph. The badge marks the root scenario node; the nesting inside it is the point. Re-shot twice on 2026-09-25 on the capture server, the second time after the conditions gained score's %address% form, which draws a bracket on each branch (capture.py server start; DISPLAY=:7), where input arrives without a portal: nodal mode via the FIRST view-mode button (raw 768,2112, one click is enough there), the nodal slot's + icon (754,76) six times then - (754,110) four times, the node dragged to the top by its title, then its bottom-right handle dragged down to y=2020 and right to x=3120. The nested slot is 321 px since the 2026-09-24 correction, so the node must be tall relative to its content or Shutter is clipped at its bottom edge. Shot on lesson-00.score, which the figure links; lesson-00-nodal.score shows no slot for the root and is not usable for this.",
+  "source": "raw/raw-00-02c.png",
   "out": "docs/learn/assets/00/00-02-nodal-view.png",
   "crop": [
-    1640,
+    1680,
     120,
     3150,
     2040
@@ -13,11 +13,11 @@
     {
       "n": 1,
       "at": [
-        2350,
+        2380,
         178
       ],
       "to": [
-        1932,
+        1964,
         178
       ]
     }

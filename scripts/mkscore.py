@@ -372,6 +372,19 @@ def transition(iid: int, start_state: int, end_state: int, date: int,
     }
 
 
+def cond(address: str, op: str, value: float) -> str:
+    """A condition as score itself writes one: the address between percent signs.
+
+    Written without them, as `{ lesson:/level > 0.5 }`, score does not read the
+    address, ignores the condition, draws no condition bracket, and runs every
+    branch. That was the form here until 2026-09-25, when playing lesson 00 on the
+    capture server showed both branches running with level at 1.0; with
+    `{ %lesson:/level% > 0.5 }` only Bright ran. The form is score's own, from
+    the shipped examples in score-docs/assets/scores.
+    """
+    return f" {{ %{address}% {op} {value} }} "
+
+
 def event(eid: int, tnode: int, states: list[int], date: int,
           condition: str = "") -> dict:
     return {
@@ -610,8 +623,8 @@ def lesson_00() -> dict:
         "Events": [
             event(0, 0, [1], 0),
             event(1, 1, [2], 6 * SEC),
-            event(2, 1, [3], 6 * SEC, condition=f" {{ {DEVICE}:/level > 0.5 }} "),
-            event(3, 1, [4], 6 * SEC, condition=f" {{ {DEVICE}:/level <= 0.5 }} "),
+            event(2, 1, [3], 6 * SEC, condition=cond(f"{DEVICE}:/level", ">", 0.5)),
+            event(3, 1, [4], 6 * SEC, condition=cond(f"{DEVICE}:/level", "<=", 0.5)),
             event(4, 2, [5], 11 * SEC),
             event(5, 3, [6], 11 * SEC),
         ],
@@ -964,8 +977,8 @@ def lesson_16() -> dict:
          timesync(4, 10 * SEC, [7])],
         [event(0, 0, [0], 0),
          event(1, 1, [1], 4 * SEC),
-         event(2, 1, [2], 4 * SEC, condition=f" {{ {DEVICE}:/level >= 0.5 }} "),
-         event(3, 1, [3], 4 * SEC, condition=f" {{ {DEVICE}:/level < 0.5 }} "),
+         event(2, 1, [2], 4 * SEC, condition=cond(f"{DEVICE}:/level", ">=", 0.5)),
+         event(3, 1, [3], 4 * SEC, condition=cond(f"{DEVICE}:/level", "<", 0.5)),
          event(4, 1, [4], 4 * SEC),
          event(5, 2, [5], 10 * SEC),
          event(6, 3, [6], 10 * SEC),
@@ -1064,9 +1077,9 @@ def lesson_17() -> dict:
 def p4_solution() -> dict:
     """Milestone P4: an installation that idles, reacts, and returns to idle.
 
-        0s --[ Idle ]-- 4s --(visitor)--+-- level > 0.5 --[ Bright ]-- 10s --+
-             ^                          |                                    |
-             |                          +-- level <= 0.5 --[ Quiet ]-- 8s ---+
+        0s --[ Idle ]-- 4s to 60s --(visitor)--+-- level > 0.5 --[ Bright ]--+
+             ^                                 |                             |
+             |                                 +-- level <= 0.5 --[ Quiet ]--+
              |                                                               |
              +---------------- return transitions ---------------------------+
 
@@ -1100,9 +1113,9 @@ def p4_solution() -> dict:
             event(0, 0, [0, 8, 9], 0),
             event(1, 1, [1], 4 * SEC),
             event(2, 1, [2], 4 * SEC,
-                  condition=f" {{ {DEVICE}:/level > 0.5 }} "),
+                  condition=cond(f"{DEVICE}:/level", ">", 0.5)),
             event(3, 1, [3], 4 * SEC,
-                  condition=f" {{ {DEVICE}:/level <= 0.5 }} "),
+                  condition=cond(f"{DEVICE}:/level", "<=", 0.5)),
             event(4, 2, [4, 6], 10 * SEC),
             event(5, 3, [5, 7], 8 * SEC),
         ],
@@ -1120,7 +1133,12 @@ def p4_solution() -> dict:
             state(9, 0, 0.70, prev=4),
         ],
         [
-            interval(0, "Idle", 0, 1, 0, 4 * SEC, [idle], height=0.15),
+            # Elastic, 4 s to 60 s: the trigger after it waits only inside that
+            # range. It was rigid at 4 s until 2026-09-25, so the visitor
+            # trigger fired by itself every time. The 60 s maximum is step 6's
+            # "no state can be occupied forever", and is Edu's choice.
+            interval(0, "Idle", 0, 1, 0, 4 * SEC, [idle], height=0.15,
+                     rigid=False, max_duration=60 * SEC),
             interval(1, "Bright", 2, 4, 4 * SEC, 6 * SEC, [bright], height=0.35),
             interval(2, "Quiet", 3, 5, 4 * SEC, 4 * SEC, [quiet], height=0.60),
             transition(3, 6, 8, 10 * SEC, height=0.45, name="Return (bright)"),

@@ -310,10 +310,15 @@ patch; that is the next thing to try for 22, 27, 33, P5, and P6.
   did not, which is why generated loops ended and hand-drawn ones did not. Use
   `document(..., endless=True)`.
 - **A trigger waits only between the preceding interval's minimum and maximum.** A rigid
-  interval (min = max) fires the trigger by itself at that date: `lesson-00.score` did so
-  until 2026-09-24, and `p4-solution.score`'s `Idle` still does (see
-  `checks/p4-interactive-installation.md`). Give the interval `rigid=False` and a larger
-  maximum, or `max_inf=True`.
+  interval (min = max) fires the trigger by itself at that date, as `lesson-00.score` did
+  until 2026-09-24 and `p4-solution.score` until 2026-09-25. Give the interval
+  `rigid=False` and a larger maximum, or `max_inf=True`; score draws a finite range as a
+  dashed continuation of the interval.
+- **A condition names its address between percent signs**: `{ %lesson:/level% > 0.5 }`.
+  Without them score ignores the condition, draws no bracket, and runs every branch; every
+  generated condition was written that way until 2026-09-25. Use `cond()` in `mkscore.py`.
+  The inspector shows a condition as address, relation, and value fields, with no percent
+  signs, so the file form never reaches a reader.
 - **The PipeWire driver with `Auto-connect ports` off never runs.** Score's PipeWire node
   is never linked to a sink, PipeWire keeps it suspended, the log says `Audio engine seems
   stuck?`, and the transport clock stays at zero after Play. The capture settings use the

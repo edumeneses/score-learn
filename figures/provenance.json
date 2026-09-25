@@ -1,13 +1,13 @@
 {
-  "raw/raw-00-01c.png": {
+  "raw/raw-00-01d.png": {
     "document": "library/learn/00-what-score-is/lesson-00.score",
-    "sha256": "5817f69179c030f098714b16c19f34196e1061b2d719b98aeee225cd9a8df758",
+    "sha256": "289b1237e2fbca201154ccc160dcc50dd4cc0a3dc96d3273c1cae4e83906614f",
     "role": "shown",
-    "captured": "2026-09-24"
+    "captured": "2026-09-25"
   },
-  "raw/raw-00-02b.png": {
+  "raw/raw-00-02c.png": {
     "document": "library/learn/00-what-score-is/lesson-00.score",
-    "sha256": "5817f69179c030f098714b16c19f34196e1061b2d719b98aeee225cd9a8df758",
+    "sha256": "289b1237e2fbca201154ccc160dcc50dd4cc0a3dc96d3273c1cae4e83906614f",
     "role": "shown",
     "captured": "2026-09-25",
     "note": "the node was zoomed, moved, and resized in the nodal view, which score counts as a modification; the figure still shows the saved document's content, as the folded 34-01 does, so it links the document"
@@ -95,9 +95,9 @@
   },
   "raw/raw-16-01.png": {
     "document": "library/learn/16-conditions-and-branching/lesson-16.score",
-    "sha256": "4e5d51aff3c43cb4c8208f0ee1ed6a3f7fd627b24ee48c6f972af49ff7561d91",
+    "sha256": "a3be1b2f503db1245cf8d10be54449e52f66ed3200a249ac93ac6f88a735492a",
     "role": "shown",
-    "captured": "2026-08-10"
+    "captured": "2026-09-25"
   },
   "raw/raw-17-01.png": {
     "document": "library/learn/17-loops-and-out-of-time/lesson-17.score",
@@ -214,8 +214,8 @@
   },
   "raw/raw-p4-01.png": {
     "document": "library/learn/p4-interactive-installation/p4-solution.score",
-    "sha256": "b6b8535e04a13cd10b92d91ae1a766b8bee742f718ece4914d4c9ead741f11c5",
+    "sha256": "9d283f070bb183a24488f62b3335cf26e2808d655e7c4008a5876c673b26a25e",
     "role": "shown",
-    "captured": "2026-08-18"
+    "captured": "2026-09-25"
   }
 }

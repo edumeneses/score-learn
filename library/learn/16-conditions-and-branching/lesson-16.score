@@ -298,7 +298,7 @@
         "States": [
          2
         ],
-        "Condition": " { lesson:/level >= 0.5 } ",
+        "Condition": " { %lesson:/level% >= 0.5 } ",
         "Date": 2822400000,
         "Offset": 0
        },
@@ -316,7 +316,7 @@
         "States": [
          3
         ],
-        "Condition": " { lesson:/level < 0.5 } ",
+        "Condition": " { %lesson:/level% < 0.5 } ",
         "Date": 2822400000,
         "Offset": 0
        },

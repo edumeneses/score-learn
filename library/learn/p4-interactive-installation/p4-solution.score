@@ -279,7 +279,7 @@
         "States": [
          2
         ],
-        "Condition": " { lesson:/level > 0.5 } ",
+        "Condition": " { %lesson:/level% > 0.5 } ",
         "Date": 2822400000,
         "Offset": 0
        },
@@ -297,7 +297,7 @@
         "States": [
          3
         ],
-        "Condition": " { lesson:/level <= 0.5 } ",
+        "Condition": " { %lesson:/level% <= 0.5 } ",
         "Date": 2822400000,
         "Offset": 0
        },
@@ -908,10 +908,10 @@
         ],
         "DefaultDuration": 2822400000,
         "MinDuration": 2822400000,
-        "MaxDuration": 2822400000,
+        "MaxDuration": 42336000000,
         "GuiDuration": 2878848000,
         "Speed": 1.0,
-        "Rigidity": true,
+        "Rigidity": false,
         "MinNull": false,
         "MaxInf": false,
         "Signatures": [],
