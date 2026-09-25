@@ -52,3 +52,16 @@ Points worth keeping:
 What the figure does **not** show, and the milestone still asks for: maximum durations on
 the waiting instants, the start and stop cues, and the eight-hour test. Those are the
 reader's work, and none of them is visible as structure.
+
+## 2026-09-25: the reference solution's trigger does not wait
+
+Found while testing the capture server, and **not yet fixed**. In `p4-solution.score` the
+instant labelled `a visitor arrives` follows `Idle`, which `mkscore.py` builds rigid at
+exactly 4 s (min = max = 4 s). A trigger waits only between the preceding interval's
+minimum and maximum, so this one fires by itself at 4 s with no visitor, which
+contradicts the page ("the instant at its end waits for the visitor"). Played on the
+capture server with no input at all, at 7.3 s both `Bright` and `Quiet` showed as
+running, although their conditions partition `lesson:/level`; why both conditions passed
+was not established. The fix is `lesson_00`'s: make `Idle` elastic. How long it may wait
+is a design decision, because step 6 asks for a maximum on every waiting instant, so it is
+Edu's to choose. Then re-shoot `p4-01`, whose `Idle` will gain a flexible end.

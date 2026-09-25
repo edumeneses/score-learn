@@ -53,3 +53,6 @@ convention.
 - The `<PROJECT>:` prefix, which works for media paths, did not resolve for this field in
   testing; `lesson-32.score` therefore stores an absolute path, which means it must be
   re-pointed after the project moves. Worth re-checking at the next version pin.
+- 2026-09-25: `lesson-32.score`'s root interval is named `lesson-04`, so the figure's
+  breadcrumb reads `lesson-04 /`. The builder presumably starts from Lesson 04's document.
+  Renaming the root changes the picture, so fix it together with a re-shoot.

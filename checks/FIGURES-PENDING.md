@@ -240,7 +240,16 @@ that no X tool can see.
 
 `lesson-00.score` was corrected (elastic `Approach` so the trigger waits, 5 s `Bright`,
 taller nested slot). `00-01`, `02-01`, `03-01`, and `08-01` were re-rendered from the new
-raw `raw-00-01c.png`, which needed no input. **`00-02` still shows the old document** and
-needs re-shooting by the 2026-09-17 procedure in `figures/00-02.json`: synthetic clicks were
-swallowed for the whole session, so it could not be done. The same session could not start
-playback, so the trigger's wait and Lesson 02's "dashed line" claim are also unverified.
+raw `raw-00-01c.png`, which needed no input. `00-02` was re-shot on 2026-09-25 on the capture
+server, and playback there confirmed the trigger waits.
+
+## Background re-shoots, flagged by the provenance check (2026-09-25)
+
+`check_lessons.py` warns that six figures were shot with the pre-fix `lesson-00.score`
+behind a menu, a panel, or a dialog: `05-01`, `06-01`, `12-01` (and `18-01`, which crops
+the same raw), `14-01`, and `24-01`. None links the document, and in most the difference is
+invisible, although `06-01` shows `Shutter` clipped. Re-shoot them on the capture server,
+or `provenance.py accept` each one with a note saying what was checked. `24-01` was also
+shot with Show musical metrics on, which the 2026-09-17 note suspects it needs; check the
+lesson, and select the setting in the dialog first if so, since the pinned capture
+settings leave it off.

@@ -79,3 +79,9 @@ Three things learned here, all now recorded in `CLAUDE.md`:
   prefers the application's own window, which made captures deterministic.
 - **`ALSA (PortAudio)` reports 0 in, 0 out on the `pipewire` device** and 64 in, 64 out on
   `default`. The figure uses `default` for that reason.
+- 2026-09-25: figures are now captured with the pinned settings in `figures/score-config/`,
+  which select the **Dummy** driver so that the transport runs with no sound hardware. A
+  re-shoot of `19-01` must therefore pick `ALSA (PortAudio)` and `default` in the dialog
+  first, or the figure shows Dummy. Edu's own settings have meanwhile moved to the native
+  `PipeWire` driver with `Auto-connect ports` off, under which the engine never runs; see
+  `CLAUDE.md`.
