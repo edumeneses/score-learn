@@ -71,6 +71,9 @@ python3 scripts/mkscore.py 04         # build a lesson's .score document
 python3 scripts/annotate.py figures/04.json
 python3 scripts/typeinto.py 2000 800 --select-all --file code.dsp   # type into an editor
 python3 scripts/make_downloads.py     # after adding or changing any library file
+python3 scripts/capture.py server start   # the capture server, Xvfb on :7
+python3 scripts/drive.py DOC.score scripts/drive/00-trigger-waits.js   # drive score from inside
+python3 scripts/provenance.py status  # which figures' documents changed since capture
 ```
 
 Python work uses the Assistant venv: `source /home/edu/Assistant/venv/bin/activate`
@@ -138,6 +141,29 @@ python3 scripts/capture.py --match "score 3.8.2" waitshot out.png       # waits 
 
 To build a patch: select an interval, filter the process library, and **double-click** the
 result — that adds the process *and connects it*. This produced figures 11-01 and 13-01.
+
+**3. Drive score from inside** when a figure needs playback at a given moment or a patch
+built on top of a document. `scripts/drive.py DOC STEPS.js` runs score with
+`--ui-debug`, which executes a QML file with the scripting API's `Score` object in
+scope, and `Util.shell` lets a step call `capture.py shot` at the exact moment. A steps
+file is a list of `call(fn)`, `sleep(ms)`, `shot(path)`, and `log(text)`; see the
+docstring and `scripts/drive/00-trigger-waits.js`, which plays lesson 00 to 8.5 s with
+no input and captures it (8.539 s on the clock). No clicks are involved, so it works on
+any display. What 3.8.2 offers, listed by enumerating `Score`: `play pause resume stop
+find findByLabel createProcess createBox createIntervalAfter createCable port inlet
+outlet setValue setAddress automate setIntervalDuration setIntervalMaxInfinite zoom
+scroll undo redo save saveAs serializeAsJson`, among 83 members. `createProcess(itv,
+"LFO", null)` adds the process in a new nodal slot. It has not yet built a whole figure's
+patch; that is the next thing to try for 22, 27, 33, P5, and P6.
+
+- **The QML file gets its own window**, 1280x960 at the origin, which shows inside every
+  capture on a display without a compositor. `drive.py` hides it through
+  `root.Window.window`, which is null at `Component.onCompleted` and set about 300 ms later.
+- **`Score.scrub` is not a way to position the playhead**: it reset the clock to zero and
+  left the drawn progress where it was. Play and pause at the moment you want.
+- **Ports are found by their displayed label**: `Score.port(lfo, "Freq.")`, not
+  `"Frequency"`; `Score.inlet(lfo, i)` by index is safer. `Score.availableProcesses()`
+  returned `undefined`, and `Score.ctx()` has no members visible to QML.
 
 ## Hard-won facts about capturing. Do not rediscover these.
 

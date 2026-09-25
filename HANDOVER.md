@@ -3,6 +3,29 @@
 State of the *Learn score* course, and what to do next. Read `CLAUDE.md` first for the
 toolchain and the rules; this file is status and queue.
 
+## 2026-09-25: the capture pipeline was rebuilt; read this first
+
+Figures are now shot on a **capture server** (`capture.py server start`, Xvfb on `:7`)
+with pinned settings, every raw records the document it shows, and `drive.py` can run
+score from inside through its scripting API. `CLAUDE.md` has the details; the reasons
+are in the commits of 2026-09-24 and 25. Open items from that work:
+
+1. **P4's reference solution does not wait for the visitor.** `Idle` is rigid at 4 s, so
+   the trigger fires by itself; `checks/p4-interactive-installation.md` has the evidence.
+   The fix is `lesson_00`'s, but how long `Idle` may wait is Edu's choice, since step 6
+   asks for a maximum on every waiting instant. Then re-shoot `p4-01`.
+2. **Six background figures** (`05-01`, `06-01`, `12-01`/`18-01`, `14-01`, `24-01`) show the
+   pre-fix `lesson-00.score` behind a menu or dialog. `check_lessons.py` warns; re-shoot on
+   the capture server or `provenance.py accept` each with a note.
+3. **Lesson 02's "dashed line" claim** is unsettled; `checks/02-vocabulary.md` says how to
+   settle it on `lesson-15.score`.
+4. **Try `drive.py` on the multi-object scenes** (22, 27, 33, P5, P6) before asking Edu to
+   assemble them by hand: `createProcess` and `createCable` exist in 3.8.2, though no
+   whole patch has been built that way yet.
+5. `sudo apt install xvfb` would replace the copy unpacked in `~/.local/opt/xvfb`.
+6. Other Claude sessions build and debug score on this machine. Stop score only with
+   `capture.py stop`; the old name-based kill hit their runs.
+
 ## Start here: the next two figures, both waiting on a decision
 
 Everything else in the queue is ordinary work. These two are scoped, and each raises a
