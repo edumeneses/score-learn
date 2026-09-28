@@ -61,7 +61,7 @@ The transport does not behave like a tape deck. The bar along the bottom shows p
 
 - **Zoom in time** with `Ctrl`+wheel and **zoom in height** with `Shift`+wheel, and if the view looks wrong, zoom out in both before assuming you deleted an object.
 - **Navigate by structure** with the arrow keys, since `↑`, `↓`, `→`, `←` move between linked elements on the timeline instead of by pixels, which is the fastest way to walk a score you did not write.
-- **Go up a level** with `Ctrl+Alt+↑`, or `Ctrl+↑` on macOS, which is the answer to "I double-clicked something and now I am inside it"; the breadcrumb under the ruler does the same job with the mouse.
+- **Go up a level** with `Ctrl+Alt+↑`, or `Ctrl+↑`, which the `View` menu calls going to the parent, and which is the answer to "I double-clicked something and now I am inside it"; the breadcrumb under the ruler does the same job with the mouse.
 - **Fold and unfold** an interval's processes with `Ctrl+Alt+F` and `Ctrl+Alt+U`, and use this on a dense score before any other step, because most of the apparent complexity comes from the drawings and only a little from the structure.
 - **Deselect** in the device explorer with `Esc`, because selection there is sticky, and a stale selection makes later drag-and-drop behave in ways that look random.
 - **Right-click to edit precisely**, since most controls accept a typed value through their context menu, which matters as soon as you need a number rather than a gesture.
@@ -101,9 +101,10 @@ Drive the transport on your sketch from [Lesson 01]({{ site.baseurl }}/learn/01-
 
 ## Going further
 
+- The [Shortcut cheatsheet]({{ site.baseurl }}/shortcuts) lists every shortcut and mouse gesture of *score* on one page, for consulting while you work.
 - [Interface overview]({{ site.docs_baseurl }}/quick-start/interface-overview.html) is the reference version of this tour.
-- [Shortcuts]({{ site.docs_baseurl }}/reference-manual/references/shortcuts.html) is the full list, which is short enough to read once in full.
-- [Preferences]({{ site.docs_baseurl }}/reference-manual/references/preferences.html) includes a global interface zoom, which is the right fix if the whole window is too small on a high-density display.
-- [Panels]({{ site.docs_baseurl }}/reference-manual/panels/) describes what each panel does in detail.
+- [Shortcuts]({{ site.docs_baseurl }}/reference/shortcuts.html) is upstream's reference list, shorter than the cheatsheet above.
+- [Preferences]({{ site.docs_baseurl }}/reference/preferences.html) includes a global interface zoom, which is the right fix if the whole window is too small on a high-density display.
+- [Panels]({{ site.docs_baseurl }}/panels.html) describes what each panel does in detail.
 
 {% include lesson_files.html %}

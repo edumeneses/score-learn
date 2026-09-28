@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Lessons
-nav_order: 1
+nav_order: 3
 has_children: true
 permalink: /learn
 ---
@@ -11,7 +11,7 @@ permalink: /learn
 *ossia score* {{ site.score_version }}
 {: .label .label-green}
 
-Forty-seven units in twelve modules, followed by a capstone. Lessons carry a permanent number: new material takes a new number or a Part II, so that a link, a bookmark, or a video description never points at the wrong lesson.
+Forty-seven units in twelve modules, followed by a final project. Lessons carry a permanent number: new material takes a new number or a Part II, so that a link, a bookmark, or a video description never points at the wrong lesson.
 
 Work through the modules in order. A *Make it work* milestone at the end of a cluster uses only what the preceding lessons introduced, so if a milestone is unclear, the gap is in a lesson you can name.
 

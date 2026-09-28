@@ -131,3 +131,100 @@ video {
 
     img { display: block; }
 }
+
+// The Shortcut cheatsheet (docs/shortcuts.md, from _data/shortcuts.yml): cards in
+// as many columns as fit, each row a set of key caps beside what they do.
+.cheatsheet-filter input {
+    width: 100%;
+    max-width: 28rem;
+    padding: 0.4em 0.7em;
+    font-size: 1rem;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+}
+
+.cheatsheet {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.cheatsheet-card {
+    padding: 0.75rem 1rem 0.5rem;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    background: $white;
+
+    h2 {
+        margin: 0 0 0.25rem;
+        font-size: 1.05rem !important;
+    }
+
+}
+
+.cheatsheet-intro {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    color: $grey-dk-100;
+}
+
+.cheatsheet-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.3rem 0;
+    border-top: 1px solid $grey-lt-200;
+
+    .cheatsheet-keys {
+        flex: 0 0 auto;
+        max-width: 60%;
+        white-space: nowrap;
+    }
+
+    .cheatsheet-action {
+        flex: 1 1 auto;
+        text-align: right;
+        font-size: 0.85rem;
+    }
+}
+
+.cheatsheet kbd {
+    display: inline-block;
+    min-width: 1.6em;
+    padding: 0.05em 0.4em;
+    font-family: $mono-font-family;
+    font-size: 0.8rem;
+    text-align: center;
+    background: $grey-lt-000;
+    border: 1px solid $grey-lt-300;
+    border-bottom-width: 2px;
+    border-radius: 4px;
+}
+
+.cheatsheet-plus,
+.cheatsheet-or {
+    margin: 0 0.2em;
+    font-size: 0.75rem;
+    color: $grey-dk-000;
+}
+
+.cheatsheet-mouse {
+    font-size: 0.8rem;
+    font-style: italic;
+    white-space: normal;
+}
+
+.cheatsheet-see {
+    margin-left: 0.3em;
+    font-size: 0.7rem;
+    text-decoration: none;
+}
+
+.cheatsheet-docs { color: $grey-dk-000; }
+
+.cheatsheet-note {
+    font-size: 0.8rem;
+    color: $grey-dk-100;
+}

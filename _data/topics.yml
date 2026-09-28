@@ -50,6 +50,9 @@
   title: The interface
   intro: Finding panels, navigating the timeline, and reading the inspector.
   questions:
+    - q: Shortcuts
+      unit: "03"
+      anchor: moving-around-without-getting-lost
     - q: Where is the process library?
       unit: "03"
       anchor: the-four-explorers

@@ -116,7 +116,7 @@ def main() -> int:
         "layout: default\n"
         "title: Downloads\n"
         "description: \"Every example document the course ships, individually or as one archive.\"\n"
-        "nav_order: 3\n"
+        "nav_order: 4\n"
         "permalink: /downloads\n"
         "---\n\n"
         "# Downloads\n\n"

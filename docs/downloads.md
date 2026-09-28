@@ -2,7 +2,7 @@
 layout: default
 title: Downloads
 description: "Every example document the course ships, individually or as one archive."
-nav_order: 3
+nav_order: 4
 permalink: /downloads
 ---
 

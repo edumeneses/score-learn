@@ -1,0 +1,123 @@
+# Every keyboard shortcut and mouse gesture of ossia score 3.8.2 that the course
+# knows of, rendered by docs/shortcuts.md as the Shortcut cheatsheet.
+#
+# keys:  alternatives separated by " / "; within one alternative, "+" joins keys
+# mouse: a gesture, written as text, for items that have no key
+# src:   where the entry was confirmed
+#          menu    read from the 3.8.2 menus on 2026-09-28
+#          lesson  used and checked in the lesson named in `see`
+#          docs    upstream's shortcuts page only, not yet seen in the build
+#
+# On macOS, Qt shows Ctrl as the Command key.
+
+- title: Panels
+  intro: The left panel's faces and the other docks, from View > Windows.
+  items:
+    - { keys: "Ctrl+Shift+D", action: "Device explorer", src: menu }
+    - { keys: "Ctrl+Shift+P", action: "Process library", src: menu }
+    - { keys: "Ctrl+Shift+B", action: "User library", src: menu }
+    - { keys: "Ctrl+Shift+L", action: "Project folder", src: menu }
+    - { keys: "Ctrl+Shift+H", action: "History", src: menu }
+    - { keys: "Ctrl+Shift+M", action: "Audio", src: menu }
+    - { keys: "Ctrl+Shift+G", action: "Message log", src: menu }
+    - { keys: "Ctrl+Shift+C", action: "Console", src: menu }
+    - { keys: "Ctrl+G", action: "Sync", src: menu }
+
+- title: Transport
+  intro: The Play menu and the transport bar.
+  items:
+    - { keys: "Space", action: "Play", src: menu }
+    - { keys: "Shift+Space", action: "Play globally", src: menu }
+    - { keys: "Return", action: "Stop", src: menu }
+    - { keys: "Ctrl+Return", action: "Reinitialise", src: menu }
+    - { mouse: "Right-click the timeline", action: "Play from here", src: lesson, see: "03" }
+
+- title: Files
+  intro: The File menu.
+  items:
+    - { keys: "Ctrl+N", action: "New document", src: menu }
+    - { keys: "Ctrl+O", action: "Load a document", src: menu }
+    - { keys: "Ctrl+S", action: "Save", src: menu }
+    - { keys: "Ctrl+Shift+S", action: "Save as", src: menu }
+    - { keys: "Ctrl+W", action: "Close the document", src: menu }
+    - { keys: "Ctrl+Q", action: "Quit", src: menu }
+
+- title: Tools and history
+  intro: The Edit menu.
+  items:
+    - { keys: "S", action: "Select tool", src: menu }
+    - { keys: "A", action: "Create tool", src: menu }
+    - { keys: "P", action: "Play tool", src: menu }
+    - { keys: "Ctrl+Z", action: "Undo", src: menu }
+    - { keys: "Ctrl+Shift+Z", action: "Redo", src: menu }
+
+- title: Editing
+  intro: The Object menu, acting on the selection.
+  items:
+    - { keys: "Ctrl+C", action: "Copy", src: menu }
+    - { keys: "Ctrl+X", action: "Cut", src: menu }
+    - { keys: "Ctrl+V", action: "Paste", src: menu }
+    - { keys: "Alt+D", action: "Duplicate", src: menu }
+    - { keys: "Delete", action: "Remove the selected elements", src: menu }
+    - { keys: "Shift+Delete", action: "Remove a cable and keep the link", src: menu }
+    - { keys: "Shift+M", action: "Synchronize", src: menu }
+    - { keys: "Ctrl+Alt+E", action: "Encapsulate into a sub-scenario", src: menu }
+    - { keys: "Ctrl+Alt+D", action: "Decapsulate", src: menu }
+
+- title: Triggers and conditions
+  intro: The Object menu, on a selected state or event.
+  items:
+    - { keys: "T", action: "Enable a trigger", src: menu }
+    - { keys: "Shift+T", action: "Disable a trigger", src: menu }
+    - { keys: "C", action: "Add a condition", src: menu }
+    - { keys: "Shift+C", action: "Remove a condition", src: menu }
+    - { keys: "Delete / Backspace", action: "Delete the selected trigger or condition", src: lesson, see: "16" }
+
+- title: Selection and view
+  intro: The View menu.
+  items:
+    - { keys: "Ctrl+A", action: "Select all", src: menu }
+    - { keys: "Ctrl+Shift+A", action: "Deselect all", src: menu }
+    - { keys: "Ctrl+Shift+T", action: "Select top", src: menu }
+    - { keys: "Ctrl+Up", action: "Go to parent", src: menu }
+    - { keys: "Ctrl+Alt+Up", action: "Go to parent interval", src: menu }
+    - { keys: "Ctrl+Alt+F", action: "Fold intervals", src: menu }
+    - { keys: "Ctrl+Alt+U", action: "Unfold intervals", src: menu }
+    - { keys: "Alt+Shift+G", action: "Show or hide cables", src: menu }
+    - { keys: "Alt+Shift+A", action: "Auto-scroll during playback", src: menu }
+    - { keys: "Left / Up / Right / Down", action: "Move between linked elements, once the timeline has focus", src: docs }
+
+- title: Timeline with the mouse
+  items:
+    - { mouse: "Ctrl + wheel", action: "Zoom in time", src: lesson, see: "03" }
+    - { mouse: "Shift + wheel", action: "Zoom in height", src: lesson, see: "03" }
+    - { mouse: "Double-click an interval's name", action: "Enter it", src: lesson, see: "03" }
+    - { mouse: "Drag the dot at a slot's top right", action: "Lengthen the interval, keeping curves as drawn", src: lesson, see: "04" }
+    - { mouse: "Ctrl + drag the same dot", action: "Lengthen the interval, scaling its curves", src: lesson, see: "04" }
+
+- title: Automation curves
+  items:
+    - { mouse: "Double-click in the slot", action: "Add a point", src: lesson, see: "04" }
+    - { mouse: "Select a segment, Shift + drag", action: "Bend it", src: lesson, see: "04" }
+    - { mouse: "Right-click a port, Create automation", action: "Automate that control", src: lesson, see: "04" }
+
+- title: Device explorer
+  items:
+    - { keys: "Ctrl+B", action: "Add a device", src: menu }
+    - { keys: "Ctrl+R", action: "Refresh the namespace", src: menu }
+    - { keys: "Delete", action: "Remove the selected device or node", src: menu }
+    - { keys: "Esc", action: "Clear the selection", src: lesson, see: "09" }
+    - { mouse: "Shift + click", action: "Extend the selection", src: lesson, see: "09" }
+    - { mouse: "Ctrl + click", action: "Add to the selection", src: lesson, see: "09" }
+
+- title: States
+  intro: With a state selected.
+  items:
+    - { keys: "Ctrl+L", action: "Snapshot the selected parameters into it", src: lesson, see: "09" }
+    - { keys: "Ctrl+R", action: "Refresh the values it stores", src: lesson, see: "09" }
+
+- title: Libraries and code
+  items:
+    - { mouse: "Alt + drag a selection onto the user library", action: "Save it as a reusable fragment", src: lesson, see: "05" }
+    - { keys: "Ctrl+Return", action: "Compile, in a script or shader editor", src: lesson, see: "26" }
+    - { keys: "F1", action: "Open the reference page of the selected object", src: lesson, see: "01" }
