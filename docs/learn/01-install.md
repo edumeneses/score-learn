@@ -80,7 +80,7 @@ Much of what this course uses does not ship with the application, since sound an
 ## The four places help lives
 
 1. **Contextual help is bound to the `F1` key**: select an object in the scenario or a process in the library and press `F1` to open the reference page for that object. It is the fastest route from "what is this thing" to an answer, and the reason to keep the reference manual offline.
-2. **The reference manual** lives at [ossia.io/score-docs]({{ site.docs_baseurl }}), and its shape repays learning now: a [quick start]({{ site.docs_baseurl }}/quick-start) that is short and linear, [common practices]({{ site.docs_baseurl }}/common-practices/common-practices.html) organised as recipes, [in-depth]({{ site.docs_baseurl }}/in-depth/in-depth.html) for the concepts underneath, and a per-object reference for processes and devices. This course is a path through that material and does not replace it.
+2. **The reference manual** lives at [ossia.io/score-docs]({{ site.docs_baseurl }}), and its shape repays learning now: a [quick start]({{ site.docs_baseurl }}/quick-start) that is short and linear, [common practices]({{ site.docs_baseurl }}/common-practices) organised as recipes, [in-depth]({{ site.docs_baseurl }}/in-depth) for the concepts underneath, and a per-object reference for processes and devices. This course is a path through that material and does not replace it.
 3. **The bundled examples** matter because reading a working document is often faster than reading prose about it, the premise of Lesson 00.
 4. **The community**, through the issue tracker and the forum, is where to turn when the first three have failed; Lesson 38 covers how to ask in a way that gets an answer, and how to turn a gap into a documentation fix.
 
@@ -122,7 +122,7 @@ Build the small document that the next exercises return to, a *sketch* that play
 
 - [Installation]({{ site.docs_baseurl }}/quick-start/installation.html) is the reference version of this page, including FreeBSD and embedded targets.
 - [Troubleshooting]({{ site.docs_baseurl }}/troubleshooting.html) covers a build that will not start or will not make sound.
-- [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html) installs addons and the user library.
-- [Preferences]({{ site.docs_baseurl }}/reference-manual/references/preferences.html) lists every option, although none needs changing yet.
+- [The package manager]({{ site.docs_baseurl }}/package-manager.html) installs addons and the user library.
+- [Preferences]({{ site.docs_baseurl }}/reference/preferences.html) lists every option, although none needs changing yet.
 
 {% include lesson_files.html %}

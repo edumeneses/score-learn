@@ -118,7 +118,7 @@ Write a Faust processor with at least two declared controls, one of which is aut
 
 - [The Faust process]({{ site.docs_baseurl }}/processes/faust.html) and the [Faust documentation](https://faust.grame.fr), which together cover the process and the language.
 - [Faust synthesis example]({{ site.docs_baseurl }}/examples/audio/faust-synthesis.html), a worked example to read alongside this lesson.
-- [Polyphony]({{ site.docs_baseurl }}/in-depth/polyphony.html), which is short and directly relevant to the replication step.
+- [Polyphony]({{ site.docs_baseurl }}/docs/advanced/polyphony.html), which is short and directly relevant to the replication step.
 - [Spatial audio]({{ site.docs_baseurl }}/common-practices/14-spatial-audio.html), which describes `sp.spat` and abclib and where each fits.
 
 {% include lesson_files.html %}

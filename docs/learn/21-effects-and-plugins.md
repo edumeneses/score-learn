@@ -113,7 +113,7 @@ Build a chain of three effects on one sound file, in the nodal view, with one pa
 
 - [Audio techniques]({{ site.docs_baseurl }}/common-practices/4-audio.html) for chaining, grouping, and live input.
 - [Audio plug-ins]({{ site.docs_baseurl }}/processes/audio-plugins.html) for the hosted formats.
-- [Polyphony]({{ site.docs_baseurl }}/in-depth/polyphony.html), which is short and should be read in full before Lesson 22.
-- [The modular workflow]({{ site.docs_baseurl }}/in-depth/modular.html) for the fast chaining interactions.
+- [Polyphony]({{ site.docs_baseurl }}/docs/advanced/polyphony.html), which is short and should be read in full before Lesson 22.
+- [The modular workflow]({{ site.docs_baseurl }}/in-depth/modular-workflow.html) for the fast chaining interactions.
 
 {% include lesson_files.html %}

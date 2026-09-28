@@ -124,7 +124,7 @@ Take a patch you already use that contains some form of sequencing, and refactor
 
 ## Going further
 
-- [Pure Data integration]({{ site.docs_baseurl }}/in-depth/puredata.html) and [the Pure Data process]({{ site.docs_baseurl }}/processes/puredata.html), which together cover the hosting mechanism and the process reference.
+- [Pure Data integration]({{ site.docs_baseurl }}/docs/advanced/puredata.html) and [the Pure Data process]({{ site.docs_baseurl }}/processes/puredata.html), which together cover the hosting mechanism and the process reference.
 - [The Pure Data integration example]({{ site.docs_baseurl }}/examples/audio/pd-integration.html), which is the document to open before building your own.
 - [Media management]({{ site.docs_baseurl }}/in-depth/media.html) for path resolution, which applies to patch files as much as to media.
 - [Audio routing]({{ site.docs_baseurl }}/in-depth/audio-routing.html) for the propagation behaviour when a patch sits in an audio chain.

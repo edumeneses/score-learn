@@ -117,7 +117,7 @@ Produce the five documents for one milestone piece, which are the dependency lis
 
 - [Start and stop cues]({{ site.docs_baseurl }}/common-practices/7-start-stop-cues.html) and [seek and transport]({{ site.docs_baseurl }}/common-practices/9-seek-and-transport.html), the two mechanisms this lesson audits.
 - [Scenes]({{ site.docs_baseurl }}/common-practices/6-scenes.html) for the structure that makes a cue sheet writable.
-- [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html), the source of the addon dependencies the list must record.
+- [The package manager]({{ site.docs_baseurl }}/package-manager.html), the source of the addon dependencies the list must record.
 - [Headless and embedded]({{ site.baseurl }}/learn/35-headless-and-embedded.html) next, for pieces that run on a machine with no operator at all.
 
 {% include lesson_files.html %}

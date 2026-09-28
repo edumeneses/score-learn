@@ -115,7 +115,7 @@ Give the cue a sound that ends with it, because a cue that goes dark while its s
 ## Going further
 
 - [States and automations in practice]({{ site.docs_baseurl }}/quick-start/states-and-automations-in-practice.html), especially its section on stacked automations, which the walkthrough relied on.
-- [Common practices]({{ site.docs_baseurl }}/common-practices/common-practices.html) is organised as recipes and deserves a skim now that you have built something.
+- [Common practices]({{ site.docs_baseurl }}/common-practices) is organised as recipes and deserves a skim now that you have built something.
 - [Automations in depth]({{ site.docs_baseurl }}/in-depth/automations.html) prepares the ground before [Lesson 10]({{ site.baseurl }}/learn/10-automation-curves.html).
 
 {% include lesson_files.html %}

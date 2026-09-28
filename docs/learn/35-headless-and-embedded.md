@@ -117,7 +117,7 @@ Deploy one installation to a second machine, ideally a Pi, so that it starts at 
 
 - [Hardware support]({{ site.docs_baseurl }}/in-depth/embedded.html), the reference for Pi configuration, launchers, library lists, and display modes.
 - [Running without a graphical interface]({{ site.docs_baseurl }}/faq/nogui.html), which is the FAQ entry for headless operation.
-- [Command line options]({{ site.docs_baseurl }}/reference-manual/references/command-line.html), the reference for the flags that an automated startup passes to *score*.
+- [Command line options]({{ site.docs_baseurl }}/reference/commandline.html), the reference for the flags that an automated startup passes to *score*.
 - [Monitoring activity]({{ site.docs_baseurl }}/faq/monitor-activity.html), which describes how to check whether a deployed instance is doing what it should.
 
 {% include lesson_files.html %}

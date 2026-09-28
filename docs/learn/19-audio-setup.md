@@ -113,6 +113,6 @@ Build a document with four sound files, two routed straight to the top and two g
 - [Audio routing]({{ site.docs_baseurl }}/in-depth/audio-routing.html), the three-sentence reference for the whole model.
 - [Audio techniques]({{ site.docs_baseurl }}/common-practices/4-audio.html), which this lesson and the next two follow.
 - [The audio device]({{ site.docs_baseurl }}/devices/audio-device.html) for live inputs, used in Lesson 21.
-- [Preferences]({{ site.docs_baseurl }}/reference-manual/references/preferences.html) for the backend and buffer settings.
+- [Preferences]({{ site.docs_baseurl }}/reference/preferences.html) for the backend and buffer settings.
 
 {% include lesson_files.html %}

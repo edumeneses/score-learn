@@ -115,9 +115,9 @@ Take a shader from the library, add one new declared input to its header, use it
 
 ## Going further
 
-- [The shader process]({{ site.docs_baseurl }}/processes/shader.html) and the [ISF specification](https://isf.video).
+- [The shader process]({{ site.docs_baseurl }}/processes/shaders.html) and the [ISF specification](https://isf.video).
 - [Live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html) for the editor, the compile shortcut, and the device caveat.
-- [Video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing.html) for the mixer and blend modes.
+- [Video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing-and-mapping.html) for the mixer and blend modes.
 - [Pixel utilities]({{ site.docs_baseurl }}/processes/pixel-utilities.html) and [LED design]({{ site.docs_baseurl }}/common-practices/13-led-design.html) for the image-to-data path.
 
 {% include lesson_files.html %}

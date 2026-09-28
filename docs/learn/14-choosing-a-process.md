@@ -132,7 +132,7 @@ Write your decision table with at least twelve rows, of which at least four come
 
 - [The process reference]({{ site.docs_baseurl }}/processes.html), the complete list, which is best read as a map instead of front to back.
 - [Data processing]({{ site.docs_baseurl }}/common-practices/12-data-processing.html) and [LED design]({{ site.docs_baseurl }}/common-practices/13-led-design.html), two worked pipelines that use many of these families together.
-- [The user library]({{ site.docs_baseurl }}/reference-manual/panels/) for presets and your own saved fragments.
-- [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html), because some families arrive as installable packages.
+- [The user library]({{ site.docs_baseurl }}/panels.html) for presets and your own saved fragments.
+- [The package manager]({{ site.docs_baseurl }}/package-manager.html), because some families arrive as installable packages.
 
 {% include lesson_files.html %}

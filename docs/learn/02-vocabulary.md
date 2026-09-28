@@ -120,7 +120,7 @@ Name the parts of your own sketch from [Lesson 01]({{ site.baseurl }}/learn/01-i
 
 ## Going further
 
-- [Glossary]({{ site.docs_baseurl }}/reference-manual/references/glossary.html) holds the project's own definitions, which you should compare with the ones above.
+- [Glossary]({{ site.docs_baseurl }}/reference/glossary.html) holds the project's own definitions, which you should compare with the ones above.
 - [What is *score*]({{ site.docs_baseurl }}/quick-start/what-is-score.html) covers the same ground at a higher altitude.
 - [Execution]({{ site.docs_baseurl }}/in-depth/execution.html) describes how these objects behave once the playhead is running.
 

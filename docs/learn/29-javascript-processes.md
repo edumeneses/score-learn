@@ -121,6 +121,6 @@ The exercise covers the three places code lives. Write a process script that out
 - [Scripting]({{ site.docs_baseurl }}/in-depth/scripting.html), which contains the worked generation examples this lesson describes.
 - [The scripting API]({{ site.docs_baseurl }}/in-depth/scripting-api.html), the complete reference for the `Score` object.
 - [The JavaScript process]({{ site.docs_baseurl }}/processes/javascript.html) for the process form and its port declarations.
-- [The console]({{ site.docs_baseurl }}/reference-manual/panels/), and [live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html) for the compile loop.
+- [The console]({{ site.docs_baseurl }}/panels.html), and [live coding]({{ site.docs_baseurl }}/common-practices/8-live-coding.html) for the compile loop.
 
 {% include lesson_files.html %}

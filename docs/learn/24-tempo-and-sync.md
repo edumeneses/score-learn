@@ -117,7 +117,7 @@ Build a document with a root in four-four, two nested intervals in three-four an
 ## Going further
 
 - [Musical metrics]({{ site.docs_baseurl }}/in-depth/musical.html), the reference for propagation, quantisation, and tempo curves.
-- [The tempo process]({{ site.docs_baseurl }}/processes/tempo-control.html) and the [tempo examples]({{ site.docs_baseurl }}/examples/tempo/tempo.html).
+- [The tempo process]({{ site.docs_baseurl }}/examples/tempo/tempo-control.html) and the [tempo examples]({{ site.docs_baseurl }}/examples/tempo).
 - [Seek and transport]({{ site.docs_baseurl }}/common-practices/9-seek-and-transport.html) for JACK transport and start markers.
 - [MIDI synchronisation]({{ site.docs_baseurl }}/processes/midi-sync.html) for clock, and [LTC]({{ site.docs_baseurl }}/processes/ltc-generator.html) for timecode.
 

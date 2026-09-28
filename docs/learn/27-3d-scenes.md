@@ -119,9 +119,9 @@ Build a scene containing a primitive with a generated texture, a loaded glTF mod
 
 ## Going further
 
-- [The 3D examples]({{ site.docs_baseurl }}/examples/3d/3d.html), which are the best available documentation for this material and are worth opening one by one.
+- [The 3D examples]({{ site.docs_baseurl }}/examples/3d), which are the best available documentation for this material and are worth opening one by one.
 - [Meshes]({{ site.docs_baseurl }}/processes/meshes.html), [model display]({{ site.docs_baseurl }}/processes/model-display.html), and [object loader]({{ site.docs_baseurl }}/processes/object-loader.html).
-- [Array to mesh]({{ site.docs_baseurl }}/processes/array-to-mesh.html) and [extract attribute]({{ site.docs_baseurl }}/processes/extract-attribute.html) for the data-geometry boundary.
-- [Compute shader]({{ site.docs_baseurl }}/processes/compute-shader.html).
+- [Array to mesh]({{ site.docs_baseurl }}/processes/array-to-mesh.html) and [extract attribute]({{ site.docs_baseurl }}/examples/3d/extract-attribute.html) for the data-geometry boundary.
+- [Compute shader]({{ site.docs_baseurl }}/processes/compute-shaders.html).
 
 {% include lesson_files.html %}

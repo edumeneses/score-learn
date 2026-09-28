@@ -113,7 +113,7 @@ Build an operator's surface for one of your milestone documents with at most six
 
 ## Going further
 
-- [Custom UIs]({{ site.docs_baseurl }}/in-depth/custom-ui.html) for the QML route and its user-interface types.
+- [Custom UIs]({{ site.docs_baseurl }}/custom-ui.html) for the QML route and its user-interface types.
 - [Remote control]({{ site.docs_baseurl }}/in-depth/remote.html), the complete WebSocket protocol, which should be read in full before writing a client.
 - [The control surface process]({{ site.docs_baseurl }}/processes/controlsurface.html), which is the reference page for the first and cheapest route.
 - [Controlling *score* with OSCQuery]({{ site.docs_baseurl }}/faq/controlling-score-with-oscquery.html), which describes the OSC route and which [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) develops at length.

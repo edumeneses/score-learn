@@ -114,9 +114,9 @@ Make your sketch self-contained, because a document that plays only on the machi
 ## Going further
 
 - [The course's own documents]({{ site.baseurl }}/downloads) are each packaged the way this lesson describes.
-- [The project folder panel]({{ site.docs_baseurl }}/reference-manual/panels/) defines what *score* considers part of a project.
+- [The project folder panel]({{ site.docs_baseurl }}/panels.html) defines what *score* considers part of a project.
 - [Presets]({{ site.docs_baseurl }}/presets.html) covers scenario fragments in the user library, which [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html) uses again.
-- [The package manager]({{ site.docs_baseurl }}/in-depth/package-manager.html) installs the addons a document may depend on.
+- [The package manager]({{ site.docs_baseurl }}/package-manager.html) installs the addons a document may depend on.
 - [Rehearsal to show]({{ site.baseurl }}/learn/34-rehearsal-to-show.html), later in the course, holds the full pre-performance checklist this lesson starts.
 
 {% include lesson_files.html %}

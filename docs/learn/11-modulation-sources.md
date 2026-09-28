@@ -114,8 +114,8 @@ Build a patch in which one LFO drives three destinations, each shaped differentl
 ## Going further
 
 - [The LFO process]({{ site.docs_baseurl }}/processes/lfo.html) and [the step sequencer]({{ site.docs_baseurl }}/processes/step.html) are the reference pages for the two generators used here.
-- [Path generator]({{ site.docs_baseurl }}/processes/path-generator.html) and [interpolator]({{ site.docs_baseurl }}/processes/interpolator.html) cover the other two families.
-- [The modular workflow]({{ site.docs_baseurl }}/in-depth/modular.html) is the reference for every interaction in this lesson.
+- [Path generator]({{ site.docs_baseurl }}/processes/pathgenerator.html) and [interpolator]({{ site.docs_baseurl }}/processes/interpolator.html) cover the other two families.
+- [The modular workflow]({{ site.docs_baseurl }}/in-depth/modular-workflow.html) is the reference for every interaction in this lesson.
 - [Musical metrics]({{ site.docs_baseurl }}/in-depth/musical.html) covers tempo-locked modulation.
 
 {% include lesson_files.html %}

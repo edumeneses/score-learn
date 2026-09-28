@@ -134,9 +134,9 @@ Build a document with two video sources mixed through the video mixer into a win
 
 ## Going further
 
-- [The graphics pipeline]({{ site.docs_baseurl }}/in-depth/graphics-pipeline.html), which is short and explains the architecture.
+- [The graphics pipeline]({{ site.docs_baseurl }}/in-depth/video.html), which is short and explains the architecture.
 - [Working with video]({{ site.docs_baseurl }}/quick-start/working-with-video.html) and [video techniques]({{ site.docs_baseurl }}/common-practices/5-video.html).
-- [Video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing.html) for the mixer and the mapping object.
+- [Video mixing]({{ site.docs_baseurl }}/common-practices/11-video-mixing-and-mapping.html) for the mixer and the mapping object.
 - [The window device]({{ site.docs_baseurl }}/devices/window-device.html) and [camera device]({{ site.docs_baseurl }}/devices/camera-device.html).
 
 {% include lesson_files.html %}

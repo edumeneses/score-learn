@@ -109,6 +109,6 @@ Choose the first thing you want *score* to do for you, and find in the table the
 - [What is *score*]({{ site.docs_baseurl }}/quick-start/what-is-score.html) is the project's own one-page positioning statement.
 - [Interface overview]({{ site.docs_baseurl }}/quick-start/interface-overview.html) is the reference tour of the window, which Lesson 03 walks through in detail.
 - [Execution]({{ site.docs_baseurl }}/in-depth/execution.html) describes the scheduling model, for readers who want it before Phase 3 reaches it.
-- The [examples library]({{ site.docs_baseurl }}/examples/) is reachable from the *score* start screen, which Lesson 01 opens.
+- The [examples library]({{ site.docs_baseurl }}/examples) is reachable from the *score* start screen, which Lesson 01 opens.
 
 {% include lesson_files.html %}
