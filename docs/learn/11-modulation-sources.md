@@ -8,7 +8,7 @@ unit: "11"
 permalink: /learn/11-modulation-sources.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "25 min"
+practice_time: "15 min"
 score_file: none
 ---
 
@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 10]({{ site.baseurl }}/learn/10-automation-curves.html), which covered movement you draw.
 >
-> **You will need** a device with at least two float parameters.
+> **You will need** a device with at least two float parameters for the walkthrough, and your sketch for the exercise.
 >
 > **You will build** a small patch in which one generator drives several destinations, together with a working understanding of the nodal view.
 
@@ -107,9 +107,19 @@ The corollary works as a diagnostic in both directions: if you find yourself dra
 
 ## Exercise
 
-Build a patch in which one LFO drives three destinations, each shaped differently: one directly, one inverted, and one scaled to a small range around a fixed offset. Then automate the LFO's rate from a drawn curve so that the movement accelerates over twenty seconds, and make the whole patch run for as long as the score plays.
+Put a tremolo on a second excerpt and make it speed up, because a pulse whose rate is drawn over the length of a sound is the combination of describing and drawing that this lesson argues for.
 
-**Success criterion:** all three destinations move from one generator; the rate visibly changes over the twenty seconds; and the patch keeps running past the end of the interval you built it in. If you had to draw any repeating shape by hand, find the generator that would have described it.
+1. **Drag a second excerpt** from the user library onto the timeline after the first one ends, as in [Lesson 01]({{ site.baseurl }}/learn/01-install.html), so that the tremolo has a sound of its own.
+2. **Select its gain** by clicking the small dot at the bottom left of its waveform and then `Gain` in the list that opens, as in [Lesson 04]({{ site.baseurl }}/learn/04-first-process.html).
+3. **Double-click `LFO`** in the process library, found by typing `LFO`, and *score* adds the generator in a new nodal slot under the waveform, already connected to `Gain`, which is the second interaction described above.
+4. **Play**, and the excerpt swings between silence and full once a second, since the default `Ampl.` and `Offset` of 0.5 move the gain from 0 to 1 at one cycle per second.
+5. **Right-click the LFO's `Freq.` port**, the small circle to the left of its slider, and choose `Create automation`, which adds a slot whose header reads `Min: 0.01 Max: 100`.
+6. **Select that slot's header and set `Min` to `1` and `Max` to `8`** in the inspector, then drag the curve's last point to the top of the slot, so that the rate climbs from one to eight wobbles a second.
+
+   {: .warning }
+   > **Read the LFO's rate on its node.** In {{ page.score_version }} the inspector's `Freq.` field shows a number that is not the rate, 14.919 for the default of one cycle per second, whereas the node in the slot reads `1.00`.
+
+**You are done when** the second excerpt pulses slowly at first and several times a second by its end, while the first excerpt still plays the fade you kept in Lesson 10.
 
 ## Going further
 

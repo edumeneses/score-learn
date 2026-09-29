@@ -22,3 +22,15 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Exercise, 2026-09-29, performed in 3.8.2 on the capture server
+
+- RMS chained after a sound, then Value display: `vec2f: [0.12, 0.11]`, one level per
+  channel. The decision table's loudness row now names RMS or peak under
+  `Analysis > Envelope`, because `Envelope Follower (audio)` beside them returns audio.
+- Signal display chained after an LFO draws the wave over the sound's waveform, five
+  cycles in about 4.6 s at 1 Hz.
+- `Timing > Audio > Metronome` dropped on empty timeline gets its own interval; its outlet
+  is `Audio Out` with `Propagate` on, plus `Pulse Out`, and its description reads
+  "Generates sound according to the current beat". Not heard, since the capture server
+  runs the Dummy driver.

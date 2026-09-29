@@ -75,3 +75,16 @@ Open `p3-bench.score`, press play, then **pan the graph by dragging empty backgr
 which is how a node clipped by the editor's left edge is brought into view. Shifting every
 node's `Pos` in the JSON does nothing visible, because score keeps its own view scroll and
 the whole graph moves with it; only a relative move or a pan changes what is on screen.
+
+## Exercise, 2026-09-29, performed in 3.8.2 on the capture server
+
+A `Window` device added, the LFO's cable into the Range Filter clicked and deleted, and
+`Window:/cursor/scaled@[0]` typed into `Value In`: two sweeps of the pointer drew two ramps
+in the signal display, and the smoothed display read 0.93 with the pointer near the right.
+
+**Multi-choice is probably not a quantiser.** Fed from the mouse it reported `int: 0` once
+the input passed its `Threshold` of 0.8, and nothing before; its ports (`Input count`,
+`In 0`, `In 1`, `Margin`, `Output index`, `Current Weights`) read like a chooser between
+inputs. The lesson's sentence that it "turns the continuous value into a small number of
+levels" needs checking against its source before the next pass; the exercise no longer
+describes what the stepped branch shows.

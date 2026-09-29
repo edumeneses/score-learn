@@ -8,7 +8,7 @@ unit: "10"
 permalink: /learn/10-automation-curves.html
 score_version: "3.8.2"
 reading_time: "12 min"
-practice_time: "20 min"
+practice_time: "10 min"
 score_file: 10-automation-curves/lesson-10.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 10-automation-curves/lesson-10.score
 
 > **Before this lesson** finish [Milestone P2]({{ site.baseurl }}/learn/p2-light-wash.html).
 >
-> **You will need** `lesson-10.score`, which holds four curves of different shapes.
+> **You will need** `lesson-10.score`, which holds four curves of different shapes, and your sketch with the fade of Lesson 04 for the exercise.
 >
 > **You will build** fluency with curve shape as an expressive choice instead of a technical detail, together with three faster ways to make an automation.
 
@@ -109,9 +109,14 @@ In other words, if you cannot describe a curve in one of these terms, you probab
 
 ## Exercise
 
-Take one twenty-second interval and one parameter, and write five versions of the same fade, each in its own copy of the interval: linear; accelerating; decelerating; a two-segment shape that pauses in the middle; and one built by interpolating between two captured states instead of drawn. Play them in sequence and write one sentence describing what each one feels like, because the description is what tells you whether the shape was chosen.
+Shape the sketch's fade three ways and keep the one you would use for a light coming up on an empty stage, because curvature is a decision you can only make by hearing the alternatives one after another.
 
-**Success criterion:** you can name which of the five you would use for a light coming up on an empty stage, and why, and at least one of your five was created without dragging a process from the library.
+1. **Bend the fade you drew in [Lesson 04]({{ site.baseurl }}/learn/04-first-process.html)** by selecting its segment and dragging with `Shift` held until the curve sags below the straight line, then play; the excerpt stays quiet for longer and arrives late. Listen past the looks of [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html), which still set the whole output in the first seconds.
+2. **Bend it the other way**, so that the curve bulges above the straight line, and play again, which makes the excerpt arrive almost at once and then creep toward full.
+3. **Give it a hold** by double-clicking the curve at a third and at two thirds of its length, which adds two points, and dragging both to half height, so that the fade rises, waits, and rises again.
+4. **Keep one** by pressing `Ctrl+Z` until the version you preferred returns, since undo steps back through every shape you tried.
+
+**You are done when** the sketch plays the shape you kept, and you can say in one of this lesson's terms, gathering, settling, or deciding, why it suits a light coming up.
 
 ## Going further
 

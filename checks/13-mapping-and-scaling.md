@@ -35,3 +35,18 @@ The smoothing object is named Exp Smoothing.
 - 2026-09-16 crop audit: Figure `13-01`: node titles are clipped at the nodal slot top edge in the raw itself, so no crop recovers them; re-shoot queued in `checks/FIGURES-PENDING.md` (rebuild the patch, fit the graph, then shoot).
 
 - 2026-09-17: `13-01` re-shot. Patch rebuilt on `lesson-04.score`: click the automation's slot header to select it, type each name into the process library search with `typeinto.py`, double-click the single result (Calibrator, Range Filter, Mapping curve, Exp Smoothing; each new process is selected, so the next chains after it), then the nodal slot's fourth small icon fits the graph and the titles clear the slot's top edge.
+
+## Exercise, 2026-09-29, performed in 3.8.2 on the capture server
+
+- With the `Gain` port selected (address `phone:/fader`), double-clicking
+  `Control > Mappings > Mapping curve` inserted the curve, moved the address to its `In`,
+  and cabled its output to `Gain`: the refactoring Lesson 11 describes.
+- `Window:/cursor/scaled@[1]` typed into `In`, and `Target` set to `Min 1`, `Max 0`: with
+  the pointer at the top of the output window RMS read 0.15, at the middle 0.07, a quarter
+  down 0.13. The stored document keeps `TargetMin 1`, `TargetMax 0`.
+- Clicking the cable and double-clicking `Smooth` inserted it (`ValueFilter`, OneEuro,
+  `Amount` 0.1, `Continuous` off). What `Continuous` and `Amount` do is taken from
+  upstream's `processes/smooth.md`; the glide itself was too fast to time with screenshots.
+- The mouse replaces the microphone that the plan first proposed, since audio input cannot
+  be exercised under the capture server's Dummy driver and RMS of a stereo input is a
+  `vec2f`, whose conversion by a mapping curve is untested.

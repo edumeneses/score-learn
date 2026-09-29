@@ -31,3 +31,9 @@ earlier lesson documents were generated with `1.0` and have been regenerated.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Exercise, 2026-09-29
+
+Reshapes the fade of Lesson 04 three ways (sag, bulge, hold) and keeps one with `Ctrl+Z`.
+Every gesture is one already confirmed in module A: `Shift+Drag` on a selected segment
+bends it, a double-click on the curve adds a point, and points drag. Practice 20 to 10 min.

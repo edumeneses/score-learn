@@ -112,7 +112,7 @@
   slug: 10-automation-curves
   title: "Automation curves: shape, tweening, and splines"
   read: 12
-  practice: 20
+  practice: 10
   written: true
 - num: "11"
   module: D
@@ -120,7 +120,7 @@
   slug: 11-modulation-sources
   title: "LFOs, step sequencers, and other modulation sources"
   read: 13
-  practice: 25
+  practice: 15
   written: true
 - num: "12"
   module: D
@@ -128,7 +128,7 @@
   slug: 12-recording-live-input
   title: Recording live input into automations
   read: 12
-  practice: 20
+  practice: 15
   written: true
 - num: "13"
   module: E
@@ -136,7 +136,7 @@
   slug: 13-mapping-and-scaling
   title: "Mapping sensor data: scaling, smoothing, and filtering"
   read: 14
-  practice: 30
+  practice: 20
   written: true
 - num: "14"
   module: E
@@ -144,7 +144,7 @@
   slug: 14-choosing-a-process
   title: Finding the right process in the library
   read: 13
-  practice: 15
+  practice: 10
   written: true
 - num: P3
   module: E
@@ -152,7 +152,7 @@
   slug: p3-mapping-bench
   title: "Make it work 3: a sensor to sound and light mapping bench"
   read: 15
-  practice: 60
+  practice: 45
   written: true
 - num: "15"
   module: F

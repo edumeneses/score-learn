@@ -224,7 +224,14 @@ patch; that is the next thing to try for 22, 27, 33, P5, and P6.
   gets the tree with no dialog at all. Both MIDI protocol UUIDs and their settings are in
   `checks/23-midi-in-practice.md`.
 - **A piano roll's notes are made by double-clicking the grid.** Dragging does nothing.
-- **Guessed menu coordinates always fail.** Use `menu --pick`, which measures rows.
+- **Guessed menu coordinates always fail.** Use `menu --pick`, which measures rows. A
+  separate `capture.py click` on an open menu's row does nothing, because it activates the
+  main window first and the menu closes; `capture.py key ctrl+s` also failed silently once.
+  Save with `menu 34 20 --pick 4` (`File > Save`) and check the file's mtime.
+- **A stray popup can outlive a recording.** After `Record automations from here`, a
+  652x164 window named `score` stayed over the editor and ate every click, the transport's
+  included. `capture.py windows` lists it; a raw XTEST click on it followed by `Escape`
+  closes it.
 - **A one-row menu is invisible to `menu --pick`**, which needs a popup over 40 px tall.
   The `Settings` menu is 288x36, so `menu` reports `no menu appeared` while the menu is in
   fact open; click its row directly.
@@ -330,7 +337,24 @@ patch; that is the next thing to try for 22, 27, 33, P5, and P6.
   Dummy driver for that reason.
 - **Out-of-time material has no marker.** It is a chain nothing connects to the start
   instant. Its trigger needs `Active`, `AutoTrigger` and `Start` all true; `AutoTrigger` is
-  the interface's *start on play*.
+  the interface's *start on play*. Without the trigger it never plays at all, which bites
+  twice: an interval generated with no lead-in from the start state stays silent (give it
+  one, as dropping onto the timeline does), and **`Record automations from here` lands its
+  interval out of time**. Select its start state, `Ctrl+click` an instant that plays, and
+  `Shift+M` (Synchronize) attaches it.
+- **An automation writes its address on every tick**, about 43 times a second under the
+  Dummy driver, so a state on the same address inside the automation's span is overwritten
+  on the next tick and is never heard.
+- **A sound outlet's `Gain` and `Pan` sub-ports each have an `Address`.** An addressed
+  `Gain` reads the parameter from the start of playback, including values that an
+  automation inside score writes to it. `Pan` is stored as a per-channel pair, and a float
+  sent into it had no audible effect. Selecting `Gain` and double-clicking a process in the
+  library feeds that process into it; a mapping inserted that way takes over the address.
+- **The inspector misreports log-scaled controls.** The LFO's `Freq.` reads 14.919 at 1 Hz
+  and Smooth's `Freq (1e/LP)` 252.095 at 120; the node shows the stored value. Linear 0 to 1
+  controls read correctly.
+- **A state's refresh is `Ctrl+U`**, per its hover help and a test; upstream's cues page
+  says `Ctrl+R`, which here refreshes a device's namespace.
 - **Three intervals cannot share one end state.** Each branch needs its own end instant,
   or score silently drops the whole scenario.
 - **score fits a document to the editor width on load**; the stored `Zoom` is effectively
@@ -397,7 +421,11 @@ from the project folder panel is stored as `<PROJECT>:`. Module B added: a param
 dragged from the explorer onto empty timeline makes a state, onto an interval's top line
 an automation; a value is set by double-clicking `Value` in the explorer's inspector; the
 Audio device's tree (`audio:/in`, `audio:/out`) is empty under the Dummy driver, and its
-parameters declare no range. Typing into a Sound's `Path`
+parameters declare no range. Module C added: `Window:/cursor/scaled@[1]` and `@[0]` are a
+mouse input any laptop has, following the pointer only while it is over the output window
+and holding the last value once it leaves; RMS after a stereo sound is a `vec2f`, one level
+per channel; and a Signal display chained after a process draws over that slot's content.
+Typing into a Sound's `Path`
 field did not re-point it, dragging an interval neither moved nor lengthened it, and a
 lengthened sound interval does not loop by itself (the loop toggle is in the process
 inspector).

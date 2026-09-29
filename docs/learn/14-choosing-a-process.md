@@ -8,7 +8,7 @@ unit: "14"
 permalink: /learn/14-choosing-a-process.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "15 min"
+practice_time: "10 min"
 score_file: none
 ---
 
@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html), because its conditioning chain is the example this lesson keeps returning to.
 >
-> **You will need** the process library open, `Ctrl+Shift+P`, and a blank page to write on.
+> **You will need** the process library open, `Ctrl+Shift+P`, a blank page to write on, and your sketch for the exercise.
 >
 > **You will build** a decision table you keep, with an intent on the left and the process that serves it on the right.
 
@@ -61,7 +61,7 @@ Keep this table, extend it as you go, and note the family as well as the object,
 | To ignore some values entirely | range filter (reject), object filter | transform |
 | One value to reach many addresses | address pattern, array combiner | route |
 | Many values in one message | array tool, array combiner, array flattener | combine |
-| An audio signal's loudness as a number | envelope follower | transform |
+| An audio signal's loudness as a number | RMS or peak, under `Analysis > Envelope` | transform |
 | To see a value over time | signal display | observe |
 | To see an array as pixels | LED view, point 2D view | observe |
 | To position sound in space | DBAP, GBAP, matrix spatialisation | route |
@@ -85,8 +85,6 @@ For each of the following, find the process before reading the answer, using the
 4. **"The projection should pulse in time with the piece instead of at a fixed rate."** The verb is generate, with tempo awareness added, so the answer is an LFO inside an interval carrying its own musical metrics, which Lesson 24 explains.
 5. **"When the sensor is out of range, the output should freeze instead of jumping to the bound."** The verb is transform, in its discarding form, so the answer is a range filter set to reject instead of clamp, because in reject mode no value passes at all, which is what freezing means.
 
-Now do the same for three problems from your own project, and write the results into your table, so that the table starts to describe your work and not only this course.
-
 ## Reading a process you have never used
 
 An unfamiliar process yields to four moves taken in order, and they work for any of the hundred-plus in the library.
@@ -99,7 +97,7 @@ An unfamiliar process yields to four moves taken in order, and they work for any
 
 **Check the user library**, where many objects ship with presets, and a preset is a worked example of what the author expected the object to be used for.
 
-The third move scales from one object to a whole chain, since observation is more than a debugging aid. When a chain misbehaves, inserting an *observe* process at each stage answers faster than reasoning about it, because a signal display between two objects settles in seconds what an argument settles in minutes, and that is the most useful practice this lesson offers.
+The third move scales from one object to a whole chain, since observation is more than a debugging aid. When a chain misbehaves, inserting an *observe* process at each stage answers faster than reasoning about it, because a signal display between two objects settles in seconds what an argument settles in minutes.
 
 ## Building your own vocabulary
 
@@ -109,7 +107,7 @@ The decision table is a start, whereas what accumulates over a career is a perso
 
 **Name each fragment for its intent**, because `sensor-conditioning-jittery` tells you when to reach for it. In contrast, `chain-3` tells you only that two others came before it, and since you are the person who will search your own library, the name is its index.
 
-**Keep the failures for a while**, because a fragment that did not work, named for why, reminds you the second time you have the same idea that you tried it. Furthermore, that reminder is information you do not otherwise retain, since a discarded fragment leaves no trace.
+**Keep the failures for a while**, because a fragment that did not work, named for why, reminds you the second time you have the same idea that you tried it.
 
 **Revisit the library sections quarterly**, since processes are added between releases and packages add more; ten minutes browsing the two `Control` sections after an update regularly surfaces an object that would have saved a previous project an afternoon.
 
@@ -124,9 +122,16 @@ The decision table is a start, whereas what accumulates over a career is a perso
 
 ## Exercise
 
-Write your decision table with at least twelve rows, of which at least four come from your own project instead of from the table above. For three of the twelve, drop the process into a score, put an observe process on its output, and confirm in ten seconds of playback that it does what you assumed.
+Answer three questions about the sketch from the library, choosing the family before you type anything, because the search confirms a guess faster than it finds an answer.
 
-**Success criterion:** every row names a family as well as an object, and you found at least one case where the process you assumed was wrong. Moreover, that case is the value of the exercise, because it is where the method corrected your memory.
+1. **"How loud is the first excerpt right now?"** The value is an audio signal that you transform into a number and then observe, so select the excerpt's sound by clicking the file name in its slot's header, double-click `Analysis > Envelope > RMS`, and then double-click `Monitoring > Value display`, which chains the two after the sound. Play, and the display prints one level per channel, such as `vec2f: [0.12, 0.11]` for a stereo file.
+2. **"What is the LFO of Lesson 11 doing?"** The verb is observe, so select the LFO by clicking its title in the second excerpt's nodal slot, and double-click `Monitoring > Signal display`, which draws the wave over the waveform as the excerpt plays.
+3. **"Can I have a click on every beat?"** The verb is generate, and the domain is time, so drag `Timing > Audio > Metronome`, whose description reads "Generates sound according to the current beat", onto the empty timeline below the excerpts, and play.
+
+   {: .note }
+   > **The name you expect is not always the process you need.** `Analysis > Envelope` also holds `Envelope Follower (audio)`, which returns an audio signal instead of a number, whereas `RMS` beside it returns the level as a value. Therefore, checking the ports first settles the difference in seconds.
+
+**You are done when** the display prints levels that rise and fall with the music, the signal display draws the LFO speeding up, and the metronome sounds on the beat. Add any surprising answer to your decision table, with its family.
 
 ## Going further
 

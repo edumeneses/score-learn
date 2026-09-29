@@ -8,7 +8,7 @@ unit: "13"
 permalink: /learn/13-mapping-and-scaling.html
 score_version: "3.8.2"
 reading_time: "14 min"
-practice_time: "30 min"
+practice_time: "20 min"
 score_file: none
 ---
 
@@ -18,13 +18,13 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 12]({{ site.baseurl }}/learn/12-recording-live-input.html), whose recorded curves are the fastest way to see the faults this lesson conditions away.
 >
-> **You will need** one input that produces a stream of values, and two outputs to drive from it.
+> **You will need** one input that produces a stream of values and two outputs to drive from it, and for the exercise your sketch and a mouse or trackpad.
 >
 > **You will build** a working pipeline from a live input to two outputs, with calibration, smoothing, and an explicit relationship in between.
 
 ## Why this matters
 
-Mapping is where most of the quality of interactive work is decided. A sensor produces numbers in arbitrary units, over an undocumented range, and with unwanted noise, whereas an output expects a specific value in a specific range; every operation between those two facts is mapping, and a piece that responds to people is judged mostly on how well that middle is built, while the timeline contributes less to that judgement.
+Mapping is where most of the quality of interactive work is decided. A sensor produces numbers in arbitrary units, over an undocumented range, and with unwanted noise, whereas an output expects a specific value in a specific range; every operation between those two facts is mapping, and a piece that responds to people is judged mostly on how well that middle is built.
 
 However, treating this work as arithmetic is the mistake to avoid, because scaling a range is arithmetic while deciding *how* a movement should feel, where it should be sensitive, where it should saturate, and how much it should smooth is design work. *score* gives that design work real tools instead of a single multiplication, and this lesson introduces them in the order you will use them.
 
@@ -77,16 +77,16 @@ Write the order down in your channel map, because a pipeline whose order was cho
 The figure shows the pipeline in order, with a calibrator carrying its range and its averaging window, a range filter with a minimum, a maximum, and an invert, a mapping curve, and an exponential smoothing object with its alpha. Every stage is visible and adjustable on its own, which is the argument for building the chain this way instead of inside one script.
 
 {: .note }
-> **The library keeps these objects under `Control > Mappings` and `Control > Data Processing`.** Smoothing is `Exp Smoothing`, under `Control > Mappings`, and a `Smoother` in the analysis family serves as well. Learning those two category names now saves you searching by guessed object names, which is the difficulty [Lesson 14]({{ site.baseurl }}/learn/14-choosing-a-process.html) takes up.
+> **The library keeps these objects under `Control > Mappings` and `Control > Data Processing`.** Smoothing is `Smooth` or `Exp Smoothing`, both under `Control > Mappings`, and a `Smoother` in the analysis family serves as well; [Lesson 14]({{ site.baseurl }}/learn/14-choosing-a-process.html) takes up the difficulty of searching by guessed names.
 
-1. **Confirm the input is arriving** in the device explorer before building the chain, as always.
+1. **Confirm the input is arriving** in the device explorer.
 2. **Make an interval to hold the pipeline**, remembering that a mapping only runs while its interval runs; give the interval's end a trigger that is never satisfied, so that the pipeline runs for the whole score, which is the idiom from Lesson 11.
 3. **Add a calibrator** and feed it the raw input, then move the sensor through its full physical range so that it learns the bounds, and note what it learned, because that number belongs in your documentation.
 4. **Add a range filter** and decide what to do with values outside your window, clamping for a continuous control and rejecting when an out-of-range value means "not present".
 5. **Add a mapping curve** and draw the relationship, starting with a straight line, playing, and then bending it where you want more sensitivity; this is the step at which you stop calculating and start deciding.
 6. **Send it to the first output** and play, at which point you have a working instrument in four objects.
 7. **Add a smooth** just before the output and increase it until the output stops twitching, then reduce it until the response stops feeling late; the interval between those two settings is your working range.
-8. **Fan out to a second output** with a different relationship, using a second mapping curve fed from the same conditioned value and inverted or scaled differently, so that one gesture produces two behaviours, which is where mapping starts to be expressive.
+8. **Fan out to a second output** with a different relationship, using a second mapping curve fed from the same conditioned value and inverted or scaled differently, so that one gesture produces two behaviours.
 9. **Add a rate limiter** in front of any output that sits on a network, and watch the message log to confirm that the traffic dropped.
 10. **Write the pipeline down**, listing the input, its calibrated range, each stage in order, and each output with its range, because this is the document your future self needs when the piece is reinstalled.
 
@@ -100,7 +100,7 @@ The figure shows the pipeline in order, with a calibrator carrying its range and
 
 **In the destination, the receiver does the scaling.** Sometimes the receiving software or fixture can scale for itself, which is the cheapest option and the least visible, since a reader of the score cannot tell that it happens.
 
-No one of the three is right for every project, because each trades visibility against convenience differently. However, a project stays legible when each conversion happens in one place only, and when that place is written in the channel map, so that a collaborator who finds a suspicious value knows where to look.
+Each trades visibility against convenience differently. However, a project stays legible when each conversion happens in one place only, and when that place is written in the channel map, so that a collaborator who finds a suspicious value knows where to look.
 
 ## Two curves that feel completely different
 
@@ -110,7 +110,7 @@ A **curve that is steep at the bottom and flat at the top** gives fine control o
 
 In contrast, a **curve that is flat at the bottom and steep at the top** ignores small movements and then responds dramatically, which suits inputs with a noisy resting state, and interactions where you want a committed movement instead of a continuous response.
 
-Both curves are two breakpoints and one bend, so build them, drive the same light with each, and move the input identically; the instrument is different although the input, the output, and the code are unchanged, which is the clearest demonstration that mapping is design work.
+Both curves are two breakpoints and one bend, so build them and drive the same light with each; the instrument changes although the input and the output do not, which is the clearest demonstration that mapping is design work.
 
 ## Common mistakes
 
@@ -118,15 +118,23 @@ Both curves are two breakpoints and one bend, so build them, drive the same ligh
 - **No calibration on a physical sensor**, when the range printed on the datasheet is the component's nominal range, whereas the range that reaches *score* depends on where and how the sensor is installed.
 - **Smoothing a trigger**, which adds latency where you needed immediacy.
 - **Fighting noise with a mapping curve**, when a curve relates values and does not filter them.
-- **Forgetting that the pipeline needs a running interval**, because a mapping in an interval that has already ended does not run.
 - **Doing the same conversion twice**, once in a range and once in a curve, then wondering why the response is squared.
 - **No documentation**, although a mapping is a set of decisions, and undocumented decisions get reverted by the next person, who may be you.
 
 ## Exercise
 
-Build the pipeline above from one real input to two outputs, then tune it against a stated intention: one output should feel immediate and slightly nervous, the other calm and deliberate, both driven by the same gesture. Furthermore, record in writing the smoothing value you chose for each and why, since a collaborator will need the reasoning.
+Play the third excerpt's volume with your hand through a pipeline, because an input you move yourself shows at once what a curve and a smoothing stage change about how a control feels.
 
-**Success criterion:** the same input produces two clearly different behaviours; the pipeline survives the sensor being moved and re-calibrated; and your written map lets someone else rebuild it without asking you a question.
+1. **Select the gain of the third excerpt**, whose address has read `phone:/fader` since [Lesson 12]({{ site.baseurl }}/learn/12-recording-live-input.html), and double-click `Mapping curve` in the process library. *score* inserts the curve in front of the gain and moves the address to the curve's input, as [Lesson 11]({{ site.baseurl }}/learn/11-modulation-sources.html) described.
+2. **Make the mouse the input** by selecting the curve and typing `Window:/cursor/scaled@[1]` into its `In` field, which is the height of the pointer over the sketch's window, from 0 at the top to 1 at the bottom.
+
+   {: .warning }
+   > **With a phone as the input, delete the recording of Lesson 12 first**, since it writes `phone:/fader` as well and would compete with your hand for the same curve.
+
+3. **Turn the relation upside down** by setting the curve's `Target` range to `Min 1` and `Max 0` in the inspector, so that raising the pointer raises the volume, then play and move the pointer up and down over the window.
+4. **Smooth it** by clicking the cable between the curve and the gain and double-clicking `Control > Mappings > Smooth`, which *score* inserts into that cable. Turn on its `Continuous` option, so that it keeps gliding after your hand stops, and raise `Amount` until a quick flick of the pointer arrives as a swell.
+
+**You are done when** the volume follows your hand, full at the top of the window and quiet at the bottom, and a sudden movement reaches the gain as a smooth swell.
 
 ## Going further
 

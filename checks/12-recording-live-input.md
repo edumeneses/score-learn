@@ -22,3 +22,18 @@ pipeline.
 
 - Grounded in the reference documentation for this topic; see the 'Going further'
   links on the lesson page, which are the pages this lesson was written against.
+
+## Exercise, 2026-09-29, performed in 3.8.2 on the capture server
+
+- A sound's `Gain` sub-port has an `Address` field (an earlier module B note said it did
+  not; that was wrong). With it set to `phone:/fader`, RMS read 0.00 until `fader.py` ran and
+  then rose with the ramp to about 0.17.
+- `Record automations from here` with `phone:/fader` selected records an automation in a
+  new interval whose start state has no previous interval, so it is **out of time and never
+  plays**: nothing reached `display.py` on playback. Selecting its start state, `Ctrl+click`
+  on the excerpt's start state, and `Shift+M` (Synchronize) moved it onto the excerpt's
+  instant; playback then sent the ramp to port 9202 and RMS followed it (0.03, 0.07, 0.10,
+  0.16), so an inlet address follows values that an automation inside score writes.
+- Walkthrough step 6 now says to attach the recording before playing it back. The
+  paragraph on recordings' file size went to make room, since the density concept already
+  covers their cost.

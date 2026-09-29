@@ -3,6 +3,20 @@
 State of the *Learn score* course, and what to do next. Read `CLAUDE.md` first for the
 toolchain and the rules; this file is status and queue.
 
+## 2026-09-29: exercises of modules A to C are practical; D is next
+
+Exercises 00 to 14 and P1 to P3 now end in something heard or seen on the reader's sketch
+(`checks/EXERCISES-PLAN.md` has the status and every finding). Carry-overs:
+
+1. **Module D next** (15 to 18, P4). The sketch now has three excerpts in a row (a drawn
+   fade, an LFO tremolo, a recorded fader), which gives 15 to 18 sections to wait on, branch
+   between, loop, and stop.
+2. **P3's `Multi-choice` claim** ("turns the continuous value into a small number of
+   levels") looks wrong: it behaves like a chooser between inputs. Check its source before
+   rewriting that paragraph (`checks/p3-mapping-bench.md`).
+3. **Upstream's cues page says `Ctrl+R` for a state's refresh**; 3.8.2 uses `Ctrl+U`. A
+   one-line fix for `score-docs` when Edu next sends changes upstream.
+
 ## 2026-09-25: the capture pipeline was rebuilt; read this first
 
 Figures are now shot on a **capture server** (`capture.py server start`, Xvfb on `:7`)

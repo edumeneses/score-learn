@@ -8,7 +8,7 @@ unit: "P3"
 permalink: /learn/p3-mapping-bench.html
 score_version: "3.8.2"
 reading_time: "15 min"
-practice_time: "60 min"
+practice_time: "45 min"
 score_file: p3-mapping-bench/p3-bench.score
 ---
 
@@ -18,7 +18,7 @@ score_file: p3-mapping-bench/p3-bench.score
 
 > **Before this milestone** finish Lessons 10 to 14, because this unit introduces no new technique and combines the ones those lessons cover.
 >
-> **You will need** one input, emulated if you have no hardware, and about an hour.
+> **You will need** one input, emulated if you have no hardware, which for the exercise can be your mouse or trackpad, and about forty-five minutes.
 >
 > **You will build** a reusable bench in which one gesture drives three destinations through a documented, calibrated, tunable pipeline.
 
@@ -104,8 +104,6 @@ An hour spent on something that is not a piece is justified because a bench sepa
 
 Furthermore, the bench is where the judgement about how an input should feel gets practised, because deciding how much smoothing, how steep a curve, and where the dead zone sits improves with repeated practice and does not improve at all when it is buried inside a project deadline.
 
-Additionally, interactive work is usually demonstrated before it is finished, to a curator, a collaborator, or a funder, and a bench that reliably shows one gesture producing three behaviours is a five-minute demonstration of the idea of your piece, available before the piece exists.
-
 The timing matters as well, because the bench is what makes Module F testable. Each structure in that module needs an input you can move on purpose and repeatably, and without the bench you will be debugging the interaction logic and the input at the same time, which doubles the work and halves the certainty of any conclusion.
 
 ## Common mistakes
@@ -114,18 +112,21 @@ The timing matters as well, because the bench is what makes Module F testable. E
 - **Smoothing the immediate branch "a little"** turns it into a second smoothed branch, so the comparison the bench exists for is gone.
 - **Testing on a clean input** tells you how the pipeline behaves on data it will not meet, whereas the defects are what the bench exists for.
 - **Leaving out the observations** saves two minutes now and costs far more the first time a branch goes quiet.
-- **Forgetting the trigger that keeps the pipeline alive** lets the bench stop responding after a few seconds, so that it appears broken; a pipeline that outlives its interval needs the trigger that is never satisfied, from Lesson 11, so that the bench responds whenever the score is playing.
+- **Forgetting the trigger that keeps the pipeline alive** lets the bench stop responding after a few seconds, so that it appears broken, because a pipeline that outlives its interval needs the never-satisfied trigger of Lesson 11.
 - **Leaving the map in your head** works until the sensor moves or three months pass, and by then the reasons behind each range are gone.
 
 ## Exercise
 
-Extend the bench in one direction only, since doing both at once hides which one failed.
+Put your hand on the bench in place of its LFO, and then extend it in one direction only, because a pointer you move yourself shows the three characters more plainly than a generator, while two extensions at once hide which one failed.
 
-Either **make it a two-input instrument** by adding a second input and making one destination depend on both, for instance a position where one input is distance and the other is angle, and note what you had to decide that a single input did not ask of you.
+1. **Add a `Window` device** to `p3-bench.score`, as in [Lesson 01]({{ site.baseurl }}/learn/01-install.html).
+2. **Disconnect the LFO** by clicking its cable into the `Range Filter` and pressing `Delete`.
+3. **Make the pointer the input** by selecting the `Range Filter` and typing `Window:/cursor/scaled@[0]` into its `Value In` field, which is the pointer's horizontal position over the window, from 0 at the left edge to 1 at the right.
+4. **Play and sweep the pointer** across the window, so that the signal display draws each sweep as you make it while the smoothed display trails behind your hand.
 
-Or **make it fail gracefully** by defining what each destination should do when the input stops arriving entirely, and then implementing it. An installation whose sensor is unplugged should not hold its last value forever, and deciding what it does instead is a design question that [Lesson 34]({{ site.baseurl }}/learn/34-rehearsal-to-show.html) returns to.
+Then choose one extension. Either **make it a two-input instrument**, since the pointer's vertical position, `Window:/cursor/scaled@[1]`, is a second input already under your hand, and make one destination depend on both, noting what you had to decide that one input did not ask. Or **make it fail gracefully**: move the pointer out of the window, which is how an unplugged sensor looks to the bench, and every branch holds its last value. Therefore, decide what each destination should do instead and implement it, which is a design question that [Lesson 34]({{ site.baseurl }}/learn/34-rehearsal-to-show.html) returns to.
 
-**Success criterion:** the bench passes the five-point finish list plus your extension, and it exists as a named fragment in your user library. You will use it in [Milestone P4]({{ site.baseurl }}/learn/p4-interactive-installation.html), where its output starts firing triggers instead of moving values.
+**You are done when** the bench follows your hand, passes the five-point finish list plus your extension, and exists as a named fragment in your user library. You will use it in [Milestone P4]({{ site.baseurl }}/learn/p4-interactive-installation.html), where its output starts firing triggers instead of moving values.
 
 ## Going further
 

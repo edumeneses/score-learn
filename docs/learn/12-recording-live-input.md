@@ -8,7 +8,7 @@ unit: "12"
 permalink: /learn/12-recording-live-input.html
 score_version: "3.8.2"
 reading_time: "12 min"
-practice_time: "20 min"
+practice_time: "15 min"
 score_file: none
 ---
 
@@ -18,13 +18,13 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 11]({{ site.baseurl }}/learn/11-modulation-sources.html), because the exercises here assume the editing skills of the preceding lessons.
 >
-> **You will need** a device that sends values to *score*, which can be a MIDI (Musical Instrument Digital Interface) controller, a joystick, a sensor, or a script that emits OSC (Open Sound Control).
+> **You will need** a device that sends values to *score*, which can be a MIDI (Musical Instrument Digital Interface) controller, a joystick, a sensor, or a script that emits OSC (Open Sound Control); the exercise uses the phone of Lesson 07, or its `fader.py` script.
 >
 > **You will build** an automation recorded from a performed gesture and cleaned to a curve you can edit, together with a recorded data file you can reuse.
 
 ## Why this matters
 
-Some movements are easier to perform than to describe. The slight irregularity of a hand on a fader, the acceleration of a physical gesture, and the timing of a phrase that a performer feels without counting can all be approximated by drawing, although the approximation usually sounds like an approximation. Recording closes that gap, because you perform the movement once and the software writes the curve, so that the irregularities which made the gesture convincing survive into the score as breakpoints you can then edit.
+Some movements are easier to perform than to describe. The irregularity of a hand on a fader, the acceleration of a gesture, and the timing of a phrase felt without counting can all be approximated by drawing, although the approximation usually sounds like one. Recording closes that gap, because you perform the movement once and the software writes the curve, so that the irregularities which made the gesture convincing survive as breakpoints you can edit.
 
 Furthermore, recording has a second use, which is less obvious and which the section on reading a recorded curve develops: it measures an input. When a sensor behaves oddly, recording its output into a curve you can look at tends to be faster than reasoning about the fault, because the shape of the noise tells you what kind of noise it is, and therefore which process will remove it.
 
@@ -46,7 +46,7 @@ Recording and logging answer different questions. An automation is for reuse ins
 
 ![The scenario's context menu with the Record submenu open, offering to record automations or messages]({{ site.img }}/12/12-01-record-menu.png)
 
-1. **Confirm that input is arriving before you record.** Look in the device explorer for the values you expect to move, because recording an address that does not receive produces an empty automation and a confusing five minutes spent blaming the feature.
+1. **Confirm that input is arriving before you record.** Look in the device explorer for the values you expect to move, because recording an address that does not receive produces an empty automation.
 2. **Select the addresses to record** in the device explorer, where one address is enough for a first attempt although the mechanism handles several at once.
 
    {: .warning }
@@ -59,7 +59,7 @@ Recording and logging answer different questions. An automation is for reuse ins
    > **Recording starts when the first message arrives.** By default *score* waits for a value before it begins writing, so that an idle controller does not produce a leading flat line. However, this behaviour is a preference and can be changed, which means you should know which setting yours uses before you record a gesture that you cannot perform twice.
 
 5. **Stop and inspect the result**, which is one automation per recorded address, sitting in a new interval, with a breakpoint for nearly every value that was received.
-6. **Play it back and compare it with what you performed.** The gesture should reproduce, and this is the moment at which recording either convinces you or reveals that your input was noisier than you thought.
+6. **Attach it, play it back, and compare it with what you performed**, since the new interval stays out of time until its start is synchronised with an instant on the timeline, as the exercise shows. The gesture should then reproduce, and this is the moment at which recording either convinces you or reveals that your input was noisier than you thought.
 7. **Reduce it by deleting breakpoints that carry no information**, since a long straight run needs two points where the recording placed sixty; what remains should look like your gesture in ten to twenty points instead of several hundred.
 8. **Shape what remains** with the tools of Lesson 10, because the reduced curve is now editable: bend a segment, move a breakpoint, or tighten the timing, and the recording becomes a composed object.
 9. **Record the same gesture three times and keep the best**, because recording is cheap and the third attempt is usually the one with the right timing.
@@ -67,13 +67,13 @@ Recording and logging answer different questions. An automation is for reuse ins
 
 ## When a recording should stay live
 
-Recording captures a gesture *as performed once*, which is the wrong tool in three situations where the score should read the input live instead, and recognising them early saves recording material you will then discard.
+Recording captures a gesture *as performed once*, which is the wrong tool in three situations where the score should read the input live instead.
 
 **When the performer is present, the score should respond to them.** If someone will be moving the fader at the show, a recording of them substitutes for the person, whereas mapping, the subject of [Lesson 13]({{ site.baseurl }}/learn/13-mapping-and-scaling.html), lets the score follow the hand that is there.
 
 **When the input is the interaction, a recording defeats the purpose.** An installation that responds to a visitor cannot use a recording of a previous visitor, because the visitor in front of it would then have no effect on the piece.
 
-**When the shape matters more than the timing, record for material.** If the curve of the gesture is what you liked, while its moment in time is incidental, record it once, extract the shape, and reuse that shape as a drawn automation wherever you need it; this is the most common productive use of recording, which becomes a source of material instead of the material itself.
+**When the shape matters more than the timing, record for material.** If the curve of the gesture is what you liked, while its moment in time is incidental, record it once, extract the shape, and reuse that shape as a drawn automation wherever you need it, so that recording becomes a source of material instead of the material itself.
 
 In other words, recording serves authoring, whereas mapping serves response; a piece usually needs both, and a project that confuses the two ends up either rigid, with a recorded gesture that cannot follow the room, or unrehearsable, with a live response that has no fixed timing to practise against.
 
@@ -93,11 +93,8 @@ The measuring use of recording, introduced at the start of this lesson, rests on
 
 Recording each of these once, with an input you have provoked into the fault, teaches more about sensors than a description can, and the conditioning pipeline of Lesson 13 assumes that you can tell them apart.
 
-Additionally, a dense recording carries a practical cost in file size, because every breakpoint is stored as text in the `.score` file, so a few long recordings left unreduced can turn a small document into a slow one to open. Reducing therefore protects the document as well as the curve, which is a second reason to treat it as a routine stage of the walkthrough.
-
 ## Common mistakes
 
-- **Recording before checking that values arrive**, which produces a silent failure that looks like a broken feature.
 - **Not knowing your start-on-first-message setting**, so that recording begins at play and your curve gains a flat lead-in that shifts every breakpoint later.
 - **Keeping the raw density**, although hundreds of breakpoints are unreadable and unmaintainable; reduce as a matter of course.
 - **Recording a noisy sensor and then fighting the curve**, when filtering the input first with a smoothing or rate-limiting process, and recording the filtered value, cleans at the source, which is cheaper than cleaning the result.
@@ -106,9 +103,26 @@ Additionally, a dense recording carries a practical cost in file size, because e
 
 ## Exercise
 
-Record the same twelve-second gesture three ways: raw, filtered through a smoothing process before recording, and raw then reduced by hand to fewer than twenty breakpoints. Play all three against each other on the same parameter, so that the differences between them are audible or visible side by side.
+Record a fader gesture and let a third excerpt replay it, because hearing your own hand come back while you touch nothing is the quickest way to judge whether a recording was worth keeping.
 
-**Success criterion:** you can say which of the three you would put in a piece, and you can state the breakpoint count of each. If the filtered version lost a detail you wanted, note what it was, because that loss is the argument for cleaning afterwards instead of at the source, and both positions are defensible once you can name what each one costs.
+1. **Drag a third excerpt** onto the timeline after the second, as in [Lesson 11]({{ site.baseurl }}/learn/11-modulation-sources.html).
+2. **Give its gain an address** by clicking the dot at the bottom left of its waveform, then `Gain`, and typing `phone:/fader` into the `Address` field of the inspector, which is the fader of [Lesson 07]({{ site.baseurl }}/learn/07-osc-devices.html). Play and move the fader, and the volume follows your hand.
+
+   {: .warning }
+   > **The excerpt starts at whatever level the fader was left at**, silent if it sits at zero, because the gain reads the parameter's current value from the start of playback.
+
+3. **Select `phone:/fader` in the device explorer**, right-click the empty timeline below the excerpts, and choose `Record > Record automations from here`.
+4. **Press play and perform** a gesture of about ten seconds on the phone, then stop, and a new interval appears holding an automation of `phone:/fader` with a breakpoint for nearly every value received.
+5. **Attach the recording to the excerpt** by clicking the circle at the left end of the recording, holding `Ctrl` while clicking the circle at the left end of the third excerpt, and pressing `Shift+M`, which synchronises the two instants so that they happen together.
+
+   {: .warning }
+   > **A recording starts unattached.** No interval links its start to the rest of the timeline, which leaves it out of time, so it does not play until you synchronise it with an instant that does; [Lesson 17]({{ site.baseurl }}/learn/17-loops-and-out-of-time.html) covers material of that kind.
+
+6. **Play with your hands off the phone**, and the excerpt repeats your gesture, because the recorded automation writes the same address that the gain reads.
+
+With no phone, run `fader.py` from Lesson 07 during step 4, whose five-second ramp records and replays in the same way.
+
+**You are done when** the third excerpt rises and falls as you moved the fader, while nobody touches it.
 
 ## Going further
 

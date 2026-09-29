@@ -129,9 +129,15 @@
     - q: How do I drive several parameters from one LFO?
       unit: "11"
       anchor: walkthrough-one-generator-three-destinations
+    - q: How do I make a sound pulse or wobble, like a tremolo?
+      unit: "11"
+      anchor: exercise
     - q: How do I record a controller gesture into an automation?
       unit: "12"
       anchor: walkthrough-perform-record-clean
+    - q: Why does my recorded automation not play back?
+      unit: "12"
+      anchor: exercise
 
 - id: osc
   title: OSC and devices
@@ -158,6 +164,10 @@
     - q: How do I send to one member of an array or convert units?
       unit: "08"
       anchor: address-suffixes
+    - q: How do I control a sound's volume from my phone?
+      unit: "12"
+      anchor: exercise
+      see: ["07"]
 
 - id: midi
   title: MIDI
@@ -227,6 +237,10 @@
     - q: How do I test mappings without a sensor?
       unit: P3
       anchor: emulating-an-input
+    - q: How do I use my mouse or trackpad as a sensor?
+      unit: "13"
+      anchor: exercise
+      see: ["P3"]
     - q: How do I find which stage of a chain stopped working?
       unit: P3
       anchor: observation-at-every-stage
@@ -321,6 +335,9 @@
     - q: How do I loop a sound file or fade it in and out?
       unit: "20"
       anchor: looping-a-sound-file
+    - q: How do I see how loud a sound is?
+      unit: "14"
+      anchor: exercise
     - q: How do I chain audio effects and use VST plug-ins?
       unit: "21"
       anchor: effect-chains

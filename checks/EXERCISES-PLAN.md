@@ -41,11 +41,27 @@ connecting a webcam, and so on.
   of Edu's PipeWire settings, without playing; audio parameters declare no `Min`, `Max`, or
   `Bounding` and their `Edit` dialog offers only name, channels, and mapping, so 08 no
   longer asks to set them; a parameter dropped on empty timeline makes a state, and dropped
-  on an interval's top line makes an automation in that interval; the `Gain` sub-port of a
-  sound outlet has no address field, whereas a shader input does (`Address` under its
-  expanded name); `createOSCDevice(name, host, a, b)` listens on `a` and sends to `b`; the
-  Window device declares `cursor` and `key` sub-trees, a no-hardware input for module C.
-- **Next**: module C (10 to 14, P3).
+  on an interval's top line makes an automation in that interval; a shader input has an
+  `Address` under its expanded name (the note here that a sound's `Gain` sub-port has none
+  was wrong: module C found and used it); `createOSCDevice(name, host, a, b)` listens on
+  `a` and sends to `b`; the Window device declares `cursor` and `key` sub-trees, a
+  no-hardware input for module C.
+- **Module C written, 2026-09-29**: 10 reshapes the Lesson 04 fade three ways and keeps one;
+  11 puts an LFO on a second excerpt's `Gain` and automates its rate from 1 to 8; 12 gives a
+  third excerpt's `Gain` the address `phone:/fader`, records the fader, and synchronises the
+  recording onto the excerpt with `Shift+M`; 13 inserts a mapping curve and a smooth in
+  front of that gain and makes the mouse the input; 14 answers three questions (RMS with a
+  value display, a signal display on the LFO, the metronome); P3 swaps the bench's LFO for
+  the mouse. Practice minutes: 10 to 10, 11 to 15, 12 to 15, 13 to 20, 14 to 10, P3 to 45.
+  The sketch now grows one excerpt per technique, which gives module D sections to cue.
+  Found while testing, each in the unit's `checks/` note: a recorded automation lands out of
+  time and never plays until synchronised; an automation writes its address every tick, so
+  Lesson 09's states were masked by Lesson 06's automation (09 now deletes it first); the
+  state refresh is `Ctrl+U`, not upstream's `Ctrl+R`; a float into `Pan` does nothing
+  audible; the inspector misreports log-scaled controls such as the LFO's `Freq.`; and
+  `Multi-choice` looks like a chooser, not the quantiser P3 calls it. The microphone route
+  for 13 was dropped: audio input cannot be exercised under the Dummy driver.
+- **Next**: module D (15 to 18, P4).
 
 ## The original proposal
 
