@@ -43,7 +43,7 @@ Every shortcut and mouse gesture the course knows of, grouped by what it acts on
         <span class="cheatsheet-action">{{ item.action }}
         {%- if item.see -%}
           {%- assign u = site.data.units | where_exp: "x", "x.num == item.see" | first -%}
-          {%- if u %} <a class="cheatsheet-see" href="{{ site.baseurl }}/learn/{{ u.slug }}.html">L{{ u.num }}</a>{% endif -%}
+          {%- if u %} <a class="cheatsheet-see" href="{{ site.baseurl }}/learn/{{ u.slug }}.html">{% if u.kind == "lesson" %}L{% endif %}{{ u.num }}</a>{% endif -%}
         {%- endif -%}
         {%- if item.src == "docs" %} <span class="cheatsheet-docs" title="From upstream's reference page; not yet checked in this build">†</span>{% endif -%}
         </span>
@@ -54,7 +54,7 @@ Every shortcut and mouse gesture the course knows of, grouped by what it acts on
 {%- endfor %}
 </div>
 
-<p class="cheatsheet-note">† From <a href="{{ site.docs_baseurl }}/reference/shortcuts.html">upstream's shortcut reference</a>, not yet checked in {{ site.score_version }}; arrow keys act on whichever part of the window has keyboard focus. The two uses of <code>Ctrl+R</code> depend on what is selected: a device refreshes its namespace, a state refreshes its stored values.</p>
+<p class="cheatsheet-note">† From <a href="{{ site.docs_baseurl }}/reference/shortcuts.html">upstream's shortcut reference</a>, not yet checked in {{ site.score_version }}; arrow keys act on whichever part of the window has keyboard focus. A state's refresh is <code>Ctrl+U</code> in this build, although the upstream page on cues gives <code>Ctrl+R</code>, which here refreshes a device's namespace.</p>
 
 <script>
 (function () {

@@ -40,7 +40,7 @@ Dragging parameters from the device explorer onto the timeline takes a snapshot.
 
 ### Snapshot and refresh
 
-The two refresh commands differ in what they change. With a state selected, the inspector offers two camera icons. **Snapshot**, `Ctrl+L`, takes whatever is currently selected in the device explorer and copies it into the cue, so it can add addresses. In contrast, **Refresh**, `Ctrl+R`, takes the addresses already in the cue and updates their stored values to the live ones, changing values without changing which parameters are stored.
+The two refresh commands differ in what they change. With a state selected, the inspector offers two camera icons. **Snapshot**, `Ctrl+L`, takes whatever is currently selected in the device explorer and copies it into the cue, so it can add addresses. In contrast, **Refresh**, `Ctrl+U` in this build although the reference page gives `Ctrl+R`, takes the addresses already in the cue and updates their stored values to the live ones, changing values without changing which parameters are stored.
 
 ### Auto-sequence transitions
 
@@ -61,7 +61,7 @@ Scenario presets save a fragment of a score for reuse. Select part of a score an
 5. **Chain a second cue** by selecting the first state and dragging from the blue `+` beside it to a later point on the timeline. Because the selection is remembered, the same parameters are captured with their new values.
 6. **Turn on auto-sequence and do it again**, by enabling it in `Settings`, under the user interface tab where it is off by default, and chaining a third cue the same way. This time *score* also writes automations between cue two and cue three for every parameter that changed, so look at the slots it created: stacked automations, with the frontmost drawn in red and the rest greyed.
 7. **Edit what it wrote** by clicking the address bar at the top of a stacked slot to bring one automation forward, adjusting its curve, and removing any you did not want by right-clicking a slot background and choosing remove. Generated material saves the drawing and leaves the judgement to you, since auto-sequence ramps every parameter that changed.
-8. **Fix a value without rebuilding** by changing one parameter in the explorer, selecting the cue that should hold the new value, and pressing `Ctrl+R`, which updates only the stored values. Then select an extra parameter in the explorer, select the same cue, and press `Ctrl+L` to add it. Dropping parameters from the explorer onto an existing state adds them in the same way, and an address already present is replaced by the dropped value, so the gesture that creates a cue also extends one.
+8. **Fix a value without rebuilding** by changing one parameter in the explorer, selecting the cue that should hold the new value, and pressing `Ctrl+U`, which updates only the stored values. Then select an extra parameter in the explorer, select the same cue, and press `Ctrl+L` to add it. Dropping parameters from the explorer onto an existing state adds them in the same way, and an address already present is replaced by the dropped value, so the gesture that creates a cue also extends one.
 9. **Play it** with `space`, so that each cue fires as the playhead reaches it. Stop with `↵`, and note that stopping does not undo what a cue sent: the world stays where the last cue left it, which is why [Milestone P1]({{ site.baseurl }}/learn/p1-automated-cue.html) insisted on a defined ending.
 10. **Save the pattern** by selecting your three cues and the intervals between them, holding `Alt`, and dragging into the user library. Start a new document and drag the fragment back in.
 
@@ -88,7 +88,7 @@ Capturing narrowly has one consequence that deserves stating, because a cue only
 ## Common mistakes
 
 - **Typing values instead of capturing them** is slower, and it divorces the cue from what you saw and heard.
-- **Confusing `Ctrl+L` with `Ctrl+R`** mixes up two operations, since snapshot adds from the current selection while refresh updates what is already stored, so the wrong one either floods a cue with parameters you did not want or quietly fails to add the one you did.
+- **Confusing `Ctrl+L` with `Ctrl+U`** mixes up two operations, since snapshot adds from the current selection while refresh updates what is already stored, so the wrong one either floods a cue with parameters you did not want or quietly fails to add the one you did.
 - **A stale explorer selection** captures the wrong thing, because selecting a parent node captures every parameter beneath it, which is occasionally what you want; `Esc` clears the selection.
 - **Trusting auto-sequence blindly** leaves ramps where jumps belong, since it writes an automation for every parameter that changed; delete the ones that should have jumped.
 - **Losing an automation in a stack** happens because the frontmost is red and the others greyed, so use the slot's address bar to choose.
@@ -98,12 +98,13 @@ Capturing narrowly has one consequence that deserves stating, because a cue only
 
 Capture three volume looks for the sketch and let the timeline recall them, because a cue captured from a value you set by hand is the quickest to write and the least likely to need debugging.
 
-1. **Set `audio:/out/main` to `1`**, the output level of [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html), by double-clicking its `Value` in the explorer's inspector, and drag it onto the timeline near the start of the excerpt, where a state appears holding that value.
-2. **Set it to `0.3`** and drag it onto the timeline a second later, then set `0` and drag it in a second after that, so that three states sit inside the excerpt.
-3. **Play**, and the excerpt starts loud, drops, and falls silent at the instants you chose.
-4. **Change your mind about the quiet look** by setting `0.5` in the explorer, selecting the second state, and pressing `Ctrl+R`, which refreshes the value the state stores.
+1. **Delete the output automation of [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html)** by clicking its slot header and pressing `Delete`, because an automation writes its address on every tick and would overwrite each state a moment after it fires.
+2. **Set `audio:/out/main` to `1`** by double-clicking its `Value` in the explorer's inspector, and drag it onto the timeline near the start of the excerpt, where a state appears holding that value.
+3. **Set it to `0.3`** and drag it onto the timeline a second later, then set `0` and drag it in a second after that, and finally set `1` and add a fourth state a second later still, since the output keeps the last value it receives.
+4. **Play**, and the excerpt starts loud, drops, falls silent, and returns at the instants you chose.
+5. **Change your mind about the quiet look** by setting `0.5` in the explorer, selecting the second state, and pressing `Ctrl+U`, which refreshes the value the state stores.
 
-**You are done when** each state recalls its level on every run and the corrected look plays at its new value. Add a last state that sets `1`, because the output keeps the last value it receives.
+**You are done when** each state recalls its level on every run and the corrected look plays at its new value.
 
 ## Going further
 

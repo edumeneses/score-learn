@@ -95,6 +95,15 @@
     - { mouse: "Drag the dot at a slot's top right", action: "Lengthen the interval, keeping curves as drawn", src: lesson, see: "04" }
     - { mouse: "Ctrl + drag the same dot", action: "Lengthen the interval, scaling its curves", src: lesson, see: "04" }
 
+- title: Patching
+  intro: Double-click a process in the library, with something selected first.
+  items:
+    - { mouse: "A process selected", action: "Chain the new one after it", src: lesson, see: "11" }
+    - { mouse: "A port selected", action: "Feed the new one into that port, taking over the port's address", src: lesson, see: "11" }
+    - { mouse: "A cable selected", action: "Insert the new one into the cable", src: lesson, see: "13" }
+    - { mouse: "Drag from an outlet to an inlet", action: "Draw a cable", src: lesson, see: "11" }
+    - { mouse: "Click a cable, then Delete", action: "Remove the cable", src: lesson, see: "P3" }
+
 - title: Automation curves
   items:
     - { mouse: "Double-click in the slot", action: "Add a point", src: lesson, see: "04" }
@@ -114,7 +123,7 @@
   intro: With a state selected.
   items:
     - { keys: "Ctrl+L", action: "Snapshot the selected parameters into it", src: lesson, see: "09" }
-    - { keys: "Ctrl+R", action: "Refresh the values it stores", src: lesson, see: "09" }
+    - { keys: "Ctrl+U", action: "Refresh the values it stores", src: lesson, see: "09" }
 
 - title: Libraries and code
   items:

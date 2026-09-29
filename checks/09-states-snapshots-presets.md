@@ -31,3 +31,16 @@ but the fit on load is what actually determines the layout.
 ## Claims that depend on external sources
 
 - The two camera icons, their shortcuts, and the floating-cue configuration come from the reference cues page. Auto-sequence comes from the states-and-automations-in-practice page.
+
+## Corrections, 2026-09-29
+
+- **Refresh is `Ctrl+U` in 3.8.2**, not `Ctrl+R`. The state inspector's hover help reads
+  `Refresh (Ctrl+U)`; on a state holding `phone:/fader 0` with the device at 1, `Ctrl+R`
+  changed nothing and `Ctrl+U` stored 1. Upstream's `in-depth/cues.md` still gives
+  `Ctrl+R`, which in this build is the device explorer's namespace refresh. The build wins;
+  the lesson and the Shortcut cheatsheet say `Ctrl+U` and name the disagreement.
+- **The exercise deletes Lesson 06's output automation first.** An automation writes its
+  address on every tick: a flat automation on an OSC parameter sent 261 messages in six
+  seconds under the Dummy driver, and a state setting 0.123 in the middle of it appeared
+  exactly once before the next tick overwrote it. With Lesson 06's automation still on the
+  excerpt, the looks of this exercise would have been inaudible.
