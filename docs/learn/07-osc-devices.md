@@ -8,7 +8,7 @@ unit: "07"
 permalink: /learn/07-osc-devices.html
 score_version: "3.8.2"
 reading_time: "14 min"
-practice_time: "30 min"
+practice_time: "20 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
@@ -16,9 +16,9 @@ score_file: 00-what-score-is/lesson-00.score
 
 {% include lesson_meta.html %}
 
-> **Before this lesson** finish [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html) and bring the device map you wrote there.
+> **Before this lesson** finish [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html), which explains what a device declares.
 >
-> **You will need** *score*, together with something that receives OSC; a Pure Data or Max patch, a Python script of six lines, an OSC monitor utility, or a second copy of *score* will all serve.
+> **You will need** *score*, your sketch from Lesson 01, and something that speaks OSC: a phone with an OSC controller app on the same network, or the two short Python scripts in the exercise.
 >
 > **You will build** one hand-declared OSC device with a small tree of typed parameters, together with a debugging routine that you will use for the rest of the course.
 
@@ -94,11 +94,40 @@ Half of the diagnosis above depends on having a receiver that reports faithfully
 
 ## Exercise
 
-Declare one OSC device with at least six parameters in at least two groups, including one impulse and one integer, and drive three of them from a fifteen-second score: one from a state, one from an automation, and the impulse from a state at the end.
+Make *score* and your phone talk in both directions, since a phone running an OSC controller app is the most common first remote, and the same steps serve any application that speaks OSC.
 
-Then break it three ways, one at a time, and record what each failure looks like from inside *score*: a wrong destination port, a wrong type on the integer parameter, and an address renamed in the receiver but not in *score*.
+1. **Put the phone and the laptop on the same network**, open an OSC app on the phone, and note both IP addresses.
+2. **Declare a device named `phone`** as in the walkthrough, with the phone's address and the port its app listens on as `Device host` and `Device listening port`, and the port the app sends to as `score listening port`.
+3. **Add a float parameter `/fader`**, give one of the app's faders the address `/fader`, and move it while you watch the value change in the explorer.
+4. **Add a float parameter `/level`**, drag it onto the sketch's sound interval to automate it, and play, so that a control on the phone whose address is `/level` moves with your curve.
 
-**Success criterion:** you can describe, for each of the three failures, which step of the thirty-second diagnosis would have caught it. If any of the three produced a visible error inside *score*, note it, because most of them do not, and knowing which failures are silent is what the exercise teaches.
+With no phone at hand, run the two scripts below on the laptop instead, the first standing in for the phone's fader and the second for its display, and declare the device with `127.0.0.1` as the host, `9202` as its listening port, and `9201` as *score*'s.
+
+```python
+# fader.py: sends /fader from 0 to 1 over five seconds, as a phone's fader would
+import socket, struct, time
+
+def osc(address, value):
+    pad = lambda b: b + b"\0" * (4 - len(b) % 4)
+    return pad(address.encode()) + pad(b",f") + struct.pack(">f", value)
+
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+for i in range(101):
+    s.sendto(osc("/fader", i / 100), ("127.0.0.1", 9201))
+    time.sleep(0.05)
+```
+
+```python
+# display.py: prints each message that score sends to port 9202
+import socket, struct
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.bind(("127.0.0.1", 9202))
+while True:
+    data = s.recv(1024)
+    print(data.split(b"\0")[0].decode(), struct.unpack(">f", data[-4:])[0])
+```
+
+**You are done when** a value travels in each direction, from the phone into the explorer and from your curve onto the phone or into `display.py`. If one direction stays silent, the thirty-second diagnosis above usually ends at a port number or a firewall.
 
 ## Going further
 

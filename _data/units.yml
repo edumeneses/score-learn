@@ -72,7 +72,7 @@
   slug: 06-device-model
   title: "Devices and addresses: the device model"
   read: 13
-  practice: 15
+  practice: 10
   written: true
 - num: "07"
   module: C
@@ -80,7 +80,7 @@
   slug: 07-osc-devices
   title: "OSC devices: sending, receiving, and debugging"
   read: 14
-  practice: 30
+  practice: 20
   written: true
 - num: "08"
   module: C
@@ -88,7 +88,7 @@
   slug: 08-units-ranges-types
   title: "Ranges, types, and units"
   read: 13
-  practice: 20
+  practice: 10
   written: true
 - num: "09"
   module: C
@@ -96,7 +96,7 @@
   slug: 09-states-snapshots-presets
   title: States, snapshots, and presets
   read: 13
-  practice: 25
+  practice: 15
   written: true
 - num: P2
   module: C
@@ -104,7 +104,7 @@
   slug: p2-light-wash
   title: "Make it work 2: one fader drives a light wash"
   read: 15
-  practice: 45
+  practice: 40
   written: true
 - num: "10"
   module: D

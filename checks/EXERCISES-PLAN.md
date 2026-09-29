@@ -31,7 +31,21 @@ connecting a webcam, and so on.
   recolours the shader instead of setting a state, because moving an interval by dragging
   did not work; 05 re-points the sound by dragging the copy from the project folder panel,
   because typing into the `Path` field did not.
-- **Next**: module B (06 to 09, P2), where the webcam and microphone first make sense.
+- **Module B written, 2026-09-29**: 06 puts the laptop's sound card in the tree (the Audio
+  device: `audio:/in` and `audio:/out`, each with `main` and one level per channel) and
+  automates `audio:/out/main`; 07 talks to a phone both ways over OSC, with two Python
+  scripts as the no-phone route; 08 gives the gain fade a floor and reads the missing range
+  of `audio:/out/main`; 09 captures three volume looks as states; P2 ends in a blackout.
+  Practice minutes: 06 to 10, 07 to 20, 08 to 10, 09 to 15, P2 to 40. Found while testing:
+  under the Dummy driver the Audio device has no children, so its tree was read with a copy
+  of Edu's PipeWire settings, without playing; audio parameters declare no `Min`, `Max`, or
+  `Bounding` and their `Edit` dialog offers only name, channels, and mapping, so 08 no
+  longer asks to set them; a parameter dropped on empty timeline makes a state, and dropped
+  on an interval's top line makes an automation in that interval; the `Gain` sub-port of a
+  sound outlet has no address field, whereas a shader input does (`Address` under its
+  expanded name); `createOSCDevice(name, host, a, b)` listens on `a` and sends to `b`; the
+  Window device declares `cursor` and `key` sub-trees, a no-hardware input for module C.
+- **Next**: module C (10 to 14, P3).
 
 ## The original proposal
 

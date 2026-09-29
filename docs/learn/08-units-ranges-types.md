@@ -8,7 +8,7 @@ unit: "08"
 permalink: /learn/08-units-ranges-types.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "20 min"
+practice_time: "10 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 00-what-score-is/lesson-00.score
 
 > **Before this lesson** finish [Lesson 07]({{ site.baseurl }}/learn/07-osc-devices.html) and keep the device you declared there.
 >
-> **You will need** `lesson-00.score` for the figure, and your own device for the exercise.
+> **You will need** `lesson-00.score` for the figure, and your sketch with the Audio device of Lesson 06 for the exercise.
 >
 > **You will build** a reliable answer to the most common complaint about this software, which is that "the automation runs but nothing happens".
 
@@ -107,9 +107,14 @@ A last point concerns discovery, because the whole of this lesson is easier when
 
 ## Exercise
 
-On your own device, declare four parameters: a normalised float, an integer with a range of 0 to 127, a `vec3f` position, and an angle in degrees. Then write a twenty-second score that drives each one correctly, which means the float across its full range, the integer across its full range from a curve whose own range you set yourself, only the second member of the position, and the angle through a radian suffix.
+Give the sketch's fade a floor it cannot go below, and then read a device range that is missing, because the two ranges of this lesson are easiest to tell apart when one of them is absent.
 
-**Success criterion:** all four move as intended in your receiver, and you can state for each whether the conversion happened on the device, on the process, or through a suffix. If one refused to move, say which of the two ranges was wrong, since that is the diagnosis this lesson exists to make automatic.
+1. **Select the gain automation** of [Lesson 04]({{ site.baseurl }}/learn/04-first-process.html) by its slot header, and set `Min` in the inspector to `0.2`, after which the header reads `Min: 0.2`.
+2. **Play**, and the fade that rose from silence now starts at a fifth of full gain, since the range of the process has moved while the curve itself has not.
+3. **Select `audio:/out/main`**, the output level of [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html), and read its attributes in the explorer's inspector. `Min` and `Max` are empty and `Bounding` is `Free`, so the device declares no limit at all, and nothing on its side stops a value above 1 from reaching your speakers.
+4. **Check the range of the automation that drives it**, which is therefore the only limit in play; with `Max` at 1, that automation cannot send more than full level, whatever its curve does.
+
+**You are done when** the fade no longer reaches silence, and you can say which of the two ranges keeps your output level at or below 1.
 
 ## Going further
 

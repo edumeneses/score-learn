@@ -8,7 +8,7 @@ unit: "06"
 permalink: /learn/06-device-model.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "15 min"
+practice_time: "10 min"
 score_file: 00-what-score-is/lesson-00.score
 ---
 
@@ -18,9 +18,9 @@ score_file: 00-what-score-is/lesson-00.score
 
 > **Before this lesson** finish [Milestone P1]({{ site.baseurl }}/learn/p1-automated-cue.html). You have been writing to addresses for several lessons, and this lesson explains what sits on the other end of them.
 >
-> **You will need** `lesson-00.score` open, together with a list of the software and hardware that your own project involves.
+> **You will need** `lesson-00.score` open, and your sketch from Lesson 01 for the exercise.
 >
-> **You will build** a device map for your project, which records what talks to what, over which protocol, and what each side is able to say.
+> **You will build** a first device of your own, the sound card of the machine you are working on, and a routine for reading any device's tree before you write against it.
 
 ## Why this matters
 
@@ -107,9 +107,16 @@ Address names outlive the equipment they were written for, so they deserve a mom
 
 ## Exercise
 
-Write the device map for a project you want to make, listing for each device the name you would use in addresses, the protocol, whether it is descriptive, blind, or fixed-shape, and one sentence on what breaks if that device is absent at show time. Writing the map now takes a few minutes, whereas the same thinking after the score is written means renaming addresses throughout the document.
+Put your laptop's microphone and speakers into the device tree, and turn the sketch down through them, because the sound card is the one device every reader already owns.
 
-**Success criterion:** every device has a name short enough to live at the front of an address, and you can say for each whether you will have to declare its parameters by hand. Bring the map to Lesson 07, which builds the first device for real.
+1. **Add an Audio device** by right-clicking the `Device explorer`, choosing `Add device`, then `Audio > Audio` and `Add`.
+2. **Read its tree before using it.** `audio:/in` holds your inputs, the microphone among them, and `audio:/out` holds your outputs, each with a `main` level and one per channel, all set to 1.
+3. **Drag `audio:/out/main` onto the top line of the sketch's sound interval**, which adds an automation of the whole output to that interval; double-click the middle of its curve to add a point and drag that point down, as in [Lesson 04]({{ site.baseurl }}/learn/04-first-process.html).
+4. **Play**, and listen to the whole mix fall and recover, since the automation acts on the output instead of on one sound.
+
+If your laptop has a webcam, add it the same way with `Video > Camera input` and read what it declares, because [Lesson 25]({{ site.baseurl }}/learn/25-video-pipeline.html) puts its image in the window.
+
+**You are done when** the mix dips where you drew it and returns to full, and you have found your microphone's inputs in the tree. End the curve at 1, because the output keeps the last value it receives.
 
 ## Going further
 

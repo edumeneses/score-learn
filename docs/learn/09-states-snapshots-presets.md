@@ -8,7 +8,7 @@ unit: "09"
 permalink: /learn/09-states-snapshots-presets.html
 score_version: "3.8.2"
 reading_time: "13 min"
-practice_time: "25 min"
+practice_time: "15 min"
 score_file: 09-states-snapshots-presets/lesson-09.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 09-states-snapshots-presets/lesson-09.score
 
 > **Before this lesson** finish [Lesson 08]({{ site.baseurl }}/learn/08-units-ranges-types.html), so that the values you capture mean what you think they mean.
 >
-> **You will need** your own device, together with `lesson-09.score` as the reference.
+> **You will need** `lesson-09.score` as the reference, and your sketch with the Audio device of Lesson 06 for the exercise.
 >
 > **You will build** a three-cue sequence captured from live values instead of typed, and one reusable fragment in your user library.
 
@@ -96,9 +96,14 @@ Capturing narrowly has one consequence that deserves stating, because a cue only
 
 ## Exercise
 
-Build a four-cue sequence for your own device, captured entirely from live values, in which cue two and cue three are joined by automations written by auto-sequence and then edited by hand, while cue three and cue four jump with no transition at all. Then change your mind about one value in cue two and correct it with `Ctrl+R` instead of rebuilding.
+Capture three volume looks for the sketch and let the timeline recall them, because a cue captured from a value you set by hand is the quickest to write and the least likely to need debugging.
 
-**Success criterion:** playing from the start twice in a row produces identical behaviour, at least one auto-generated automation has been deleted on purpose, and the sequence exists as a `.scenario` fragment in your user library. If the second run differed from the first, your first cue does not capture every parameter that the later cues change.
+1. **Set `audio:/out/main` to `1`**, the output level of [Lesson 06]({{ site.baseurl }}/learn/06-device-model.html), by double-clicking its `Value` in the explorer's inspector, and drag it onto the timeline near the start of the excerpt, where a state appears holding that value.
+2. **Set it to `0.3`** and drag it onto the timeline a second later, then set `0` and drag it in a second after that, so that three states sit inside the excerpt.
+3. **Play**, and the excerpt starts loud, drops, and falls silent at the instants you chose.
+4. **Change your mind about the quiet look** by setting `0.5` in the explorer, selecting the second state, and pressing `Ctrl+R`, which refreshes the value the state stores.
+
+**You are done when** each state recalls its level on every run and the corrected look plays at its new value. Add a last state that sets `1`, because the output keeps the last value it receives.
 
 ## Going further
 

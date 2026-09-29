@@ -36,6 +36,12 @@
     - q: How do I fade a sound in or out?
       unit: "04"
       anchor: exercise
+    - q: How do I control the volume of the whole output from the timeline?
+      unit: "06"
+      anchor: exercise
+    - q: How do I control score from my phone, or send values to it?
+      unit: "07"
+      anchor: exercise
     - q: Where does score look for a sound file, and what do the PROJECT and LIBRARY path prefixes mean?
       unit: "05"
       anchor: relative-and-absolute-paths

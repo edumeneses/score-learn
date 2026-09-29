@@ -8,7 +8,7 @@ unit: "P2"
 permalink: /learn/p2-light-wash.html
 score_version: "3.8.2"
 reading_time: "15 min"
-practice_time: "45 min"
+practice_time: "40 min"
 score_file: p2-light-wash/p2-solution.score
 ---
 
@@ -110,13 +110,12 @@ The practical consequence is that the channel map stops being paperwork and beco
 
 ## Exercise
 
-Rebuild the reference against a real Art-Net device and a software receiver, and then extend it in one of two directions.
+Give the wash an ending that cannot leave a light on, because the last state of a score is what a room is left with when the operator walks away.
 
-Either **make the wash asymmetric**, so that the outer groups reach full intensity one second after the centre, using a mapping in place of four hand-edited curves.
+1. **Set every channel to zero** in the explorer, select them all, and drag them together onto the end of the timeline, which adds a state holding the blackout, as [Lesson 09]({{ site.baseurl }}/learn/09-states-snapshots-presets.html) showed.
+2. **Play to the end**, and the software receiver shows every channel dark; [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) explains why that final state matters even on a run that never reaches it.
 
-Or **make it operable** by adding a second interval that returns every channel to the opening look, and a state at the end of the score that sets all channels to zero, so that stopping the score cannot leave a light on. [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) explains why the last state of a score is special.
-
-**Success criterion:** the receiver shows the intended movement, the score ends dark, and your channel map matches what the document sends. If you used a pattern, write down what would break if one fixture needed a different curve, because that note tells you when to move to the mapping approach.
+**You are done when** the receiver shows the wash and then darkness at the end of every run, and your channel map matches what the document sends.
 
 ## Going further
 

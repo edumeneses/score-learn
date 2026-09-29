@@ -393,7 +393,11 @@ user library becomes an interval holding it, stored as `<LIBRARY>:`; the user li
 search matches folder names, not file names; a shader dropped on empty timeline gets its
 own interval, and reaches the window through `Outputs > Window` in its inspector;
 right-clicking a sound outlet's `Gain` sub-port offers `Create automation`, whose curve starts as one flat segment at zero, so the sound is silent until it is raised; a file dragged
-from the project folder panel is stored as `<PROJECT>:`. Typing into a Sound's `Path`
+from the project folder panel is stored as `<PROJECT>:`. Module B added: a parameter
+dragged from the explorer onto empty timeline makes a state, onto an interval's top line
+an automation; a value is set by double-clicking `Value` in the explorer's inspector; the
+Audio device's tree (`audio:/in`, `audio:/out`) is empty under the Dummy driver, and its
+parameters declare no range. Typing into a Sound's `Path`
 field did not re-point it, dragging an interval neither moved nor lengthened it, and a
 lengthened sound interval does not loop by itself (the loop toggle is in the process
 inspector).
