@@ -134,7 +134,8 @@ video {
 
 // The Shortcut cheatsheet (docs/shortcuts.md, from _data/shortcuts.yml): cards in
 // as many columns as fit, each row a set of key caps beside what they do.
-.cheatsheet-filter input {
+.cheatsheet-filter input,
+.topics-filter input {
     width: 100%;
     max-width: 28rem;
     padding: 0.4em 0.7em;
@@ -226,5 +227,22 @@ video {
 
 .cheatsheet-note {
     font-size: 0.8rem;
+    color: $grey-dk-100;
+}
+
+// The question filter on the Find by topic page (docs/topics.md).
+.topics-filter {
+    margin: 1.5rem 0 0.5rem;
+}
+
+// The theme keeps every content link on one line, which cuts a question off on a phone.
+.topic-group li a {
+    white-space: normal;
+}
+
+.topics-filter-status {
+    min-height: 1.4em;
+    margin: 0.4rem 0 0;
+    font-size: 0.85rem;
     color: $grey-dk-100;
 }
