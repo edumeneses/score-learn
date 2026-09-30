@@ -160,7 +160,7 @@
   slug: 15-triggers
   title: "Triggers: making the score wait for a cue"
   read: 14
-  practice: 30
+  practice: 15
   written: true
 - num: "16"
   module: F
@@ -168,7 +168,7 @@
   slug: 16-conditions-and-branching
   title: Conditions and branching
   read: 14
-  practice: 30
+  practice: 15
   written: true
 - num: "17"
   module: F
@@ -176,7 +176,7 @@
   slug: 17-loops-and-out-of-time
   title: "Loops, repetition, and out-of-time material"
   read: 13
-  practice: 25
+  practice: 20
   written: true
 - num: "18"
   module: F
@@ -184,7 +184,7 @@
   slug: 18-cues-and-transport
   title: "Start and stop cues, seeking, and transport"
   read: 14
-  practice: 30
+  practice: 15
   written: true
 - num: P4
   module: F
@@ -192,7 +192,7 @@
   slug: p4-interactive-installation
   title: "Make it work 4: an interactive installation with two branches"
   read: 15
-  practice: 60
+  practice: 45
   written: true
 - num: "19"
   module: G

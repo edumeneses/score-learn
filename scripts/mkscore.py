@@ -321,10 +321,14 @@ def timesync(tid: int, date: int, events: list[int], *, active: bool = False,
              label: str = "", start: bool = False, auto: bool = False) -> dict:
     """An instant. `active` is what makes it a trigger: it waits.
 
-    `auto` is the interface's **start on play**, and `start` marks the instant as
-    a place execution can begin. Out-of-time material needs all three together:
-    a trigger, armed when the score starts, at an instant execution may enter,
-    on a chain that nothing connects to the score's own beginning.
+    `start` is the interface's **start on play**, the right-hand button of the
+    sync inspector, which arms the trigger when the enclosing scenario starts;
+    `auto` is its left-hand button, `Auto-trigger`, which makes a second firing
+    restart the floating material instead of stopping it. Out-of-time material
+    needs `active` and `start` on a chain that nothing connects to the score's own
+    beginning; `auto` only changes what a second click does. An earlier version of
+    this docstring had the two swapped (corrected 2026-09-30 from the inspector's
+    help text and a test: `active` alone did not fire on a click, `start` did).
     """
     return {
         "ObjectName": "Scenario::TimeSyncModel",
@@ -1037,8 +1041,8 @@ def lesson_17() -> dict:
             timesync(0, 0, [0], start=True),
             timesync(1, 3 * SEC, [1]),
             timesync(2, 9 * SEC, [2]),
-            # the out-of-time chain begins here: a trigger, armed on play, at an
-            # instant execution is allowed to start from
+            # the out-of-time chain begins here: a trigger armed on play (start),
+            # which a second firing restarts (auto)
             timesync(3, 4 * SEC, [3], active=True, auto=True, start=True,
                      label="fires on demand"),
             timesync(4, 8 * SEC, [4]),

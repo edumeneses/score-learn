@@ -8,7 +8,7 @@ unit: "16"
 permalink: /learn/16-conditions-and-branching.html
 score_version: "3.8.2"
 reading_time: "14 min"
-practice_time: "30 min"
+practice_time: "15 min"
 score_file: 16-conditions-and-branching/lesson-16.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 16-conditions-and-branching/lesson-16.score
 
 > **Before this lesson** finish [Lesson 15]({{ site.baseurl }}/learn/15-triggers.html), because conditions and triggers act on the same instants.
 >
-> **You will need** `lesson-16.score` and an input whose value you can set by hand.
+> **You will need** `lesson-16.score` and an input whose value you can set by hand for the walkthrough, and your sketch for the exercise.
 >
 > **You will build** a score with two mutually exclusive branches, and a third that runs in parallel with whichever of them is chosen.
 
@@ -48,7 +48,7 @@ A condition is an expression over the values in the device tree. It is built fro
 
 ### Offset behaviour
 
-Offset behaviour decides how a condition is read during a transport jump. When you jump the playhead into the middle of a score, conditions must be evaluated although the world is not necessarily in the right state, so each condition has an **offset behaviour** setting that treats it as true, treats it as false, or evaluates it against the live value in the device tree. The setting exists for a real rehearsal problem, which [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) solves with it: you should be able to rehearse the branch where the performer stands downstage without asking them to go and stand there.
+Offset behaviour decides how a condition is read during a transport jump. When you jump the playhead into the middle of a score, conditions must be evaluated although the world is not necessarily in the right state, so each condition has an **offset behaviour** setting that treats it as true, treats it as false, or evaluates it against the live value in the device tree, which the event's inspector names `True`, `False`, and `Expression`. Every condition starts as `True`, so a jump past an instant runs every branch that leaves it until you choose otherwise. The setting exists for a real rehearsal problem, which [Lesson 18]({{ site.baseurl }}/learn/18-cues-and-transport.html) solves with it: you should be able to rehearse the branch where the performer stands downstage without asking them to go and stand there.
 
 ## Walkthrough: two branches and a layer
 
@@ -59,7 +59,7 @@ Offset behaviour decides how a condition is read during a transport jump. When y
 3. **Set the value on the boundary itself** and play, and the branch written with the inclusive comparison runs. This is more than a technicality, because boundary values happen constantly with real sensors, and a pair of conditions that both exclude the boundary produces a score that occasionally stops dead.
 4. **Now build your own**, with two chained intervals, and at the second instant drag out a second outgoing interval so that two leave the same point.
 5. **Play it and watch both run**, because they share one event; this is the parallel case, and seeing it once makes the symptom recognisable before you fix it.
-6. **Split the condition** using the scenario's split function on that instant, so that the two branches sit on separate events.
+6. **Split the instant** by selecting one branch's start circle and clicking the scissors, `Split condition`, at the top of the state's inspector, so that the two branches sit on separate events.
 
    {: .note }
    > **The commands for this step live in the `Object` menu.** `Add Condition`, shortcut `C`, and `Remove Condition`, `Shift+C`, sit there together with `Merge events` and `Synchronize`, `Shift+M`, which control whether things share an instant at all.
@@ -105,9 +105,24 @@ What you cannot do is expect a condition to know what a previous condition decid
 
 ## Exercise
 
-Write a score that responds to one input with three alternatives, one common layer, and a written partition, then test it six times, once in the middle of each of the three ranges and once on each of the two boundaries, recording what happened each time.
+Let the pointer decide what follows the pause of [Lesson 15]({{ site.baseurl }}/learn/15-triggers.html), because a choice made by where someone stands is the core of most interactive work, and the pointer over the sketch's window is a position every laptop can report.
 
-**Success criterion:** all six tests produce one branch plus the layer, with no case where no branch runs and no case where two branches run. Additionally, set one condition's offset behaviour and demonstrate that you can rehearse the third branch without setting the input at all.
+1. **Drag a fourth excerpt from the user library onto the circle where the tremolo starts**, and a new interval holding it leaves the same instant, just under the tremolo; drag it down by its top line so that both are visible.
+
+   {: .warning }
+   > **Aim for the left edge of the circle.** Dropped on the tremolo's box instead, the excerpt lands inside it as a second slot, which `Ctrl+Z` undoes.
+
+2. **Play and let the pause run out**, and both excerpts sound together, because they share one event; this is the parallel case of walkthrough step 5.
+3. **Split them** by selecting the new interval's start circle and clicking the scissors at the top of the inspector.
+
+   {: .note }
+   > **If the inspector names a `Sync`**, the click caught the instant instead of the state, so click the state's name in the object tree above the inspector.
+
+4. **Give the new branch a condition** by pressing `C`, clicking the yellow bracket that appears, and choosing `≥` in the inspector, then typing `Window:/cursor/scaled@[0]` as the address and `0.5` as the value, which is the pointer's horizontal position over the sketch's window.
+5. **Give the tremolo the opposite condition** in the same way, with `<` and `0.5`, so that the two cover the whole range with no gap and no overlap.
+6. **Rest the pointer on the left half of the window and play**, leaving the T marker alone, since reaching it would take the pointer out of the window, which then holds the last position it saw. Conversely, a run with the pointer on the right half takes the other branch.
+
+**You are done when** the left half of the window gives you the tremolo and the right half the fourth excerpt, on every run and never both at once.
 
 ## Going further
 

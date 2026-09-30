@@ -78,3 +78,27 @@ every branch ran whatever the input. `mkscore.py` now writes score's own form,
 started `Quiet` only. `p4-01` was re-shot: `Idle` shows its flexible end, and each branch
 now carries a condition bracket, so the page's claim that "the drawing shows the trigger
 and the conditions as visibly separate things" is true of the figure for the first time.
+
+## Exercise, 2026-09-30, performed in 3.8.2 on a copy of p4-solution.score
+
+- `LFO` double-clicked with `Idle` selected lands in a nodal slot in `Idle`. Its inspector
+  offers `Waveform` `Sin`, `Triangle`, `Saw`, `Square`, `SampleAndHold`, `Noise1`, `Noise2`,
+  `Noise3`; `Noise1` is `uniform(-1, 1) * Ampl. + Offset` per tick (`LFO_v2.hpp`), so with
+  the defaults of 0.5 it is uniform on 0 to 1. Its `Out` field took `lesson:/shutter`, and
+  5,981 values sent to port 9996 had 9.9 % above 0.9.
+- An excerpt dropped on the right-hand edge of `Idle`'s end circle made the third branch
+  from that state (the circle had no next interval); on the circle's centre it landed inside
+  `Idle` as a slot. `C` on that state put `{ %lesson:/shutter% > 0.9 }` on its event.
+- The `+` beside a condition adds a row with an `&` operator; the two existing conditions
+  saved as `{ %lesson:/level% > 0.5 }  and  { %lesson:/shutter% <= 0.9 }` and the `<=`
+  counterpart. The red plus drew the third branch's return transition onto the first
+  instant's own state.
+- **Counted with a listener on 9996 and the visitor trigger clicked every one or two
+  seconds**: 5 rare in 22, 5 in 24, and 5 in 43, so **15 in 89 at a threshold of 0.9**,
+  about 17 % against the 10 % the distribution gives. At 0.5 it was 10 in 16. The value the
+  condition read matched the shutter sample sent one tick before the last one logged, in
+  16 of 16 releases at 0.5 and 23 of 24 at 0.9, so the condition reads real noise; why the
+  rare branch comes up more often than the threshold implies was not established. No run
+  froze, which rules out the two conditions reading different samples. The exercise states
+  both numbers and asks the reader to count.
+- Bright never ran in these tests, since nothing drives `lesson:/level`; the exercise says so.

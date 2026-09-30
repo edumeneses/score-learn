@@ -79,6 +79,7 @@ python3 scripts/make_downloads.py     # after adding or changing any library fil
 python3 scripts/capture.py server start   # the capture server, Xvfb on :7
 python3 scripts/drive.py DOC.score scripts/drive/00-trigger-waits.js   # drive score from inside
 python3 scripts/provenance.py status  # which figures' documents changed since capture
+python3 scripts/seq.py OUT k=space w=4 c=X,Y s=shot   # timed input and grabs, no per-step checks
 ```
 
 Python work uses the Assistant venv: `source /home/edu/Assistant/venv/bin/activate`
@@ -336,12 +337,22 @@ patch; that is the next thing to try for 22, 27, 33, P5, and P6.
   stuck?`, and the transport clock stays at zero after Play. The capture settings use the
   Dummy driver for that reason.
 - **Out-of-time material has no marker.** It is a chain nothing connects to the start
-  instant. Its trigger needs `Active`, `AutoTrigger` and `Start` all true; `AutoTrigger` is
-  the interface's *start on play*. Without the trigger it never plays at all, which bites
+  instant. Its trigger needs `Active` and `Start`; `Start` is the interface's *start on
+  play*, the right-hand button of the sync inspector, whereas `AutoTrigger` is the left-hand
+  `Auto-trigger`, which only decides whether a second firing restarts or stops the material
+  (this note had them swapped until 2026-09-30). Without the trigger it never plays at all, which bites
   twice: an interval generated with no lead-in from the start state stays silent (give it
   one, as dropping onto the timeline does), and **`Record automations from here` lands its
   interval out of time**. Select its start state, `Ctrl+click` an instant that plays, and
   `Shift+M` (Synchronize) attaches it.
+- **A loop is bounded on the interval that contains it, not on its own closing instant.** A
+  trigger with a maximum on the loop's closing instant only stretches each pass to the
+  maximum, and the loop never exits. Put the loop in a sub-scenario (`Object >
+  Encapsulate`) and put the trigger and maximum on the container's end. Encapsulate two
+  chained intervals only with the circle between them selected too; without it the log
+  says `Too much entry states` and nothing happens. Draw the inner transition from the
+  container's full view (double-click its name), since in the timeline its circles sit
+  under the container's edges and show no pluses.
 - **An automation writes its address on every tick**, about 43 times a second under the
   Dummy driver, so a state on the same address inside the automation's span is overwritten
   on the next tick and is never heard.
@@ -425,6 +436,23 @@ parameters declare no range. Module C added: `Window:/cursor/scaled@[1]` and `@[
 mouse input any laptop has, following the pointer only while it is over the output window
 and holding the last value once it leaves; RMS after a stereo sound is a `vec2f`, one level
 per channel; and a Signal display chained after a process draws over that slot's content.
+Module D added: a sound dropped level with an earlier excerpt gets a lead-in from that
+excerpt's *start* instant, hidden under its box, because the drop's magnetism picks the
+first state at the nearest height; `T` then gives the lead-in a null minimum, so a click is
+accepted from that start, and ticking `Min` and `Max` in the interval inspector draws `(` and
+`)` brackets that drag; a click before the minimum is ignored, not deferred. A sound dropped
+on a circle that already has a next interval branches from the same event with no lead-in,
+but only if it lands on the circle's edge (on its centre it went into the interval as a
+slot). The scissors at the top of the state inspector split an event; `C` adds an `Always`
+condition that the event inspector edits, and a condition's `+` adds an `&` row. Every
+event's offset behaviour starts `True`, so a seek past a branch runs all of them. A
+transition is the red plus under a hovered state dragged onto another state; a condition
+on the loop's closing instant exits it. The start marker is right-clicking the strip
+between the ruler and the document name, and needs the root's time signature, which `File
+> New` gives; a generated document without `HasSignature` has none. A cue on the root's end
+state is sent on stop, and not when stop is pressed while already stopped. An LFO's
+`Noise1` with the default `Ampl.` and `Offset` is uniform on 0 to 1 per tick, and its `Out`
+field can write any parameter a condition reads.
 Typing into a Sound's `Path`
 field did not re-point it, dragging an interval neither moved nor lengthened it, and a
 lengthened sound interval does not loop by itself (the loop toggle is in the process

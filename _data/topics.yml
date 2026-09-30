@@ -261,6 +261,9 @@
     - q: How do I make sure an interactive passage always ends?
       unit: "15"
       anchor: minimum-nominal-and-maximum-durations
+    - q: How do I stop an early click from releasing a trigger?
+      unit: "15"
+      anchor: exercise
     - q: How do I make the score choose between two paths?
       unit: "16"
       anchor: splitting-an-instant
@@ -270,12 +273,18 @@
     - q: How do I write a condition on a sensor value?
       unit: "16"
       anchor: condition-expressions
+    - q: How do I let the mouse choose which sound plays next?
+      unit: "16"
+      anchor: exercise
     - q: How do I loop part of a score?
       unit: "17"
       anchor: transitions
     - q: How do I make a loop repeat about four times, or stop when something happens?
       unit: "17"
       anchor: repetition-counts
+    - q: How do I make a loop stop when a value changes?
+      unit: "17"
+      anchor: which-bound-to-choose
     - q: How do I make a cue I can fire at any time?
       unit: "17"
       anchor: out-of-time-material
@@ -283,6 +292,9 @@
     - q: How do I build an installation that idles, reacts, and returns to idle?
       unit: P4
       anchor: walkthrough
+    - q: How do I make one outcome happen only now and then?
+      unit: P4
+      anchor: exercise
 
 - id: show-control
   title: Cues and show control
@@ -309,6 +321,12 @@
     - q: How do I start playback from the middle?
       unit: "18"
       anchor: seeking-with-play-from-here
+    - q: How do I make play always start from the same place?
+      unit: "18"
+      anchor: start-markers
+    - q: Why does jumping past a branch run both paths?
+      unit: "16"
+      anchor: offset-behaviour
     - q: How do I make a simple operator panel?
       unit: "33"
       anchor: control-surfaces

@@ -3,6 +3,34 @@
 State of the *Learn score* course, and what to do next. Read `CLAUDE.md` first for the
 toolchain and the rules; this file is status and queue.
 
+## 2026-09-30: module D's exercises are practical too; 19 to 22 and P5 are next
+
+Exercises 15 to 18 and P4 now work on the sketch: a pause released by a click or a
+maximum, a branch chosen by the pointer, a looping pulse with an exit and an armed
+one-shot, a stop cue with a start marker, and a rare third outcome in the installation.
+Each was performed in 3.8.2 on the capture server; `checks/EXERCISES-PLAN.md` has the
+summary and each unit's `checks/` note the evidence. Carry-overs:
+
+1. **Next group: 19 to 22 and P5** (the site's Module G, audio). The sketch has four
+   excerpts, two one-shots, a pause, and a branch by now, which is plenty to route and
+   spatialise; the plan table in `checks/EXERCISES-PLAN.md` has the proposed exercises.
+2. **P4's rare branch comes up more often than its threshold says**: 15 releases in 89 at
+   `> 0.9` on a uniform noise, against about 9 expected; the condition demonstrably reads
+   the noise (`checks/p4-interactive-installation.md`). The lesson reports both numbers
+   and asks readers to count. Worth a question to Jean-Michaël Celerier if it matters.
+3. **The sketch's excerpts are not chained.** A drop level with an earlier excerpt hangs
+   its lead-in from that excerpt's *start* instant (`checks/15-triggers.md`), so Lesson 15
+   carries a warning about early clicks. Dropping each new excerpt onto the previous one's
+   end circle would chain them with no lead-in (`DropProcessOnState`; confirmed on `Idle`'s
+   end circle while testing P4, where the new interval started from that very state); changing Lessons 11 and 12 to say so would
+   remove the warning, but it touches tested module C exercises, so it is left as a choice.
+4. **Upstream's looping page is ambiguous** ("Adding a trigger on the last Sync of a
+   loop"): its animation puts the trigger on the interval *containing* the loop, and the
+   literal reading does not bound anything in 3.8.2. Lesson 17 was wrong the same way until
+   today. A one-line clarification for `score-docs`, with the `Ctrl+R` fix below.
+5. `scripts/seq.py` is new: timed input and window grabs with no per-step verification,
+   which is what timing claims need.
+
 ## 2026-09-29: exercises of modules A to C are practical; D is next
 
 Exercises 00 to 14 and P1 to P3 now end in something heard or seen on the reader's sketch

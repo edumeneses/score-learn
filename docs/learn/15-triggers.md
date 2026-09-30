@@ -8,7 +8,7 @@ unit: "15"
 permalink: /learn/15-triggers.html
 score_version: "3.8.2"
 reading_time: "14 min"
-practice_time: "30 min"
+practice_time: "15 min"
 score_file: 15-triggers/lesson-15.score
 ---
 
@@ -18,7 +18,7 @@ score_file: 15-triggers/lesson-15.score
 
 > **Before this lesson** finish [Milestone P3]({{ site.baseurl }}/learn/p3-mapping-bench.html), because its conditioned input is what you will fire triggers from.
 >
-> **You will need** `lesson-15.score` and one input you can control by hand.
+> **You will need** `lesson-15.score` and one input you can control by hand for the walkthrough, and your sketch for the exercise.
 >
 > **You will build** a score that waits, and that you can release by hand and by a value from a device.
 
@@ -95,9 +95,19 @@ Deciding which of the three you are writing, before you place the trigger, is wh
 
 ## Exercise
 
-Write a forty-second passage with three sections and two triggers, in which the first trigger is fired by a value from your bench and has a two-second minimum, while the second is fired by hand and has a twelve-second maximum so that the passage always ends. Additionally, one of the three automations must keep its exact duration regardless of when its trigger fires.
+Make the sketch wait for you before its tremolo, and give up waiting after ten seconds, because a pause that a performer releases, with a limit that keeps the piece going, is the smallest interactive passage a show needs.
 
-**Success criterion:** the passage can be performed with different timings twice in a row, always terminates without intervention, and you can point to the interval you made rigid and say why. If your fade stretched when you did not want it to, restructure the passage instead of adjusting the curve, because the elasticity comes from the structure and not from the curve.
+1. **Select the circle where the second excerpt starts**, the tremolo of [Lesson 11]({{ site.baseurl }}/learn/11-modulation-sources.html), and press `T`. A T marker appears above it, and the empty interval that leads to it turns dashed, since its duration is no longer fixed.
+2. **Play**, and the tremolo no longer comes in by itself; click the T marker once the first excerpt has finished, and it starts at once.
+
+   {: .warning }
+   > **A click during the first excerpt brings the tremolo in over it.** The empty interval that a drop creates usually starts where the first excerpt starts, not where it ends, and pressing `T` sets its minimum to zero, so the trigger accepts a click from that moment.
+
+3. **Select the dashed interval**, whose whole length lights up, and tick `Min` and `Max` in the inspector, which draws an opening and a closing bracket on it.
+4. **Drag the opening bracket to the end of the first excerpt**, so that an early click does nothing, and drag the closing bracket about ten seconds past the T marker, zooming out with `Ctrl` and the mouse wheel if it runs off the screen.
+5. **Play without touching anything**, and the tremolo comes in by itself ten seconds late; play again and click after the first excerpt, and it comes in when you do.
+
+**You are done when** the sketch holds after the first excerpt until you click, ignores a click during it, and starts the tremolo by itself when nobody clicks. Whatever hangs from the instant you made wait waits with it, which is why the third excerpt may now arrive late as well, whereas the colour, which starts from the beginning of the score, keeps its time.
 
 ## Going further
 

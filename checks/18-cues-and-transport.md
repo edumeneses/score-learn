@@ -31,3 +31,24 @@ The Play menu names all four transport actions and their shortcuts: Play (space)
 Play (global) (Shift+Space), Stop (Return), Reinitialize (Ctrl+Return), plus
 Play (Network) and Stop (Network). The Object menu carries Synchronize (Shift+M)
 and Merge events, which is the clearest way to find the synchronisation function.
+
+## Exercise, 2026-09-30, performed in 3.8.2 on the capture server
+
+- `phone:/level` dragged from the explorer onto the circle at the right-hand end of the
+  root's top line saved in `BaseScenario.EndState` as `phone:/level 0.0`. A listener on
+  port 9202 received `/level 0.0` when playback was stopped, and nothing when stop was
+  pressed with the score already stopped.
+- **The start marker lives in the time-signature strip**, 45 logical pixels above the root
+  interval, between the ruler and the document's name. Its context menu offers
+  `Add signature change`, `Set start marker`, and `Remove start marker`; the marker draws as
+  a grey half disc, and play then starts from it. `setStartMarker` asserts on the interval
+  that carries the time signature, which every document made by `File > New` has
+  (`ScenarioDocumentModel` gives the root 4/4 and `HasTimeSignature`); a generated document
+  without `HasSignature` would have none, so `gen.py` in the session scratchpad gained it.
+- Played from a marker at 6.5 s, just after the Lesson 15 trigger, the seek released the
+  trigger and **both branches ran**, because both events were at the default offset
+  behaviour `True`. With the fourth excerpt's event set to `False`, only the tremolo ran,
+  with the pointer on the side that would have chosen the other. Walkthrough step 6 and the
+  common mistake about offset behaviour now say so.
+- "Unsynchronize, plainly" now names the control: `Desynchronize`, the second button at the
+  top of a state's inspector (`splitFromNode`).

@@ -8,7 +8,7 @@ unit: "18"
 permalink: /learn/18-cues-and-transport.html
 score_version: "3.8.2"
 reading_time: "14 min"
-practice_time: "30 min"
+practice_time: "15 min"
 score_file: none
 ---
 
@@ -18,7 +18,7 @@ score_file: none
 
 > **Before this lesson** finish [Lesson 17]({{ site.baseurl }}/learn/17-loops-and-out-of-time.html), which introduced the loops and out-of-time material that this lesson makes rehearsable.
 >
-> **You will need** a score with at least three sections and one condition, ideally your P1 cue extended, since the walkthrough refers back to it.
+> **You will need** a score with at least three sections and one condition for the walkthrough, ideally your P1 cue extended, and your sketch for the exercise.
 >
 > **You will build** a document that you can rehearse from any point, that initialises itself when it starts, and that switches off what it turned on when it stops.
 
@@ -26,7 +26,7 @@ score_file: none
 
 The lessons before this one assumed that you play a document from the beginning. However, no rehearsal works that way, and no show survives a stop in the wrong place, so this lesson concerns the difference between a document that runs and a document that can be *operated*, which means a document that can be rehearsed in sections, entered in the middle, stopped safely, and reset to a known condition. Each of those four abilities depends on a transport feature that the previous lessons had no reason to use.
 
-Furthermore, this lesson settles the control that the usability study conducted at the Société des Arts Technologiques reported as unclear until it was explained to participants, which is the **unsynchronize** function. Because the study describes that difficulty plainly, the function receives its own section below, where it is explained through the instants it separates.
+Furthermore, this lesson settles the control that the usability study conducted at the Société des Arts Technologiques reported as unclear until it was explained to participants, the **unsynchronize** function, which a section below explains through the instants it separates.
 
 ## Concepts
 
@@ -64,7 +64,7 @@ When two intervals end at the same instant they are **synchronised**, which mean
 
 In contrast, unsynchronizing separates the two intervals, so that each ends on its own instant and can finish and proceed independently of the other. The function exists because a layer that should keep running while another layer waits for a cue cannot be synchronised to that cue; if it were, it would wait too.
 
-However, the control confuses people because it is an icon whose effect is invisible until execution, when the two intervals suddenly behave differently from how they are drawn. The `Object` menu names the two halves of it, `Synchronize`, `Shift+M`, and `Merge events`, which is the clearest way to find the function when the icon is not obvious. If you are unsure whether two intervals are synchronised, look at whether they share an instant, and test the arrangement by making one of them wait.
+However, the control confuses people, because it is an icon, `Desynchronize` at the top of a state's inspector, whose effect stays invisible until execution, when the two intervals suddenly behave differently from how they are drawn. Its inverse is `Synchronize`, `Shift+M`, in the `Object` menu, and whether two intervals are synchronised shows in whether they share an instant, which making one of them wait confirms.
 
 ## Walkthrough: make a score operable
 
@@ -79,10 +79,10 @@ However, the control confuses people because it is an icon whose effect is invis
    > **The `Play` menu names the four transport buttons with their shortcuts.** Local play, global play, stop, and reinitialise correspond to `space`, `Shift+Space`, `↵`, and `Ctrl+↵`. The same menu carries `Play (Network)` and `Stop (Network)`, which [Lesson 36]({{ site.baseurl }}/learn/36-distributed-scores.html) uses.
 
 5. **Seek into the middle** by right-clicking at a point in the second section and choosing play from here, or by using the play tool, and watch what arrives: values compiled from the beginning, so that the external state is consistent even though you skipped the intervals that would have set it.
-6. **Seek past a condition** and note which branch you land in, then set that condition's offset behaviour, per Lesson 16, and seek again; you have now made a branch rehearsable without staging its precondition.
-7. **Set a start marker** by right-clicking in the musical metrics area at the top of the score, and press play repeatedly, which returns you to the same passage each time without a seek.
+6. **Seek past a condition** and note that you land in every branch, since each condition reads `True` on a jump until you change it, then set that condition's offset behaviour, per Lesson 16, and seek again; you have now made a branch rehearsable without staging its precondition.
+7. **Set a start marker** by right-clicking the strip between the time ruler and the score's name and choosing `Set start marker`, then press play repeatedly, which returns you to the same passage each time without a seek.
 8. **Play a single state** with the play tool or the right-click menu, so that one cue fires on its own and you can test it without running the material around it.
-9. **Unsynchronize on purpose** by giving two intervals a shared ending instant, making one of them wait on a trigger, and observing that both wait; then unsynchronize them, observe that one proceeds, and write down which behaviour you wanted.
+9. **Unsynchronize on purpose** by giving two intervals a shared ending instant, making one of them wait on a trigger, and observing that both wait; then unsynchronize them and observe that one proceeds.
 10. **Write the operator's page** in three lines, stating what to press to start, what happens on stop, and what to do if a cue is missed; if you cannot write it, the document is not operable yet.
 
 ## Rehearsal as a design constraint
@@ -91,9 +91,9 @@ A score that cannot be rehearsed from the middle will not survive contact with a
 
 **Sections should be short enough to re-run.** If a section takes four minutes to reach its interesting moment, it is two sections, because the wait before each attempt is what makes a rehearsal slow.
 
-**A start marker per section saves a seek on every attempt.** The marker is cheap to move during rehearsal, and it removes the seek from the loop of trying something and hearing it again.
+**A start marker per section saves a seek on every attempt**, and it is cheap to move during rehearsal.
 
-**Every condition needs an offset behaviour chosen on purpose.** Each condition in a show should have an answer to what happens when the operator skips into that scene, since the default is not always the answer you want.
+**Every condition needs an offset behaviour chosen on purpose.** Each condition in a show should say what happens when the operator skips into that scene, since the default, `True` on every branch, is rarely the answer you want.
 
 **A stop must always be safe.** Rehearsal means stopping abruptly, dozens of times, in arbitrary places, and if any of those stops leaves the room in a bad state, you will spend the rehearsal restoring it by hand.
 
@@ -103,16 +103,20 @@ A score that cannot be rehearsed from the middle will not survive contact with a
 
 - **Omitting the stop cue** means that stopping mid-cue leaves the rig in whatever state the interruption caught, which is the failure Milestone P1 flagged and this lesson fixes.
 - **Confusing local and global play** means that rehearsing a section with global play requires sitting through every section before it.
-- **Assuming that a seek sends no values** ignores the compiled result of the material before the target, which is usually what you want and is occasionally startling.
-- **Leaving the offset behaviour unset** on a condition you need to rehearse past means that a seek into that scene lands wherever the default sends it.
-- **Unsynchronizing to fix a symptom** separates the ending instants whether or not you meant to, so two things that should end together should stay synchronised while you look for the real cause.
+- **Leaving the offset behaviour unset** on a condition you need to rehearse past means that a seek into that scene lands in every branch, since the default is `True`.
+- **Unsynchronizing to fix a symptom** separates ending instants that should stay together while you look for the real cause.
 - **Rehearsing only from the top** leaves the middle of the piece untested until the performance, although that is where the transitions, the conditions, and the missable cues are concentrated.
 
 ## Exercise
 
-Take a score with three sections, one condition, and one interactive trigger, and make it operable, which means giving it a start cue, a stop cue, a start marker on the second section, and a condition set so that the second branch can be rehearsed without staging its precondition. Then hand the three-line operator's page to someone who has never seen the piece, and watch them run it.
+Make the sketch safe to stop and quick to rehearse, because a rehearsal stops a piece dozens of times, and every restart that waits through the first excerpt and the pause is time taken from the passage being worked on.
 
-**Success criterion:** the operator can start the piece, stop it safely, and rehearse the second section without your help. Whatever they had to ask about belongs in the operator's page, which [Lesson 34]({{ site.baseurl }}/learn/34-rehearsal-to-show.html) turns into a full technical document.
+1. **Add a stop cue** by setting `phone:/level` to `0`, with a double-click on its `Value` in the explorer's inspector, and dragging it onto the circle at the right-hand end of the score's top line, under its T marker. Play, stop at any moment, and the phone of [Lesson 07]({{ site.baseurl }}/learn/07-osc-devices.html), or `display.py`, reads zero, wherever your curve had left it.
+2. **Set a start marker** by right-clicking the thin strip between the time ruler and the score's name, a little after the tremolo's T marker, and choosing `Set start marker`; press play, and the sketch starts there every time.
+3. **Hear what the seek does**, which is to fire the trigger it jumps over and, because both conditions of [Lesson 16]({{ site.baseurl }}/learn/16-conditions-and-branching.html) read `True` on a jump, to start the tremolo and the fourth excerpt together.
+4. **Make the tremolo the rehearsed branch** by clicking the fourth excerpt's condition bracket and setting `Offset behaviour` to `False` in the inspector; play, and the tremolo comes in alone, wherever the pointer is.
+
+**You are done when** every press of play starts at the tremolo and nothing else, and stopping at any moment leaves the phone or `display.py` at zero. `Remove start marker`, in the same menu, gives you the whole sketch back.
 
 ## Going further
 

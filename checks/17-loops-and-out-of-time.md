@@ -75,3 +75,48 @@ document is meant to end. `document(..., endless=True)` is the opt-in.
 
 The lesson's claim that "a loop with no exit runs forever" is therefore correct as written
 for anyone working in the interface, and needed no correction.
+
+## 2026-09-30: the walkthrough's bounded loop was wrong, and two other corrections
+
+- **A trigger with a maximum on the loop's own closing instant does not bound the loop.**
+  Built as step 3 described (one-shot looped by a transition, `T` on its end, max 3 s),
+  every pass stretched to the maximum and looped again; it was still looping at 16.9 s.
+  Upstream's "Repetition amount" animation (`repetition-ammount.gif`) shows the idiom it
+  means: the loop sits inside a sub-scenario, and the trigger and maximum are on the end
+  of the **interval that contains it**. Built that way on `lesson-17.score`'s `Phrase`
+  (container max 10 s from 3 s), the phrase restarted at 9 s and the container released at
+  13 s, after which the phrase stopped. Concepts ("Repetition counts"), walkthrough steps
+  2 to 4, and "Which bound to choose" were rewritten to match.
+- **Encapsulate needs the circle between two chained intervals in the selection.** With
+  `Intro` and `Phrase` selected by `Ctrl+click`, `Object > Encapsulate` did nothing and the
+  log printed `Too much entry states`; with the middle circle added, it made one container
+  from the first circle. A rubber band that also takes the outer circles makes a box joined
+  to nothing (`EncapsulateElements` falls back to `createBox`).
+- **Draw the loop inside the container from its full view.** In the timeline the nested
+  interval's circles sit under the container's edges and show no pluses on hover;
+  double-clicking the container's name opens it full size, where the red plus drew the
+  transition at once, and the document's name in the breadcrumb returns.
+- **A transition is drawn with the red plus** below a hovered or selected state (help
+  `Create a graph link`), next to the yellow `Create an interval` and the teal
+  `Create a sequence` (`StateMenuOverlay.hpp`). Dragged onto an earlier state it saved as a
+  `Graphal` interval between the two instants. Pressing where the plus is drawn but before
+  it has appeared dragged the state instead and shrank the one-shot to zero, which
+  `Ctrl+Z` undid.
+- **`Start on play` is the right-hand button of the sync inspector and saves as `Start`;
+  the left-hand one is `Auto-trigger` and saves as `AutoTrigger`.** Its help text: an
+  auto-trigger sync "will directly restart their following floating scenario upon
+  triggering. Else, triggering the timesync will stop the following subgraph". The note
+  above, and `CLAUDE.md` and `mkscore.py`, had called `AutoTrigger` start on play; that was
+  inferred from `examples/basics/osc.score`, which sets both. With `Active` alone, a click
+  on the floating one-shot's marker did nothing; with `Start` added, it played on each
+  click and never by itself. `lesson-17.score` sets all three, which is still correct.
+
+## Exercise, 2026-09-30
+
+- A one-shot from `one_shots` (0.2 to 4 s long, 4,096 files) looped by a transition
+  repeated as a pulse. `C` on its closing circle put `{ %Window:/cursor/scaled@[1]% < 0.5 }`
+  on the event that holds both the one-shot's end and the transition's departure; with the
+  pointer high the bracket drew green and the pulse repeated, and after lowering it the
+  bracket drew red and the one-shot stopped restarting.
+- A second one-shot's lead-in selected and deleted left it joined to nothing; `T` plus
+  `Start on play` armed it (its edge drew yellow at 1.8 s), and a click at 2.8 s played it.

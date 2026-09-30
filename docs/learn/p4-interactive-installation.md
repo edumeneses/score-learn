@@ -8,7 +8,7 @@ unit: "P4"
 permalink: /learn/p4-interactive-installation.html
 score_version: "3.8.2"
 reading_time: "15 min"
-practice_time: "60 min"
+practice_time: "45 min"
 score_file: p4-interactive-installation/p4-solution.score
 ---
 
@@ -18,7 +18,7 @@ score_file: p4-interactive-installation/p4-solution.score
 
 > **Before this milestone** finish Lessons 15 to 18, because this unit introduces no new technique, and it closes Phase 1.
 >
-> **You will need** your P3 bench as the input, and an hour.
+> **You will need** your P3 bench as the input, and about forty-five minutes.
 >
 > **You will build** an installation that idles, is triggered, plays one of two outcomes, and returns to idle, indefinitely and safely.
 
@@ -62,9 +62,9 @@ Start and stop cues from Lesson 18 make the whole piece operable by someone who 
 
 [![An idle phrase, a trigger labelled "a visitor arrives", two branches of different lengths leaving the same instant, and a dash-dot return transition from each branch back to the beginning]({{ site.img }}/p4/p4-01-installation-structure.png)]({{ site.scores }}/p4-interactive-installation/p4-solution.score){: download="" title="Download p4-solution.score, the document in this figure" }
 
-The reference solution, `p4-solution.score`, ships with this milestone, and the whole brief is legible in its shape: `Idle` runs, the instant at its end waits for the visitor, and two branches leave that instant under conditions partitioned over the input range. Both ends carry a dash-dot transition back to the score's first instant, which is what makes the return automatic and the repetition indefinite.
+The reference solution, `p4-solution.score`, makes the whole brief legible in its shape, since `Idle` runs, the instant at its end waits for the visitor, and two branches leave that instant under conditions partitioned over the input range. Both ends carry a dash-dot transition back to the score's first instant, which is what makes the return automatic and the repetition indefinite.
 
-Moreover, the branches are **different lengths on purpose**, because a return path that only works when both outcomes take the same time is not a return path. The drawing shows the trigger and the conditions as visibly separate things: the yellow marker releases the instant, while the conditions choose what leaves it. That separation is the distinction Lesson 16 drew, and here it is doing real work.
+Moreover, the branches are **different lengths on purpose**, because a return path that only works when both outcomes take the same time is not a return path. The drawing shows the trigger and the conditions as visibly separate things: the yellow marker releases the instant, while the conditions choose what leaves it.
 
 1. **Build the idle loop first**, and let it run for five minutes while you watch; if it drifts, accumulates, or gets slower, fix that now, since every later part of the piece sits on top of it.
 2. **Add the visitor trigger** at the end of the idle phrase, fired from your bench, with a minimum duration so that a single approach does not read as several arrivals.
@@ -89,7 +89,7 @@ Some failure modes only appear over time, so a test that lasts two minutes canno
 
 **Death by simultaneity occurs when two visitors, or one visitor moving quickly, produce input the score did not expect**, and the check is to fire the trigger repeatedly and rapidly.
 
-**Silent resource growth is memory or file handles rising over hours**, and the check is to look at the machine's own monitoring after an hour, since hoping is not a check.
+**Silent resource growth is memory or file handles rising over hours**, and the check is to look at the machine's own monitoring after an hour.
 
 An installation that passes these five checks is one you can leave. In contrast, one that has not been tested against them is a piece you will be called back for.
 
@@ -97,19 +97,19 @@ An installation that passes these five checks is one you can leave. In contrast,
 
 The idle state is the part of an installation the public sees most and the part that receives the least attention, so the decisions that define it should be made explicitly.
 
-**What does the idle state look like at the moment a visitor arrives?** It is a defined condition, specified as a cue, that a visitor arriving at any moment encounters, and it cannot be an absence, because an installation whose resting state depends on which outcome ran last has no idle state but an aftermath.
+**What does the idle state look like at the moment a visitor arrives?** It is a defined condition, specified as a cue, because an installation whose resting state depends on which outcome ran last has no idle state but an aftermath.
 
 **Does the idle state invite a passing visitor to interact?** A completely static room does not read as interactive, and visitors walk past it. Conversely, slow movement in the idle loop is often the difference between a piece that is used and one that is admired from a distance; that is why the idle state is a loop and not a single cue.
 
-**How long should the recovery to idle take after an interaction ends?** The return can be immediate, which is legible and slightly brutal, or gradual, which is more elegant and risks a second visitor arriving mid-recovery and seeing something incoherent. Decide which, and then test the case of the second visitor arriving early, because it will happen constantly.
+**How long should the recovery to idle take after an interaction ends?** The return can be immediate, which is legible and slightly brutal, or gradual, which is more elegant and risks a second visitor arriving mid-recovery and seeing something incoherent. Decide which, and test a second visitor arriving early, which happens constantly.
 
 In other words, the idle state is the work at rest and not its absence, so it deserves the same attention as the interaction it frames.
 
-What to leave out matters as much as what to build. However, a first installation often grows a third input, a fourth outcome, or a generative layer, and the result is usually a piece that is impressive for ten minutes and unmaintainable for eight hours, whereas two branches done reliably is a finished work. Complexity belongs in the material the piece presents, while its structure should stay as small as the brief above, since every added branch multiplies the states the eight-hour test has to cover.
+What to leave out matters as much as what to build. However, a first installation often grows a third input, a fourth outcome, or a generative layer, and becomes impressive for ten minutes and unmaintainable for eight hours. Complexity belongs in the material the piece presents, whereas its structure should stay small, since every added branch multiplies the states the eight-hour test has to cover.
 
 ## Common mistakes
 
-- **Leaving out maximum durations** is the single most common reason an installation is found frozen, because one departed visitor leaves an instant waiting forever; a maximum duration on every waiting instant is the insurance that lets the piece recover on its own when a visitor walks away mid-interaction.
+- **Leaving out maximum durations** is the single most common reason an installation is found frozen, because one departed visitor leaves an instant waiting forever, whereas a maximum on every waiting instant lets the piece recover on its own.
 - **An idle state that is not defined as a cue** makes the piece look different depending on which outcome ran last.
 - **Branches with different durations and one shared return timing** cut one outcome off, so test the return from both.
 - **Testing only for two minutes** finds none of the failures in the eight-hour test, since each of them needs time to appear.
@@ -118,13 +118,19 @@ What to leave out matters as much as what to build. However, a first installatio
 
 ## Exercise
 
-Extend the installation in one direction only, because the eight-hour test has to be repeated after any change.
+Give the installation a third outcome that only some visitors see, because a piece that occasionally shows something new rewards a second visit, and "rare" has to be built as carefully as "always".
 
-Either **add a third outcome that is rare**, chosen by a condition that is only occasionally satisfied, so that most visitors see two outcomes and a few see something else, and note what you had to do to make "rare" reliable instead of accidental.
+1. **Draw a random number while the piece idles** by selecting the idle phrase and double-clicking `LFO` in the process library, then setting its `Waveform` to `Noise1` in the inspector and typing a parameter nothing else writes into its `Out` field, such as `lesson:/shutter` in `p4-solution.score` or a new float on an OSC device of your own. With `Ampl.` and `Offset` at 0.5, the value is spread evenly between 0 and 1 and changes on every tick.
+2. **Add the third outcome** by dropping an excerpt from the user library onto the circle at the end of the idle phrase, the visitor's instant, as in [Lesson 16]({{ site.baseurl }}/learn/16-conditions-and-branching.html), and give it a return transition to the first instant, as in [Lesson 17]({{ site.baseurl }}/learn/17-loops-and-out-of-time.html).
 
-Or **make it degrade gracefully** by defining and implementing what the piece does when the sensor stops reporting entirely, so that a failed input produces a defined idle in place of a frozen interaction, and then unplug the input mid-cycle to confirm it.
+   {: .warning }
+   > **Aim for the right-hand edge of that circle**, since an excerpt dropped on the idle phrase itself lands inside it as a second slot.
 
-**Success criterion:** the piece passes the eight-hour test's five checks, an untrained person can start and stop it from your card, and you can state what happens if the visitor leaves at any of the four points in the interaction. Keep this document, because it is the reference shape for the media milestones of Phase 2.
+3. **Make it rare** by selecting that circle, through the object tree if a click catches the idle phrase instead, pressing `C`, and giving the condition `lesson:/shutter`, `>`, and `0.9`.
+4. **Keep the partition** by clicking `+` beside each of the other two conditions and adding `lesson:/shutter`, `≤`, and `0.9` in the row that appears, whose `&` joins the two tests. Without it, a rare arrival would also satisfy one of the others, and two outcomes would run at once.
+5. **Count** by releasing the visitor trigger twenty times and noting which outcome ran each time, which in `p4-solution.score` is `Quiet` or the new one, since nothing drives `lesson:/level` there. On paper a threshold of 0.9 gives one release in ten, whereas a test on {{ page.score_version }} gave fifteen in eighty-nine, closer to one in six, which is why counting is what makes "rare" reliable instead of accidental.
+
+**You are done when** twenty releases in a row return to idle, the third outcome turns up among them without ever running beside another, and your count tells you how often it comes. Then run the eight-hour test again, since any change reopens it.
 
 ## Going further
 

@@ -61,7 +61,22 @@ connecting a webcam, and so on.
   audible; the inspector misreports log-scaled controls such as the LFO's `Freq.`; and
   `Multi-choice` looks like a chooser, not the quantiser P3 calls it. The microphone route
   for 13 was dropped: audio input cannot be exercised under the Dummy driver.
-- **Next**: module D (15 to 18, P4).
+- **Module D written, 2026-09-30**: 15 makes the sketch wait before the tremolo, with the
+  minimum at the first excerpt's end and a maximum ten seconds on; 16 drops a fourth
+  excerpt on the tremolo's instant, splits it, and lets the pointer's side of the window
+  choose between them; 17 loops a one-shot from `one_shots` with a transition, exits the
+  loop with a condition on the pointer, and arms a second one-shot out of time; 18 adds a
+  stop cue on `phone:/level`, a start marker after the pause, and an offset behaviour so the
+  seek lands in the tremolo alone; P4 adds a rare third outcome chosen by a noise LFO and
+  counted over twenty releases. Practice minutes: 15 to 15, 16 to 15, 17 to 20, 18 to 15,
+  P4 to 45. Corrected while testing, each in the unit's `checks/` note: Lesson 17's bounded
+  loop (a trigger and maximum on the loop's own closing instant never exit; the bound goes
+  on the container), `Encapsulate` needing the circle between two intervals, `Start on play`
+  being `Start` and not `AutoTrigger`, the split being the state inspector's scissors, and
+  every condition's offset behaviour starting `True`, so a seek runs every branch. Found and
+  not explained: P4's rare branch came up 15 times in 89 at a threshold of 0.9, not about 9.
+- **Next**: 19 to 22 and P5, the first media group (the site's Module G; this file's letters
+  count milestone groups, so it is "module E" here).
 
 ## The original proposal
 
