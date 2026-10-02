@@ -136,6 +136,7 @@ video {
 // as many columns as fit, each row a set of key caps beside what they do.
 .cheatsheet-filter input,
 .topics-filter input {
+    box-sizing: border-box;
     width: 100%;
     max-width: 28rem;
     padding: 0.4em 0.7em;
@@ -245,4 +246,20 @@ video {
     margin: 0.4rem 0 0;
     font-size: 0.85rem;
     color: $grey-dk-100;
+}
+
+// The reference manual's processes on the same page, shown only when the filter
+// matches them; their links open ossia.io in a new tab.
+.process-group li a {
+    white-space: normal;
+}
+
+// Read by screen readers, not shown: "(opens in a new tab)" after an external link.
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }

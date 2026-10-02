@@ -17,10 +17,10 @@ A lesson opened this way still assumes what the lessons before it taught. When a
 
 Every keyboard shortcut is also on one page, the [Shortcut cheatsheet]({{ site.baseurl }}/shortcuts). This page is generated from `_data/topics.yml`, and every link on it is checked against the headings of the lesson it points at.
 
-The field below searches these questions only, as you type, whereas the search at the top of the page covers the whole course; `Enter` opens the first question that matches.
+The field below searches these questions as you type, together with the processes that the *ossia score* reference manual documents, whereas the search at the top of the page covers the whole course; `Enter` opens the first match.
 
 <div class="topics-filter">
-  <input type="search" id="topics-filter" placeholder="Search the questions, for example: MIDI, loop, projector" aria-label="Search the questions on this page" aria-describedby="topics-filter-status" autocomplete="off">
+  <input type="search" id="topics-filter" placeholder="Search the questions and processes, for example: MIDI, loop, LFO" aria-label="Search the questions and processes on this page" aria-describedby="topics-filter-status" autocomplete="off">
   <p class="topics-filter-status" id="topics-filter-status" aria-live="polite"></p>
 </div>
 
@@ -40,6 +40,20 @@ The field below searches these questions only, as you type, whereas the search a
 
 </div>
 {% endfor %}
+
+{% comment %} The reference manual's processes, from _data/processes.yml (scripts/make_processes.py).
+They appear only when the filter matches them, or when a link names the heading. {% endcomment %}
+<div class="process-group" id="process-group" hidden>
+<h2 id="processes-in-the-reference-manual">Processes in the reference manual</h2>
+<p><span class="label label-yellow">Current release, not {{ site.score_version }}</span></p>
+<p>These processes are documented in the <a href="{{ site.docs_baseurl }}/processes.html" target="_blank" rel="noopener">reference manual<span class="visually-hidden"> (opens in a new tab)</span></a> on ossia.io, which describes the current release of <em>ossia score</em> rather than {{ site.score_version }}, so a process listed here may be missing from the process library of {{ site.score_version }}. Each link opens the manual in a new tab, while a lesson link stays on this site.</p>
+<ul>
+{%- for p in site.data.processes %}
+{%- capture meta -%}{%- if p.in -%}In {{ p.in | escape }}{%- elsif p.description -%}{{ p.description | escape }}{%- endif -%}{%- endcapture %}
+<li><a href="{{ site.docs_baseurl }}/{{ p.path }}" target="_blank" rel="noopener">{{ p.title | escape }}<span aria-hidden="true">&nbsp;&#8599;</span><span class="visually-hidden"> (opens in a new tab)</span></a> <small>{{ meta }}{% if p.units.size > 0 %}{% if meta != "" %}; used in {% else %}Used in {% endif %}{% for n in p.units %}{% assign u = site.data.units | where_exp: "x", "x.num == n" | first %}<a href="{{ site.baseurl }}/learn/{{ u.slug }}.html">{% if u.kind == "milestone" %}Milestone {{ u.num }}{% elsif u.kind == "capstone" %}the final project{% else %}Lesson {{ u.num }}{% endif %}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}</small></li>
+{%- endfor %}
+</ul>
+</div>
 
 <script>
 (function () {
@@ -70,6 +84,16 @@ The field below searches these questions only, as you type, whereas the search a
     });
   });
 
+  // The reference manual's processes match on their own text only, and stay hidden
+  // until something matches, unless the page was opened on their heading.
+  var procGroup = document.getElementById("process-group");
+  var procAnchor = procGroup ? "#" + procGroup.querySelector("h2").id : null;
+  var procs = procGroup ? Array.prototype.slice.call(procGroup.querySelectorAll("li")).map(function (li) {
+    var text = li.textContent;
+    li.querySelectorAll(".visually-hidden").forEach(function (s) { text = text.replace(s.textContent, ""); });
+    return { li: li, own: " " + norm(text) + " " };
+  }) : [];
+
   function apply() {
     var query = norm(input.value);
     var words = query ? query.split(" ") : [];
@@ -96,9 +120,25 @@ The field below searches these questions only, as you type, whereas the search a
     groups.forEach(function (group) {
       group.style.display = words.length && group.dataset.hits === "0" ? "none" : "";
     });
+
+    var all = !words.length && window.location.hash === procAnchor;
+    var procShown = 0;
+    procs.forEach(function (p) {
+      var hit = all || (words.length > 0 && matches(p.own));
+      p.li.style.display = hit ? "" : "none";
+      if (hit && words.length) {
+        procShown++;
+        if (!first) first = p.li.querySelector("a");
+      }
+    });
+    if (procGroup) procGroup.hidden = !(all || procShown);
+
+    var procText = procShown + (procShown === 1 ? " process" : " processes") + " in the reference manual";
     if (!words.length) status.textContent = "";
+    else if (shown && procShown) status.textContent = shown + (shown === 1 ? " question" : " questions") + " of " + items.length + " match, and " + procText + ".";
     else if (shown) status.textContent = shown + (shown === 1 ? " question" : " questions") + " of " + items.length + " match.";
-    else status.textContent = "No question on this page matches; the search at the top of the page covers the whole course.";
+    else if (procShown) status.textContent = "No question matches, although " + procText + (procShown === 1 ? " does" : " do") + "; the search at the top of the page covers the whole course.";
+    else status.textContent = "No question or process on this page matches; the search at the top of the page covers the whole course.";
     input.firstMatch = first;
 
     var url = new URL(window.location.href);
@@ -111,17 +151,17 @@ The field below searches these questions only, as you type, whereas the search a
   input.addEventListener("keydown", function (e) {
     if (e.key === "Enter" && input.firstMatch) {
       e.preventDefault();
-      window.location.href = input.firstMatch.href;
+      if (input.firstMatch.target === "_blank") window.open(input.firstMatch.href, "_blank", "noopener");
+      else window.location.href = input.firstMatch.href;
     } else if (e.key === "Escape" && input.value) {
       input.value = "";
       apply();
     }
   });
 
+  window.addEventListener("hashchange", apply);
   var initial = new URL(window.location.href).searchParams.get("q");
-  if (initial) {
-    input.value = initial;
-    apply();
-  }
+  if (initial) input.value = initial;
+  if (initial || window.location.hash === procAnchor) apply();
 })();
 </script>
